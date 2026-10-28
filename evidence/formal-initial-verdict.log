@@ -1,0 +1,8 @@
+SOME PROOFS FAIL
+Error:
+- message  : a declared constructor (unknown: Admission.Response)
+Location:
+7 |   match r:
+8>|     case Response{False{}, g, b}:
+  |          ^^^^^^^^^^^^^^^^^^^^^^^
+9 |       Response{False{}, g, 1n+b}

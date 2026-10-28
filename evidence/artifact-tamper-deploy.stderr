@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "/workspace/scratch/95589aefb3bf/proofgate/trusted-frozen/gate.py", line 236, in <module>
+    if __name__=='__main__': sys.exit(main())
+                                      ^^^^^^
+  File "/workspace/scratch/95589aefb3bf/proofgate/trusted-frozen/gate.py", line 234, in main
+    else:r=deploy(a.run.resolve(),a.baseline.resolve(),a.baseline_sha256,a.destination.resolve())
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/95589aefb3bf/proofgate/trusted-frozen/gate.py", line 216, in deploy
+    if actual!=record.get('artifact_files') or digest(canonical(actual))!=record.get('artifact_sha256'): raise ValueError('artifact changed after acceptance')
+                                                                                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: artifact changed after acceptance

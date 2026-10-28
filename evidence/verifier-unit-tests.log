@@ -1,0 +1,26 @@
+test_baseline_changed_law (test_gate.GateTests.test_baseline_changed_law) ... ok
+test_baseline_manifest_tamper (test_gate.GateTests.test_baseline_manifest_tamper) ... ok
+test_baseline_removed_law (test_gate.GateTests.test_baseline_removed_law) ... ok
+test_baseline_unapproved (test_gate.GateTests.test_baseline_unapproved) ... ok
+test_candidate_protected_overlap (test_gate.GateTests.test_candidate_protected_overlap) ... ok
+test_disabled_check (test_gate.GateTests.test_disabled_check) ... ok
+test_duplicate_check (test_gate.GateTests.test_duplicate_check) ... ok
+test_exit_zero_without_marker_blocks (test_gate.GateTests.test_exit_zero_without_marker_blocks) ... ok
+test_malformed_report (test_gate.GateTests.test_malformed_report) ... ok
+test_marker_requires_exact_single (test_gate.GateTests.test_marker_requires_exact_single) ... ok
+test_missing_and_skipped_tests (test_gate.GateTests.test_missing_and_skipped_tests) ... ok
+test_missing_checker_actual (test_gate.GateTests.test_missing_checker_actual) ... ok
+test_nonzero_checker (test_gate.GateTests.test_nonzero_checker) ... ok
+test_policy_valid (test_gate.GateTests.test_policy_valid) ... ok
+test_removed_check (test_gate.GateTests.test_removed_check) ... ok
+test_symlink_rejected (test_gate.GateTests.test_symlink_rejected) ... ok
+test_timed_out_checker_actual (test_gate.GateTests.test_timed_out_checker_actual) ... ok
+test_timeout_required (test_gate.GateTests.test_timeout_required) ... ok
+test_unsafe_path (test_gate.GateTests.test_unsafe_path) ... ok
+test_unsupported_parser (test_gate.GateTests.test_unsupported_parser) ... ok
+test_valid_report (test_gate.GateTests.test_valid_report) ... ok
+
+----------------------------------------------------------------------
+Ran 21 tests in 0.027s
+
+OK

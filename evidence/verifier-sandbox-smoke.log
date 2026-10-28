@@ -1,0 +1,9 @@
+uid=1000 gid=1000 groups=1000
+v24.22.1
+Lean (version 4.34.0, x86_64-unknown-linux-gnu, commit 293d5d0c0c3f3dded4688b3ccd6a33939ac5102b, Release)
+    PID COMMAND
+      1 bwrap
+      2 sh
+     10 ps
+/bin/sh: 1: cannot create /baseline/BAD: Read-only file system
+bend: unknown option --version (see bend --help)

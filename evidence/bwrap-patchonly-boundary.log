@@ -1,0 +1,6 @@
+touch: cannot touch 'direct-model-write': Read-only file system
+touch: cannot touch '../supervisor/denied': Read-only file system
+chmod: changing permissions of '../supervisor': Read-only file system
+mv: cannot move '../supervisor' to '../evil': Read-only file system
+CapEff:	0000000000000000
+readonly-interface-pass

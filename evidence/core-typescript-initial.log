@@ -1,0 +1,7 @@
+{"amount":0,"result":{"$":"Response","success":false,"granted":0,"balance":100}}
+{"amount":-1,"result":{"$":"Response","success":false,"granted":0,"balance":100}}
+{"amount":1,"result":{"$":"Response","success":true,"granted":1,"balance":99}}
+{"amount":100,"result":{"$":"Response","success":true,"granted":100,"balance":0}}
+{"amount":101,"result":{"$":"Response","success":false,"granted":0,"balance":100}}
+{"amount":281474976710655,"result":{"$":"Response","success":false,"granted":0,"balance":100}}
+{"amount":-281474976710655,"result":{"$":"Response","success":false,"granted":0,"balance":100}}

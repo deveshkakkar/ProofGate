@@ -1,0 +1,53 @@
+{
+  "files": {
+    "README.md": "003d39a1499a893227529ab0eb60b5b4ffb1b4ad37b67010bcb30883325813bb",
+    "bootstrap.py": "faa20d5ba642497257bb67d57ec370307112bcce5b1c0dc08ef9c69875b94595",
+    "bridge.mjs": "a2d37e5b9d413ca02cb5ab98c526bebea4d233e7ffff1715bb04ad837453dad3",
+    "build.py": "a6c0b2461647cc1a52d7d6794f29b271aceed71657f58bd190937b5e784162fa",
+    "formal/ENTRY.bend": "a0e683c5967bc0f567e188fe7526697a26fdcfec28eab754bc1c6b7063a9864c",
+    "formal/LAWS.bend": "404693ee25bc5554d049c541cbb265f0f6ec16e0cfc7ae644142011183010a3c",
+    "formal/Model.bend": "432a2fb9703487c4ef03b2c59b99be2235b18b36b5f86d50223a520f3a85623b",
+    "freeze.py": "2237d20c82c02ebe23857450b09a584ed8e73908b66fcf2bd49410d049a68325",
+    "gate.py": "860cc612f65370f5930d5e26442beae77f3b661abe4e9f2885342cb8de41cccb",
+    "http_tests.py": "c5765879592892c17dbf62640bea4c97d521b0f0392f8eb88115affeffac9182",
+    "policy.json": "83cd4a6a2d236b229f30e5c7ddde33b211d76e0dcec11975390c34f4b08de2c6",
+    "test_gate.py": "9f2537189c8134feeb9d688d9cb794bbc96fd920a42c357c97d18bf437386c7f",
+    "toolchain-lock.json": "28c946fd9a0c49692af309d8281f90dc1524cdd780403aa674e2f2103aa2fc89"
+  },
+  "review": {
+    "approved": true,
+    "conditions": [
+      "Frozen identity must be retained outside candidate write authority.",
+      "All required mutation, real Codex repair, exact deployment and interruption-resumption runs remain required under this identity.",
+      "Host/supervisor, OS libraries, Python, bwrap, Node, Bend compiler and proof kernel trusted.",
+      "Shared networking is not hostile-code network isolation; no credentialed deployment endpoints during mutations.",
+      "Wire amounts are signed48 magnitudes; mathematical Nat proof domain is larger than runtime ABI; bridge tests are not compiler proof.",
+      "Timeout sleep fixture is deadline harness test, not actual Bend checker timeout."
+    ],
+    "evidence": [
+      "proofgate-review/requirements-review.md",
+      "proofgate-review/cli-readonly-review.md",
+      "proofgate-review/formal-semantics-review.md",
+      "proofgate/evidence/prefreeze-evaluator/draft-results.json"
+    ],
+    "reviewed_at_utc": "2026-10-28T21:13:51.196324+00:00",
+    "reviewed_files": {
+      "README.md": "003d39a1499a893227529ab0eb60b5b4ffb1b4ad37b67010bcb30883325813bb",
+      "bootstrap.py": "faa20d5ba642497257bb67d57ec370307112bcce5b1c0dc08ef9c69875b94595",
+      "bridge.mjs": "a2d37e5b9d413ca02cb5ab98c526bebea4d233e7ffff1715bb04ad837453dad3",
+      "build.py": "a6c0b2461647cc1a52d7d6794f29b271aceed71657f58bd190937b5e784162fa",
+      "formal/ENTRY.bend": "a0e683c5967bc0f567e188fe7526697a26fdcfec28eab754bc1c6b7063a9864c",
+      "formal/LAWS.bend": "404693ee25bc5554d049c541cbb265f0f6ec16e0cfc7ae644142011183010a3c",
+      "formal/Model.bend": "432a2fb9703487c4ef03b2c59b99be2235b18b36b5f86d50223a520f3a85623b",
+      "freeze.py": "2237d20c82c02ebe23857450b09a584ed8e73908b66fcf2bd49410d049a68325",
+      "gate.py": "860cc612f65370f5930d5e26442beae77f3b661abe4e9f2885342cb8de41cccb",
+      "http_tests.py": "c5765879592892c17dbf62640bea4c97d521b0f0392f8eb88115affeffac9182",
+      "policy.json": "83cd4a6a2d236b229f30e5c7ddde33b211d76e0dcec11975390c34f4b08de2c6",
+      "test_gate.py": "9f2537189c8134feeb9d688d9cb794bbc96fd920a42c357c97d18bf437386c7f",
+      "toolchain-lock.json": "28c946fd9a0c49692af309d8281f90dc1524cdd780403aa674e2f2103aa2fc89"
+    },
+    "reviewer": "/root/review_proofgate_requirements",
+    "scope": "Independent baseline semantic, harness, authority and exact-artifact review. Approval to freeze, not full experiment acceptance."
+  },
+  "schema": 1
+}

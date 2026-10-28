@@ -1,0 +1,10 @@
+ProofGate listening on http://127.0.0.1:40245
+
+Traceback (most recent call last):
+  File "/workspace/scratch/95589aefb3bf/proofgate/baseline/http_tests.py", line 115, in <module>
+    if __name__=='__main__':main()
+                            ~~~~^^
+  File "/workspace/scratch/95589aefb3bf/proofgate/baseline/http_tests.py", line 92, in main
+    assert app.balance()==65
+           ^^^^^^^^^^^^^^^^^
+AssertionError

@@ -1,0 +1,27 @@
+{
+  "at": "2026-10-28T21:08:49.904859+00:00",
+  "mode": "initial",
+  "files": [
+    {
+      "path": "app/server.ts",
+      "beforeSha256": null,
+      "afterSha256": "0a71fd2b140713bd80d253e829694bb0ea5dd53fd9934dee813374ffab93e09d"
+    },
+    {
+      "path": "package.json",
+      "beforeSha256": null,
+      "afterSha256": "c3a50236cad4724cdba25a7cefa2a52a9d35acccb86c993acd6f022a81adefc1"
+    },
+    {
+      "path": "README.md",
+      "beforeSha256": null,
+      "afterSha256": "da8d876acc95442089e675c6111b13498459444d7cdb730b8f4cc785e794296c"
+    },
+    {
+      "path": "IMPLEMENTATION-CHECKPOINT.json",
+      "beforeSha256": null,
+      "afterSha256": "0006fc2d2504ac919e0a9a163632b7d40d9a432417d5e01206508fa5623aaf9a"
+    }
+  ],
+  "metadataCommandsExecuted": false
+}

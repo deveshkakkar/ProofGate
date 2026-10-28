@@ -1,0 +1,10 @@
+{
+  "accepted": false,
+  "checks": [],
+  "elapsed_seconds": 0.008716,
+  "error": "ValueError: baseline content altered, removed, or added",
+  "fault_injection": null,
+  "run_id": "removed-law",
+  "schema": 1,
+  "started_unix": 1793222253.0637612
+}

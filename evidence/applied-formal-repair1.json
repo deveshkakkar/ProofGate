@@ -1,0 +1,22 @@
+{
+  "at": "2026-10-28T21:05:27.008627+00:00",
+  "mode": "initial",
+  "files": [
+    {
+      "path": "formal/Admission.bend",
+      "beforeSha256": "dbc06fd837ea3fc83dc11202fbd657b1febbf3f9b9a1549926b3a27733f6ff20",
+      "afterSha256": "dc669fbf9bc7cc6a4e5e40f19c56b26453562e77a808e0f47c2b3cd38b0ded31"
+    },
+    {
+      "path": "formal/LAWS.bend",
+      "beforeSha256": "396022eda1fe672088eaffeb672a5202d6641c217ef25c266cb8142ed2caeda4",
+      "afterSha256": "404693ee25bc5554d049c541cbb265f0f6ec16e0cfc7ae644142011183010a3c"
+    },
+    {
+      "path": "formal/PROOF.bend",
+      "beforeSha256": "21ecdeafa9bfbc0b47d9c57ef1289a752ad12482529b4108e593ac4f699fb08f",
+      "afterSha256": "0542871863d20220cbb70e9cb6404b4193e6b93ed602607c64d01811aaba9189"
+    }
+  ],
+  "metadataCommandsExecuted": false
+}

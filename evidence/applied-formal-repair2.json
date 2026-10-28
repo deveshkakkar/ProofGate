@@ -1,0 +1,12 @@
+{
+  "at": "2026-10-28T21:06:49.735404+00:00",
+  "mode": "initial",
+  "files": [
+    {
+      "path": "formal/PROOF.bend",
+      "beforeSha256": "0542871863d20220cbb70e9cb6404b4193e6b93ed602607c64d01811aaba9189",
+      "afterSha256": "dde788d8f515114b37cb10da3fa602f147ace80293faf180119ea51a3b76e2fb"
+    }
+  ],
+  "metadataCommandsExecuted": false
+}

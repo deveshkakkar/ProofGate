@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "phase": "deployed",
+  "initial_pid": 12,
+  "baseline": "/workspace/scratch/95589aefb3bf/proofgate/baseline",
+  "baseline_sha256": "0a634e64bf3ee9c885671f1c6b78f7d53820eddc47ae6ab8def376c26f36fa5e",
+  "candidate": "/workspace/scratch/95589aefb3bf/proofgate/candidate",
+  "run": "/workspace/scratch/95589aefb3bf/proofgate/runs/supervisor-resume/accepted-run",
+  "deployment": "/workspace/scratch/95589aefb3bf/proofgate/runs/supervisor-resume/deployment",
+  "source_sha256": "359a633ce08ad3a39584f01a71ae73ffceb22baf68efde1742a17d7fe11f44d8",
+  "artifact_sha256": "22f322d60be8e88d98c8e2813e6280c9fa2de9966a776164e58b7fb8761615d3",
+  "accepted_result_sha256": "53755bceec3147e8335662f9d5a37019294a6714566c8052c2a6123549e17669",
+  "resume_pid": 6,
+  "evaluation_replayed": false
+}

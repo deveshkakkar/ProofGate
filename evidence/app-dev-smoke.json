@@ -1,0 +1,71 @@
+[
+  {
+    "request": null,
+    "status": 200,
+    "response": {
+      "balance": 100
+    }
+  },
+  {
+    "request": {
+      "requestId": "a",
+      "amount": 10
+    },
+    "status": 200,
+    "response": {
+      "requestId": "a",
+      "amount": 10,
+      "success": true,
+      "granted": 10,
+      "balance": 90,
+      "reason": "granted"
+    }
+  },
+  {
+    "request": {
+      "requestId": "b",
+      "amount": 101
+    },
+    "status": 200,
+    "response": {
+      "requestId": "b",
+      "amount": 101,
+      "success": false,
+      "granted": 0,
+      "balance": 90,
+      "reason": "insufficient_credits"
+    }
+  },
+  {
+    "request": {
+      "requestId": "a",
+      "amount": 10
+    },
+    "status": 200,
+    "response": {
+      "requestId": "a",
+      "amount": 10,
+      "success": true,
+      "granted": 10,
+      "balance": 90,
+      "reason": "granted"
+    }
+  },
+  {
+    "request": {
+      "requestId": "a",
+      "amount": 20
+    },
+    "status": 409,
+    "response": {
+      "error": "conflict"
+    }
+  },
+  {
+    "request": null,
+    "status": 200,
+    "response": {
+      "balance": 90
+    }
+  }
+]

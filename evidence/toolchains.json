@@ -1,0 +1,5 @@
+{
+  "bend": {"version": "2.0.39", "source": "https://github.com/bendlang/bend/releases/download/v2.0.39/bend-2.0.39-linux-x64.tar.gz", "sha256": "6cf462fd8f70b094a4950ebb709a9c4ffd8f1d1189d9cedf1fd63cd5d041c7ab"},
+  "lean": {"version": "4.34.0", "source": "https://github.com/leanprover/lean4/releases/download/v4.34.0/lean-4.34.0-linux.tar.zst", "sha256": "caaa98356098c85dc0fcbbd28e1ec66f39eb6551829972b752ff20e1286b646b"},
+  "node": "24.22.1", "codex": "0.166.0-alpha.1"
+}

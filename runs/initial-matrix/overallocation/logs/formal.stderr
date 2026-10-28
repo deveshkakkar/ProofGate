@@ -1,0 +1,14 @@
+SOME PROOFS FAIL
+Error:
+- expected : {2n+g == 1n+n : Nat}
+- observed : {1n+g == 1n+n : Nat}
+Context:
+- n : Nat
+- g : Nat
+- b : Nat
+- p : {g == n : Nat}
+Location: lift_exact
+38 |     case M.Response{True{}, g, b}:
+39>|       %p : {1n+g == 1n+_ : Nat}
+   |       ^^^^^^^^^^^^^^^^^^^^^^^^^
+40 |       {==}

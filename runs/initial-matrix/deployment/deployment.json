@@ -1,0 +1,13 @@
+{
+  "artifact_files": {
+    "admission.mjs": "e842815ab774645585fbd240514dd31fffee919b1c16403fb958bc735ae9d47e",
+    "server.ts": "0a71fd2b140713bd80d253e829694bb0ea5dd53fd9934dee813374ffab93e09d"
+  },
+  "artifact_sha256": "22f322d60be8e88d98c8e2813e6280c9fa2de9966a776164e58b7fb8761615d3",
+  "baseline_sha256": "0a634e64bf3ee9c885671f1c6b78f7d53820eddc47ae6ab8def376c26f36fa5e",
+  "deployed_unix": 1793222260.7586231,
+  "evaluation_run": "/workspace/scratch/95589aefb3bf/proofgate/runs/initial-matrix/valid",
+  "rebuilt": false,
+  "schema": 1,
+  "source_sha256": "359a633ce08ad3a39584f01a71ae73ffceb22baf68efde1742a17d7fe11f44d8"
+}

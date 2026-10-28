@@ -1,0 +1,11 @@
+SOME PROOFS FAIL
+Error:
+- expected : Empty
+- observed : Unit
+Context:
+- e : {False{} == True{} : Bool}
+Location: false_true
+14 | def false_true(e: {False{} == True{} : Bool}) -> Empty:
+15>|   %e : true_type(_)
+   |   ^^^^^^^^^^^^^^^^^
+16 |   Unit{}

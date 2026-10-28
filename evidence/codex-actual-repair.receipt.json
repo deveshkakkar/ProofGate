@@ -1,0 +1,21 @@
+{
+  "session": "01a18450-27eb-7953-adc8-205d7a857993",
+  "exit_code": 0,
+  "started_unix": 1793222285.020085,
+  "elapsed_seconds": 34.827423334121704,
+  "prompt_sha256": "57b50e98eee47f51cfb505d8e60595c01edb4d283a7ae58e4b0bfce5bd5b7f8d",
+  "raw_log_sha256": "ec159fc5689b37af548f81a43742e6ac628d2dc64152a25f720aab5d1dde17cd",
+  "completed_turns": [
+    {
+      "type": "turn.completed",
+      "usage": {
+        "input_tokens": 175599,
+        "cached_input_tokens": 126336,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 16926,
+        "reasoning_output_tokens": 1022
+      }
+    }
+  ],
+  "command_items": []
+}

@@ -1,0 +1,618 @@
+This is the required real repair experiment after the baseline has been independently approved and frozen. Same primary Codex session as initial implementation. Supervisor deliberately injected a duplicate-charge regression into the application. Your authority is ONLY structured full-file proposals for app/server.ts; no tool calls, no commands, no access or edits to Model/LAWS, runner, policy, tests, build pipeline or baseline. Supervisor validates paths and applies serially. Do not weaken checks, change input contract, suppress failures or claim passing until actual independent gate returns.
+Full formal proof passed with unchanged core. Frozen gate application replay behavior is failing. Fix the application so same requestId/same amount returns original persisted outcome with no additional core execution or balance modification; different amount remains409 before any core call. Preserve transactional persistence, rejected outcome replay, concurrency/restart semantics and direct compiled-core admission for unseen IDs. Return the same JSON schema summary/files/checksToRun/limitations, files only app/server.ts.
+Current faulty file follows:
+
+import http from 'node:http';
+import { DatabaseSync } from 'node:sqlite';
+import { mkdirSync } from 'node:fs';
+import { dirname, resolve } from 'node:path';
+import Core from './admission.mjs';
+
+const LIMIT = 281474976710655;
+const BODY_LIMIT = 16384;
+const portText = process.env.PORT ?? '8080';
+if (!/^\d+$/.test(portText) || Number(portText) < 1 || Number(portText) > 65535) {
+  throw new Error('PORT must be an integer from 1 through 65535');
+}
+const port = Number(portText);
+const dbPath = resolve(process.env.DB_PATH ?? './data/proofgate.sqlite');
+mkdirSync(dirname(dbPath), { recursive: true });
+const db = new DatabaseSync(dbPath);
+db.exec(`
+  PRAGMA busy_timeout = 5000;
+  PRAGMA journal_mode = WAL;
+  PRAGMA synchronous = FULL;
+  PRAGMA foreign_keys = ON;
+`);
+try {
+  db.exec('BEGIN IMMEDIATE');
+  db.exec(`
+    CREATE TABLE IF NOT EXISTS state (
+      singleton INTEGER PRIMARY KEY CHECK(singleton = 1),
+      balance INTEGER NOT NULL CHECK(typeof(balance) = 'integer' AND balance BETWEEN 0 AND 100)
+    ) STRICT;
+    CREATE TABLE IF NOT EXISTS reservations (
+      request_id TEXT PRIMARY KEY NOT NULL CHECK(length(request_id) BETWEEN 1 AND 128),
+      amount INTEGER NOT NULL CHECK(typeof(amount) = 'integer' AND amount BETWEEN -281474976710655 AND 281474976710655),
+      response TEXT NOT NULL CHECK(json_valid(response))
+    ) STRICT;
+    INSERT OR IGNORE INTO state(singleton, balance) VALUES(1, 100);
+  `);
+  db.exec('COMMIT');
+} catch (error) {
+  try { db.exec('ROLLBACK'); } catch {}
+  db.close();
+  throw error;
+}
+
+const readState = db.prepare('SELECT balance FROM state WHERE singleton = 1');
+const findReservation = db.prepare('SELECT amount, response FROM reservations WHERE request_id = ?');
+const updateState = db.prepare('UPDATE state SET balance = ? WHERE singleton = 1');
+const insertReservation = db.prepare('INSERT INTO reservations(request_id, amount, response) VALUES (?, ?, ?)');
+
+function balance(): number {
+  const row = readState.get();
+  if (!row || typeof row.balance !== 'number' || !Number.isInteger(row.balance) || row.balance < 0 || row.balance > 100) {
+    throw new Error('Invalid persisted state');
+  }
+  return row.balance;
+}
+
+type Envelope = { requestId: string; amount: number };
+function validate(value: unknown): Envelope | undefined {
+  if (value === null || typeof value !== 'object' || Array.isArray(value)) return;
+  const record = value as Record<string, unknown>;
+  const keys = Object.keys(record);
+  if (keys.length !== 2 || !Object.hasOwn(record, 'requestId') || !Object.hasOwn(record, 'amount')) return;
+  const { requestId, amount } = record;
+  if (typeof requestId !== 'string' || !/^[A-Za-z0-9._:-]{1,128}$/.test(requestId)) return;
+  if (typeof amount !== 'number' || !Number.isSafeInteger(amount) || Math.abs(amount) > LIMIT) return;
+  return { requestId, amount: Object.is(amount, -0) ? 0 : amount };
+}
+
+// Entire transaction is synchronous: HTTP callbacks cannot interleave here.
+function reserve(input: Envelope): { status: number; body: string } {
+  db.exec('BEGIN IMMEDIATE');
+  try {
+    const existing = findReservation.get(input.requestId);
+    if (existing) {
+      if (existing.amount !== input.amount) {
+        db.exec('COMMIT');
+        return { status: 409, body: '{"error":"conflict"}' };
+      }
+      if (typeof existing.response !== 'string') throw new Error('Invalid stored response');
+      // DELIBERATE EXPERIMENTAL MUTATION: charge an already persisted replay.
+      const replaySigned = input.amount < 0
+        ? { $: 'Neg', pred: -input.amount - 1 }
+        : { $: 'Nonneg', magnitude: input.amount };
+      const replayDecision = Core.admission(balance(), replaySigned);
+      updateState.run(replayDecision.balance);
+      const body = existing.response;
+      db.exec('COMMIT');
+      return { status: 200, body };
+    }
+    const prior = balance();
+    const signed = input.amount < 0
+      ? { $: 'Neg', pred: -input.amount - 1 }
+      : { $: 'Nonneg', magnitude: input.amount };
+    const result = Core.admission(prior, signed);
+    // Validate the adapter boundary without implementing admission arithmetic.
+    if (result === null || typeof result !== 'object' || result.$ !== 'Response'
+      || typeof result.success !== 'boolean'
+      || !Number.isSafeInteger(result.granted) || result.granted < 0 || result.granted > LIMIT
+      || !Number.isSafeInteger(result.balance) || result.balance < 0 || result.balance > 100) {
+      throw new Error('Invalid compiled core output');
+    }
+    const body = JSON.stringify({
+      requestId: input.requestId,
+      amount: input.amount,
+      success: result.success,
+      granted: result.granted,
+      balance: result.balance,
+      reason: result.success ? 'granted' : input.amount <= 0 ? 'invalid_amount' : 'insufficient_credits'
+    });
+    updateState.run(result.balance);
+    insertReservation.run(input.requestId, input.amount, body);
+    db.exec('COMMIT');
+    return { status: 200, body };
+  } catch (error) {
+    try { db.exec('ROLLBACK'); } catch {}
+    throw error;
+  }
+}
+
+function send(res: http.ServerResponse, status: number, body: string, contentType = 'application/json; charset=utf-8'): void {
+  if (res.destroyed || res.writableEnded) return;
+  res.writeHead(status, {
+    'Content-Type': contentType,
+    'Content-Length': Buffer.byteLength(body),
+    'Cache-Control': 'no-store',
+    'X-Content-Type-Options': 'nosniff'
+  });
+  res.end(body);
+}
+
+const page = `<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>ProofGate local status</title><h1>ProofGate</h1><p>Local single-process credit reservation proof of concept.</p><p>Balance: <strong id="balance">loading</strong></p><button id="refresh">Refresh</button><script>async function refresh(){try{const r=await fetch('/status');if(!r.ok)throw Error();const s=await r.json();document.getElementById('balance').textContent=String(s.balance)}catch{document.getElementById('balance').textContent='unavailable'}}document.getElementById('refresh').onclick=refresh;refresh();</script></html>`;
+
+const server = http.createServer((req, res) => {
+  if (req.method === 'GET' && req.url === '/status') {
+    req.resume();
+    try { send(res, 200, JSON.stringify({ balance: balance() })); }
+    catch { send(res, 500, '{"error":"internal_error"}'); }
+    return;
+  }
+  if (req.method === 'GET' && req.url === '/') {
+    req.resume();
+    send(res, 200, page, 'text/html; charset=utf-8');
+    return;
+  }
+  if (req.method !== 'POST' || req.url !== '/reserve') {
+    req.resume();
+    send(res, 404, '{"error":"not_found"}');
+    return;
+  }
+  let bytes = 0;
+  let finished = false;
+  const chunks: Buffer[] = [];
+  req.on('data', (chunk: Buffer) => {
+    if (finished) return;
+    bytes += chunk.length;
+    if (bytes > BODY_LIMIT) {
+      finished = true;
+      chunks.length = 0;
+      send(res, 413, '{"error":"body_too_large"}');
+      // Keep consuming the request; subsequent events cannot send another response.
+      return;
+    }
+    chunks.push(chunk);
+  });
+  req.on('end', () => {
+    if (finished) return;
+    finished = true;
+    let input: Envelope | undefined;
+    try {
+      const text = new TextDecoder('utf-8', { fatal: true }).decode(Buffer.concat(chunks));
+      input = validate(JSON.parse(text));
+    } catch {}
+    if (!input) {
+      send(res, 400, '{"error":"invalid_request"}');
+      return;
+    }
+    try {
+      const outcome = reserve(input);
+      send(res, outcome.status, outcome.body);
+    } catch {
+      send(res, 500, '{"error":"internal_error"}');
+    }
+  });
+  req.on('error', () => {
+    if (finished) return;
+    finished = true;
+    chunks.length = 0;
+    send(res, 400, '{"error":"invalid_request"}');
+  });
+  req.on('aborted', () => {
+    finished = true;
+    chunks.length = 0;
+  });
+});
+server.requestTimeout = 30000;
+server.headersTimeout = 15000;
+server.keepAliveTimeout = 5000;
+
+let stopping = false;
+function shutdown(): void {
+  if (stopping) return;
+  stopping = true;
+  const force = setTimeout(() => { server.closeAllConnections(); }, 5000);
+  force.unref();
+  server.close(() => {
+    clearTimeout(force);
+    db.close();
+  });
+}
+process.on('SIGTERM', shutdown);
+process.on('SIGINT', shutdown);
+server.on('error', () => {
+  console.error('ProofGate listener failed');
+  db.close();
+  process.exitCode = 1;
+});
+server.listen(port, '127.0.0.1', () => {
+  console.log(`ProofGate listening on http://127.0.0.1:${port}`);
+});
+
+
+ACTUAL FROZEN GATE RESULT:
+{
+  "accepted": false,
+  "baseline_sha256": "0a634e64bf3ee9c885671f1c6b78f7d53820eddc47ae6ab8def376c26f36fa5e",
+  "built_files": {
+    "admission.mjs": "e842815ab774645585fbd240514dd31fffee919b1c16403fb958bc735ae9d47e",
+    "server.ts": "7b668502493dd29b85a3fa87d7b10a0f953baefb3ea29fcf31a3cb6293bd38f5"
+  },
+  "candidate_commit": "1863a1be961fa9cc373c0cd642da5ac1882b24a1",
+  "candidate_dirty": false,
+  "checks": [
+    {
+      "argv": [
+        "/toolchains/bend/bin/bend",
+        "/src/formal/ENTRY.bend",
+        "--verdict"
+      ],
+      "elapsed_seconds": 57.43371,
+      "executed_argv": [
+        "/usr/bin/bwrap",
+        "--unshare-user",
+        "--unshare-pid",
+        "--new-session",
+        "--die-with-parent",
+        "--cap-drop",
+        "ALL",
+        "--proc",
+        "/proc",
+        "--dev",
+        "/dev",
+        "--tmpfs",
+        "/tmp",
+        "--dir",
+        "/etc",
+        "--dir",
+        "/opt",
+        "--dir",
+        "/work",
+        "--ro-bind",
+        "/usr",
+        "/usr",
+        "--ro-bind",
+        "/bin",
+        "/bin",
+        "--ro-bind",
+        "/lib",
+        "/lib",
+        "--ro-bind",
+        "/lib64",
+        "/lib64",
+        "--ro-bind",
+        "/etc/ld.so.cache",
+        "/etc/ld.so.cache",
+        "--ro-bind",
+        "/etc/localtime",
+        "/etc/localtime",
+        "--ro-bind",
+        "/workspace/scratch/95589aefb3bf/proofgate/toolchains/bend",
+        "/toolchains/bend",
+        "--ro-bind",
+        "/workspace/scratch/95589aefb3bf/proofgate/toolchains/lean-4.34.0-linux",
+        "/toolchains/lean",
+        "--ro-bind",
+        "/workspace/scratch/95589aefb3bf/proofgate/toolchains/node-v24.22.1-linux-x64",
+        "/node",
+        "--ro-bind",
+        "/workspace/scratch/95589aefb3bf/proofgate/runs/main-duplicate-charge/source",
+        "/src",
+        "--ro-bind",
+        "/workspace/scratch/95589aefb3bf/proofgate/baseline",
+        "/baseline",
+        "--ro-bind",
+        "/workspace/scratch/95589aefb3bf/proofgate/runs/main-duplicate-charge/artifact",
+        "/out",
+        "--chdir",
+        "/src",
+        "--clearenv",
+        "--setenv",
+        "HOME",
+        "/tmp",
+        "--setenv",
+        "PATH",
+        "/toolchains/lean/bin:/toolchains/bend/bin:/node/bin:/usr/bin:/bin",
+        "--setenv",
+        "BEND_NO_TELEMETRY",
+        "1",
+        "--setenv",
+        "LANG",
+        "C.UTF-8",
+        "--setenv",
+        "TZ",
+        "UTC",
+        "--setenv",
+        "SOURCE_DATE_EPOCH",
+        "0",
+        "/toolchains/bend/bin/bend",
+        "/src/formal/ENTRY.bend",
+        "--verdict"
+      ],
+      "exit_code": 0,
+      "id": "formal",
+      "parsed": {
+        "marker": "ALL PROOFS CHECK"
+      },
+      "started_unix": 1793222206.4551272,
+      "status": "passed",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "61b73cda11b6b665b9f99f2defd3d3b57f985c865225e942a5bdaa594a503e47",
+      "timeout_seconds": 600
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "/baseline/build.py"
+      ],
+      "elapsed_seconds": 0.541378,
+      "executed_argv": [
+        "/usr/bin/bwrap",
+        "--unshare-user",
+        "--unshare-pid",
+        "--new-session",
+        "--die-with-parent",
+        "--cap-drop",
+        "ALL",
+        "--proc",
+        "/proc",
+        "--dev",
+        "/dev",
+        "--tmpfs",
+        "/tmp",
+        "--dir",
+        "/etc",
+        "--dir",
+        "/opt",
+        "--dir",
+        "/work",
+        "--ro-bind",
+        "/usr",
+        "/usr",
+        "--ro-bind",
+        "/bin",
+        "/bin",
+        "--ro-bind",
+        "/lib",
+        "/lib",
+        "--ro-bind",
+        "/lib64",
+        "/lib64",
+        "--ro-bind",
+        "/etc/ld.so.cache",
+        "/etc/ld.so.cache",
+        "--ro-bind",
+        "/etc/localtime",
+        "/etc/localtime",
+        "--ro-bind",
+        "/workspace/scratch/95589aefb3bf/proofgate/toolchains/bend",
+        "/toolchains/bend",
+        "--ro-bind",
+        "/workspace/scratch/95589aefb3bf/proofgate/toolchains/lean-4.34.0-linux",
+        "/toolchains/lean",
+        "--ro-bind",
+        "/workspace/scratch/95589aefb3bf/proofgate/toolchains/node-v24.22.1-linux-x64",
+        "/node",
+        "--ro-bind",
+        "/workspace/scratch/95589aefb3bf/proofgate/runs/main-duplicate-charge/source",
+        "/src",
+        "--ro-bind",
+        "/workspace/scratch/95589aefb3bf/proofgate/baseline",
+        "/baseline",
+        "--bind",
+        "/workspace/scratch/95589aefb3bf/proofgate/runs/main-duplicate-charge/artifact",
+        "/out",
+        "--chdir",
+        "/src",
+        "--clearenv",
+        "--setenv",
+        "HOME",
+        "/tmp",
+        "--setenv",
+        "PATH",
+        "/toolchains/lean/bin:/toolchains/bend/bin:/node/bin:/usr/bin:/bin",
+        "--setenv",
+        "BEND_NO_TELEMETRY",
+        "1",
+        "--setenv",
+        "LANG",
+        "C.UTF-8",
+        "--setenv",
+        "TZ",
+        "UTC",
+        "--setenv",
+        "SOURCE_DATE_EPOCH",
+        "0",
+        "/usr/bin/python3",
+        "/baseline/build.py"
+      ],
+      "exit_code": 0,
+      "id": "build",
+      "parsed": {
+        "marker": "BUILD_COMPLETE"
+      },
+      "started_unix": 1793222263.8905056,
+      "status": "passed",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "836159d6ec827f0f4a66280068b751297f179c69ea5e110a01f731bb7d259961",
+      "timeout_seconds": 120
+    },
+    {
+      "argv": [
+        "/node/bin/node",
+        "/baseline/bridge.mjs"
+      ],
+      "elapsed_seconds": 0.114737,
+      "executed_argv": [
+        "/usr/bin/bwrap",
+        "--unshare-user",
+        "--unshare-pid",
+        "--new-session",
+        "--die-with-parent",
+        "--cap-drop",
+        "ALL",
+        "--proc",
+        "/proc",
+        "--dev",
+        "/dev",
+        "--tmpfs",
+        "/tmp",
+        "--dir",
+        "/etc",
+        "--dir",
+        "/opt",
+        "--dir",
+        "/work",
+        "--ro-bind",
+        "/usr",
+        "/usr",
+        "--ro-bind",
+        "/bin",
+        "/bin",
+        "--ro-bind",
+        "/lib",
+        "/lib",
+        "--ro-bind",
+        "/lib64",
+        "/lib64",
+        "--ro-bind",
+        "/etc/ld.so.cache",
+        "/etc/ld.so.cache",
+        "--ro-bind",
+        "/etc/localtime",
+        "/etc/localtime",
+        "--ro-bind",
+        "/workspace/scratch/95589aefb3bf/proofgate/toolchains/bend",
+        "/toolchains/bend",
+        "--ro-bind",
+        "/workspace/scratch/95589aefb3bf/proofgate/toolchains/lean-4.34.0-linux",
+        "/toolchains/lean",
+        "--ro-bind",
+        "/workspace/scratch/95589aefb3bf/proofgate/toolchains/node-v24.22.1-linux-x64",
+        "/node",
+        "--ro-bind",
+        "/workspace/scratch/95589aefb3bf/proofgate/runs/main-duplicate-charge/source",
+        "/src",
+        "--ro-bind",
+        "/workspace/scratch/95589aefb3bf/proofgate/baseline",
+        "/baseline",
+        "--ro-bind",
+        "/workspace/scratch/95589aefb3bf/proofgate/runs/main-duplicate-charge/artifact",
+        "/out",
+        "--chdir",
+        "/src",
+        "--clearenv",
+        "--setenv",
+        "HOME",
+        "/tmp",
+        "--setenv",
+        "PATH",
+        "/toolchains/lean/bin:/toolchains/bend/bin:/node/bin:/usr/bin:/bin",
+        "--setenv",
+        "BEND_NO_TELEMETRY",
+        "1",
+        "--setenv",
+        "LANG",
+        "C.UTF-8",
+        "--setenv",
+        "TZ",
+        "UTC",
+        "--setenv",
+        "SOURCE_DATE_EPOCH",
+        "0",
+        "/node/bin/node",
+        "/baseline/bridge.mjs"
+      ],
+      "exit_code": 0,
+      "id": "bridge",
+      "parsed": {
+        "marker": "CORE_BRIDGE_11716_PASSED"
+      },
+      "started_unix": 1793222264.4323752,
+      "status": "passed",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "9ec765ff63d5a755422905e7fe2f0f103e96041c5f2508fab7cf2061692d0fa2",
+      "timeout_seconds": 60
+    },
+    {
+      "argv": [
+        "trusted-host-http-driver"
+      ],
+      "elapsed_seconds": 0.984178,
+      "error": "RuntimeError: checker exited 1",
+      "executed_argv": [
+        "/usr/bin/python3",
+        "/workspace/scratch/95589aefb3bf/proofgate/baseline/http_tests.py",
+        "--prefix-json",
+        "[\"/usr/bin/bwrap\", \"--unshare-user\", \"--unshare-pid\", \"--new-session\", \"--die-with-parent\", \"--cap-drop\", \"ALL\", \"--proc\", \"/proc\", \"--dev\", \"/dev\", \"--tmpfs\", \"/tmp\", \"--dir\", \"/etc\", \"--dir\", \"/opt\", \"--dir\", \"/work\", \"--ro-bind\", \"/usr\", \"/usr\", \"--ro-bind\", \"/bin\", \"/bin\", \"--ro-bind\", \"/lib\", \"/lib\", \"--ro-bind\", \"/lib64\", \"/lib64\", \"--ro-bind\", \"/etc/ld.so.cache\", \"/etc/ld.so.cache\", \"--ro-bind\", \"/etc/localtime\", \"/etc/localtime\", \"--ro-bind\", \"/workspace/scratch/95589aefb3bf/proofgate/toolchains/bend\", \"/toolchains/bend\", \"--ro-bind\", \"/workspace/scratch/95589aefb3bf/proofgate/toolchains/lean-4.34.0-linux\", \"/toolchains/lean\", \"--ro-bind\", \"/workspace/scratch/95589aefb3bf/proofgate/toolchains/node-v24.22.1-linux-x64\", \"/node\", \"--ro-bind\", \"/workspace/scratch/95589aefb3bf/proofgate/runs/main-duplicate-charge/source\", \"/src\", \"--ro-bind\", \"/workspace/scratch/95589aefb3bf/proofgate/baseline\", \"/baseline\", \"--ro-bind\", \"/workspace/scratch/95589aefb3bf/proofgate/runs/main-duplicate-charge/artifact\", \"/out\", \"--chdir\", \"/src\", \"--clearenv\", \"--setenv\", \"HOME\", \"/tmp\", \"--setenv\", \"PATH\", \"/toolchains/lean/bin:/toolchains/bend/bin:/node/bin:/usr/bin:/bin\", \"--setenv\", \"BEND_NO_TELEMETRY\", \"1\", \"--setenv\", \"LANG\", \"C.UTF-8\", \"--setenv\", \"TZ\", \"UTC\", \"--setenv\", \"SOURCE_DATE_EPOCH\", \"0\"]",
+        "--node",
+        "/node/bin/node",
+        "--entry",
+        "/out/server.ts"
+      ],
+      "exit_code": 1,
+      "id": "application",
+      "started_unix": 1793222264.5477338,
+      "status": "failed",
+      "stderr_sha256": "99d28e3b25f048b1054b84b0033eea00b90b8e78880e0e1fcf458974230ad789",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "timeout_seconds": 120
+    }
+  ],
+  "elapsed_seconds": 66.58131,
+  "error": "ValueError: not every required check passed",
+  "fault_injection": null,
+  "review": {
+    "approved": true,
+    "conditions": [
+      "Frozen identity must be retained outside candidate write authority.",
+      "All required mutation, real Codex repair, exact deployment and interruption-resumption runs remain required under this identity.",
+      "Host/supervisor, OS libraries, Python, bwrap, Node, Bend compiler and proof kernel trusted.",
+      "Shared networking is not hostile-code network isolation; no credentialed deployment endpoints during mutations.",
+      "Wire amounts are signed48 magnitudes; mathematical Nat proof domain is larger than runtime ABI; bridge tests are not compiler proof.",
+      "Timeout sleep fixture is deadline harness test, not actual Bend checker timeout."
+    ],
+    "evidence": [
+      "proofgate-review/requirements-review.md",
+      "proofgate-review/cli-readonly-review.md",
+      "proofgate-review/formal-semantics-review.md",
+      "proofgate/evidence/prefreeze-evaluator/draft-results.json"
+    ],
+    "reviewed_at_utc": "2026-10-28T21:13:51.196324+00:00",
+    "reviewed_files": {
+      "README.md": "003d39a1499a893227529ab0eb60b5b4ffb1b4ad37b67010bcb30883325813bb",
+      "bootstrap.py": "faa20d5ba642497257bb67d57ec370307112bcce5b1c0dc08ef9c69875b94595",
+      "bridge.mjs": "a2d37e5b9d413ca02cb5ab98c526bebea4d233e7ffff1715bb04ad837453dad3",
+      "build.py": "a6c0b2461647cc1a52d7d6794f29b271aceed71657f58bd190937b5e784162fa",
+      "formal/ENTRY.bend": "a0e683c5967bc0f567e188fe7526697a26fdcfec28eab754bc1c6b7063a9864c",
+      "formal/LAWS.bend": "404693ee25bc5554d049c541cbb265f0f6ec16e0cfc7ae644142011183010a3c",
+      "formal/Model.bend": "432a2fb9703487c4ef03b2c59b99be2235b18b36b5f86d50223a520f3a85623b",
+      "freeze.py": "2237d20c82c02ebe23857450b09a584ed8e73908b66fcf2bd49410d049a68325",
+      "gate.py": "860cc612f65370f5930d5e26442beae77f3b661abe4e9f2885342cb8de41cccb",
+      "http_tests.py": "c5765879592892c17dbf62640bea4c97d521b0f0392f8eb88115affeffac9182",
+      "policy.json": "83cd4a6a2d236b229f30e5c7ddde33b211d76e0dcec11975390c34f4b08de2c6",
+      "test_gate.py": "9f2537189c8134feeb9d688d9cb794bbc96fd920a42c357c97d18bf437386c7f",
+      "toolchain-lock.json": "28c946fd9a0c49692af309d8281f90dc1524cdd780403aa674e2f2103aa2fc89"
+    },
+    "reviewer": "/root/review_proofgate_requirements",
+    "scope": "Independent baseline semantic, harness, authority and exact-artifact review. Approval to freeze, not full experiment acceptance."
+  },
+  "run_id": "main-duplicate-charge",
+  "schema": 1,
+  "source_files": {
+    "app/server.ts": "7b668502493dd29b85a3fa87d7b10a0f953baefb3ea29fcf31a3cb6293bd38f5",
+    "formal/Admission.bend": "dc669fbf9bc7cc6a4e5e40f19c56b26453562e77a808e0f47c2b3cd38b0ded31",
+    "formal/ENTRY.bend": "a0e683c5967bc0f567e188fe7526697a26fdcfec28eab754bc1c6b7063a9864c",
+    "formal/LAWS.bend": "404693ee25bc5554d049c541cbb265f0f6ec16e0cfc7ae644142011183010a3c",
+    "formal/Model.bend": "432a2fb9703487c4ef03b2c59b99be2235b18b36b5f86d50223a520f3a85623b",
+    "formal/PROOF.bend": "dde788d8f515114b37cb10da3fa602f147ace80293faf180119ea51a3b76e2fb"
+  },
+  "source_sha256": "df83b6bc16e785a71a54132ff2c5a81ecfff7480287e88019e99726de03ee6bf",
+  "started_unix": 1793222198.9509556,
+  "toolchain_sha256": "5d63b9748cd57225361b073a69c7c9254a4682c21662748618db289b4e8a16d1"
+}
+
+APPLICATION STDERR:
+ProofGate listening on http://127.0.0.1:48803
+
+Traceback (most recent call last):
+  File "/workspace/scratch/95589aefb3bf/proofgate/baseline/http_tests.py", line 115, in <module>
+    if __name__=='__main__':main()
+                            ~~~~^^
+  File "/workspace/scratch/95589aefb3bf/proofgate/baseline/http_tests.py", line 92, in main
+    assert app.balance()==65
+           ^^^^^^^^^^^^^^^^^
+AssertionError

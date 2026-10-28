@@ -1,0 +1,47 @@
+{
+  "startedAt": "2026-10-28T20:47:53Z",
+  "deadline": "2026-10-29T20:47:53Z",
+  "bendTrialStartedAt": "2026-10-28T20:49:19Z",
+  "bendTrialDeadline": "2026-10-28T22:19:19Z",
+  "phase": "technical-complete-publication-pending",
+  "codexSessionId": "01a18450-27eb-7953-adc8-205d7a857993",
+  "completed": [
+    "isolated workspace and Git",
+    "Codex installed and existing login status verified",
+    "bwrap candidate-write/protected-write-denial",
+    "pinned Bend and Lean installation",
+    "meaningful Bend verdict",
+    "ES module compilation and real TypeScript call",
+    "false invariant rejected",
+    "Bend --verdict meaningful proof actually passed",
+    "actual Codex smoke no tools session01a1844f-6857-7190-a598-eb7a18e54241",
+    "read-only candidate and protected sibling namespace boundary tests",
+    "independently reviewed candidate-only applier",
+    "actual Codex initial formal implementation applied with hashes",
+    "full universal admission proofs ALL PROOFS CHECK exit0",
+    "actual compiled core TypeScript boundary smoke",
+    "actual Codex SQLite HTTP app applied",
+    "app localhost grant/replay/rejection/conflict smoke",
+    "prefreeze over-allocation, totality and missing-proof negative checks",
+    "same frozen gate rejects required mutations and actual unavailable checker",
+    "actual same-session Codex app repair generated and applied",
+    "repaired candidate accepted same frozen baseline",
+    "real local supervisor interrupted exit130 and resumed new process without replay",
+    "exact artifact deployed and private smoke restart passed"
+  ],
+  "latestFailure": null,
+  "nextAction": "Verify default reproduction command; final independent report review and private repository publication",
+  "deploymentState": "exact accepted artifact deployed; private smoke passed",
+  "repairAttempts": 2,
+  "humanInterventions": [
+    {
+      "at": "2026-10-28T20:53:26Z",
+      "kind": "approved temporary runtime with read-only existing authentication mount"
+    }
+  ],
+  "updatedAt": "2026-10-28T21:24:14.130154+00:00",
+  "localCommit": "2b7abecbf29afc64c0ed21789d01392c83e1d6cc",
+  "finalEvaluatedSourceCommit": "6a5c0551dc712487feb8c9df6bc7d2506c2cf0ac",
+  "finalSourceSha256": "359a633ce08ad3a39584f01a71ae73ffceb22baf68efde1742a17d7fe11f44d8",
+  "finalArtifactSha256": "22f322d60be8e88d98c8e2813e6280c9fa2de9966a776164e58b7fb8761615d3"
+}

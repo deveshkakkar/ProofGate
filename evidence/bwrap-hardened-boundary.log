@@ -1,0 +1,10 @@
+touch: cannot touch '../supervisor/denied': Read-only file system
+DENIED touch ../supervisor/denied
+chmod: changing permissions of '../supervisor': Read-only file system
+DENIED chmod u+w ../supervisor
+mv: cannot move '../supervisor' to '../renamed-supervisor': Read-only file system
+DENIED mv ../supervisor ../renamed-supervisor
+processes=1 10 11 2 9 
+capabilities=CapEff:	0000000000000000
+
+boundary-pass

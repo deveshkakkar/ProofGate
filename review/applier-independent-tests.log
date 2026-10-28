@@ -1,0 +1,9 @@
+PASS repair rejected ../trusted/policy.json
+PASS repair rejected /tmp/evil
+PASS repair rejected app/../server.ts
+PASS repair rejected app//server.ts
+PASS repair rejected formal/LAWS.bend
+PASS accepted file written without executing metadata
+PASS atomic replacement did not mutate hardlink target
+PASS symlink rejected
+8 independent checks passed

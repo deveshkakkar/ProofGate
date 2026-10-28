@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- expected : 0n
+- observed : 1n
+Location: add_zero
+7 |     case 0n:
+8>|       {==}
+  |       ^^^^
+9 |     case 1n+p:

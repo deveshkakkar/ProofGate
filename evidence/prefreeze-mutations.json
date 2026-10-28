@@ -1,0 +1,20 @@
+[
+  {
+    "mutation": "overallocation",
+    "exitCode": 1,
+    "duration": 0.18396520614624023,
+    "output": "SOME PROOFS FAIL\nError:\n- expected : {2n+g == 1n+n : Nat}\n- observed : {1n+g == 1n+n : Nat}\nContext:\n- n : Nat\n- g : Nat\n- b : Nat\n- p : {g == n : Nat}\nLocation: lift_exact\n38 |     case M.Response{True{}, g, b}:\n39>|       %p : {1n+g == 1n+_ : Nat}\n   |       ^^^^^^^^^^^^^^^^^^^^^^^^^\n40 |       {==}\n"
+  },
+  {
+    "mutation": "always-reject",
+    "exitCode": 1,
+    "duration": 0.388425350189209,
+    "output": "SOME PROOFS FAIL\nError:\n- expected : Unit\n- observed : M.exact(M.Nonneg{1n+p}, C.take(b, 1n+p))\nContext:\n- b : Nat\n- p : Nat\nLocation: L.exact_grant\n117 |     case M.Nonneg{1n+p}:\n118>|       signed_exact(1n+p, C.take(b, 1n+p), take_exact(b, 1n+p))\n    |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n119 |     case M.Neg{p}:\n"
+  },
+  {
+    "mutation": "missing-proof",
+    "exitCode": 1,
+    "duration": 0.22504329681396484,
+    "output": "SOME PROOFS FAIL\nError: 1 TODO found.\nThe code is incomplete, and not a valid proof yet.\n"
+  }
+]

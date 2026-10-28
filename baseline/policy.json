@@ -1,0 +1,95 @@
+{
+  "schema": 1,
+  "source_files": [
+    "formal/Admission.bend",
+    "formal/PROOF.bend",
+    "app/server.ts"
+  ],
+  "protected_overlays": {
+    "formal/Model.bend": "formal/Model.bend",
+    "formal/LAWS.bend": "formal/LAWS.bend",
+    "formal/ENTRY.bend": "formal/ENTRY.bend"
+  },
+  "artifact_files": [
+    "admission.mjs",
+    "server.ts"
+  ],
+  "node_guest": "/node/bin/node",
+  "path": "/toolchains/lean/bin:/toolchains/bend/bin:/node/bin:/usr/bin:/bin",
+  "runtime_mounts": [
+    {
+      "host_relative": "toolchains/bend",
+      "guest": "/toolchains/bend"
+    },
+    {
+      "host_relative": "toolchains/lean-4.34.0-linux",
+      "guest": "/toolchains/lean"
+    },
+    {
+      "host_relative": "toolchains/node-v24.22.1-linux-x64",
+      "guest": "/node"
+    }
+  ],
+  "checks": [
+    {
+      "id": "formal",
+      "argv": [
+        "/toolchains/bend/bin/bend",
+        "/src/formal/ENTRY.bend",
+        "--verdict"
+      ],
+      "timeout_seconds": 600,
+      "parser": "marker",
+      "required_marker": "ALL PROOFS CHECK"
+    },
+    {
+      "id": "build",
+      "argv": [
+        "/usr/bin/python3",
+        "/baseline/build.py"
+      ],
+      "timeout_seconds": 120,
+      "parser": "marker",
+      "required_marker": "BUILD_COMPLETE"
+    },
+    {
+      "id": "bridge",
+      "argv": [
+        "/node/bin/node",
+        "/baseline/bridge.mjs"
+      ],
+      "timeout_seconds": 60,
+      "parser": "marker",
+      "required_marker": "CORE_BRIDGE_11716_PASSED"
+    },
+    {
+      "id": "application",
+      "argv": [
+        "trusted-host-http-driver"
+      ],
+      "timeout_seconds": 120,
+      "parser": "json-tests",
+      "required_tests": [
+        "fresh-grant",
+        "boundary",
+        "invalid",
+        "repeat-conflict",
+        "concurrent-distinct",
+        "concurrent-same",
+        "restart"
+      ]
+    }
+  ],
+  "required_laws": [
+    "exact_grant",
+    "conservation",
+    "failure_preservation",
+    "total_success"
+  ],
+  "allowed_formal_imports": [
+    "Base",
+    "./Model.bend",
+    "./Admission.bend",
+    "./LAWS.bend"
+  ]
+}

@@ -1,0 +1,119 @@
+{
+  "passed": true,
+  "artifact_sha256": "22f322d60be8e88d98c8e2813e6280c9fa2de9966a776164e58b7fb8761615d3",
+  "source_sha256": "359a633ce08ad3a39584f01a71ae73ffceb22baf68efde1742a17d7fe11f44d8",
+  "rebuilt": false,
+  "artifact_unchanged": true,
+  "process_restart": true,
+  "private_binding": "127.0.0.1",
+  "persistent_database": "/workspace/scratch/95589aefb3bf/proofgate/runs/supervisor-resume/deployment/state/demo.sqlite",
+  "events": [
+    {
+      "path": "/status",
+      "request": null,
+      "status": 200,
+      "body": {
+        "balance": 100
+      }
+    },
+    {
+      "path": "/reserve",
+      "request": {
+        "requestId": "demo-first",
+        "amount": 30
+      },
+      "status": 200,
+      "body": {
+        "requestId": "demo-first",
+        "amount": 30,
+        "success": true,
+        "granted": 30,
+        "balance": 70,
+        "reason": "granted"
+      }
+    },
+    {
+      "path": "/reserve",
+      "request": {
+        "requestId": "demo-rejected",
+        "amount": 100
+      },
+      "status": 200,
+      "body": {
+        "requestId": "demo-rejected",
+        "amount": 100,
+        "success": false,
+        "granted": 0,
+        "balance": 70,
+        "reason": "insufficient_credits"
+      }
+    },
+    {
+      "path": "/reserve",
+      "request": {
+        "requestId": "demo-first",
+        "amount": 30
+      },
+      "status": 200,
+      "body": {
+        "requestId": "demo-first",
+        "amount": 30,
+        "success": true,
+        "granted": 30,
+        "balance": 70,
+        "reason": "granted"
+      }
+    },
+    {
+      "path": "/reserve",
+      "request": {
+        "requestId": "demo-first",
+        "amount": 31
+      },
+      "status": 409,
+      "body": {
+        "error": "conflict"
+      }
+    },
+    {
+      "path": "/status",
+      "request": null,
+      "status": 200,
+      "body": {
+        "balance": 70
+      }
+    },
+    {
+      "path": "/reserve",
+      "request": {
+        "requestId": "demo-first",
+        "amount": 30
+      },
+      "status": 200,
+      "body": {
+        "requestId": "demo-first",
+        "amount": 30,
+        "success": true,
+        "granted": 30,
+        "balance": 70,
+        "reason": "granted"
+      }
+    },
+    {
+      "path": "/reserve",
+      "request": {
+        "requestId": "demo-rejected",
+        "amount": 100
+      },
+      "status": 200,
+      "body": {
+        "requestId": "demo-rejected",
+        "amount": 100,
+        "success": false,
+        "granted": 0,
+        "balance": 70,
+        "reason": "insufficient_credits"
+      }
+    }
+  ]
+}

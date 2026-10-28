@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "/workspace/scratch/95589aefb3bf/proofgate/baseline/gate.py", line 236, in <module>
+    if __name__=='__main__': sys.exit(main())
+                                      ^^^^^^
+  File "/workspace/scratch/95589aefb3bf/proofgate/baseline/gate.py", line 234, in main
+    else:r=deploy(a.run.resolve(),a.baseline.resolve(),a.baseline_sha256,a.destination.resolve())
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/95589aefb3bf/proofgate/baseline/gate.py", line 212, in deploy
+    if record.get('accepted') is not True or record.get('fault_injection') or record.get('baseline_sha256')!=expected: raise ValueError('no accepted record')
+                                                                                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: no accepted record

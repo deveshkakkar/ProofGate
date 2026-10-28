@@ -1,0 +1,14 @@
+SOME PROOFS FAIL
+Error:
+- expected : {False{} == True{} : Bool}
+- observed : {M.success(C.take(b, 1n+p)) == True{} : Bool}
+Context:
+- b          : Nat
+- p          : Nat
+- positive   : {True{} == True{} : Bool}
+- affordable : {Cmp.is_le(Nat.cmp(1n+p, b)) == True{} : Bool}
+Location: L.total_success
+126 |     case M.Nonneg{1n+p}:
+127>|       take_success(b, 1n+p, affordable)
+    |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+128 |     case M.Neg{p}:

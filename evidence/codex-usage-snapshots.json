@@ -1,0 +1,80 @@
+{
+  "note": "Raw per-invocation CLI snapshots; resumed session usage counters appear cumulative. Do not sum snapshots as independent billed usage. Currency billing not exposed.",
+  "snapshots": [
+    {
+      "file": "codex-actual-repair.jsonl",
+      "turn_completed_events": [
+        {
+          "type": "turn.completed",
+          "usage": {
+            "input_tokens": 175599,
+            "cached_input_tokens": 126336,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 16926,
+            "reasoning_output_tokens": 1022
+          }
+        }
+      ]
+    },
+    {
+      "file": "codex-app-initial.jsonl",
+      "turn_completed_events": [
+        {
+          "type": "turn.completed",
+          "usage": {
+            "input_tokens": 127070,
+            "cached_input_tokens": 90112,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 14363,
+            "reasoning_output_tokens": 1022
+          }
+        }
+      ]
+    },
+    {
+      "file": "codex-formal-initial.jsonl",
+      "turn_completed_events": [
+        {
+          "type": "turn.completed",
+          "usage": {
+            "input_tokens": 26369,
+            "cached_input_tokens": 0,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 4289,
+            "reasoning_output_tokens": 516
+          }
+        }
+      ]
+    },
+    {
+      "file": "codex-formal-repair1.jsonl",
+      "turn_completed_events": [
+        {
+          "type": "turn.completed",
+          "usage": {
+            "input_tokens": 57179,
+            "cached_input_tokens": 26240,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 6837,
+            "reasoning_output_tokens": 543
+          }
+        }
+      ]
+    },
+    {
+      "file": "codex-formal-repair2.jsonl",
+      "turn_completed_events": [
+        {
+          "type": "turn.completed",
+          "usage": {
+            "input_tokens": 90663,
+            "cached_input_tokens": 56832,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 9140,
+            "reasoning_output_tokens": 893
+          }
+        }
+      ]
+    }
+  ]
+}

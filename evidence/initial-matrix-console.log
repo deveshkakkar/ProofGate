@@ -1,0 +1,7 @@
+{
+  "passed": true,
+  "results": "/workspace/scratch/95589aefb3bf/proofgate/runs/initial-matrix",
+  "accepted_artifact": "22f322d60be8e88d98c8e2813e6280c9fa2de9966a776164e58b7fb8761615d3",
+  "private_demo": "loopback only; smoke process stopped; see README local launch",
+  "codex_repair": "recorded session evidence, not replayed by this script"
+}

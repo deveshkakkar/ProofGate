@@ -1,0 +1,12 @@
+{
+  "at": "2026-10-28T21:16:38.838871+00:00",
+  "mode": "repair",
+  "files": [
+    {
+      "path": "app/server.ts",
+      "beforeSha256": "0a71fd2b140713bd80d253e829694bb0ea5dd53fd9934dee813374ffab93e09d",
+      "afterSha256": "7b668502493dd29b85a3fa87d7b10a0f953baefb3ea29fcf31a3cb6293bd38f5"
+    }
+  ],
+  "metadataCommandsExecuted": false
+}

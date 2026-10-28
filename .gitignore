@@ -1,0 +1,16 @@
+/toolchains/
+/supervisor/codex-runtime/
+/supervisor/checkpoint.json
+__pycache__/
+*.py[cod]
+*.sqlite
+*.sqlite-*
+*.db
+.env
+.env.*
+auth.json
+**/state/
+/candidate/dist/
+/candidate/data/
+/runs/reproduce-*/
+/supervisor/codex-state/

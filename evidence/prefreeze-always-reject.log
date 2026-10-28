@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- expected : Unit
+- observed : M.exact(M.Nonneg{1n+p}, C.take(b, 1n+p))
+Context:
+- b : Nat
+- p : Nat
+Location: L.exact_grant
+117 |     case M.Nonneg{1n+p}:
+118>|       signed_exact(1n+p, C.take(b, 1n+p), take_exact(b, 1n+p))
+    |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+119 |     case M.Neg{p}:

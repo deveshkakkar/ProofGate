@@ -1,0 +1,19 @@
+{
+  "argv": [
+    "python3",
+    "/workspace/scratch/95589aefb3bf/proofgate/baseline/gate.py",
+    "deploy",
+    "--baseline",
+    "/workspace/scratch/95589aefb3bf/proofgate/baseline",
+    "--baseline-sha256",
+    "0a634e64bf3ee9c885671f1c6b78f7d53820eddc47ae6ab8def376c26f36fa5e",
+    "--run",
+    "/workspace/scratch/95589aefb3bf/proofgate/runs/main-duplicate-charge",
+    "--destination",
+    "/workspace/scratch/95589aefb3bf/proofgate/runs/rejected-deploy-attempt"
+  ],
+  "exit_code": 1,
+  "destination_created": false,
+  "elapsed_seconds": 0.05380392074584961,
+  "rejected": true
+}

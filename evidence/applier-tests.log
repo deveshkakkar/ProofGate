@@ -1,0 +1,7 @@
+traversal: blocked
+absolute: blocked
+protected: blocked
+malformed: blocked
+duplicate: blocked
+symlink: blocked
+6 interface rejection tests passed

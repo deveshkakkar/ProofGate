@@ -1,0 +1,1 @@
+{"operation":"write_stdin","session_id":83501,"chars":"Ctrl-C","exit_code":130,"observed_at":"2026-10-28T21:21:48Z","actor":"implementation worker acting under parent supervisor direction","parent_direct_attempt":"Unknown process id 83501; no termination from parent attempt","scope":"actual local supervisor process, not model context"}
