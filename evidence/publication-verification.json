@@ -1,0 +1,42 @@
+{
+  "repository": "deveshkakkar/ProofGate",
+  "repository_id": "1437623154",
+  "visibility": "private",
+  "default_branch": "main",
+  "commit": "cd86020bf255428369791097865595ce54b9d300",
+  "commit_url": "https://github.com/deveshkakkar/ProofGate/commit/cd86020bf255428369791097865595ce54b9d300",
+  "tree": "52bcb5a7d34304ffe98c1ee551686dfeadc3387b",
+  "parent": "d7b74d969e9e02248bfb485be2cc8574f22751a8",
+  "file_count": 456,
+  "bytes": 4838299,
+  "all_remote_blob_ids_and_modes_verified": true,
+  "critical_file_content_fetches": [
+    {
+      "path": "README.md",
+      "sha": "015679c7e482c72b0ab1b1afeb49314baed0392b"
+    },
+    {
+      "path": "baseline/frozen.json",
+      "sha": "3b1f1de71d1eb9fe3a0e3da12574b6c3154a9976"
+    },
+    {
+      "path": "candidate/app/server.ts",
+      "sha": "7a00c593cac317d684b8a78c2386f24d375c8585"
+    },
+    {
+      "path": "runs/supervisor-resume/deployment/artifact/admission.mjs",
+      "sha": "f33bbe86b8f6567931a3d1897d62f00eb3dd0fa8"
+    },
+    {
+      "path": "runs/supervisor-resume/deployment/artifact/server.ts",
+      "sha": "7a00c593cac317d684b8a78c2386f24d375c8585"
+    },
+    {
+      "path": "evidence/codex-actual-repair.jsonl",
+      "sha": "5d7e5296a4b7f3eff47e31c5cce28845ee4bb193"
+    }
+  ],
+  "publication_ref_verified": true,
+  "verified_at_utc": "2026-10-28T21:55:43Z",
+  "scope": "Initial full publication; subsequent documentation-only closure commit is separately verified."
+}

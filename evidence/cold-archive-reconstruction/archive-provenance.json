@@ -1,0 +1,23 @@
+{
+  "scope": "All three runtimes reconstructed from pinned archives in disposable relocated layout; only Bend downloaded afresh; no full fresh-network bootstrap claim",
+  "archives": [
+    {
+      "name": "Bend",
+      "archive_sha256": "6cf462fd8f70b094a4950ebb709a9c4ffd8f1d1189d9cedf1fd63cd5d041c7ab",
+      "archive_bytes": 36941148,
+      "origin": "fresh official download for this test"
+    },
+    {
+      "name": "Lean",
+      "archive_sha256": "caaa98356098c85dc0fcbbd28e1ec66f39eb6551829972b752ff20e1286b646b",
+      "archive_bytes": 580367391,
+      "origin": "previously downloaded cached official archive"
+    },
+    {
+      "name": "Node",
+      "archive_sha256": "6c172a9ab6718f7b801fb5a7bd486af2ee5e32758086a04b84fcce2aa77095e6",
+      "archive_bytes": 32026916,
+      "origin": "previously downloaded cached official archive"
+    }
+  ]
+}

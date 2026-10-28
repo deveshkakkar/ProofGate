@@ -5,7 +5,7 @@ Final evaluated implementation commit: `6a5c0551dc712487feb8c9df6bc7d2506c2cf0ac
 Final evaluated source: `359a633ce08ad3a39584f01a71ae73ffceb22baf68efde1742a17d7fe11f44d8`.
 Final accepted/deployed artifact: `22f322d60be8e88d98c8e2813e6280c9fa2de9966a776164e58b7fb8761615d3`.
 
-PASS means actual evidence, not a model assertion. Publication/completion review remains separately marked pending until verified. Independent original checklist is in `review/requirements-review.md` in the delivery bundle.
+**COMPLETE: all 25 independently reviewed acceptance rows PASS.** PASS means actual evidence, not a model assertion. Private publication and final completion review were verified. Independent original checklist is in `review/requirements-review.md` in the delivery bundle.
 
 | ID | Status | Evidence |
 |---|---|---|
@@ -33,8 +33,10 @@ PASS means actual evidence, not a model assertion. Publication/completion review
 | R01 | PASS | Actual same Codex session repair output/diff/receipt; app-only applied; final same-baseline all4 checks pass |
 | D01 | PASS | Final deployment/deployment.json rebuiltfalse; smoke.json passed, unchanged artifact, persistent separate DB, loopback only |
 | S01 | PASS | Supervisor session83501 exit130, initialPID12; new session5259/PID6 reload, no evaluation replay, actual deployment; events/checkpoint/tool-result evidence |
-| O01 | PENDING PUBLICATION/FINAL REVIEW | Root reproduce.py default full matrix INCLUDING warm bootstrap passed (runs/final-reproduction); docs/raw logs/hashes/resource limits present. Parent verifies final private repo commit and final independent completion review. |
+| O01 | PASS | Default reproduction including bootstrap passed; docs/raw logs/hashes/resources complete. Private commit cd86020bf255428369791097865595ce54b9d300 verified remotely across all 456 paths; independent closure review confirms all 25 PASS. Supplemental relocated three-archive reconstruction also passed (Lean/Node cached, Bend fresh download). |
 
 Application evidence: `runs/supervisor-resume/accepted-run/logs/application.stdout`; bridge evidence: sibling `bridge.stdout`; exact invocations, exit codes, hashes and elapsed times: `accepted-run/result.json`.
 
 Clarifications: graceful real process restart was tested, not every possible abrupt crash boundary. The timeout is a controlled injected sleep, not an observed Bend hang. The unavailable checker case is an actual failed executable invocation. This is a local supervisor-process restart, not a claimed model-context interruption. All seven application groups and 11,716 bridge inputs are finite tests, distinct from the universal formal obligations.
+
+Initial verified private publication: [cd86020bf255428369791097865595ce54b9d300](https://github.com/deveshkakkar/ProofGate/commit/cd86020bf255428369791097865595ce54b9d300), verified at 2026-10-28 21:55:43 UTC. See `review/closure-review.md` and `evidence/publication-verification.json`. A later docs-only closure commit leaves the evaluated source/baseline/artifact identities above unchanged.

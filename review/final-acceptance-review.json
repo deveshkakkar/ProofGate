@@ -1,7 +1,7 @@
 {
   "reviewer": "/root/review_proofgate_requirements",
-  "at_utc": "2026-10-28T21:26:49.096851+00:00",
-  "status": "TECHNICAL_ACCEPTANCE_PASS_DELIVERY_PENDING",
+  "at_utc": "2026-10-28T21:56:54.385913+00:00",
+  "status": "COMPLETE_ALL_25_REQUIREMENTS_PASS",
   "rows": {
     "P01": "PASS",
     "P02": "PASS",
@@ -27,7 +27,7 @@
     "R01": "PASS",
     "D01": "PASS",
     "S01": "PASS",
-    "O01": "REPORT_AND_LOCAL_DELIVERABLES_REVIEWED_PUBLICATION_PENDING"
+    "O01": "PASS"
   },
   "baseline_sha256": "0a634e64bf3ee9c885671f1c6b78f7d53820eddc47ae6ab8def376c26f36fa5e",
   "candidate_commit": "6a5c0551dc712487feb8c9df6bc7d2506c2cf0ac",
@@ -47,7 +47,11 @@
     "proofgate/runs/supervisor-resume/events.jsonl",
     "proofgate/runs/supervisor-resume/deployment/deployment.json",
     "proofgate/runs/supervisor-resume/deployment/smoke.json",
-    "proofgate/evidence/supervisor-interruption-tool-result.json"
+    "proofgate/evidence/supervisor-interruption-tool-result.json",
+    "proofgate-publication/remote-verification.json",
+    "proofgate-offline-cold-check/all-three-cold.stdout",
+    "proofgate-offline-cold-check/all-three-cold.exit",
+    "proofgate-offline-cold-check/archive-provenance.json"
   ],
   "independent_integrity_checks": [
     "baseline and trusted-frozen canonical manifest hashes match external identity",
@@ -57,7 +61,10 @@
     "repaired candidate gate accepted clean commit with original good artifact identity",
     "resumed accepted result hash matches checkpoint; deployed artifact bytes match accepted manifest",
     "interruption exit130 recorded, new process PID6 resumes initial PID12, no evaluation replay",
-    "Root README/REPORT/ACCEPTANCE reviewed: correct local-only demo, limits, usage counters, human interventions, source/artifact identities, actual repair provenance and next experiment"
+    "Root README/REPORT/ACCEPTANCE reviewed: correct local-only demo, limits, usage counters, human interventions, source/artifact identities, actual repair provenance and next experiment",
+    "Independently fetched candidate/app/server.ts and baseline/frozen.json at remote initial publication commit; exact bytes match local accepted service and frozen identity",
+    "Publisher receipt verifies all456 remote paths/modes/blob IDs,4,838,299bytes, private main ref",
+    "Allthree toolchains cold-reconstructed relocated from SHA-pinned archives, exit0 matching runtime lock; Bend newly downloaded, Lean/Node cached"
   ],
   "limitations": [
     "shared networking; no general hostile-code network isolation",
@@ -66,5 +73,25 @@
     "timeout matrix uses sleep fixture; separate real Bend deadline diagnostic is explicitly nonfrozen",
     "actual Codex authored/repair code through restricted proposals, supervisor applies allowlisted files",
     "restart evidence scoped local supervisor process, not model/context restart"
+  ],
+  "publication": {
+    "initial_verified_commit": "cd86020bf255428369791097865595ce54b9d300",
+    "repository": "https://github.com/deveshkakkar/ProofGate",
+    "visibility": "private",
+    "receipt": "evidence/publication-verification.json",
+    "publisher_verified_all_paths": 456,
+    "independently_fetched_exact_bytes": [
+      "candidate/app/server.ts",
+      "baseline/frozen.json"
+    ],
+    "subsequent_docs_only_closure_commit": "To be verified by parent; no implementation/baseline change required",
+    "workspace_receipt": "proofgate-publication/remote-verification.json"
+  },
+  "published_evidence": [
+    "evidence/publication-verification.json",
+    "evidence/cold-archive-reconstruction/archive-provenance.json",
+    "evidence/cold-archive-reconstruction/all-three-cold.stdout",
+    "evidence/cold-archive-reconstruction/all-three-cold.stderr",
+    "evidence/cold-archive-reconstruction/all-three-cold.exit"
   ]
 }

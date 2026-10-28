@@ -3,7 +3,7 @@
   "deadline": "2026-10-29T20:47:53Z",
   "bendTrialStartedAt": "2026-10-28T20:49:19Z",
   "bendTrialDeadline": "2026-10-28T22:19:19Z",
-  "phase": "technical-complete-publication-pending",
+  "phase": "complete",
   "codexSessionId": "01a18450-27eb-7953-adc8-205d7a857993",
   "completed": [
     "isolated workspace and Git",
@@ -27,21 +27,46 @@
     "actual same-session Codex app repair generated and applied",
     "repaired candidate accepted same frozen baseline",
     "real local supervisor interrupted exit130 and resumed new process without replay",
-    "exact artifact deployed and private smoke restart passed"
+    "exact artifact deployed and private smoke restart passed",
+    "default portable reproduction including warm bootstrap passed",
+    "all three pinned archives reconstructed in disposable relocated layout; runtime lock matched",
+    "private repository publication remotely verified all456paths",
+    "independent final completion review all25PASS"
   ],
   "latestFailure": null,
-  "nextAction": "Verify default reproduction command; final independent report review and private repository publication",
+  "nextAction": null,
   "deploymentState": "exact accepted artifact deployed; private smoke passed",
-  "repairAttempts": 2,
+  "repairAttempts": 3,
   "humanInterventions": [
     {
       "at": "2026-10-28T20:53:26Z",
       "kind": "approved temporary runtime with read-only existing authentication mount"
     }
   ],
-  "updatedAt": "2026-10-28T21:24:14.130154+00:00",
+  "updatedAt": "2026-10-28T21:57:51.848416+00:00",
   "localCommit": "2b7abecbf29afc64c0ed21789d01392c83e1d6cc",
   "finalEvaluatedSourceCommit": "6a5c0551dc712487feb8c9df6bc7d2506c2cf0ac",
   "finalSourceSha256": "359a633ce08ad3a39584f01a71ae73ffceb22baf68efde1742a17d7fe11f44d8",
-  "finalArtifactSha256": "22f322d60be8e88d98c8e2813e6280c9fa2de9966a776164e58b7fb8761615d3"
+  "finalArtifactSha256": "22f322d60be8e88d98c8e2813e6280c9fa2de9966a776164e58b7fb8761615d3",
+  "overallStatus": "COMPLETE",
+  "acceptanceRowsPassed": 25,
+  "repairAttemptBreakdown": {
+    "prefreezeCompilerDirectedProofRepairs": 2,
+    "postfreezeActualCodexApplicationRepair": 1
+  },
+  "technicalCompletedAt": "2026-10-28T21:22:21Z",
+  "technicalElapsedSeconds": 2068,
+  "publicationVerifiedAt": "2026-10-28T21:55:43Z",
+  "publicationElapsedSeconds": 4070,
+  "documentationOnlyLocalCommit": "27025372cd1b9593833da6ac5dbb03b38632a056",
+  "publication": {
+    "repository": "deveshkakkar/ProofGate",
+    "visibility": "private",
+    "initialVerifiedCommit": "cd86020bf255428369791097865595ce54b9d300",
+    "initialVerifiedTree": "52bcb5a7d34304ffe98c1ee551686dfeadc3387b",
+    "fileCount": 456,
+    "allRemotePathsModesAndBlobIdentitiesVerified": true,
+    "receipt": "publication-verification.json"
+  },
+  "independentCompletionReview": "../review/closure-review.md"
 }

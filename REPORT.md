@@ -2,7 +2,7 @@
 
 ## Result and scope
 
-Implementation, the frozen-gate matrix, actual Codex repair, repaired-candidate acceptance, supervisor interruption/resumption and exact-artifact private deployment smoke all succeeded. Final independent completion review and private-repository publication verification remain pending; see `ACCEPTANCE.md`.
+**COMPLETE — all 25 independently reviewed acceptance rows passed.** The frozen-gate matrix, actual Codex repair, repaired-candidate acceptance, supervisor interruption/resumption, exact-artifact private deployment smoke and private-repository publication were verified. See `ACCEPTANCE.md` and `review/closure-review.md`.
 
 The service is a private loopback TypeScript/SQLite application with 100 initial credits, durable idempotency outcomes (including integer rejections), conflict-before-admission semantics, and one synchronous `BEGIN IMMEDIATE` transaction path. It imports the **generated** Bend module directly. There is no handwritten TypeScript admission algorithm.
 
@@ -97,3 +97,11 @@ Next useful experiment: inject crashes at transaction boundaries (especially aft
 ## Reproduction verification
 
 The default `python3 reproduce.py` path, including warm pinned-bootstrap verification, completed the full valid/negative/fault/tamper matrix and exact-artifact private smoke in the canonical relative layout. `runs/final-reproduction/` and `evidence/final-reproduction-console.log` retain its results; the artifact hash equals the final repaired deployment. Raw CLI capture format notes are in `evidence/README.md`.
+
+## Verified publication and completion
+
+The initial complete private publication is [commit cd86020bf255428369791097865595ce54b9d300](https://github.com/deveshkakkar/ProofGate/commit/cd86020bf255428369791097865595ce54b9d300), tree `52bcb5a7d34304ffe98c1ee551686dfeadc3387b`. All 456 remote file paths, modes and blob identities matched the sanitized delivery inventory (4,838,299 bytes). Repository privacy, main ref, commit/tree and critical file contents were verified at **2026-10-28 21:55:43 UTC**: **1h 7m 50s after task start**. The independent reviewer additionally fetched the remote app and frozen baseline and closed O01, yielding all 25 PASS. The publication receipt is `evidence/publication-verification.json`.
+
+A subsequent docs-only closure commit records this status and supplemental evidence; it does not change the evaluated implementation, frozen baseline or artifact. The initial publication link above is an immutable, independently checked delivery identity, not a claim that the later documentation commit has the same SHA. Final technical deployment smoke had already passed at 21:22:21 UTC (34m 28s after start).
+
+The pinned bootstrap was additionally exercised in a disposable **relocated layout with all three toolchains reconstructed from official archives**. Lean and Node archives were previously downloaded caches, while Bend was freshly downloaded for the test. All archive checksums and the complete runtime lock `5d63b9748cd57225361b073a69c7c9254a4682c21662748618db289b4e8a16d1` matched; the unchanged bootstrap exited 0. This verifies archive reconstruction and relocation, **not three fresh network downloads**. Exact provenance/stdout/stderr/exit records are under `evidence/cold-archive-reconstruction/`.
