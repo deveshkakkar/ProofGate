@@ -9,6 +9,73 @@ spec.loader.exec_module(crash)
 
 
 class ValidationTests(unittest.TestCase):
+    def make_crash_fixture(self, root):
+        import subprocess
+        import sys
+        db = root / 'state.sqlite'
+        subprocess.run([sys.executable, '-c', '''
+import os, sqlite3, sys
+db = sqlite3.connect(sys.argv[1])
+db.execute('PRAGMA journal_mode=WAL')
+db.execute('CREATE TABLE state (singleton INTEGER PRIMARY KEY, balance INTEGER)')
+db.execute('CREATE TABLE reservations (request_id TEXT, amount INTEGER, response TEXT)')
+db.execute('INSERT INTO state VALUES (1, 70)')
+db.execute("INSERT INTO reservations VALUES ('a', 30, 'historical')")
+db.commit()
+os._exit(0)
+''', str(db)], check=True, timeout=5)
+        self.assertTrue(Path(str(db) + '-wal').exists())
+        self.assertTrue(Path(str(db) + '-shm').exists())
+        return db
+
+    def test_crash_copy_preserves_original_db_wal_and_shm(self):
+        from tempfile import TemporaryDirectory
+        from unittest.mock import patch
+        with TemporaryDirectory() as temp:
+            root = Path(temp)
+            db = self.make_crash_fixture(root)
+            # Independent byte oracle, not the helper's own hashing function.
+            paths = [Path(str(db) + suffix) for suffix in ('', '-wal', '-shm')]
+            before = {p.name: p.read_bytes() for p in paths}
+            with patch.object(crash, 'sql_state', wraps=crash.sql_state) as observer:
+                state, evidence = crash.inspect_crash_copy(db, root / 'copy')
+            observer.assert_called_once_with(root / 'copy' / db.name)
+            self.assertEqual(state, {'balance': 70, 'rows': [
+                {'request_id': 'a', 'amount': 30, 'response': 'historical'}]})
+            self.assertEqual(before, {p.name: p.read_bytes() for p in paths})
+            self.assertEqual(evidence['before'], evidence['after_inspection'])
+
+    def test_crash_copy_rejects_original_image_interference(self):
+        from tempfile import TemporaryDirectory
+        from unittest.mock import patch
+        original = crash.sql_state
+        with TemporaryDirectory() as temp:
+            root = Path(temp)
+            db = self.make_crash_fixture(root)
+            def interfering_observer(copy):
+                state = original(copy)
+                with Path(str(db) + '-shm').open('ab') as stream:
+                    stream.write(b'interference')
+                return state
+            with patch.object(crash, 'sql_state', side_effect=interfering_observer):
+                with self.assertRaisesRegex(ValueError, 'original crash image changed'):
+                    crash.inspect_crash_copy(db, root / 'copy')
+
+    def test_sql_connection_closes_on_success_and_failure(self):
+        from unittest.mock import Mock, patch
+        for failing in (False, True):
+            db = Mock()
+            db.execute.return_value.fetchall.side_effect = [[(100,)], []]
+            if failing:
+                db.execute.side_effect = RuntimeError('observer failed')
+            with self.subTest(failing=failing), patch.object(crash.sqlite3, 'connect', return_value=db):
+                if failing:
+                    with self.assertRaises(RuntimeError):
+                        crash.sql_state(Path('/unused'))
+                else:
+                    self.assertEqual(crash.sql_state(Path('/unused')), {'balance': 100, 'rows': []})
+            db.close.assert_called_once_with()
+
     def test_marker_requires_exact_evidence(self):
         good = {'phase': 'before', 'commit': 2, 'pid': 123}
         crash.validate_marker(good, 'before', 123, -signal.SIGKILL, False)

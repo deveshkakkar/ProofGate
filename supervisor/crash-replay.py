@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Bounded, local process-crash and replay check for the pinned ProofGate artifact."""
 import argparse
+from contextlib import closing
 import datetime
 import hashlib
 import http.client
@@ -8,6 +9,7 @@ import json
 import os
 from pathlib import Path
 import signal
+import shutil
 import socket
 import sqlite3
 import subprocess
@@ -115,7 +117,7 @@ def expected(request_id, amount, prior):
 
 
 def sql_state(db_path):
-    with sqlite3.connect(db_path, timeout=1) as db:
+    with closing(sqlite3.connect(db_path, timeout=1)) as db:
         db.execute('PRAGMA query_only = ON')
         balances = db.execute('SELECT balance FROM state WHERE singleton = 1').fetchall()
         require(len(balances) == 1, 'invalid state row count')
@@ -123,6 +125,30 @@ def sql_state(db_path):
     return {'balance': balances[0][0],
             'rows': [{'request_id': rid, 'amount': amount, 'response': response}
                      for rid, amount, response in rows]}
+
+
+def crash_image(db_path):
+    """Read raw bytes only: never open the original crash image with SQLite."""
+    return {suffix: {'bytes': path.stat().st_size, 'sha256': digest(path)}
+            if path.exists() else None
+            for suffix in ('', '-wal', '-shm')
+            for path in (Path(str(db_path) + suffix),)}
+
+
+def inspect_crash_copy(db_path, destination):
+    # The caller has reaped the crashed process: these files are now quiescent.
+    before = crash_image(db_path)
+    require(before[''] is not None, 'missing crash database')
+    destination.mkdir()
+    for suffix, identity in before.items():
+        if identity is not None:
+            shutil.copyfile(Path(str(db_path) + suffix), destination / (db_path.name + suffix))
+    try:
+        state = sql_state(destination / db_path.name)
+    finally:
+        after = crash_image(db_path)
+        require(after == before, 'original crash image changed during inspection')
+    return state, {'before': before, 'after_inspection': after}
 
 
 def free_port():
@@ -245,11 +271,15 @@ def run_case(index, spec, node, artifact, output, hook, no_hook=False):
                         reply['response_received'])
         stop(proc, thread)
         proc = thread = None
-        state = sql_state(db_path)
+        state, image = inspect_crash_copy(db_path, folder / 'inspection-copy')
+        result['crash_image'] = image
         result['post_crash_sql'] = state
         validate_sql(state, post_balance, [original_row] if post_count else [])
         verify_pins(artifact, node)
         port = free_port()
+        image['before_restart'] = crash_image(db_path)
+        require(image['before_restart'] == image['before'],
+                'original crash image changed before restart')
         proc, thread = launch(node, artifact, db_path, port, folder / 'replay.log')
         result['replay_pid'] = proc.pid
         for number in (1, 2):

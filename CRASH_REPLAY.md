@@ -8,6 +8,8 @@ Frozen before implementation: terminate the real Node process immediately before
 
 All four cases passed on 2026-10-30 in a network-disabled, read-only container. Each crash had a matching phase/COMMIT/PID marker, actual SIGKILL exit (-9), and a lost HTTP connection. Normal responses and incidental startup failures are not accepted as crash evidence.
 
+The October 30 run predates the observer repair: its Python SQL observer opened the original crash image before Node restarted. Independent review found that this changed SQLite shared-memory state. The repaired harness was rerun on 2026-11-02: all four cases pass with inspection confined to a separate cold copy of the stopped database, WAL and SHM files. The original file presence, sizes and SHA-256 hashes must match before inspection, after inspection and immediately before the unhooked Node restart; these snapshots are recorded under `crash_image` in each case result. Node is the first SQLite client to reopen the original crash image.
+
 | Crash boundary | Amount | Balance / request rows immediately after crash | Balance after replay and a new 5-credit request |
 | --- | ---: | --- | ---: |
 | Before COMMIT | 30 | 100 / 0 | 65 |
@@ -18,6 +20,8 @@ All four cases passed on 2026-10-30 in a network-disabled, read-only container. 
 The checks independently inspect SQLite rows and balances. Repeated replay returns the exact historical response without another charge; a different amount with the same request ID returns 409. After another request changes the current balance, replay must still return the old historical response without changing storage.
 
 Five focused unit regressions pass, including malformed markers, missing persisted rejection, incorrect SQL state and reaping a child that fails startup. Two negative controls are rejected: disabling the crash hook yields an ordinary HTTP 200 and fails; the repository's existing duplicate-charge mutant returns a plausible historical response but changes the actual balance from 70 to 40, which the SQL check rejects. The mutant was tested by an external reviewer wrapper using explicit mutant pins, never by weakening the normal harness pins.
+
+The repaired suite has eight passing unit regressions. The three additional tests use a real stopped WAL fixture to compare original file bytes, reject deliberate observer interference, and check explicit connection closure on both success and failure. All Python SQL observer connections now close explicitly. After Node restarts, live SQL checks still read its original database to verify actual persisted state; only the pre-restart inspection uses the cold copy. This procedure requires the crashed process to be reaped and no other client to access that crash image during inspection.
 
 ## Reproduce without model access
 
