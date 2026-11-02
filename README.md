@@ -41,3 +41,7 @@ Open `http://127.0.0.1:8080/` **on that host**. The demo binds loopback only. Th
 The proof covers mathematical admission, **not** the HTTP parser, SQLite, compiler correctness or deployment infrastructure. Those boundaries have explicit checks/tests and assumptions. This is a single-process local POC, not a production security or distributed-consistency certification. The candidate agent had a read-only/no-command Codex session and could propose only allowlisted candidate files; the separate supervisor held evaluation/deployment authority.
 
 `supervisor/run-codex.*` are archived, environment-specific experiment launchers that reference the original cloud workspace and approved read-only authentication mount. They are not portable user setup scripts and are not used by `reproduce.py`. Do not run them on another machine unchanged.
+
+## Local crash replay check
+
+[Crash/restart experiment and reproduction](CRASH_REPLAY.md) extends the accepted POC with four finite process-crash cases. The accepted server, admission module and frozen baseline are unchanged. This is not a power-loss, distributed-consistency or production-readiness claim.
