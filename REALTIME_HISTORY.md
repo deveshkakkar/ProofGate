@@ -35,6 +35,8 @@ linearizability or distributed correctness.
   It records total reservation/read overlaps separately from overlaps involving
   successful grants, observed intermediate balances, and phased witnesses. The
   result pins the checker, tests, runner, Node binary and accepted artifact hashes.
+  CLI paths are resolved before the child changes working directory; a pinned
+  container run using relative Node, artifact and output paths also passed.
 
 ## Reproduce
 
@@ -62,11 +64,11 @@ existing private host directory. The checker tests run without a model or Node:
 ## Observed result and next step
 
 On November 4, 2026, the revised network-disabled run passed 24 histories
-(eight per scenario), with 102 measured overlapping reservation/read interval
-pairs, 71 involving successful grants, and eight phased grant-before-read
+(eight per scenario), with 104 measured overlapping reservation/read interval
+pairs, 72 involving successful grants, and eight phased grant-before-read
 witnesses. All histories admitted a real-time order; all 32 stale-read controls
 were rejected, including 16 during the held client interval. Intermediate
-status reads varied across 10, 20, 60, 70 and 100 as allowed by different
+status reads varied across 10, 20, 30, 60, 70 and 100 as allowed by different
 orderings; phased final balance was 60. The earlier 16-history run remains
 historical evidence but lacked the phased witness. All four existing
 crash/replay cases, eight crash-harness unit tests and 21 frozen-gate unit tests

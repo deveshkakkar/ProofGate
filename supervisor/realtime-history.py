@@ -161,6 +161,9 @@ def main():
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--rounds', type=int, default=8)
     args = parser.parse_args()
+    args.node = args.node.resolve()
+    args.artifact = args.artifact.resolve()
+    args.output = args.output.resolve()
     if not 1 <= args.rounds <= 16 or args.output.exists():
         parser.error('rounds must be 1..16 and output must not exist')
     pins = crash.verify_pins(args.artifact, args.node)
