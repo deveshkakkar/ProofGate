@@ -51,3 +51,7 @@ The proof covers mathematical admission, **not** the HTTP parser, SQLite, compil
 [Real-time history experiment](REALTIME_HISTORY.md) checks finite concurrent
 reservation/status histories against an independent sequential model and rejects
 deliberately stale-state controls. It runs against the unchanged accepted artifact.
+
+[Lost-response history experiment](PENDING_HISTORY.md) treats a request whose
+response was lost at a process-crash boundary as possibly applied or omitted,
+then uses post-restart status and replay evidence to distinguish the cases.
