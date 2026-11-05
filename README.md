@@ -55,3 +55,6 @@ deliberately stale-state controls. It runs against the unchanged accepted artifa
 [Lost-response history experiment](PENDING_HISTORY.md) treats a request whose
 response was lost at a process-crash boundary as possibly applied or omitted,
 then uses post-restart status and replay evidence to distinguish the cases.
+
+[Partial-body disconnect experiment](PARTIAL_BODY.md) checks that an HTTP client
+closing before its declared request body is complete cannot reserve credits.
