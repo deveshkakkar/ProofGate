@@ -45,3 +45,9 @@ The proof covers mathematical admission, **not** the HTTP parser, SQLite, compil
 ## Local crash replay check
 
 [Crash/restart experiment and reproduction](CRASH_REPLAY.md) extends the accepted POC with four finite process-crash cases. The accepted server, admission module and frozen baseline are unchanged. This is not a power-loss, distributed-consistency or production-readiness claim.
+
+## Overlapping reservation and status histories
+
+[Real-time history experiment](REALTIME_HISTORY.md) checks finite concurrent
+reservation/status histories against an independent sequential model and rejects
+deliberately stale-state controls. It runs against the unchanged accepted artifact.
