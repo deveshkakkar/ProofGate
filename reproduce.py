@@ -3,8 +3,12 @@
 The recorded Codex author/repair sessions are evidence, not replayed model calls.
 """
 import argparse,datetime,json,os,pathlib,shutil,subprocess,sys
+sys.dont_write_bytecode=True
+from scripts.check_host import HostCheckError,check_host
 ROOT=pathlib.Path(__file__).resolve().parent
 p=argparse.ArgumentParser();p.add_argument('--output',type=pathlib.Path);p.add_argument('--skip-bootstrap',action='store_true');a=p.parse_args()
+try:check_host(bootstrap=not a.skip_bootstrap)
+except HostCheckError as exc:p.exit(1,'Host preflight failed: '+str(exc)+'\n')
 BASE=ROOT/'baseline';EXPECTED=(ROOT/'BASELINE.sha256').read_text().strip();OUT=(a.output or ROOT/'runs'/datetime.datetime.now(datetime.timezone.utc).strftime('reproduce-%Y%m%dT%H%M%S')).resolve();OUT.mkdir(parents=True,exist_ok=False)
 env=dict(os.environ,PYTHONDONTWRITEBYTECODE='1');matrix=[]
 def command(argv,label,want=0):

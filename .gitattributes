@@ -1,0 +1,12 @@
+# Preserve exact bytes across checkouts: the frozen baseline and recorded
+# source/artifact manifests use content hashes.
+* -text
+
+# Keep repeated experimental outputs out of the default code-language summary
+# and collapse them in pull request diffs without deleting evidence.
+/runs/** linguist-generated=true
+/verifier-runs/** linguist-generated=true
+/evidence/prefreeze-evaluator/artifact/admission.mjs linguist-generated=true
+/feasibility/smoke.mjs linguist-generated=true
+/baseline/toolchain-lock.json linguist-generated=true
+/third_party/** linguist-vendored=true
