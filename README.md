@@ -70,6 +70,6 @@ Further experiments cover [process crashes](CRASH_REPLAY.md), [overlapping histo
 
 ## License
 
-No project-wide open-source license has been selected. Third-party components retain their own licenses and notices; see [Third-party notices](THIRD_PARTY_NOTICES.md).
+ProofGate's original code and documentation are licensed under the [MIT License](LICENSE). Third-party components retain their own licenses and notices, including the Bend-derived runtime code under Apache License 2.0; see [Third-party notices](THIRD_PARTY_NOTICES.md).
 
 [Technical report](REPORT.md) · [Source](candidate/) · [Recorded evidence](evidence/) · [Architecture](docs/architecture.md) · [Contributing](CONTRIBUTING.md) · [Security](SECURITY.md)

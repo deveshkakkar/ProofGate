@@ -78,5 +78,6 @@ only the quick release check and a review of their links and claims.
 
 Report sensitive issues using [SECURITY.md](SECURITY.md). Review
 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) before adding dependencies or
-redistributing third-party material. A project-wide license has not yet been
-selected; public visibility by itself does not grant an open-source license.
+redistributing third-party material. ProofGate's original code and documentation
+are licensed under the [MIT License](LICENSE). Third-party components retain
+their own licenses and notices.

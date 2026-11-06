@@ -6,7 +6,7 @@ Bend 2.0.39 is copyright 2026 HigherOrderCO and is licensed under Apache License
 
 The recorded `admission.mjs` files under `runs/`, `verifier-runs/`, and `evidence/prefreeze-evaluator/artifact/`, and the generated `feasibility/smoke.mjs` file, include JavaScript runtime helpers emitted by Bend. Their upstream source is [`bend2/comp.ts` at v2.0.39](https://github.com/bendlang/bend/blob/v2.0.39/bend2/comp.ts). These generated files are preserved as experimental evidence; their bytes have not been changed for this release preparation.
 
-The [Bend license copy](third_party/licenses/bend-v2.0.39-LICENSE) is reproduced verbatim from [the pinned upstream release](https://github.com/bendlang/bend/blob/v2.0.39/LICENSE). It applies to the Bend-derived portions and does not assign an open-source license to ProofGate's original code.
+The [Bend license copy](third_party/licenses/bend-v2.0.39-LICENSE) is reproduced verbatim from [the pinned upstream release](https://github.com/bendlang/bend/blob/v2.0.39/LICENSE). It applies to the Bend-derived portions. ProofGate's original code and documentation are separately licensed under the [MIT License](LICENSE).
 
 [`evidence/bend-install.sh`](evidence/bend-install.sh) is the archived upstream installer for Bend 2.0.39, originally served at [bend-lang.com/install.sh](https://bend-lang.com/install.sh). It is retained as evidence and belongs to the same upstream project. Public reproduction uses `baseline/bootstrap.py`; it does not execute this archived installer.
 
