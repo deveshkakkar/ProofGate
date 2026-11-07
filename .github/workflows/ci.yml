@@ -5,6 +5,19 @@ on:
     branches: [main]
   pull_request:
   workflow_dispatch:
+    inputs:
+      shadow_case:
+        description: Optional fixed historical shadow control
+        required: true
+        default: none
+        type: choice
+        options: [none, or_composition, model_permissions, renderer_boundary]
+      shadow_version:
+        description: Historical control version
+        required: true
+        default: original
+        type: choice
+        options: [original, upstream]
 
 permissions:
   contents: read
@@ -26,3 +39,12 @@ jobs:
           python3 -B -m framework.demo
       - name: Inspect archived reservation through framework adapter
         run: python3 -B -m framework.inspect_recorded > /dev/null
+
+  shadow:
+    if: github.event_name == 'workflow_dispatch' && inputs.shadow_case != 'none' && inputs.shadow_case != ''
+    uses: ./.github/workflows/shadow-controls.yml
+    with:
+      case: ${{ inputs.shadow_case }}
+      version: ${{ inputs.shadow_version }}
+    permissions:
+      contents: read

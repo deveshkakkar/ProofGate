@@ -1,0 +1,152 @@
+{
+  "schema": 1,
+  "scope": "hosted inspected-code shadow transport; not release approval",
+  "attempts": [
+    {
+      "run": 42340982710,
+      "commit": "aaec6f02c37b32da6b5c99bfdf280962dc80ab23",
+      "pipeline": "failed",
+      "source_checks": "not started",
+      "reason": "missing sandbox executable prerequisite",
+      "url": "https://github.com/deveshkakkar/ProofGate/actions/runs/42340982710"
+    },
+    {
+      "run": 42341121975,
+      "commit": "3844af7e0eb08b6bd8836ba9fd75553fd96dd979",
+      "pipeline": "failed",
+      "source_checks": "inconclusive",
+      "reason": "bubblewrap loopback RTM_NEWADDR EPERM",
+      "url": "https://github.com/deveshkakkar/ProofGate/actions/runs/42341121975"
+    },
+    {
+      "run": 42341361063,
+      "commit": "9ad3d62fb2d078bd2cd993df71089ec670d4050d",
+      "pipeline": "failed",
+      "source_checks": "inconclusive",
+      "reason": "same namespace failure after privilege-sequence hardening; bounding hypothesis insufficient",
+      "url": "https://github.com/deveshkakkar/ProofGate/actions/runs/42341361063"
+    },
+    {
+      "run": 42341886078,
+      "commit": "6efdfce407e25936ca6b98dda4c743ab56176424",
+      "pipeline": "passed",
+      "case": "or_composition",
+      "version": "upstream",
+      "expected_statuses": {
+        "heldout": "passed",
+        "contract": "passed"
+      },
+      "observed_statuses": {
+        "heldout": "passed",
+        "contract": "passed"
+      },
+      "control_matched": true,
+      "candidate_consistent": true,
+      "tests": {
+        "heldout": {
+          "errors": 0,
+          "exit_code": 0,
+          "failures": 0,
+          "skipped": 0,
+          "tests": 14
+        },
+        "contract": {
+          "errors": 0,
+          "exit_code": 0,
+          "failures": 0,
+          "skipped": 0,
+          "tests": 1
+        }
+      },
+      "kernel_restrictions": {
+        "kernel.unprivileged_userns_clone": "1",
+        "kernel.apparmor_restrict_unprivileged_userns": "1"
+      },
+      "packaged_profile_sha256": "11d39094f044f0cda0febb3ad517b830301da6b2ce929664af09ee9e4dd264f9",
+      "verifier_sha256": {
+        "replay.py": "ad809a87c7b07840b5c5421a79b2085ea6d07e0f3fbd126c55553c904b91532d",
+        "run_tests.py": "657c73125414762e9476736a97f1a9c1e0dbe283f29fc45ed3ced42dadb1dfd7",
+        "resource_exec.py": "419a5cd86e72ca242961b75d883470e54865118cd8f45267f38d50ad238060fd",
+        "contracts.py": "adc319c86a924519e2fe3a02e6b7a93871c1fcf81d2344ef76345832984eec6e",
+        "compatibility.py": "7ab70c750bfefff48d93bd4fc8d4ec9d90ebed4dcf3d0b405c30e65ad698a625",
+        "score.py": "1516caf7c5a44281b27f48ac4e167574cfff9e5d88a85e3b217deb61e645f700",
+        "ci.py": "7b4f64e3e87a6c2e244a611bded6720fbc8079897d6084fba4a0c1270dde39ba",
+        "kernel.py": "40ebc5be2ad7cdf9435da1ec474e7f9161c95d0d53bf32fe3d113e1fa17376bb",
+        "workflow/ci.yml": "cc0f715a4e552fbd32f099b78b35c1681d308001602f48a2225f05671d60cc6b",
+        "workflow/shadow-controls.yml": "40553b7175ed54b8a5f2ecf5ba83fb3a7c7ff821ef00aeabdb216e4d7356dcec",
+        "heldout.py": "8667dfb99d0e50213ffe11b38ce1d641008130916d4cf93f7b0052e26adf89a6",
+        "case.json": "0422f53b5b725e3555fc750e43f22e1fd42bb9a56eff93bcaade3a003e755470"
+      },
+      "url": "https://github.com/deveshkakkar/ProofGate/actions/runs/42341886078"
+    },
+    {
+      "run": 42341942377,
+      "commit": "6efdfce407e25936ca6b98dda4c743ab56176424",
+      "pipeline": "passed",
+      "case": "model_permissions",
+      "version": "upstream",
+      "expected_statuses": {
+        "heldout": "passed",
+        "contract": "passed",
+        "compatibility": "failed"
+      },
+      "observed_statuses": {
+        "heldout": "passed",
+        "contract": "passed",
+        "compatibility": "failed"
+      },
+      "control_matched": true,
+      "candidate_consistent": false,
+      "tests": {
+        "heldout": {
+          "errors": 0,
+          "exit_code": 0,
+          "failures": 0,
+          "skipped": 0,
+          "tests": 19
+        },
+        "contract": {
+          "errors": 0,
+          "exit_code": 0,
+          "failures": 0,
+          "skipped": 0,
+          "tests": 1
+        },
+        "compatibility": {
+          "errors": 0,
+          "exit_code": 1,
+          "failures": 1,
+          "skipped": 0,
+          "tests": 1
+        }
+      },
+      "kernel_restrictions": {
+        "kernel.unprivileged_userns_clone": "1",
+        "kernel.apparmor_restrict_unprivileged_userns": "1"
+      },
+      "packaged_profile_sha256": "11d39094f044f0cda0febb3ad517b830301da6b2ce929664af09ee9e4dd264f9",
+      "verifier_sha256": {
+        "replay.py": "ad809a87c7b07840b5c5421a79b2085ea6d07e0f3fbd126c55553c904b91532d",
+        "run_tests.py": "657c73125414762e9476736a97f1a9c1e0dbe283f29fc45ed3ced42dadb1dfd7",
+        "resource_exec.py": "419a5cd86e72ca242961b75d883470e54865118cd8f45267f38d50ad238060fd",
+        "contracts.py": "adc319c86a924519e2fe3a02e6b7a93871c1fcf81d2344ef76345832984eec6e",
+        "compatibility.py": "7ab70c750bfefff48d93bd4fc8d4ec9d90ebed4dcf3d0b405c30e65ad698a625",
+        "score.py": "1516caf7c5a44281b27f48ac4e167574cfff9e5d88a85e3b217deb61e645f700",
+        "ci.py": "7b4f64e3e87a6c2e244a611bded6720fbc8079897d6084fba4a0c1270dde39ba",
+        "kernel.py": "40ebc5be2ad7cdf9435da1ec474e7f9161c95d0d53bf32fe3d113e1fa17376bb",
+        "workflow/ci.yml": "cc0f715a4e552fbd32f099b78b35c1681d308001602f48a2225f05671d60cc6b",
+        "workflow/shadow-controls.yml": "40553b7175ed54b8a5f2ecf5ba83fb3a7c7ff821ef00aeabdb216e4d7356dcec",
+        "heldout.py": "5784f755e86368d9f6a9054b10203672703d7192230c01cc90a967823a232de6",
+        "case.json": "1396d0495e2ab64361ccada122e76e5b46207953ae0612c95f7b3b6dbd9597a9"
+      },
+      "url": "https://github.com/deveshkakkar/ProofGate/actions/runs/42341942377"
+    }
+  ],
+  "interpretation": [
+    "Three diagnostic failures retained; neither namespace failure counted as a source pass.",
+    "Reviewed packaged AppArmor profile enabled supported namespace setup without disabling global restrictions.",
+    "Valid ORfix accepted and known reverted anonymous-read defect rejected with expected suite patterns.",
+    "Green historical-control workflow means expected reproduction; it does not imply the candidate passed.",
+    "No production settings changed; no hostile-candidate or independent-release-authority claim."
+  ]
+}

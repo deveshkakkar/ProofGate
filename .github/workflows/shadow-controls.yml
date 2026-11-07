@@ -1,0 +1,110 @@
+name: Historical shadow controls
+
+on:
+  workflow_call:
+    inputs:
+      case:
+        required: true
+        type: string
+      version:
+        required: true
+        type: string
+  workflow_dispatch:
+    inputs:
+      case:
+        description: Fixed historical DRF case
+        required: true
+        default: or_composition
+        type: choice
+        options: [or_composition, model_permissions, renderer_boundary]
+      version:
+        description: Original or upstream control (not a release verdict)
+        required: true
+        default: original
+        type: choice
+        options: [original, upstream]
+
+permissions:
+  contents: read
+
+jobs:
+  shadow:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Check out selected evaluator revision
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.sha }}
+          path: evaluator
+          persist-credentials: false
+      - name: Prepare the packaged sandbox profile on the disposable runner
+        run: |
+          test "${RUNNER_ENVIRONMENT:-}" = github-hosted
+          test "${GITHUB_ACTIONS:-}" = true
+          umask 077
+          mkdir "$RUNNER_TEMP/shadow-setup"
+          printf '{"stage":"sandbox-package-setup"}\n' > "$RUNNER_TEMP/shadow-setup/setup-started.json"
+          sudo apt-get update -qq
+          sudo env NEEDRESTART_MODE=l apt-get install --yes --no-install-recommends bubblewrap apparmor-profiles
+          profile=/usr/share/apparmor/extra-profiles/bwrap-userns-restrict
+          cp "$profile" "$RUNNER_TEMP/shadow-setup/bwrap-userns-restrict"
+          cp /usr/share/doc/apparmor-profiles/copyright "$RUNNER_TEMP/shadow-setup/apparmor-copyright"
+          dpkg-query --show --showformat='${Package} ${Version}\n' bubblewrap apparmor-profiles > "$RUNNER_TEMP/shadow-setup/packages.txt"
+          echo "11d39094f044f0cda0febb3ad517b830301da6b2ce929664af09ee9e4dd264f9  $profile" | sha256sum --check --status
+          for local in /etc/apparmor.d/local/bwrap-userns-restrict /etc/apparmor.d/local/unpriv_bwrap; do
+            if test -f "$local" && grep -Eqv '^[[:space:]]*(#.*)?$' "$local"; then
+              echo "Custom AppArmor override requires separate review"
+              exit 2
+            fi
+          done
+          sudo /usr/sbin/apparmor_parser -r "$profile"
+      - name: Require and record the sandbox prerequisites
+        run: |
+          umask 077
+          test -d "$RUNNER_TEMP/shadow-setup"
+          /usr/bin/python3 - "$RUNNER_TEMP/shadow-setup/prerequisites.json" <<'PYCODE'
+          import hashlib, json, os, pathlib, subprocess, sys
+          paths = ['/usr/bin/bwrap', '/usr/bin/systemd-run', '/usr/bin/setpriv', '/usr/bin/python3']
+          result = {'executables': {p: os.access(p, os.X_OK) for p in paths}, 'uid': os.getuid()}
+          profile = pathlib.Path('/usr/share/apparmor/extra-profiles/bwrap-userns-restrict')
+          result['packaged_profile_sha256'] = hashlib.sha256(profile.read_bytes()).hexdigest()
+          result['kernel_restrictions'] = {key: subprocess.run(['/usr/sbin/sysctl', '-n', key], capture_output=True, text=True).stdout.strip() for key in ['kernel.unprivileged_userns_clone', 'kernel.apparmor_restrict_unprivileged_userns']}
+          pathlib.Path(sys.argv[1]).write_text(json.dumps(result, indent=2) + '\n')
+          print(json.dumps(result))
+          raise SystemExit(0 if all(result['executables'].values()) and result['uid'] != 0 else 2)
+          PYCODE
+      - name: Prepare pinned dependencies outside candidate execution
+        working-directory: evaluator
+        env:
+          SHADOW_CASE: ${{ inputs.case }}
+        run: |
+          if [ "$SHADOW_CASE" = renderer_boundary ]; then
+            lock=benchmarks/drf/requirements-django42.txt
+          else
+            lock=benchmarks/drf/requirements-django41.txt
+          fi
+          /usr/bin/python3 -m pip install --disable-pip-version-check --only-binary=:all: --require-hashes --target "$RUNNER_TEMP/shadow-deps" -r "$lock"
+      - name: Reproduce the selected historical control
+        working-directory: evaluator
+        env:
+          SHADOW_CASE: ${{ inputs.case }}
+          SHADOW_VERSION: ${{ inputs.version }}
+          PYTHONDONTWRITEBYTECODE: '1'
+        run: |
+          /usr/bin/python3 -B -m benchmarks.drf.ci \
+            --case "$SHADOW_CASE" --version "$SHADOW_VERSION" \
+            --dependencies "$RUNNER_TEMP/shadow-deps" \
+            --workspace "$RUNNER_TEMP/shadow-prepared" \
+            --output "$RUNNER_TEMP/shadow-output" \
+            --backend github-hosted
+      - name: Retain shadow evidence, including incomplete runs
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: historical-shadow-${{ github.run_id }}
+          path: |
+            ${{ runner.temp }}/shadow-output/
+            ${{ runner.temp }}/shadow-setup/
+          retention-days: 7
+          if-no-files-found: warn
