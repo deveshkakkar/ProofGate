@@ -1,0 +1,521 @@
+{
+  "schema": 1,
+  "scope": "extracted ERPNext source-helper experiment with numeric/date shims only",
+  "cases": 108,
+  "source_rows": [
+    {
+      "variant": "base",
+      "identity": {
+        "source_file_sha256": "12e5fd5e4850de3f1e3d48fa8175a6bebdaea46fda4a2a9e3900c70fbb0c3f37",
+        "selected_class_ast_sha256": "2afedeef39f80d32228d32fd169702a1087a0726afe085d20ed0475f01809152",
+        "probe_sha256": "c980a60bbec530a1f3939d62a001685bdd136b523f4624e04d4b72254e4781e9",
+        "oracle_sha256": "ff978d0cf3a1d71777572e710c1e6fe0cab37b341eda0bee09e4f74ee6a6fc12",
+        "expected_change_sha256": "a6c7aed26ba2750d63738a11af5fbdf2567595888b5682197afa46e97d9ea639",
+        "input_domain_sha256": "ad623a3b7f61bf1939368da00df57fcc6a8bf193982bd2eaedad4827bbfa30b2",
+        "python_sha256": "e50d468e8b0adfb05733f5b87b3cff34829c4a8c1aea50c865aa8bdfe4bb150f",
+        "bwrap_sha256": "e318903862396f96de3df57264e0158682b952fd3fb53ac23d876413e7b30f71",
+        "scope_wrapper_sha256": "ad809a87c7b07840b5c5421a79b2085ea6d07e0f3fbd126c55553c904b91532d",
+        "resource_helper_sha256": "419a5cd86e72ca242961b75d883470e54865118cd8f45267f38d50ad238060fd",
+        "host_libraries": "trusted; incomplete fingerprint"
+      },
+      "exit_code": 0,
+      "seconds": 0.114,
+      "source_and_probe_unchanged": true
+    },
+    {
+      "variant": "head",
+      "identity": {
+        "source_file_sha256": "9b3b78c49c78630a9332fc7fb08eb29266944eb0678677b9ef34be81baa53f2f",
+        "selected_class_ast_sha256": "55cf567f097c2da42f4b91d57e356e05e752fa38f5050c385796f182b6797eb3",
+        "probe_sha256": "c980a60bbec530a1f3939d62a001685bdd136b523f4624e04d4b72254e4781e9",
+        "oracle_sha256": "ff978d0cf3a1d71777572e710c1e6fe0cab37b341eda0bee09e4f74ee6a6fc12",
+        "expected_change_sha256": "a6c7aed26ba2750d63738a11af5fbdf2567595888b5682197afa46e97d9ea639",
+        "input_domain_sha256": "ad623a3b7f61bf1939368da00df57fcc6a8bf193982bd2eaedad4827bbfa30b2",
+        "python_sha256": "e50d468e8b0adfb05733f5b87b3cff34829c4a8c1aea50c865aa8bdfe4bb150f",
+        "bwrap_sha256": "e318903862396f96de3df57264e0158682b952fd3fb53ac23d876413e7b30f71",
+        "scope_wrapper_sha256": "ad809a87c7b07840b5c5421a79b2085ea6d07e0f3fbd126c55553c904b91532d",
+        "resource_helper_sha256": "419a5cd86e72ca242961b75d883470e54865118cd8f45267f38d50ad238060fd",
+        "host_libraries": "trusted; incomplete fingerprint"
+      },
+      "exit_code": 0,
+      "seconds": 0.114,
+      "source_and_probe_unchanged": true
+    }
+  ],
+  "specification_sha256": "23577ca78c8a38f6fc9bf08a4a40a4b80acad659841d49fc5203f9a2573e4822",
+  "observed": {
+    "base": {
+      "assurance": "finite observations only",
+      "policy_admitted": false,
+      "source_execution_verified": false,
+      "producer_authenticated": false,
+      "reference_correctness_established": false,
+      "specified_change_checked": true,
+      "valid": true,
+      "satisfied": false,
+      "specification_sha256": "23577ca78c8a38f6fc9bf08a4a40a4b80acad659841d49fc5203f9a2573e4822",
+      "reference_trace_sha256": "94bc408900fa2d45f3db9a44e2a74ed172a9118cccfabb49f7641af3203d4a52",
+      "candidate_trace_sha256": "94bc408900fa2d45f3db9a44e2a74ed172a9118cccfabb49f7641af3203d4a52",
+      "preservation": {
+        "assurance": "finite preservation only",
+        "new_semantics_checked": false,
+        "producer_authenticated": false,
+        "reference_correctness_established": false,
+        "valid": true,
+        "preserved": true,
+        "policy_sha256": "a32b1a16fbf907ab48f93fe43ba20a030fe516bcd60e1be7984bdd9b6cd4730a",
+        "domain_inputs": 108,
+        "checked_inputs": 54,
+        "unverified_change_inputs": 54,
+        "violation_count": 0,
+        "counterexamples": [],
+        "reference_trace_sha256": "94bc408900fa2d45f3db9a44e2a74ed172a9118cccfabb49f7641af3203d4a52",
+        "candidate_trace_sha256": "94bc408900fa2d45f3db9a44e2a74ed172a9118cccfabb49f7641af3203d4a52"
+      },
+      "intended_change": {
+        "satisfied": false,
+        "checked_inputs": 54,
+        "violation_count": 20,
+        "counterexamples": [
+          {
+            "input": {
+              "alpha": "0.25",
+              "horizon": 2,
+              "phase": "future",
+              "seed": "mean_nonzero",
+              "series": "steady"
+            },
+            "expected": [
+              100.0,
+              100.0
+            ],
+            "candidate": [
+              100.0,
+              75.0
+            ]
+          },
+          {
+            "input": {
+              "alpha": "0.25",
+              "horizon": 2,
+              "phase": "future",
+              "seed": "mean_nonzero",
+              "series": "ending_zero"
+            },
+            "expected": [
+              22.96875,
+              22.96875
+            ],
+            "candidate": [
+              22.96875,
+              17.2265625
+            ]
+          },
+          {
+            "input": {
+              "alpha": "0.25",
+              "horizon": 2,
+              "phase": "future",
+              "seed": "fixed50",
+              "series": "steady"
+            },
+            "expected": [
+              78.90625,
+              78.90625
+            ],
+            "candidate": [
+              78.90625,
+              59.1796875
+            ]
+          },
+          {
+            "input": {
+              "alpha": "0.25",
+              "horizon": 2,
+              "phase": "future",
+              "seed": "fixed50",
+              "series": "ending_zero"
+            },
+            "expected": [
+              31.40625,
+              31.40625
+            ],
+            "candidate": [
+              31.40625,
+              23.5546875
+            ]
+          },
+          {
+            "input": {
+              "alpha": "0.25",
+              "horizon": 4,
+              "phase": "future",
+              "seed": "mean_nonzero",
+              "series": "steady"
+            },
+            "expected": [
+              100.0,
+              100.0,
+              100.0,
+              100.0
+            ],
+            "candidate": [
+              100.0,
+              75.0,
+              56.25,
+              42.1875
+            ]
+          },
+          {
+            "input": {
+              "alpha": "0.25",
+              "horizon": 4,
+              "phase": "future",
+              "seed": "mean_nonzero",
+              "series": "ending_zero"
+            },
+            "expected": [
+              22.96875,
+              22.96875,
+              22.96875,
+              22.96875
+            ],
+            "candidate": [
+              22.96875,
+              17.2265625,
+              12.919921875,
+              9.68994140625
+            ]
+          },
+          {
+            "input": {
+              "alpha": "0.25",
+              "horizon": 4,
+              "phase": "future",
+              "seed": "fixed50",
+              "series": "steady"
+            },
+            "expected": [
+              78.90625,
+              78.90625,
+              78.90625,
+              78.90625
+            ],
+            "candidate": [
+              78.90625,
+              59.1796875,
+              44.384765625,
+              33.28857421875
+            ]
+          },
+          {
+            "input": {
+              "alpha": "0.25",
+              "horizon": 4,
+              "phase": "future",
+              "seed": "fixed50",
+              "series": "ending_zero"
+            },
+            "expected": [
+              31.40625,
+              31.40625,
+              31.40625,
+              31.40625
+            ],
+            "candidate": [
+              31.40625,
+              23.5546875,
+              17.666015625,
+              13.24951171875
+            ]
+          },
+          {
+            "input": {
+              "alpha": "0.5",
+              "horizon": 2,
+              "phase": "future",
+              "seed": "mean_nonzero",
+              "series": "steady"
+            },
+            "expected": [
+              100.0,
+              100.0
+            ],
+            "candidate": [
+              100.0,
+              50.0
+            ]
+          },
+          {
+            "input": {
+              "alpha": "0.5",
+              "horizon": 2,
+              "phase": "future",
+              "seed": "mean_nonzero",
+              "series": "ending_zero"
+            },
+            "expected": [
+              16.25,
+              16.25
+            ],
+            "candidate": [
+              16.25,
+              8.125
+            ]
+          },
+          {
+            "input": {
+              "alpha": "0.5",
+              "horizon": 2,
+              "phase": "future",
+              "seed": "fixed50",
+              "series": "steady"
+            },
+            "expected": [
+              93.75,
+              93.75
+            ],
+            "candidate": [
+              93.75,
+              46.875
+            ]
+          },
+          {
+            "input": {
+              "alpha": "0.5",
+              "horizon": 2,
+              "phase": "future",
+              "seed": "fixed50",
+              "series": "ending_zero"
+            },
+            "expected": [
+              18.75,
+              18.75
+            ],
+            "candidate": [
+              18.75,
+              9.375
+            ]
+          },
+          {
+            "input": {
+              "alpha": "0.5",
+              "horizon": 4,
+              "phase": "future",
+              "seed": "mean_nonzero",
+              "series": "steady"
+            },
+            "expected": [
+              100.0,
+              100.0,
+              100.0,
+              100.0
+            ],
+            "candidate": [
+              100.0,
+              50.0,
+              25.0,
+              12.5
+            ]
+          },
+          {
+            "input": {
+              "alpha": "0.5",
+              "horizon": 4,
+              "phase": "future",
+              "seed": "mean_nonzero",
+              "series": "ending_zero"
+            },
+            "expected": [
+              16.25,
+              16.25,
+              16.25,
+              16.25
+            ],
+            "candidate": [
+              16.25,
+              8.125,
+              4.0625,
+              2.03125
+            ]
+          },
+          {
+            "input": {
+              "alpha": "0.5",
+              "horizon": 4,
+              "phase": "future",
+              "seed": "fixed50",
+              "series": "steady"
+            },
+            "expected": [
+              93.75,
+              93.75,
+              93.75,
+              93.75
+            ],
+            "candidate": [
+              93.75,
+              46.875,
+              23.4375,
+              11.71875
+            ]
+          },
+          {
+            "input": {
+              "alpha": "0.5",
+              "horizon": 4,
+              "phase": "future",
+              "seed": "fixed50",
+              "series": "ending_zero"
+            },
+            "expected": [
+              18.75,
+              18.75,
+              18.75,
+              18.75
+            ],
+            "candidate": [
+              18.75,
+              9.375,
+              4.6875,
+              2.34375
+            ]
+          },
+          {
+            "input": {
+              "alpha": "1",
+              "horizon": 2,
+              "phase": "future",
+              "seed": "mean_nonzero",
+              "series": "steady"
+            },
+            "expected": [
+              100.0,
+              100.0
+            ],
+            "candidate": [
+              100.0,
+              0.0
+            ]
+          },
+          {
+            "input": {
+              "alpha": "1",
+              "horizon": 2,
+              "phase": "future",
+              "seed": "fixed50",
+              "series": "steady"
+            },
+            "expected": [
+              100.0,
+              100.0
+            ],
+            "candidate": [
+              100.0,
+              0.0
+            ]
+          },
+          {
+            "input": {
+              "alpha": "1",
+              "horizon": 4,
+              "phase": "future",
+              "seed": "mean_nonzero",
+              "series": "steady"
+            },
+            "expected": [
+              100.0,
+              100.0,
+              100.0,
+              100.0
+            ],
+            "candidate": [
+              100.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "input": {
+              "alpha": "1",
+              "horizon": 4,
+              "phase": "future",
+              "seed": "fixed50",
+              "series": "steady"
+            },
+            "expected": [
+              100.0,
+              100.0,
+              100.0,
+              100.0
+            ],
+            "candidate": [
+              100.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        ]
+      }
+    },
+    "head": {
+      "assurance": "finite observations only",
+      "policy_admitted": false,
+      "source_execution_verified": false,
+      "producer_authenticated": false,
+      "reference_correctness_established": false,
+      "specified_change_checked": true,
+      "valid": true,
+      "satisfied": true,
+      "specification_sha256": "23577ca78c8a38f6fc9bf08a4a40a4b80acad659841d49fc5203f9a2573e4822",
+      "reference_trace_sha256": "94bc408900fa2d45f3db9a44e2a74ed172a9118cccfabb49f7641af3203d4a52",
+      "candidate_trace_sha256": "d950a8a6e5633937188ebdb3e3eed99931bfc9a4c003d698144fd6a8d65e7576",
+      "preservation": {
+        "assurance": "finite preservation only",
+        "new_semantics_checked": false,
+        "producer_authenticated": false,
+        "reference_correctness_established": false,
+        "valid": true,
+        "preserved": true,
+        "policy_sha256": "a32b1a16fbf907ab48f93fe43ba20a030fe516bcd60e1be7984bdd9b6cd4730a",
+        "domain_inputs": 108,
+        "checked_inputs": 54,
+        "unverified_change_inputs": 54,
+        "violation_count": 0,
+        "counterexamples": [],
+        "reference_trace_sha256": "94bc408900fa2d45f3db9a44e2a74ed172a9118cccfabb49f7641af3203d4a52",
+        "candidate_trace_sha256": "d950a8a6e5633937188ebdb3e3eed99931bfc9a4c003d698144fd6a8d65e7576"
+      },
+      "intended_change": {
+        "satisfied": true,
+        "checked_inputs": 54,
+        "violation_count": 0,
+        "counterexamples": []
+      }
+    }
+  },
+  "frappe_shim_inspection": {
+    "file_sha256": "bbe3982314520f31fe7ba8720453087567bf21694c922f39bb074a40028ea6fd",
+    "github_git_blob_sha1": "12d663c70733771eeacbee3c722fd4a125293a6b",
+    "version_note": "Inspected current develop helper semantics only, not an installed or historically matched Frappe dependency."
+  },
+  "repository": "frappe/erpnext",
+  "pr": 60977,
+  "pr_state_at_selection": "closed and merged",
+  "base_revision": "46e19e0681ea65c34573ed9852b5b4306422ddf4",
+  "head_revision": "79f6fc3cd720c2ba66e2a33cb97d853164ce0e41",
+  "source_path": "erpnext/manufacturing/report/exponential_smoothing_forecasting/exponential_smoothing_forecasting.py",
+  "upstream_license": "https://github.com/frappe/erpnext/blob/79f6fc3cd720c2ba66e2a33cb97d853164ce0e41/license.txt",
+  "framework_api_changed": false,
+  "model_author_calls": 0,
+  "source_workers": 2,
+  "domain_limitations": [
+    "Exact extracted class AST, no whole module/app execution.",
+    "Numeric/date shims, not historically matched installed Frappe dependencies.",
+    "Synthetic history/seed/period fixtures and missing fields projected0.0.",
+    "No report query/document authorization, currency rounding, date parsing or full regression suite.",
+    "Retrospective known defect reproduction; no new defect, blind authoring, repair superiority or demand validation."
+  ]
+}

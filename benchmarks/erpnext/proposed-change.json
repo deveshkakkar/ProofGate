@@ -1,0 +1,773 @@
+{
+  "schema": 1,
+  "preservation": {
+    "schema": 1,
+    "input_domain": {
+      "series": [
+        "steady",
+        "ending_zero",
+        "empty"
+      ],
+      "alpha": [
+        "0.25",
+        "0.5",
+        "1"
+      ],
+      "horizon": [
+        1,
+        2,
+        4
+      ],
+      "seed": [
+        "mean_nonzero",
+        "fixed50"
+      ],
+      "phase": [
+        "past",
+        "future"
+      ]
+    },
+    "allowed_change": {
+      "phase": [
+        "future"
+      ]
+    },
+    "assumptions": [
+      "Retrospective extracted source-helper experiment; no ERPNext/Frappe application, database, permission or full module execution.",
+      "Three explicit numeric nonnegative history fixtures and precomputed seeds; no real calendar/rounding/currency or input parsing.",
+      "Numeric float/date shims follow inspected Frappe helper behavior only for exact finite fixture types.",
+      "Missing forecast fields projected as0.0; field presence is outside this experiment.",
+      "Allowed change only future forecast projection; historical outputs must match frozen reference.",
+      "Caller-owned proposal, not production admission or proof of reference correctness."
+    ]
+  },
+  "reference_trace_sha256": "94bc408900fa2d45f3db9a44e2a74ed172a9118cccfabb49f7641af3203d4a52",
+  "expected_change": [
+    {
+      "input": {
+        "alpha": "0.25",
+        "horizon": 1,
+        "phase": "future",
+        "seed": "mean_nonzero",
+        "series": "steady"
+      },
+      "output": [
+        100.0
+      ]
+    },
+    {
+      "input": {
+        "alpha": "0.25",
+        "horizon": 1,
+        "phase": "future",
+        "seed": "mean_nonzero",
+        "series": "ending_zero"
+      },
+      "output": [
+        22.96875
+      ]
+    },
+    {
+      "input": {
+        "alpha": "0.25",
+        "horizon": 1,
+        "phase": "future",
+        "seed": "mean_nonzero",
+        "series": "empty"
+      },
+      "output": [
+        0.0
+      ]
+    },
+    {
+      "input": {
+        "alpha": "0.25",
+        "horizon": 1,
+        "phase": "future",
+        "seed": "fixed50",
+        "series": "steady"
+      },
+      "output": [
+        78.90625
+      ]
+    },
+    {
+      "input": {
+        "alpha": "0.25",
+        "horizon": 1,
+        "phase": "future",
+        "seed": "fixed50",
+        "series": "ending_zero"
+      },
+      "output": [
+        31.40625
+      ]
+    },
+    {
+      "input": {
+        "alpha": "0.25",
+        "horizon": 1,
+        "phase": "future",
+        "seed": "fixed50",
+        "series": "empty"
+      },
+      "output": [
+        0.0
+      ]
+    },
+    {
+      "input": {
+        "alpha": "0.25",
+        "horizon": 2,
+        "phase": "future",
+        "seed": "mean_nonzero",
+        "series": "steady"
+      },
+      "output": [
+        100.0,
+        100.0
+      ]
+    },
+    {
+      "input": {
+        "alpha": "0.25",
+        "horizon": 2,
+        "phase": "future",
+        "seed": "mean_nonzero",
+        "series": "ending_zero"
+      },
+      "output": [
+        22.96875,
+        22.96875
+      ]
+    },
+    {
+      "input": {
+        "alpha": "0.25",
+        "horizon": 2,
+        "phase": "future",
+        "seed": "mean_nonzero",
+        "series": "empty"
+      },
+      "output": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "input": {
+        "alpha": "0.25",
+        "horizon": 2,
+        "phase": "future",
+        "seed": "fixed50",
+        "series": "steady"
+      },
+      "output": [
+        78.90625,
+        78.90625
+      ]
+    },
+    {
+      "input": {
+        "alpha": "0.25",
+        "horizon": 2,
+        "phase": "future",
+        "seed": "fixed50",
+        "series": "ending_zero"
+      },
+      "output": [
+        31.40625,
+        31.40625
+      ]
+    },
+    {
+      "input": {
+        "alpha": "0.25",
+        "horizon": 2,
+        "phase": "future",
+        "seed": "fixed50",
+        "series": "empty"
+      },
+      "output": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "input": {
+        "alpha": "0.25",
+        "horizon": 4,
+        "phase": "future",
+        "seed": "mean_nonzero",
+        "series": "steady"
+      },
+      "output": [
+        100.0,
+        100.0,
+        100.0,
+        100.0
+      ]
+    },
+    {
+      "input": {
+        "alpha": "0.25",
+        "horizon": 4,
+        "phase": "future",
+        "seed": "mean_nonzero",
+        "series": "ending_zero"
+      },
+      "output": [
+        22.96875,
+        22.96875,
+        22.96875,
+        22.96875
+      ]
+    },
+    {
+      "input": {
+        "alpha": "0.25",
+        "horizon": 4,
+        "phase": "future",
+        "seed": "mean_nonzero",
+        "series": "empty"
+      },
+      "output": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "input": {
+        "alpha": "0.25",
+        "horizon": 4,
+        "phase": "future",
+        "seed": "fixed50",
+        "series": "steady"
+      },
+      "output": [
+        78.90625,
+        78.90625,
+        78.90625,
+        78.90625
+      ]
+    },
+    {
+      "input": {
+        "alpha": "0.25",
+        "horizon": 4,
+        "phase": "future",
+        "seed": "fixed50",
+        "series": "ending_zero"
+      },
+      "output": [
+        31.40625,
+        31.40625,
+        31.40625,
+        31.40625
+      ]
+    },
+    {
+      "input": {
+        "alpha": "0.25",
+        "horizon": 4,
+        "phase": "future",
+        "seed": "fixed50",
+        "series": "empty"
+      },
+      "output": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "input": {
+        "alpha": "0.5",
+        "horizon": 1,
+        "phase": "future",
+        "seed": "mean_nonzero",
+        "series": "steady"
+      },
+      "output": [
+        100.0
+      ]
+    },
+    {
+      "input": {
+        "alpha": "0.5",
+        "horizon": 1,
+        "phase": "future",
+        "seed": "mean_nonzero",
+        "series": "ending_zero"
+      },
+      "output": [
+        16.25
+      ]
+    },
+    {
+      "input": {
+        "alpha": "0.5",
+        "horizon": 1,
+        "phase": "future",
+        "seed": "mean_nonzero",
+        "series": "empty"
+      },
+      "output": [
+        0.0
+      ]
+    },
+    {
+      "input": {
+        "alpha": "0.5",
+        "horizon": 1,
+        "phase": "future",
+        "seed": "fixed50",
+        "series": "steady"
+      },
+      "output": [
+        93.75
+      ]
+    },
+    {
+      "input": {
+        "alpha": "0.5",
+        "horizon": 1,
+        "phase": "future",
+        "seed": "fixed50",
+        "series": "ending_zero"
+      },
+      "output": [
+        18.75
+      ]
+    },
+    {
+      "input": {
+        "alpha": "0.5",
+        "horizon": 1,
+        "phase": "future",
+        "seed": "fixed50",
+        "series": "empty"
+      },
+      "output": [
+        0.0
+      ]
+    },
+    {
+      "input": {
+        "alpha": "0.5",
+        "horizon": 2,
+        "phase": "future",
+        "seed": "mean_nonzero",
+        "series": "steady"
+      },
+      "output": [
+        100.0,
+        100.0
+      ]
+    },
+    {
+      "input": {
+        "alpha": "0.5",
+        "horizon": 2,
+        "phase": "future",
+        "seed": "mean_nonzero",
+        "series": "ending_zero"
+      },
+      "output": [
+        16.25,
+        16.25
+      ]
+    },
+    {
+      "input": {
+        "alpha": "0.5",
+        "horizon": 2,
+        "phase": "future",
+        "seed": "mean_nonzero",
+        "series": "empty"
+      },
+      "output": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "input": {
+        "alpha": "0.5",
+        "horizon": 2,
+        "phase": "future",
+        "seed": "fixed50",
+        "series": "steady"
+      },
+      "output": [
+        93.75,
+        93.75
+      ]
+    },
+    {
+      "input": {
+        "alpha": "0.5",
+        "horizon": 2,
+        "phase": "future",
+        "seed": "fixed50",
+        "series": "ending_zero"
+      },
+      "output": [
+        18.75,
+        18.75
+      ]
+    },
+    {
+      "input": {
+        "alpha": "0.5",
+        "horizon": 2,
+        "phase": "future",
+        "seed": "fixed50",
+        "series": "empty"
+      },
+      "output": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "input": {
+        "alpha": "0.5",
+        "horizon": 4,
+        "phase": "future",
+        "seed": "mean_nonzero",
+        "series": "steady"
+      },
+      "output": [
+        100.0,
+        100.0,
+        100.0,
+        100.0
+      ]
+    },
+    {
+      "input": {
+        "alpha": "0.5",
+        "horizon": 4,
+        "phase": "future",
+        "seed": "mean_nonzero",
+        "series": "ending_zero"
+      },
+      "output": [
+        16.25,
+        16.25,
+        16.25,
+        16.25
+      ]
+    },
+    {
+      "input": {
+        "alpha": "0.5",
+        "horizon": 4,
+        "phase": "future",
+        "seed": "mean_nonzero",
+        "series": "empty"
+      },
+      "output": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "input": {
+        "alpha": "0.5",
+        "horizon": 4,
+        "phase": "future",
+        "seed": "fixed50",
+        "series": "steady"
+      },
+      "output": [
+        93.75,
+        93.75,
+        93.75,
+        93.75
+      ]
+    },
+    {
+      "input": {
+        "alpha": "0.5",
+        "horizon": 4,
+        "phase": "future",
+        "seed": "fixed50",
+        "series": "ending_zero"
+      },
+      "output": [
+        18.75,
+        18.75,
+        18.75,
+        18.75
+      ]
+    },
+    {
+      "input": {
+        "alpha": "0.5",
+        "horizon": 4,
+        "phase": "future",
+        "seed": "fixed50",
+        "series": "empty"
+      },
+      "output": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "input": {
+        "alpha": "1",
+        "horizon": 1,
+        "phase": "future",
+        "seed": "mean_nonzero",
+        "series": "steady"
+      },
+      "output": [
+        100.0
+      ]
+    },
+    {
+      "input": {
+        "alpha": "1",
+        "horizon": 1,
+        "phase": "future",
+        "seed": "mean_nonzero",
+        "series": "ending_zero"
+      },
+      "output": [
+        0.0
+      ]
+    },
+    {
+      "input": {
+        "alpha": "1",
+        "horizon": 1,
+        "phase": "future",
+        "seed": "mean_nonzero",
+        "series": "empty"
+      },
+      "output": [
+        0.0
+      ]
+    },
+    {
+      "input": {
+        "alpha": "1",
+        "horizon": 1,
+        "phase": "future",
+        "seed": "fixed50",
+        "series": "steady"
+      },
+      "output": [
+        100.0
+      ]
+    },
+    {
+      "input": {
+        "alpha": "1",
+        "horizon": 1,
+        "phase": "future",
+        "seed": "fixed50",
+        "series": "ending_zero"
+      },
+      "output": [
+        0.0
+      ]
+    },
+    {
+      "input": {
+        "alpha": "1",
+        "horizon": 1,
+        "phase": "future",
+        "seed": "fixed50",
+        "series": "empty"
+      },
+      "output": [
+        0.0
+      ]
+    },
+    {
+      "input": {
+        "alpha": "1",
+        "horizon": 2,
+        "phase": "future",
+        "seed": "mean_nonzero",
+        "series": "steady"
+      },
+      "output": [
+        100.0,
+        100.0
+      ]
+    },
+    {
+      "input": {
+        "alpha": "1",
+        "horizon": 2,
+        "phase": "future",
+        "seed": "mean_nonzero",
+        "series": "ending_zero"
+      },
+      "output": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "input": {
+        "alpha": "1",
+        "horizon": 2,
+        "phase": "future",
+        "seed": "mean_nonzero",
+        "series": "empty"
+      },
+      "output": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "input": {
+        "alpha": "1",
+        "horizon": 2,
+        "phase": "future",
+        "seed": "fixed50",
+        "series": "steady"
+      },
+      "output": [
+        100.0,
+        100.0
+      ]
+    },
+    {
+      "input": {
+        "alpha": "1",
+        "horizon": 2,
+        "phase": "future",
+        "seed": "fixed50",
+        "series": "ending_zero"
+      },
+      "output": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "input": {
+        "alpha": "1",
+        "horizon": 2,
+        "phase": "future",
+        "seed": "fixed50",
+        "series": "empty"
+      },
+      "output": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "input": {
+        "alpha": "1",
+        "horizon": 4,
+        "phase": "future",
+        "seed": "mean_nonzero",
+        "series": "steady"
+      },
+      "output": [
+        100.0,
+        100.0,
+        100.0,
+        100.0
+      ]
+    },
+    {
+      "input": {
+        "alpha": "1",
+        "horizon": 4,
+        "phase": "future",
+        "seed": "mean_nonzero",
+        "series": "ending_zero"
+      },
+      "output": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "input": {
+        "alpha": "1",
+        "horizon": 4,
+        "phase": "future",
+        "seed": "mean_nonzero",
+        "series": "empty"
+      },
+      "output": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "input": {
+        "alpha": "1",
+        "horizon": 4,
+        "phase": "future",
+        "seed": "fixed50",
+        "series": "steady"
+      },
+      "output": [
+        100.0,
+        100.0,
+        100.0,
+        100.0
+      ]
+    },
+    {
+      "input": {
+        "alpha": "1",
+        "horizon": 4,
+        "phase": "future",
+        "seed": "fixed50",
+        "series": "ending_zero"
+      },
+      "output": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "input": {
+        "alpha": "1",
+        "horizon": 4,
+        "phase": "future",
+        "seed": "fixed50",
+        "series": "empty"
+      },
+      "output": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    }
+  ],
+  "provenance": [
+    "Retrospective known ERPNext60977 forecast bug; no blind discovery or fresh author trial.",
+    "Independent Decimal oracle frozen before either source helper executed; source initialization retained.",
+    "Required flat future forecasts: https://github.com/frappe/erpnext/pull/60977 and https://otexts.com/fpp3/exponential-smoothing.html#flat-forecasts .",
+    "Exact extracted AST of one source class executed with restricted numeric/date fixture shims; no full module/Frappe execution or production admission."
+  ]
+}
