@@ -20,3 +20,7 @@ jobs:
           persist-credentials: false
       - name: Verify recorded evidence and run Python regressions
         run: python3 -B scripts/check_release.py
+      - name: Check experimental framework identity rules
+        run: |
+          python3 -B -m unittest discover -s tests -v
+          python3 -B -m framework.demo
