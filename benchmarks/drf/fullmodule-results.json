@@ -1,0 +1,396 @@
+{
+  "schema": 1,
+  "scope": "post-hoc full corresponding test files, not full DRF project suite",
+  "original_paired_score_changed": false,
+  "source_replay": "three researched historical cases, existing model proposals; no new repair calls",
+  "initial_optional_dependency_skips_retained": [
+    {
+      "case": "or_composition",
+      "variant": "original",
+      "exit_code": 1,
+      "seconds": 1.567,
+      "observation": {
+        "errors": 0,
+        "exit_code": 1,
+        "failures": 2,
+        "skipped": 10,
+        "tests": 43
+      },
+      "module_sha256": "064671375fd5a622720a2c5fbf88ceea063fc64a63ba4123d6bbe3fa9cfb9ff1",
+      "heldout_sha256": "8667dfb99d0e50213ffe11b38ce1d641008130916d4cf93f7b0052e26adf89a6"
+    },
+    {
+      "case": "or_composition",
+      "variant": "baseline",
+      "exit_code": 0,
+      "seconds": 1.467,
+      "observation": {
+        "errors": 0,
+        "exit_code": 0,
+        "failures": 0,
+        "skipped": 10,
+        "tests": 43
+      },
+      "module_sha256": "44b46e5223aba804ae14ad920f1960f7682854f04f67c3452775463193164d6c",
+      "heldout_sha256": "8667dfb99d0e50213ffe11b38ce1d641008130916d4cf93f7b0052e26adf89a6"
+    },
+    {
+      "case": "or_composition",
+      "variant": "contract",
+      "exit_code": 0,
+      "seconds": 1.467,
+      "observation": {
+        "errors": 0,
+        "exit_code": 0,
+        "failures": 0,
+        "skipped": 10,
+        "tests": 43
+      },
+      "module_sha256": "a861b47b71ad0f133a7a5626351edf67e3f543a515678e9ebf27320e12391006",
+      "heldout_sha256": "8667dfb99d0e50213ffe11b38ce1d641008130916d4cf93f7b0052e26adf89a6"
+    },
+    {
+      "case": "or_composition",
+      "variant": "upstream",
+      "exit_code": 0,
+      "seconds": 1.467,
+      "observation": {
+        "errors": 0,
+        "exit_code": 0,
+        "failures": 0,
+        "skipped": 10,
+        "tests": 43
+      },
+      "module_sha256": "2cc77f72e1a94ef4c9221b6505273d9cf4d820e837bc39c32f568273e1eb3c2f",
+      "heldout_sha256": "8667dfb99d0e50213ffe11b38ce1d641008130916d4cf93f7b0052e26adf89a6"
+    },
+    {
+      "case": "model_permissions",
+      "variant": "original",
+      "exit_code": 1,
+      "seconds": 1.518,
+      "observation": {
+        "errors": 0,
+        "exit_code": 1,
+        "failures": 1,
+        "skipped": 10,
+        "tests": 47
+      },
+      "module_sha256": "362c4b3151b1008c5130efefa24e1632e23386c480a626135bae545c842da015",
+      "heldout_sha256": "5784f755e86368d9f6a9054b10203672703d7192230c01cc90a967823a232de6"
+    },
+    {
+      "case": "model_permissions",
+      "variant": "baseline",
+      "exit_code": 0,
+      "seconds": 1.467,
+      "observation": {
+        "errors": 0,
+        "exit_code": 0,
+        "failures": 0,
+        "skipped": 10,
+        "tests": 47
+      },
+      "module_sha256": "5479b4d856cc645ab92f49ea48749921d1d2014a312379812db4a3d550976906",
+      "heldout_sha256": "5784f755e86368d9f6a9054b10203672703d7192230c01cc90a967823a232de6"
+    },
+    {
+      "case": "model_permissions",
+      "variant": "contract",
+      "exit_code": 0,
+      "seconds": 1.467,
+      "observation": {
+        "errors": 0,
+        "exit_code": 0,
+        "failures": 0,
+        "skipped": 10,
+        "tests": 47
+      },
+      "module_sha256": "ada3d00c7e5324991a4154b53d0c4a7a4a9651a9d8f81883195477f226255d51",
+      "heldout_sha256": "5784f755e86368d9f6a9054b10203672703d7192230c01cc90a967823a232de6"
+    },
+    {
+      "case": "model_permissions",
+      "variant": "upstream",
+      "exit_code": 0,
+      "seconds": 1.518,
+      "observation": {
+        "errors": 0,
+        "exit_code": 0,
+        "failures": 0,
+        "skipped": 10,
+        "tests": 47
+      },
+      "module_sha256": "e0e8b8e8f4c673cfa65fe78ec3f665ed0454a8525a9800004389fea1f26e209c",
+      "heldout_sha256": "5784f755e86368d9f6a9054b10203672703d7192230c01cc90a967823a232de6"
+    },
+    {
+      "case": "renderer_boundary",
+      "variant": "original",
+      "exit_code": 1,
+      "seconds": 1.618,
+      "observation": {
+        "errors": 0,
+        "exit_code": 1,
+        "failures": 1,
+        "skipped": 0,
+        "tests": 65
+      },
+      "module_sha256": "9f1005d0346a2668b35c4ca1568a8807b2aaeda9bd45d52dda1c66ae15e77add",
+      "heldout_sha256": "e5fc153d29edb25f964842997ec6fe29a3cdbdef06d8f0999f08cb6ae4cd16a8"
+    },
+    {
+      "case": "renderer_boundary",
+      "variant": "baseline",
+      "exit_code": 0,
+      "seconds": 1.567,
+      "observation": {
+        "errors": 0,
+        "exit_code": 0,
+        "failures": 0,
+        "skipped": 0,
+        "tests": 65
+      },
+      "module_sha256": "d5c48f8b0d623ccdc6ec8fee0bbedf2b899e67174f55568fe1a53aeb51469538",
+      "heldout_sha256": "e5fc153d29edb25f964842997ec6fe29a3cdbdef06d8f0999f08cb6ae4cd16a8"
+    },
+    {
+      "case": "renderer_boundary",
+      "variant": "contract",
+      "exit_code": 0,
+      "seconds": 1.517,
+      "observation": {
+        "errors": 0,
+        "exit_code": 0,
+        "failures": 0,
+        "skipped": 0,
+        "tests": 65
+      },
+      "module_sha256": "86f5e236dff6c9bf12062a404b57fedf7931de845f629b600f9fb3cc4ddf6f4c",
+      "heldout_sha256": "e5fc153d29edb25f964842997ec6fe29a3cdbdef06d8f0999f08cb6ae4cd16a8"
+    },
+    {
+      "case": "renderer_boundary",
+      "variant": "upstream",
+      "exit_code": 0,
+      "seconds": 1.517,
+      "observation": {
+        "errors": 0,
+        "exit_code": 0,
+        "failures": 0,
+        "skipped": 0,
+        "tests": 65
+      },
+      "module_sha256": "7439431c1dc796aca7f8a21726072bbfe88d44e3f0d16ade3147fc64d0eb35ad",
+      "heldout_sha256": "e5fc153d29edb25f964842997ec6fe29a3cdbdef06d8f0999f08cb6ae4cd16a8"
+    }
+  ],
+  "complete_observations": [
+    {
+      "case": "or_composition",
+      "variant": "original",
+      "exit_code": 1,
+      "seconds": 1.667,
+      "observation": {
+        "errors": 0,
+        "exit_code": 1,
+        "failures": 2,
+        "skipped": 0,
+        "tests": 43
+      },
+      "module_sha256": "064671375fd5a622720a2c5fbf88ceea063fc64a63ba4123d6bbe3fa9cfb9ff1",
+      "heldout_sha256": "8667dfb99d0e50213ffe11b38ce1d641008130916d4cf93f7b0052e26adf89a6"
+    },
+    {
+      "case": "or_composition",
+      "variant": "baseline",
+      "exit_code": 0,
+      "seconds": 1.617,
+      "observation": {
+        "errors": 0,
+        "exit_code": 0,
+        "failures": 0,
+        "skipped": 0,
+        "tests": 43
+      },
+      "module_sha256": "44b46e5223aba804ae14ad920f1960f7682854f04f67c3452775463193164d6c",
+      "heldout_sha256": "8667dfb99d0e50213ffe11b38ce1d641008130916d4cf93f7b0052e26adf89a6"
+    },
+    {
+      "case": "or_composition",
+      "variant": "contract",
+      "exit_code": 0,
+      "seconds": 1.618,
+      "observation": {
+        "errors": 0,
+        "exit_code": 0,
+        "failures": 0,
+        "skipped": 0,
+        "tests": 43
+      },
+      "module_sha256": "a861b47b71ad0f133a7a5626351edf67e3f543a515678e9ebf27320e12391006",
+      "heldout_sha256": "8667dfb99d0e50213ffe11b38ce1d641008130916d4cf93f7b0052e26adf89a6"
+    },
+    {
+      "case": "or_composition",
+      "variant": "upstream",
+      "exit_code": 0,
+      "seconds": 1.618,
+      "observation": {
+        "errors": 0,
+        "exit_code": 0,
+        "failures": 0,
+        "skipped": 0,
+        "tests": 43
+      },
+      "module_sha256": "2cc77f72e1a94ef4c9221b6505273d9cf4d820e837bc39c32f568273e1eb3c2f",
+      "heldout_sha256": "8667dfb99d0e50213ffe11b38ce1d641008130916d4cf93f7b0052e26adf89a6"
+    },
+    {
+      "case": "model_permissions",
+      "variant": "original",
+      "exit_code": 1,
+      "seconds": 1.918,
+      "observation": {
+        "errors": 0,
+        "exit_code": 1,
+        "failures": 1,
+        "skipped": 0,
+        "tests": 47
+      },
+      "module_sha256": "362c4b3151b1008c5130efefa24e1632e23386c480a626135bae545c842da015",
+      "heldout_sha256": "5784f755e86368d9f6a9054b10203672703d7192230c01cc90a967823a232de6"
+    },
+    {
+      "case": "model_permissions",
+      "variant": "baseline",
+      "exit_code": 0,
+      "seconds": 1.718,
+      "observation": {
+        "errors": 0,
+        "exit_code": 0,
+        "failures": 0,
+        "skipped": 0,
+        "tests": 47
+      },
+      "module_sha256": "5479b4d856cc645ab92f49ea48749921d1d2014a312379812db4a3d550976906",
+      "heldout_sha256": "5784f755e86368d9f6a9054b10203672703d7192230c01cc90a967823a232de6"
+    },
+    {
+      "case": "model_permissions",
+      "variant": "contract",
+      "exit_code": 0,
+      "seconds": 1.667,
+      "observation": {
+        "errors": 0,
+        "exit_code": 0,
+        "failures": 0,
+        "skipped": 0,
+        "tests": 47
+      },
+      "module_sha256": "ada3d00c7e5324991a4154b53d0c4a7a4a9651a9d8f81883195477f226255d51",
+      "heldout_sha256": "5784f755e86368d9f6a9054b10203672703d7192230c01cc90a967823a232de6"
+    },
+    {
+      "case": "model_permissions",
+      "variant": "upstream",
+      "exit_code": 0,
+      "seconds": 1.667,
+      "observation": {
+        "errors": 0,
+        "exit_code": 0,
+        "failures": 0,
+        "skipped": 0,
+        "tests": 47
+      },
+      "module_sha256": "e0e8b8e8f4c673cfa65fe78ec3f665ed0454a8525a9800004389fea1f26e209c",
+      "heldout_sha256": "5784f755e86368d9f6a9054b10203672703d7192230c01cc90a967823a232de6"
+    },
+    {
+      "case": "renderer_boundary",
+      "variant": "original",
+      "exit_code": 1,
+      "seconds": 1.618,
+      "observation": {
+        "errors": 0,
+        "exit_code": 1,
+        "failures": 1,
+        "skipped": 0,
+        "tests": 65
+      },
+      "module_sha256": "9f1005d0346a2668b35c4ca1568a8807b2aaeda9bd45d52dda1c66ae15e77add",
+      "heldout_sha256": "e5fc153d29edb25f964842997ec6fe29a3cdbdef06d8f0999f08cb6ae4cd16a8"
+    },
+    {
+      "case": "renderer_boundary",
+      "variant": "baseline",
+      "exit_code": 0,
+      "seconds": 1.567,
+      "observation": {
+        "errors": 0,
+        "exit_code": 0,
+        "failures": 0,
+        "skipped": 0,
+        "tests": 65
+      },
+      "module_sha256": "d5c48f8b0d623ccdc6ec8fee0bbedf2b899e67174f55568fe1a53aeb51469538",
+      "heldout_sha256": "e5fc153d29edb25f964842997ec6fe29a3cdbdef06d8f0999f08cb6ae4cd16a8"
+    },
+    {
+      "case": "renderer_boundary",
+      "variant": "contract",
+      "exit_code": 0,
+      "seconds": 1.517,
+      "observation": {
+        "errors": 0,
+        "exit_code": 0,
+        "failures": 0,
+        "skipped": 0,
+        "tests": 65
+      },
+      "module_sha256": "86f5e236dff6c9bf12062a404b57fedf7931de845f629b600f9fb3cc4ddf6f4c",
+      "heldout_sha256": "e5fc153d29edb25f964842997ec6fe29a3cdbdef06d8f0999f08cb6ae4cd16a8"
+    },
+    {
+      "case": "renderer_boundary",
+      "variant": "upstream",
+      "exit_code": 0,
+      "seconds": 1.517,
+      "observation": {
+        "errors": 0,
+        "exit_code": 0,
+        "failures": 0,
+        "skipped": 0,
+        "tests": 65
+      },
+      "module_sha256": "7439431c1dc796aca7f8a21726072bbfe88d44e3f0d16ade3147fc64d0eb35ad",
+      "heldout_sha256": "e5fc153d29edb25f964842997ec6fe29a3cdbdef06d8f0999f08cb6ae4cd16a8"
+    }
+  ],
+  "additional_dependency": {
+    "name": "django-guardian",
+    "version": "2.4.0",
+    "filename": "django_guardian-2.4.0-py3-none-any.whl",
+    "url": "https://files.pythonhosted.org/packages/a2/25/869df12e544b51f583254aadbba6c1a95e11d2d08edeb9e58dd715112db5/django_guardian-2.4.0-py3-none-any.whl",
+    "sha256": "440ca61358427e575323648b25f8384739e54c38b3d655c81d75e0cd0d61b697",
+    "requires_dist": [
+      "Django (>=2.2)"
+    ]
+  },
+  "environment": "Python3.12; Django4.1 for permissions,4.2 for renderers, with pinned pytest and optional guardian2.4.0 for completed permission runs",
+  "summary": {
+    "tests_per_repaired_variant": 155,
+    "baseline_failures": 0,
+    "contract_arm_failures": 0,
+    "upstream_failures": 0,
+    "skipped_in_complete_observations": 0,
+    "original_failures": 4
+  },
+  "interpretation": [
+    "Both model arms and upstream pass all155 tests across the three scoped test files.",
+    "No additional implementation advantage from contract feedback observed.",
+    "Optional object-permission coverage initially skipped10 tests per permissions module; dependency completion resolved all skips.",
+    "The known upstream anonymous-read regression remains absent from these project test files; the separate compatibility check detects it.",
+    "Post-hoc coverage expansion does not retroactively modify the frozen paired trial or establish full-project correctness."
+  ]
+}

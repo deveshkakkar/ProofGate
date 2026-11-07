@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "input_domain": {
+    "permission_class": ["model", "model_or_anon"],
+    "authenticated": [false, true],
+    "method": ["GET", "HEAD", "OPTIONS", "POST", "PUT", "PATCH", "DELETE"],
+    "can_view": [false, true],
+    "can_change": [false, true],
+    "can_add": [false, true],
+    "can_delete": [false, true]
+  },
+  "allowed_change": {"authenticated": [true], "method": ["GET", "HEAD"]},
+  "assumptions": [
+    "Retrospective proposed change scope, not admitted production policy.",
+    "Backend permission membership is independent of authentication; custom backends may grant anonymous users permissions.",
+    "Fresh permission instances and lightweight documented request/view interfaces; no database, concurrency or side effects modeled.",
+    "Only preservation outside the allowed region is checked. New read-policy correctness remains a separate unresolved obligation.",
+    "Reference behavior may contain bugs; preservation is not proof that legacy behavior is correct."
+  ]
+}
