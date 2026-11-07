@@ -62,6 +62,10 @@ The command runs valid and negative cases, copies an accepted artifact, and smok
 
 [Follow the demo walkthrough](docs/demo.md) to inspect the results and try the reservation API.
 
+## Experimental developer trial
+
+A new portable evidence kernel and local entitlement adapter explore reusable verification for agent-written business logic. [Try a change and inspect a concrete counterexample](docs/framework/TRY.md). This experimental interface is separate from the frozen reservation demonstration below.
+
 ## Scope
 
 The proofs cover pure admission logic. Compilation, numeric conversion, HTTP, storage, and deployment have tested or trusted boundaries. This local, single-process prototype does not establish distributed correctness or production security. Artifact hashes connect tested and deployed bytes; the evaluator and host remain trusted.
