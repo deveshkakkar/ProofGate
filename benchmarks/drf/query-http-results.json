@@ -1,0 +1,212 @@
+{
+  "schema": 1,
+  "scope": "Frozen open-PR diagnostic: in-process Django test client, SQLite and declared Django5.2/Python3.12 series; no deployed HTTP service",
+  "source_pr": "https://github.com/encode/django-rest-framework/pull/10091",
+  "base_revision": "4acc64013b3ca101631efe5ebcacbb18960bbe37",
+  "head_revision": "09518301043788cc9fb25b38bd5b6b48c0bd9233",
+  "runtime": {
+    "python": "3.12.3",
+    "sqlite": "3.45.1",
+    "django": "5.2.19",
+    "pytest": "9.2.0",
+    "interpreter_note": "Host Ubuntu distribution interpreter; exact bytes pinned in each run. No claim this is the latest upstream Python micro release."
+  },
+  "initial_setup_failure": "First command used tests/test_authentication.py instead of tests/authentication/test_authentication.py. Zero-test result retained and invalid/inconclusive; source and dependencies unchanged.",
+  "source_workers_limit": 6,
+  "attempts": [
+    {
+      "version": "head",
+      "suite": "upstream",
+      "exit_code": 4,
+      "seconds": 1.167,
+      "observation": {
+        "errors": 0,
+        "exit_code": 4,
+        "failures": 0,
+        "skipped": 0,
+        "tests": 0
+      },
+      "inputs": {
+        "source_manifest_sha256": "5e022fd7b59b9619d5cf6b09a4f1f3a640cc621aad32d58906c0d38eba589a55",
+        "dependency_manifest_sha256": "94b9f2a1c53b70bb1e6500d656bdc2654440a740439ef35bdd38908b39977f67",
+        "test_transport_sha256": "657c73125414762e9476736a97f1a9c1e0dbe283f29fc45ed3ced42dadb1dfd7",
+        "resource_helper_sha256": "419a5cd86e72ca242961b75d883470e54865118cd8f45267f38d50ad238060fd",
+        "scope_wrapper_sha256": "ad809a87c7b07840b5c5421a79b2085ea6d07e0f3fbd126c55553c904b91532d",
+        "python_sha256": "e50d468e8b0adfb05733f5b87b3cff34829c4a8c1aea50c865aa8bdfe4bb150f",
+        "bwrap_sha256": "e318903862396f96de3df57264e0158682b952fd3fb53ac23d876413e7b30f71",
+        "systemd_sha256": "de28cc5757d3789efa5f6fed5659893410469f68b42175d4531f5b34d3a09e16",
+        "host_libraries": "trusted; incomplete fingerprint",
+        "driver_sha256": "da1ad5e7122b79b27b5e3ef6252a929cabf0cac393191a5db01eb4eec05ceaba"
+      },
+      "stdout_sha256": "872ee31d41a2816c991dc686253d56c39ebeb1e163b4770db1efc738acc3dd1b",
+      "stderr_sha256": "ddb372abbb5fae5018ce6d7dd7354b06b3220d99c3af24c022869b6459251d71",
+      "source_and_dependencies_unchanged": true,
+      "scope": "in-process Django test client and SQLite, no deployed HTTP service"
+    },
+    {
+      "version": "head",
+      "suite": "upstream",
+      "exit_code": 0,
+      "seconds": 2.118,
+      "observation": {
+        "errors": 0,
+        "exit_code": 0,
+        "failures": 0,
+        "skipped": 0,
+        "tests": 119
+      },
+      "inputs": {
+        "source_manifest_sha256": "5e022fd7b59b9619d5cf6b09a4f1f3a640cc621aad32d58906c0d38eba589a55",
+        "dependency_manifest_sha256": "94b9f2a1c53b70bb1e6500d656bdc2654440a740439ef35bdd38908b39977f67",
+        "test_transport_sha256": "657c73125414762e9476736a97f1a9c1e0dbe283f29fc45ed3ced42dadb1dfd7",
+        "resource_helper_sha256": "419a5cd86e72ca242961b75d883470e54865118cd8f45267f38d50ad238060fd",
+        "scope_wrapper_sha256": "ad809a87c7b07840b5c5421a79b2085ea6d07e0f3fbd126c55553c904b91532d",
+        "python_sha256": "e50d468e8b0adfb05733f5b87b3cff34829c4a8c1aea50c865aa8bdfe4bb150f",
+        "bwrap_sha256": "e318903862396f96de3df57264e0158682b952fd3fb53ac23d876413e7b30f71",
+        "systemd_sha256": "de28cc5757d3789efa5f6fed5659893410469f68b42175d4531f5b34d3a09e16",
+        "host_libraries": "trusted; incomplete fingerprint",
+        "driver_sha256": "b60de3b4e642c6bf63082f2929fd00bbfd4cfc9aedfdb36bc81b9cddf4f0c265"
+      },
+      "stdout_sha256": "e3e2c5fd66b93cc037fb93f2f72de711488dc627979d663d5c1b7308b303e3f6",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_and_dependencies_unchanged": true,
+      "scope": "in-process Django test client and SQLite, no deployed HTTP service"
+    },
+    {
+      "version": "head",
+      "suite": "boundary",
+      "exit_code": 0,
+      "seconds": 1.567,
+      "observation": {
+        "errors": 0,
+        "exit_code": 0,
+        "failures": 0,
+        "skipped": 0,
+        "tests": 9
+      },
+      "inputs": {
+        "source_manifest_sha256": "5e022fd7b59b9619d5cf6b09a4f1f3a640cc621aad32d58906c0d38eba589a55",
+        "dependency_manifest_sha256": "94b9f2a1c53b70bb1e6500d656bdc2654440a740439ef35bdd38908b39977f67",
+        "test_transport_sha256": "657c73125414762e9476736a97f1a9c1e0dbe283f29fc45ed3ced42dadb1dfd7",
+        "resource_helper_sha256": "419a5cd86e72ca242961b75d883470e54865118cd8f45267f38d50ad238060fd",
+        "scope_wrapper_sha256": "ad809a87c7b07840b5c5421a79b2085ea6d07e0f3fbd126c55553c904b91532d",
+        "python_sha256": "e50d468e8b0adfb05733f5b87b3cff34829c4a8c1aea50c865aa8bdfe4bb150f",
+        "bwrap_sha256": "e318903862396f96de3df57264e0158682b952fd3fb53ac23d876413e7b30f71",
+        "systemd_sha256": "de28cc5757d3789efa5f6fed5659893410469f68b42175d4531f5b34d3a09e16",
+        "host_libraries": "trusted; incomplete fingerprint",
+        "driver_sha256": "b60de3b4e642c6bf63082f2929fd00bbfd4cfc9aedfdb36bc81b9cddf4f0c265",
+        "boundary_probe_sha256": "c3c76b42cc1aac446fff99db578dfa22731c2177ab4d9766a321b15b3c27473f",
+        "conftest_sha256": "7f7dfad47c688de0fd0b248e21e30e456470deb8e7774e36069001013af45dd3"
+      },
+      "stdout_sha256": "98f5d241ce8146e6d7095f3afacc0d6d5d5ff6628978df5b24cda2dd85b52ea6",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_and_dependencies_unchanged": true,
+      "scope": "in-process Django test client and SQLite, no deployed HTTP service"
+    },
+    {
+      "version": "base",
+      "suite": "boundary",
+      "exit_code": 1,
+      "seconds": 1.617,
+      "observation": {
+        "errors": 0,
+        "exit_code": 1,
+        "failures": 4,
+        "skipped": 0,
+        "tests": 9
+      },
+      "inputs": {
+        "source_manifest_sha256": "85a76bbfe185c9b6ae5960a63ec1065b39d9794ce5c42b2898c754407a91ee06",
+        "dependency_manifest_sha256": "94b9f2a1c53b70bb1e6500d656bdc2654440a740439ef35bdd38908b39977f67",
+        "test_transport_sha256": "657c73125414762e9476736a97f1a9c1e0dbe283f29fc45ed3ced42dadb1dfd7",
+        "resource_helper_sha256": "419a5cd86e72ca242961b75d883470e54865118cd8f45267f38d50ad238060fd",
+        "scope_wrapper_sha256": "ad809a87c7b07840b5c5421a79b2085ea6d07e0f3fbd126c55553c904b91532d",
+        "python_sha256": "e50d468e8b0adfb05733f5b87b3cff34829c4a8c1aea50c865aa8bdfe4bb150f",
+        "bwrap_sha256": "e318903862396f96de3df57264e0158682b952fd3fb53ac23d876413e7b30f71",
+        "systemd_sha256": "de28cc5757d3789efa5f6fed5659893410469f68b42175d4531f5b34d3a09e16",
+        "host_libraries": "trusted; incomplete fingerprint",
+        "driver_sha256": "b60de3b4e642c6bf63082f2929fd00bbfd4cfc9aedfdb36bc81b9cddf4f0c265",
+        "boundary_probe_sha256": "c3c76b42cc1aac446fff99db578dfa22731c2177ab4d9766a321b15b3c27473f",
+        "conftest_sha256": "7f7dfad47c688de0fd0b248e21e30e456470deb8e7774e36069001013af45dd3"
+      },
+      "stdout_sha256": "863f785684fcbc59b7bbb6b8f0c0b5343f1a83f635f7d4325c2f246b292d908a",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_and_dependencies_unchanged": true,
+      "scope": "in-process Django test client and SQLite, no deployed HTTP service",
+      "failed_tests": [
+        "../checks/test_http_probe.py::test_query_session_without_csrf_is_allowed_and_does_not_add_users",
+        "../checks/test_http_probe.py::test_query_authenticated_model_access_needs_no_default_model_grant",
+        "../checks/test_http_probe.py::test_query_anonymous_readonly_access",
+        "../checks/test_http_probe.py::test_query_explicit_permission_accepts_user_with_database_grant"
+      ]
+    },
+    {
+      "version": "base",
+      "suite": "upstream",
+      "exit_code": 0,
+      "seconds": 2.119,
+      "observation": {
+        "errors": 0,
+        "exit_code": 0,
+        "failures": 0,
+        "skipped": 0,
+        "tests": 114
+      },
+      "inputs": {
+        "source_manifest_sha256": "85a76bbfe185c9b6ae5960a63ec1065b39d9794ce5c42b2898c754407a91ee06",
+        "dependency_manifest_sha256": "94b9f2a1c53b70bb1e6500d656bdc2654440a740439ef35bdd38908b39977f67",
+        "test_transport_sha256": "657c73125414762e9476736a97f1a9c1e0dbe283f29fc45ed3ced42dadb1dfd7",
+        "resource_helper_sha256": "419a5cd86e72ca242961b75d883470e54865118cd8f45267f38d50ad238060fd",
+        "scope_wrapper_sha256": "ad809a87c7b07840b5c5421a79b2085ea6d07e0f3fbd126c55553c904b91532d",
+        "python_sha256": "e50d468e8b0adfb05733f5b87b3cff34829c4a8c1aea50c865aa8bdfe4bb150f",
+        "bwrap_sha256": "e318903862396f96de3df57264e0158682b952fd3fb53ac23d876413e7b30f71",
+        "systemd_sha256": "de28cc5757d3789efa5f6fed5659893410469f68b42175d4531f5b34d3a09e16",
+        "host_libraries": "trusted; incomplete fingerprint",
+        "driver_sha256": "b60de3b4e642c6bf63082f2929fd00bbfd4cfc9aedfdb36bc81b9cddf4f0c265"
+      },
+      "stdout_sha256": "d6b2165f51dd22e48d37bc091c5633042dcd8fd53e715f7ae317a4b1f8e9138b",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_and_dependencies_unchanged": true,
+      "scope": "in-process Django test client and SQLite, no deployed HTTP service"
+    },
+    {
+      "version": "head",
+      "suite": "finite",
+      "exit_code": 0,
+      "seconds": 0.435,
+      "inputs": {
+        "source_manifest_sha256": "5e022fd7b59b9619d5cf6b09a4f1f3a640cc621aad32d58906c0d38eba589a55",
+        "dependencies_manifest_sha256": "94b9f2a1c53b70bb1e6500d656bdc2654440a740439ef35bdd38908b39977f67",
+        "probe_sha256": "79b6b832ac933ba929aa0b642a209db1315278fb70bec737bb3cfcd1484eeeaf",
+        "resource_helper_sha256": "419a5cd86e72ca242961b75d883470e54865118cd8f45267f38d50ad238060fd",
+        "scope_wrapper_sha256": "ad809a87c7b07840b5c5421a79b2085ea6d07e0f3fbd126c55553c904b91532d",
+        "python_sha256": "e50d468e8b0adfb05733f5b87b3cff34829c4a8c1aea50c865aa8bdfe4bb150f",
+        "bwrap_sha256": "e318903862396f96de3df57264e0158682b952fd3fb53ac23d876413e7b30f71",
+        "systemd_sha256": "de28cc5757d3789efa5f6fed5659893410469f68b42175d4531f5b34d3a09e16",
+        "driver_sha256": "d4176982400f358104d4aad51e47c3befb02c0f869847bc9b244d80aeec205c2",
+        "host_libraries": "trusted; incomplete fingerprint"
+      },
+      "observations": 512,
+      "exact_prior_head_trace_match": true,
+      "trace_sha256": "a69184c2d49f170bd88726c0ceeca9c5a042bceb279f540ea9361c7edd7f10d0",
+      "source_and_dependencies_unchanged": true
+    }
+  ],
+  "boundary_obligations": [
+    "Existing real session GET without CSRF token200.",
+    "Existing real session POST without CSRF token403.",
+    "QUERY real session without CSRF token200; user row count unchanged.",
+    "Force-authenticated real database user: default model QUERY200 without model grant.",
+    "Anonymous read-only QUERY200.",
+    "Explicit QUERY grant required: anonymous401, authenticated ungranted403, authenticated database-granted200.",
+    "Legacy permission map omitting QUERY returns405."
+  ],
+  "limitations": [
+    "Own-source upstream suite files differ:119 head versus114 base, not a fixed held-out comparison.",
+    "The same nine independent boundary tests run on both sources; these requirements were proposed after seeing the PR description.",
+    "Permission checks force-authenticate real database users; real session/CSRF tests are separate. Basic authentication backend is not validated.",
+    "No full DRF suite, full PR, router/filtering/body API, network service, production database, version matrix, hostile-source or policy-admission claim.",
+    "Historical and current passing slices show no repair superiority or external demand.",
+    "Recorded source execution is inspected-code diagnostics; host libraries remain incompletely fingerprinted."
+  ]
+}
