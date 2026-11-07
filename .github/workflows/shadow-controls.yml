@@ -1,0 +1,79 @@
+name: Historical shadow controls
+
+on:
+  workflow_call:
+    inputs:
+      case:
+        required: true
+        type: string
+      version:
+        required: true
+        type: string
+  workflow_dispatch:
+    inputs:
+      case:
+        description: Fixed historical DRF case
+        required: true
+        default: or_composition
+        type: choice
+        options: [or_composition, model_permissions, renderer_boundary]
+      version:
+        description: Original or upstream control (not a release verdict)
+        required: true
+        default: original
+        type: choice
+        options: [original, upstream]
+
+permissions:
+  contents: read
+
+jobs:
+  shadow:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Check out selected evaluator revision
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.sha }}
+          path: evaluator
+          persist-credentials: false
+      - name: Require the sandbox prerequisites
+        run: |
+          test -x /usr/bin/bwrap
+          test -x /usr/bin/systemd-run
+          test -x /usr/bin/setpriv
+          test -x /usr/bin/python3
+          test "$(id -u)" != 0
+      - name: Prepare pinned dependencies outside candidate execution
+        working-directory: evaluator
+        env:
+          SHADOW_CASE: ${{ inputs.case }}
+        run: |
+          if [ "$SHADOW_CASE" = renderer_boundary ]; then
+            lock=benchmarks/drf/requirements-django42.txt
+          else
+            lock=benchmarks/drf/requirements-django41.txt
+          fi
+          /usr/bin/python3 -m pip install --disable-pip-version-check --only-binary=:all: --require-hashes --target "$RUNNER_TEMP/shadow-deps" -r "$lock"
+      - name: Reproduce the selected historical control
+        working-directory: evaluator
+        env:
+          SHADOW_CASE: ${{ inputs.case }}
+          SHADOW_VERSION: ${{ inputs.version }}
+          PYTHONDONTWRITEBYTECODE: '1'
+        run: |
+          /usr/bin/python3 -B -m benchmarks.drf.ci \
+            --case "$SHADOW_CASE" --version "$SHADOW_VERSION" \
+            --dependencies "$RUNNER_TEMP/shadow-deps" \
+            --workspace "$RUNNER_TEMP/shadow-prepared" \
+            --output "$RUNNER_TEMP/shadow-output" \
+            --backend github-hosted
+      - name: Retain shadow evidence, including incomplete runs
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: historical-shadow-${{ github.run_id }}
+          path: ${{ runner.temp }}/shadow-output/
+          retention-days: 7
+          if-no-files-found: warn
