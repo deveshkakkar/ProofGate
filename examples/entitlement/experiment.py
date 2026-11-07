@@ -44,7 +44,7 @@ def invoke(artifact, entry, rows, output):
     argv += ['--ro-bind', str(artifact), '/app', '--ro-bind', str(HERE / 'probe.py'),
              '/probe.py', '--chdir', '/app', '--clearenv', '--setenv', 'PATH', '/usr/bin:/bin',
              '/usr/bin/python3', '-B', entry]
-    argv = ['systemd-run', '--user', '--scope', '--quiet',
+    argv = ['/usr/bin/systemd-run', '--user', '--scope', '--quiet',
             '--property=MemoryMax=268435456', '--property=TasksMax=16',
             '--property=CPUQuota=100%', '--property=RuntimeMaxSec=5s'] + argv
     with (output / 'stdout').open('wb') as out, (output / 'stderr').open('wb') as err:
@@ -64,13 +64,14 @@ def expected(row):
     return True
 
 
-def run_variant(variant):
+def run_variant(variant, candidate=None):
+    candidate = Path(candidate) if candidate is not None else HERE
     with tempfile.TemporaryDirectory(prefix='proofgate-entitlement-') as temporary:
         base = Path(temporary)
         source = base / 'source'; source.mkdir()
         artifact = base / 'artifact'; artifact.mkdir()
         for name in ('rule.py', 'app.py'):
-            (source / name).write_bytes((HERE / name).read_bytes())
+            (source / name).write_bytes((candidate / name).read_bytes())
         if variant == 'always_deny':
             (source / 'rule.py').write_text('def allow(**kwargs): return False\n')
         elif variant == 'cross_tenant':
@@ -85,6 +86,7 @@ def run_variant(variant):
                   'verifier': {name: file_hash(HERE / name) for name in ('experiment.py', 'probe.py')},
                   'environment': {'python': file_hash(Path('/usr/bin/python3').resolve()),
                                   'bwrap': file_hash(Path('/usr/bin/bwrap')),
+                                  'systemd-run': file_hash(Path('/usr/bin/systemd-run')),
                                   'scope': digest({'python': sys.version, 'stdlib': 'host-trusted; not fully fingerprinted'})}}
         inputs['verifier']['kernel.py'] = file_hash(ROOT / 'framework/kernel.py')
         bound = identity(CONTRACT, inputs)

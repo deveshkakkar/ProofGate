@@ -32,3 +32,10 @@ Entitlement: 72 rule cases and 80 application cases per variant. Original passes
 Private development evidence: `/home/devesh/.local/share/proofgate-framework/20261107/` contains reservation-inspection.json and entitlement-matrix.json. Reports include input identities and observed checks. The entitlement matrix ran locally in under one second after adding aggregate limits. These measurements are not competitive benchmarks. No paid provider calls or dependencies were added.
 
 Next architectural dependency: select independent acceptance authority before building a general runner. Protected CI contracts, a separately administered local evaluator, and a developer consistency tool have different threat models and privileges. The prototype deliberately does not choose a production trust boundary or grant itself authority. A question has been sent to the owner; dependent runner work waits for that decision. Continue only independent documentation/tests while it is pending.
+
+
+## Developer usability slice
+
+Owner selected portable evaluator plus protected CI adapter, with developers using coding agents on business applications as the first audience. This supersedes the earlier pending architecture/audience question. PRs #6 and #7 merged into main fc77ce0. Protected CI authority configuration remains future implementation, not an established guarantee.
+
+New developer command accepts a two-file local entitlement candidate, prints a first failing input and saves a new JSON report. Live checks: original exit 0; tenant-spoof application exit 1 with pure-rule PASS and cross-tenant counterexample. Evidence is retained under `/home/devesh/.local/share/proofgate-framework/developer-trial-3b4bmk6z/`. Unit tests use one mocked evaluator error to verify incomplete-report behavior; live candidate executions are separate evidence. No external participants have tried it. The trial protocol in DEVELOPER-TRIAL.md defines proposed usability and repeat-use thresholds plus backtracking triggers. External usefulness remains unvalidated.
