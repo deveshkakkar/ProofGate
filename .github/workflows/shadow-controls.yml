@@ -38,13 +38,24 @@ jobs:
           ref: ${{ github.sha }}
           path: evaluator
           persist-credentials: false
-      - name: Require the sandbox prerequisites
+      - name: Prepare the sandbox package on the disposable runner
         run: |
-          test -x /usr/bin/bwrap
-          test -x /usr/bin/systemd-run
-          test -x /usr/bin/setpriv
-          test -x /usr/bin/python3
-          test "$(id -u)" != 0
+          if ! test -x /usr/bin/bwrap; then
+            sudo apt-get update -qq
+            sudo apt-get install --yes --no-install-recommends bubblewrap
+          fi
+      - name: Require and record the sandbox prerequisites
+        run: |
+          umask 077
+          mkdir "$RUNNER_TEMP/shadow-setup"
+          /usr/bin/python3 - "$RUNNER_TEMP/shadow-setup/prerequisites.json" <<'PYCODE'
+          import json, os, pathlib, sys
+          paths = ['/usr/bin/bwrap', '/usr/bin/systemd-run', '/usr/bin/setpriv', '/usr/bin/python3']
+          result = {'executables': {p: os.access(p, os.X_OK) for p in paths}, 'uid': os.getuid()}
+          pathlib.Path(sys.argv[1]).write_text(json.dumps(result, indent=2) + '\n')
+          print(json.dumps(result))
+          raise SystemExit(0 if all(result['executables'].values()) and result['uid'] != 0 else 2)
+          PYCODE
       - name: Prepare pinned dependencies outside candidate execution
         working-directory: evaluator
         env:
@@ -74,6 +85,8 @@ jobs:
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: historical-shadow-${{ github.run_id }}
-          path: ${{ runner.temp }}/shadow-output/
+          path: |
+            ${{ runner.temp }}/shadow-output/
+            ${{ runner.temp }}/shadow-setup/
           retention-days: 7
           if-no-files-found: warn
