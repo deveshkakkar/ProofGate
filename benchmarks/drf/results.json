@@ -1,0 +1,570 @@
+{
+  "schema": 1,
+  "study": "three researched retrospective DRF cases; one fresh model call per arm per case",
+  "model": "gpt-6.1-sol",
+  "same_prose_requirements": true,
+  "treatment": "frozen executable contract plus failure on original code",
+  "tools_executed_by_authors": false,
+  "training_contamination_excluded": false,
+  "oracle_outcome_blinded": false,
+  "all_selected_cases_included": true,
+  "cases": [
+    {
+      "id": "or_composition",
+      "upstream_pr": "https://github.com/encode/django-rest-framework/pull/7522",
+      "base_sha": "04f39c42ee28bd462fcc9088909b18f2b321501d",
+      "heldout_sha": "39b54efd083a05d586c9a81384c0a27020f3be5f",
+      "module": "rest_framework/permissions.py",
+      "test_class": "PermissionsCompositionTests",
+      "requirements": "OR object access is allowed only when at least one operand allows both the request and object stages. Preserve request-stage composition and short-circuiting. Intentional changes to object-stage call counts may be necessary.",
+      "requirements_sha256": "376fe43ea9e602692262257e8840905a806bee346d4c4c64f15da27ef15117ec",
+      "expected_tests": {
+        "heldout": 14,
+        "contract": 1
+      },
+      "controls": {
+        "original": {
+          "old": {
+            "errors": 0,
+            "exit_code": 0,
+            "failures": 0,
+            "skipped": 0,
+            "tests": 13
+          },
+          "old_seconds": 1.317,
+          "heldout": {
+            "errors": 0,
+            "exit_code": 1,
+            "failures": 2,
+            "skipped": 0,
+            "tests": 14
+          },
+          "heldout_seconds": 1.417,
+          "contract": {
+            "errors": 0,
+            "exit_code": 1,
+            "failures": 1,
+            "skipped": 0,
+            "tests": 1
+          },
+          "contract_seconds": 1.017
+        },
+        "upstream": {
+          "old": {
+            "errors": 0,
+            "exit_code": 1,
+            "failures": 1,
+            "skipped": 0,
+            "tests": 13
+          },
+          "old_seconds": 1.418,
+          "heldout": {
+            "errors": 0,
+            "exit_code": 0,
+            "failures": 0,
+            "skipped": 0,
+            "tests": 14
+          },
+          "heldout_seconds": 1.418,
+          "contract": {
+            "errors": 0,
+            "exit_code": 0,
+            "failures": 0,
+            "skipped": 0,
+            "tests": 1
+          },
+          "contract_seconds": 1.217
+        }
+      },
+      "arms": {
+        "baseline": {
+          "old": {
+            "errors": 0,
+            "exit_code": 1,
+            "failures": 1,
+            "skipped": 0,
+            "tests": 13
+          },
+          "old_seconds": 1.367,
+          "heldout": {
+            "errors": 0,
+            "exit_code": 0,
+            "failures": 0,
+            "skipped": 0,
+            "tests": 14
+          },
+          "heldout_seconds": 1.367,
+          "contract": {
+            "errors": 0,
+            "exit_code": 0,
+            "failures": 0,
+            "skipped": 0,
+            "tests": 1
+          },
+          "contract_seconds": 1.017
+        },
+        "contract": {
+          "old": {
+            "errors": 0,
+            "exit_code": 1,
+            "failures": 1,
+            "skipped": 0,
+            "tests": 13
+          },
+          "old_seconds": 1.368,
+          "heldout": {
+            "errors": 0,
+            "exit_code": 0,
+            "failures": 0,
+            "skipped": 0,
+            "tests": 14
+          },
+          "heldout_seconds": 1.368,
+          "contract": {
+            "errors": 0,
+            "exit_code": 0,
+            "failures": 0,
+            "skipped": 0,
+            "tests": 1
+          },
+          "contract_seconds": 1.017
+        }
+      },
+      "authors": {
+        "baseline": {
+          "exit_code": 0,
+          "wall_seconds": 53.511,
+          "usage": {
+            "input_tokens": 14114,
+            "cached_input_tokens": 0,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 2509,
+            "reasoning_output_tokens": 0
+          },
+          "prompt_sha256": "9714d004351cc47be144c77f8b262cd7c68944f6092c779226891ab546e05dce",
+          "prompt_bytes": 19718,
+          "no_tool_events": true,
+          "source_lines_added": 8,
+          "source_lines_removed": 2
+        },
+        "contract": {
+          "exit_code": 0,
+          "wall_seconds": 54.058,
+          "usage": {
+            "input_tokens": 14639,
+            "cached_input_tokens": 0,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 2526,
+            "reasoning_output_tokens": 18
+          },
+          "prompt_sha256": "dfed768097b6f7c7cb2ade9e56b22c8a7f08dd36ef5ec02feb5519a810c3036c",
+          "prompt_bytes": 22475,
+          "no_tool_events": true,
+          "source_lines_added": 7,
+          "source_lines_removed": 2
+        }
+      },
+      "source_sha256": {
+        "original": "064671375fd5a622720a2c5fbf88ceea063fc64a63ba4123d6bbe3fa9cfb9ff1",
+        "baseline": "44b46e5223aba804ae14ad920f1960f7682854f04f67c3452775463193164d6c",
+        "contract": "a861b47b71ad0f133a7a5626351edf67e3f543a515678e9ebf27320e12391006",
+        "upstream": "2cc77f72e1a94ef4c9221b6505273d9cf4d820e837bc39c32f568273e1eb3c2f"
+      },
+      "heldout_test_sha256": "8667dfb99d0e50213ffe11b38ce1d641008130916d4cf93f7b0052e26adf89a6",
+      "contract_sha256": "adc319c86a924519e2fe3a02e6b7a93871c1fcf81d2344ef76345832984eec6e",
+      "dependency_lock_sha256": "615f04602ab86d83925d55ef2d408d2abf9329ef5e174e21f31997af1134ddeb",
+      "environment": {
+        "python": "3.12.3",
+        "django": "4.1.13",
+        "pytest": "8.3.5",
+        "historical_original_toolchain": false
+      }
+    },
+    {
+      "id": "model_permissions",
+      "upstream_pr": "https://github.com/encode/django-rest-framework/pull/8009",
+      "base_sha": "2d19f233ab36805264ec6d4655a0105d8b37f989",
+      "heldout_sha": "6d4d048ed52dbdc28e9cc71a2d67484798c47d4a",
+      "module": "rest_framework/permissions.py",
+      "test_class": "ModelPermissionsIntegrationTests",
+      "requirements": "Authenticated GET is allowed with view permission OR change permission; deny authenticated users with neither. HEAD requires view permission. OPTIONS and write-method behavior should remain unchanged. Preserve explicit custom permission maps and object permission APIs where compatible. This is an intentionally changed default read policy.",
+      "requirements_sha256": "08ff2dbc5832b901681531dfcc50ab77e478bfc1c286c3c99e7bd4944a1e92e0",
+      "expected_tests": {
+        "heldout": 19,
+        "contract": 1
+      },
+      "controls": {
+        "original": {
+          "old": {
+            "errors": 0,
+            "exit_code": 0,
+            "failures": 0,
+            "skipped": 0,
+            "tests": 17
+          },
+          "old_seconds": 1.417,
+          "heldout": {
+            "errors": 0,
+            "exit_code": 1,
+            "failures": 1,
+            "skipped": 0,
+            "tests": 19
+          },
+          "heldout_seconds": 1.417,
+          "contract": {
+            "errors": 0,
+            "exit_code": 1,
+            "failures": 1,
+            "skipped": 0,
+            "tests": 1
+          },
+          "contract_seconds": 1.067
+        },
+        "upstream": {
+          "old": {
+            "errors": 0,
+            "exit_code": 0,
+            "failures": 0,
+            "skipped": 0,
+            "tests": 17
+          },
+          "old_seconds": 1.418,
+          "heldout": {
+            "errors": 0,
+            "exit_code": 0,
+            "failures": 0,
+            "skipped": 0,
+            "tests": 19
+          },
+          "heldout_seconds": 1.367,
+          "contract": {
+            "errors": 0,
+            "exit_code": 0,
+            "failures": 0,
+            "skipped": 0,
+            "tests": 1
+          },
+          "contract_seconds": 1.016
+        }
+      },
+      "arms": {
+        "baseline": {
+          "old": {
+            "errors": 0,
+            "exit_code": 0,
+            "failures": 0,
+            "skipped": 0,
+            "tests": 17
+          },
+          "old_seconds": 1.367,
+          "heldout": {
+            "errors": 0,
+            "exit_code": 0,
+            "failures": 0,
+            "skipped": 0,
+            "tests": 19
+          },
+          "heldout_seconds": 1.467,
+          "contract": {
+            "errors": 0,
+            "exit_code": 0,
+            "failures": 0,
+            "skipped": 0,
+            "tests": 1
+          },
+          "contract_seconds": 1.168
+        },
+        "contract": {
+          "old": {
+            "errors": 0,
+            "exit_code": 0,
+            "failures": 0,
+            "skipped": 0,
+            "tests": 17
+          },
+          "old_seconds": 1.418,
+          "heldout": {
+            "errors": 0,
+            "exit_code": 0,
+            "failures": 0,
+            "skipped": 0,
+            "tests": 19
+          },
+          "heldout_seconds": 1.468,
+          "contract": {
+            "errors": 0,
+            "exit_code": 0,
+            "failures": 0,
+            "skipped": 0,
+            "tests": 1
+          },
+          "contract_seconds": 1.067
+        }
+      },
+      "authors": {
+        "baseline": {
+          "exit_code": 0,
+          "wall_seconds": 63.737,
+          "usage": {
+            "input_tokens": 14264,
+            "cached_input_tokens": 0,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 3039,
+            "reasoning_output_tokens": 216
+          },
+          "prompt_sha256": "ede99849658e9d5f201e22f67901179d2608a3c6628eba5f0c1f457e1aa3b7cc",
+          "prompt_bytes": 20503,
+          "no_tool_events": true,
+          "source_lines_added": 108,
+          "source_lines_removed": 82
+        },
+        "contract": {
+          "exit_code": 0,
+          "wall_seconds": 63.234,
+          "usage": {
+            "input_tokens": 14991,
+            "cached_input_tokens": 0,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 3005,
+            "reasoning_output_tokens": 197
+          },
+          "prompt_sha256": "2c63d84522597396cac1be14cba28a64de28f4bfdd3ac2a97755b92037bc7fdb",
+          "prompt_bytes": 24157,
+          "no_tool_events": true,
+          "source_lines_added": 108,
+          "source_lines_removed": 82
+        }
+      },
+      "source_sha256": {
+        "original": "362c4b3151b1008c5130efefa24e1632e23386c480a626135bae545c842da015",
+        "baseline": "5479b4d856cc645ab92f49ea48749921d1d2014a312379812db4a3d550976906",
+        "contract": "ada3d00c7e5324991a4154b53d0c4a7a4a9651a9d8f81883195477f226255d51",
+        "upstream": "e0e8b8e8f4c673cfa65fe78ec3f665ed0454a8525a9800004389fea1f26e209c"
+      },
+      "heldout_test_sha256": "5784f755e86368d9f6a9054b10203672703d7192230c01cc90a967823a232de6",
+      "contract_sha256": "adc319c86a924519e2fe3a02e6b7a93871c1fcf81d2344ef76345832984eec6e",
+      "dependency_lock_sha256": "615f04602ab86d83925d55ef2d408d2abf9329ef5e174e21f31997af1134ddeb",
+      "environment": {
+        "python": "3.12.3",
+        "django": "4.1.13",
+        "pytest": "8.3.5",
+        "historical_original_toolchain": false
+      },
+      "later_history": {
+        "reverted_by": "https://github.com/encode/django-rest-framework/pull/9332",
+        "issue": "https://github.com/encode/django-rest-framework/issues/9299",
+        "note": "Post-hoc compatibility reproduction; excluded from frozen pair scoring."
+      },
+      "posthoc_anonymous_compatibility": {
+        "original": {
+          "errors": 0,
+          "exit_code": 0,
+          "failures": 0,
+          "skipped": 0,
+          "tests": 1
+        },
+        "baseline": {
+          "errors": 0,
+          "exit_code": 0,
+          "failures": 0,
+          "skipped": 0,
+          "tests": 1
+        },
+        "contract": {
+          "errors": 0,
+          "exit_code": 0,
+          "failures": 0,
+          "skipped": 0,
+          "tests": 1
+        },
+        "upstream": {
+          "errors": 0,
+          "exit_code": 1,
+          "failures": 1,
+          "skipped": 0,
+          "tests": 1
+        }
+      }
+    },
+    {
+      "id": "renderer_boundary",
+      "upstream_pr": "https://github.com/encode/django-rest-framework/pull/9934",
+      "base_sha": "65aa4b8608e3fd5f32d1d077504e8671991ebe28",
+      "heldout_sha": "86b60c806b5d083d7f7c4892ab82f1a313261803",
+      "module": "rest_framework/renderers.py",
+      "test_class": "BrowsableAPIRendererTests",
+      "requirements": "Browsable API rendering of a synthetic OPTIONS form must not run object permission checks against an unrelated serializer instance. Continue enforcing allowed methods and view-level permissions. DELETE and edit forms must retain their object-permission checks.",
+      "requirements_sha256": "1c40a26ec6a0c546c5927d3aea62a3d099419745388d5f28d6b2b0ca14fc56ce",
+      "expected_tests": {
+        "heldout": 8,
+        "contract": 1
+      },
+      "controls": {
+        "original": {
+          "old": {
+            "errors": 0,
+            "exit_code": 0,
+            "failures": 0,
+            "skipped": 0,
+            "tests": 6
+          },
+          "old_seconds": 1.167,
+          "heldout": {
+            "errors": 0,
+            "exit_code": 1,
+            "failures": 1,
+            "skipped": 0,
+            "tests": 8
+          },
+          "heldout_seconds": 1.268,
+          "contract": {
+            "errors": 0,
+            "exit_code": 1,
+            "failures": 1,
+            "skipped": 0,
+            "tests": 1
+          },
+          "contract_seconds": 1.067
+        },
+        "upstream": {
+          "old": {
+            "errors": 0,
+            "exit_code": 0,
+            "failures": 0,
+            "skipped": 0,
+            "tests": 6
+          },
+          "old_seconds": 1.167,
+          "heldout": {
+            "errors": 0,
+            "exit_code": 0,
+            "failures": 0,
+            "skipped": 0,
+            "tests": 8
+          },
+          "heldout_seconds": 1.167,
+          "contract": {
+            "errors": 0,
+            "exit_code": 0,
+            "failures": 0,
+            "skipped": 0,
+            "tests": 1
+          },
+          "contract_seconds": 1.067
+        }
+      },
+      "arms": {
+        "baseline": {
+          "old": {
+            "errors": 0,
+            "exit_code": 0,
+            "failures": 0,
+            "skipped": 0,
+            "tests": 6
+          },
+          "old_seconds": 1.167,
+          "heldout": {
+            "errors": 0,
+            "exit_code": 0,
+            "failures": 0,
+            "skipped": 0,
+            "tests": 8
+          },
+          "heldout_seconds": 1.167,
+          "contract": {
+            "errors": 0,
+            "exit_code": 0,
+            "failures": 0,
+            "skipped": 0,
+            "tests": 1
+          },
+          "contract_seconds": 1.067
+        },
+        "contract": {
+          "old": {
+            "errors": 0,
+            "exit_code": 0,
+            "failures": 0,
+            "skipped": 0,
+            "tests": 6
+          },
+          "old_seconds": 1.167,
+          "heldout": {
+            "errors": 0,
+            "exit_code": 0,
+            "failures": 0,
+            "skipped": 0,
+            "tests": 8
+          },
+          "heldout_seconds": 1.167,
+          "contract": {
+            "errors": 0,
+            "exit_code": 0,
+            "failures": 0,
+            "skipped": 0,
+            "tests": 1
+          },
+          "contract_seconds": 1.067
+        }
+      },
+      "authors": {
+        "baseline": {
+          "exit_code": 0,
+          "wall_seconds": 170.498,
+          "usage": {
+            "input_tokens": 18677,
+            "cached_input_tokens": 0,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 8376,
+            "reasoning_output_tokens": 50
+          },
+          "prompt_sha256": "2f85520bccdfd68b2db1f7fabd0ba7cb4829b534c7c4248864a9338c0fa2f4eb",
+          "prompt_bytes": 42879,
+          "no_tool_events": true,
+          "source_lines_added": 2,
+          "source_lines_removed": 1
+        },
+        "contract": {
+          "exit_code": 0,
+          "wall_seconds": 171.199,
+          "usage": {
+            "input_tokens": 19550,
+            "cached_input_tokens": 0,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 8395,
+            "reasoning_output_tokens": 80
+          },
+          "prompt_sha256": "9c66548fd2d3bfc4175eea672bb15cc98020e8844df3c61ca07308603af5dd9e",
+          "prompt_bytes": 47513,
+          "no_tool_events": true,
+          "source_lines_added": 3,
+          "source_lines_removed": 2
+        }
+      },
+      "source_sha256": {
+        "original": "9f1005d0346a2668b35c4ca1568a8807b2aaeda9bd45d52dda1c66ae15e77add",
+        "baseline": "d5c48f8b0d623ccdc6ec8fee0bbedf2b899e67174f55568fe1a53aeb51469538",
+        "contract": "86f5e236dff6c9bf12062a404b57fedf7931de845f629b600f9fb3cc4ddf6f4c",
+        "upstream": "7439431c1dc796aca7f8a21726072bbfe88d44e3f0d16ade3147fc64d0eb35ad"
+      },
+      "heldout_test_sha256": "e5fc153d29edb25f964842997ec6fe29a3cdbdef06d8f0999f08cb6ae4cd16a8",
+      "contract_sha256": "adc319c86a924519e2fe3a02e6b7a93871c1fcf81d2344ef76345832984eec6e",
+      "dependency_lock_sha256": "7650c50917da80efccf9371a3ebff3c3a95d775a862030d50abb0606e674be03",
+      "environment": {
+        "python": "3.12.3",
+        "django": "4.2.27",
+        "pytest": "8.3.5",
+        "historical_original_toolchain": false
+      }
+    }
+  ],
+  "limitations": [
+    "Only one sample per arm on three researched cases; no statistical superiority claim.",
+    "Both arms receive reviewed semantics; no blind requirement discovery or public-training-memory exclusion.",
+    "No interactive repair loop or tool use; no general coding-agent benchmark.",
+    "Only selected upstream test classes and scoped contract functions; not full project test suites.",
+    "The explicit contract is additional prompt information and costs tokens; no claim about price or billing.",
+    "Reports describe supplied observations, not authenticated producer provenance or production acceptance.",
+    "Post-hoc compatibility reproduces an already documented historical defect; not novel discovery."
+  ]
+}
