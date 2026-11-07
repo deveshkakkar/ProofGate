@@ -1,0 +1,1022 @@
+{
+  "schema": 1,
+  "preservation": {
+    "schema": 1,
+    "input_domain": {
+      "permission_class": [
+        "model",
+        "model_or_anon"
+      ],
+      "authenticated": [
+        false,
+        true
+      ],
+      "method": [
+        "GET",
+        "HEAD",
+        "OPTIONS",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE",
+        "QUERY"
+      ],
+      "can_view": [
+        false,
+        true
+      ],
+      "can_change": [
+        false,
+        true
+      ],
+      "can_add": [
+        false,
+        true
+      ],
+      "can_delete": [
+        false,
+        true
+      ]
+    },
+    "allowed_change": {
+      "method": [
+        "QUERY"
+      ]
+    },
+    "assumptions": [
+      "Live open PR permission-only diagnostic; proposed policy not authoritative.",
+      "Existing seven method outputs preserved; QUERY semantics evaluated separately against author-declared intent.",
+      "Mocked user/queryset; no database, real auth backend, router, CSRF, object-permission or HTTP coverage.",
+      "Pinned older Django4.1 dependencies used for module probe only; not supported current-DRF application compatibility evidence."
+    ]
+  },
+  "reference_trace_sha256": "e863459d6ce02b7e037c635264d21f9f9d3f1f6235889575b10056e51dfffa6f",
+  "expected_change": [
+    {
+      "input": {
+        "authenticated": false,
+        "can_add": false,
+        "can_change": false,
+        "can_delete": false,
+        "can_view": false,
+        "method": "QUERY",
+        "permission_class": "model"
+      },
+      "output": {
+        "kind": "return",
+        "value": false
+      }
+    },
+    {
+      "input": {
+        "authenticated": false,
+        "can_add": false,
+        "can_change": false,
+        "can_delete": false,
+        "can_view": false,
+        "method": "QUERY",
+        "permission_class": "model_or_anon"
+      },
+      "output": {
+        "kind": "return",
+        "value": true
+      }
+    },
+    {
+      "input": {
+        "authenticated": false,
+        "can_add": false,
+        "can_change": false,
+        "can_delete": false,
+        "can_view": true,
+        "method": "QUERY",
+        "permission_class": "model"
+      },
+      "output": {
+        "kind": "return",
+        "value": false
+      }
+    },
+    {
+      "input": {
+        "authenticated": false,
+        "can_add": false,
+        "can_change": false,
+        "can_delete": false,
+        "can_view": true,
+        "method": "QUERY",
+        "permission_class": "model_or_anon"
+      },
+      "output": {
+        "kind": "return",
+        "value": true
+      }
+    },
+    {
+      "input": {
+        "authenticated": false,
+        "can_add": false,
+        "can_change": false,
+        "can_delete": true,
+        "can_view": false,
+        "method": "QUERY",
+        "permission_class": "model"
+      },
+      "output": {
+        "kind": "return",
+        "value": false
+      }
+    },
+    {
+      "input": {
+        "authenticated": false,
+        "can_add": false,
+        "can_change": false,
+        "can_delete": true,
+        "can_view": false,
+        "method": "QUERY",
+        "permission_class": "model_or_anon"
+      },
+      "output": {
+        "kind": "return",
+        "value": true
+      }
+    },
+    {
+      "input": {
+        "authenticated": false,
+        "can_add": false,
+        "can_change": false,
+        "can_delete": true,
+        "can_view": true,
+        "method": "QUERY",
+        "permission_class": "model"
+      },
+      "output": {
+        "kind": "return",
+        "value": false
+      }
+    },
+    {
+      "input": {
+        "authenticated": false,
+        "can_add": false,
+        "can_change": false,
+        "can_delete": true,
+        "can_view": true,
+        "method": "QUERY",
+        "permission_class": "model_or_anon"
+      },
+      "output": {
+        "kind": "return",
+        "value": true
+      }
+    },
+    {
+      "input": {
+        "authenticated": false,
+        "can_add": false,
+        "can_change": true,
+        "can_delete": false,
+        "can_view": false,
+        "method": "QUERY",
+        "permission_class": "model"
+      },
+      "output": {
+        "kind": "return",
+        "value": false
+      }
+    },
+    {
+      "input": {
+        "authenticated": false,
+        "can_add": false,
+        "can_change": true,
+        "can_delete": false,
+        "can_view": false,
+        "method": "QUERY",
+        "permission_class": "model_or_anon"
+      },
+      "output": {
+        "kind": "return",
+        "value": true
+      }
+    },
+    {
+      "input": {
+        "authenticated": false,
+        "can_add": false,
+        "can_change": true,
+        "can_delete": false,
+        "can_view": true,
+        "method": "QUERY",
+        "permission_class": "model"
+      },
+      "output": {
+        "kind": "return",
+        "value": false
+      }
+    },
+    {
+      "input": {
+        "authenticated": false,
+        "can_add": false,
+        "can_change": true,
+        "can_delete": false,
+        "can_view": true,
+        "method": "QUERY",
+        "permission_class": "model_or_anon"
+      },
+      "output": {
+        "kind": "return",
+        "value": true
+      }
+    },
+    {
+      "input": {
+        "authenticated": false,
+        "can_add": false,
+        "can_change": true,
+        "can_delete": true,
+        "can_view": false,
+        "method": "QUERY",
+        "permission_class": "model"
+      },
+      "output": {
+        "kind": "return",
+        "value": false
+      }
+    },
+    {
+      "input": {
+        "authenticated": false,
+        "can_add": false,
+        "can_change": true,
+        "can_delete": true,
+        "can_view": false,
+        "method": "QUERY",
+        "permission_class": "model_or_anon"
+      },
+      "output": {
+        "kind": "return",
+        "value": true
+      }
+    },
+    {
+      "input": {
+        "authenticated": false,
+        "can_add": false,
+        "can_change": true,
+        "can_delete": true,
+        "can_view": true,
+        "method": "QUERY",
+        "permission_class": "model"
+      },
+      "output": {
+        "kind": "return",
+        "value": false
+      }
+    },
+    {
+      "input": {
+        "authenticated": false,
+        "can_add": false,
+        "can_change": true,
+        "can_delete": true,
+        "can_view": true,
+        "method": "QUERY",
+        "permission_class": "model_or_anon"
+      },
+      "output": {
+        "kind": "return",
+        "value": true
+      }
+    },
+    {
+      "input": {
+        "authenticated": false,
+        "can_add": true,
+        "can_change": false,
+        "can_delete": false,
+        "can_view": false,
+        "method": "QUERY",
+        "permission_class": "model"
+      },
+      "output": {
+        "kind": "return",
+        "value": false
+      }
+    },
+    {
+      "input": {
+        "authenticated": false,
+        "can_add": true,
+        "can_change": false,
+        "can_delete": false,
+        "can_view": false,
+        "method": "QUERY",
+        "permission_class": "model_or_anon"
+      },
+      "output": {
+        "kind": "return",
+        "value": true
+      }
+    },
+    {
+      "input": {
+        "authenticated": false,
+        "can_add": true,
+        "can_change": false,
+        "can_delete": false,
+        "can_view": true,
+        "method": "QUERY",
+        "permission_class": "model"
+      },
+      "output": {
+        "kind": "return",
+        "value": false
+      }
+    },
+    {
+      "input": {
+        "authenticated": false,
+        "can_add": true,
+        "can_change": false,
+        "can_delete": false,
+        "can_view": true,
+        "method": "QUERY",
+        "permission_class": "model_or_anon"
+      },
+      "output": {
+        "kind": "return",
+        "value": true
+      }
+    },
+    {
+      "input": {
+        "authenticated": false,
+        "can_add": true,
+        "can_change": false,
+        "can_delete": true,
+        "can_view": false,
+        "method": "QUERY",
+        "permission_class": "model"
+      },
+      "output": {
+        "kind": "return",
+        "value": false
+      }
+    },
+    {
+      "input": {
+        "authenticated": false,
+        "can_add": true,
+        "can_change": false,
+        "can_delete": true,
+        "can_view": false,
+        "method": "QUERY",
+        "permission_class": "model_or_anon"
+      },
+      "output": {
+        "kind": "return",
+        "value": true
+      }
+    },
+    {
+      "input": {
+        "authenticated": false,
+        "can_add": true,
+        "can_change": false,
+        "can_delete": true,
+        "can_view": true,
+        "method": "QUERY",
+        "permission_class": "model"
+      },
+      "output": {
+        "kind": "return",
+        "value": false
+      }
+    },
+    {
+      "input": {
+        "authenticated": false,
+        "can_add": true,
+        "can_change": false,
+        "can_delete": true,
+        "can_view": true,
+        "method": "QUERY",
+        "permission_class": "model_or_anon"
+      },
+      "output": {
+        "kind": "return",
+        "value": true
+      }
+    },
+    {
+      "input": {
+        "authenticated": false,
+        "can_add": true,
+        "can_change": true,
+        "can_delete": false,
+        "can_view": false,
+        "method": "QUERY",
+        "permission_class": "model"
+      },
+      "output": {
+        "kind": "return",
+        "value": false
+      }
+    },
+    {
+      "input": {
+        "authenticated": false,
+        "can_add": true,
+        "can_change": true,
+        "can_delete": false,
+        "can_view": false,
+        "method": "QUERY",
+        "permission_class": "model_or_anon"
+      },
+      "output": {
+        "kind": "return",
+        "value": true
+      }
+    },
+    {
+      "input": {
+        "authenticated": false,
+        "can_add": true,
+        "can_change": true,
+        "can_delete": false,
+        "can_view": true,
+        "method": "QUERY",
+        "permission_class": "model"
+      },
+      "output": {
+        "kind": "return",
+        "value": false
+      }
+    },
+    {
+      "input": {
+        "authenticated": false,
+        "can_add": true,
+        "can_change": true,
+        "can_delete": false,
+        "can_view": true,
+        "method": "QUERY",
+        "permission_class": "model_or_anon"
+      },
+      "output": {
+        "kind": "return",
+        "value": true
+      }
+    },
+    {
+      "input": {
+        "authenticated": false,
+        "can_add": true,
+        "can_change": true,
+        "can_delete": true,
+        "can_view": false,
+        "method": "QUERY",
+        "permission_class": "model"
+      },
+      "output": {
+        "kind": "return",
+        "value": false
+      }
+    },
+    {
+      "input": {
+        "authenticated": false,
+        "can_add": true,
+        "can_change": true,
+        "can_delete": true,
+        "can_view": false,
+        "method": "QUERY",
+        "permission_class": "model_or_anon"
+      },
+      "output": {
+        "kind": "return",
+        "value": true
+      }
+    },
+    {
+      "input": {
+        "authenticated": false,
+        "can_add": true,
+        "can_change": true,
+        "can_delete": true,
+        "can_view": true,
+        "method": "QUERY",
+        "permission_class": "model"
+      },
+      "output": {
+        "kind": "return",
+        "value": false
+      }
+    },
+    {
+      "input": {
+        "authenticated": false,
+        "can_add": true,
+        "can_change": true,
+        "can_delete": true,
+        "can_view": true,
+        "method": "QUERY",
+        "permission_class": "model_or_anon"
+      },
+      "output": {
+        "kind": "return",
+        "value": true
+      }
+    },
+    {
+      "input": {
+        "authenticated": true,
+        "can_add": false,
+        "can_change": false,
+        "can_delete": false,
+        "can_view": false,
+        "method": "QUERY",
+        "permission_class": "model"
+      },
+      "output": {
+        "kind": "return",
+        "value": true
+      }
+    },
+    {
+      "input": {
+        "authenticated": true,
+        "can_add": false,
+        "can_change": false,
+        "can_delete": false,
+        "can_view": false,
+        "method": "QUERY",
+        "permission_class": "model_or_anon"
+      },
+      "output": {
+        "kind": "return",
+        "value": true
+      }
+    },
+    {
+      "input": {
+        "authenticated": true,
+        "can_add": false,
+        "can_change": false,
+        "can_delete": false,
+        "can_view": true,
+        "method": "QUERY",
+        "permission_class": "model"
+      },
+      "output": {
+        "kind": "return",
+        "value": true
+      }
+    },
+    {
+      "input": {
+        "authenticated": true,
+        "can_add": false,
+        "can_change": false,
+        "can_delete": false,
+        "can_view": true,
+        "method": "QUERY",
+        "permission_class": "model_or_anon"
+      },
+      "output": {
+        "kind": "return",
+        "value": true
+      }
+    },
+    {
+      "input": {
+        "authenticated": true,
+        "can_add": false,
+        "can_change": false,
+        "can_delete": true,
+        "can_view": false,
+        "method": "QUERY",
+        "permission_class": "model"
+      },
+      "output": {
+        "kind": "return",
+        "value": true
+      }
+    },
+    {
+      "input": {
+        "authenticated": true,
+        "can_add": false,
+        "can_change": false,
+        "can_delete": true,
+        "can_view": false,
+        "method": "QUERY",
+        "permission_class": "model_or_anon"
+      },
+      "output": {
+        "kind": "return",
+        "value": true
+      }
+    },
+    {
+      "input": {
+        "authenticated": true,
+        "can_add": false,
+        "can_change": false,
+        "can_delete": true,
+        "can_view": true,
+        "method": "QUERY",
+        "permission_class": "model"
+      },
+      "output": {
+        "kind": "return",
+        "value": true
+      }
+    },
+    {
+      "input": {
+        "authenticated": true,
+        "can_add": false,
+        "can_change": false,
+        "can_delete": true,
+        "can_view": true,
+        "method": "QUERY",
+        "permission_class": "model_or_anon"
+      },
+      "output": {
+        "kind": "return",
+        "value": true
+      }
+    },
+    {
+      "input": {
+        "authenticated": true,
+        "can_add": false,
+        "can_change": true,
+        "can_delete": false,
+        "can_view": false,
+        "method": "QUERY",
+        "permission_class": "model"
+      },
+      "output": {
+        "kind": "return",
+        "value": true
+      }
+    },
+    {
+      "input": {
+        "authenticated": true,
+        "can_add": false,
+        "can_change": true,
+        "can_delete": false,
+        "can_view": false,
+        "method": "QUERY",
+        "permission_class": "model_or_anon"
+      },
+      "output": {
+        "kind": "return",
+        "value": true
+      }
+    },
+    {
+      "input": {
+        "authenticated": true,
+        "can_add": false,
+        "can_change": true,
+        "can_delete": false,
+        "can_view": true,
+        "method": "QUERY",
+        "permission_class": "model"
+      },
+      "output": {
+        "kind": "return",
+        "value": true
+      }
+    },
+    {
+      "input": {
+        "authenticated": true,
+        "can_add": false,
+        "can_change": true,
+        "can_delete": false,
+        "can_view": true,
+        "method": "QUERY",
+        "permission_class": "model_or_anon"
+      },
+      "output": {
+        "kind": "return",
+        "value": true
+      }
+    },
+    {
+      "input": {
+        "authenticated": true,
+        "can_add": false,
+        "can_change": true,
+        "can_delete": true,
+        "can_view": false,
+        "method": "QUERY",
+        "permission_class": "model"
+      },
+      "output": {
+        "kind": "return",
+        "value": true
+      }
+    },
+    {
+      "input": {
+        "authenticated": true,
+        "can_add": false,
+        "can_change": true,
+        "can_delete": true,
+        "can_view": false,
+        "method": "QUERY",
+        "permission_class": "model_or_anon"
+      },
+      "output": {
+        "kind": "return",
+        "value": true
+      }
+    },
+    {
+      "input": {
+        "authenticated": true,
+        "can_add": false,
+        "can_change": true,
+        "can_delete": true,
+        "can_view": true,
+        "method": "QUERY",
+        "permission_class": "model"
+      },
+      "output": {
+        "kind": "return",
+        "value": true
+      }
+    },
+    {
+      "input": {
+        "authenticated": true,
+        "can_add": false,
+        "can_change": true,
+        "can_delete": true,
+        "can_view": true,
+        "method": "QUERY",
+        "permission_class": "model_or_anon"
+      },
+      "output": {
+        "kind": "return",
+        "value": true
+      }
+    },
+    {
+      "input": {
+        "authenticated": true,
+        "can_add": true,
+        "can_change": false,
+        "can_delete": false,
+        "can_view": false,
+        "method": "QUERY",
+        "permission_class": "model"
+      },
+      "output": {
+        "kind": "return",
+        "value": true
+      }
+    },
+    {
+      "input": {
+        "authenticated": true,
+        "can_add": true,
+        "can_change": false,
+        "can_delete": false,
+        "can_view": false,
+        "method": "QUERY",
+        "permission_class": "model_or_anon"
+      },
+      "output": {
+        "kind": "return",
+        "value": true
+      }
+    },
+    {
+      "input": {
+        "authenticated": true,
+        "can_add": true,
+        "can_change": false,
+        "can_delete": false,
+        "can_view": true,
+        "method": "QUERY",
+        "permission_class": "model"
+      },
+      "output": {
+        "kind": "return",
+        "value": true
+      }
+    },
+    {
+      "input": {
+        "authenticated": true,
+        "can_add": true,
+        "can_change": false,
+        "can_delete": false,
+        "can_view": true,
+        "method": "QUERY",
+        "permission_class": "model_or_anon"
+      },
+      "output": {
+        "kind": "return",
+        "value": true
+      }
+    },
+    {
+      "input": {
+        "authenticated": true,
+        "can_add": true,
+        "can_change": false,
+        "can_delete": true,
+        "can_view": false,
+        "method": "QUERY",
+        "permission_class": "model"
+      },
+      "output": {
+        "kind": "return",
+        "value": true
+      }
+    },
+    {
+      "input": {
+        "authenticated": true,
+        "can_add": true,
+        "can_change": false,
+        "can_delete": true,
+        "can_view": false,
+        "method": "QUERY",
+        "permission_class": "model_or_anon"
+      },
+      "output": {
+        "kind": "return",
+        "value": true
+      }
+    },
+    {
+      "input": {
+        "authenticated": true,
+        "can_add": true,
+        "can_change": false,
+        "can_delete": true,
+        "can_view": true,
+        "method": "QUERY",
+        "permission_class": "model"
+      },
+      "output": {
+        "kind": "return",
+        "value": true
+      }
+    },
+    {
+      "input": {
+        "authenticated": true,
+        "can_add": true,
+        "can_change": false,
+        "can_delete": true,
+        "can_view": true,
+        "method": "QUERY",
+        "permission_class": "model_or_anon"
+      },
+      "output": {
+        "kind": "return",
+        "value": true
+      }
+    },
+    {
+      "input": {
+        "authenticated": true,
+        "can_add": true,
+        "can_change": true,
+        "can_delete": false,
+        "can_view": false,
+        "method": "QUERY",
+        "permission_class": "model"
+      },
+      "output": {
+        "kind": "return",
+        "value": true
+      }
+    },
+    {
+      "input": {
+        "authenticated": true,
+        "can_add": true,
+        "can_change": true,
+        "can_delete": false,
+        "can_view": false,
+        "method": "QUERY",
+        "permission_class": "model_or_anon"
+      },
+      "output": {
+        "kind": "return",
+        "value": true
+      }
+    },
+    {
+      "input": {
+        "authenticated": true,
+        "can_add": true,
+        "can_change": true,
+        "can_delete": false,
+        "can_view": true,
+        "method": "QUERY",
+        "permission_class": "model"
+      },
+      "output": {
+        "kind": "return",
+        "value": true
+      }
+    },
+    {
+      "input": {
+        "authenticated": true,
+        "can_add": true,
+        "can_change": true,
+        "can_delete": false,
+        "can_view": true,
+        "method": "QUERY",
+        "permission_class": "model_or_anon"
+      },
+      "output": {
+        "kind": "return",
+        "value": true
+      }
+    },
+    {
+      "input": {
+        "authenticated": true,
+        "can_add": true,
+        "can_change": true,
+        "can_delete": true,
+        "can_view": false,
+        "method": "QUERY",
+        "permission_class": "model"
+      },
+      "output": {
+        "kind": "return",
+        "value": true
+      }
+    },
+    {
+      "input": {
+        "authenticated": true,
+        "can_add": true,
+        "can_change": true,
+        "can_delete": true,
+        "can_view": false,
+        "method": "QUERY",
+        "permission_class": "model_or_anon"
+      },
+      "output": {
+        "kind": "return",
+        "value": true
+      }
+    },
+    {
+      "input": {
+        "authenticated": true,
+        "can_add": true,
+        "can_change": true,
+        "can_delete": true,
+        "can_view": true,
+        "method": "QUERY",
+        "permission_class": "model"
+      },
+      "output": {
+        "kind": "return",
+        "value": true
+      }
+    },
+    {
+      "input": {
+        "authenticated": true,
+        "can_add": true,
+        "can_change": true,
+        "can_delete": true,
+        "can_view": true,
+        "method": "QUERY",
+        "permission_class": "model_or_anon"
+      },
+      "output": {
+        "kind": "return",
+        "value": true
+      }
+    }
+  ],
+  "provenance": [
+    "Experimental contributor-declared policy, not owner-admitted production authority.",
+    "DRF PR10091 at09518301043788cc9fb25b38bd5b6b48c0bd9233: QUERY maps to no model permissions, preserving each class authentication rule.",
+    "Source: https://github.com/encode/django-rest-framework/pull/10091 ; RFC10008 defines safety, not anonymous authorization.",
+    "These expectations are explicit evaluator proposals; frozen head outputs were not used to derive the expected output table."
+  ]
+}
