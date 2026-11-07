@@ -22,3 +22,13 @@ Implement a reservation adapter that consumes actual evaluator observations and 
 ## Unresolved design questions
 
 How does a trusted runner bind its own implementation and environment to observations? How are immutable snapshots enforced outside the original bubblewrap runner? Which second rule exposes meaningful application failures with affordable formal specification? These do not block the pure prototype but block claiming a reusable release gate. Do not treat the current API as stable or production authority.
+
+## Second slice — local experimental evidence
+
+The core was reused unchanged for two integrations: `python3 -B -m framework.inspect_recorded` runs the existing reservation offline integrity checker, and `python3 -B examples/entitlement/experiment.py` runs a fresh finite-domain entitlement matrix. The reservation adapter reports only archived consistency; it does not relabel past proof checks as current observations.
+
+Entitlement: 72 rule cases and 80 application cases per variant. Original passes both; always-deny and always-grant fail both; application tenant spoof passes the pure rule but fails boundary checks. Four small evaluator-authored variants only. No universal proof, deployed service, credential freshness or adversarial runner acceptance. Fresh review found missing replay coverage and incomplete aggregate limits; freshness is explicitly deferred, and transient systemd scopes plus bounded tmpfs were added. Adversarial exhaustion tests are still required before expanding supported inputs.
+
+Private development evidence: `/home/devesh/.local/share/proofgate-framework/20261107/` contains reservation-inspection.json and entitlement-matrix.json. Reports include input identities and observed checks. The entitlement matrix ran locally in under one second after adding aggregate limits. These measurements are not competitive benchmarks. No paid provider calls or dependencies were added.
+
+Next architectural dependency: select independent acceptance authority before building a general runner. Protected CI contracts, a separately administered local evaluator, and a developer consistency tool have different threat models and privileges. The prototype deliberately does not choose a production trust boundary or grant itself authority. A question has been sent to the owner; dependent runner work waits for that decision. Continue only independent documentation/tests while it is pending.

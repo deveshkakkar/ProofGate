@@ -24,3 +24,5 @@ jobs:
         run: |
           python3 -B -m unittest discover -s tests -v
           python3 -B -m framework.demo
+      - name: Inspect archived reservation through framework adapter
+        run: python3 -B -m framework.inspect_recorded > /dev/null
