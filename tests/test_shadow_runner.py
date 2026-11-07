@@ -9,6 +9,7 @@ import unittest
 from unittest.mock import patch
 
 from benchmarks.drf.ci import compare_control
+from benchmarks.drf.resource_exec import ensure_unprivileged
 from benchmarks.drf.replay import extract, read_regular, scope_command, evaluate
 
 
@@ -44,7 +45,7 @@ class ShadowRunnerTests(unittest.TestCase):
         self.assertIn('--reuid=1001', argv)
         self.assertIn('--regid=1001', argv)
         self.assertLess(argv.index('/usr/bin/setpriv'), argv.index('/usr/bin/python3'))
-        self.assertIn('--bounding-set=-all', argv)
+        self.assertIn('--no-new-privs', argv)
 
     def test_root_and_non_github_transport_are_rejected(self):
         with patch('os.getuid', return_value=0):
@@ -53,6 +54,18 @@ class ShadowRunnerTests(unittest.TestCase):
         with patch('os.getuid', return_value=1001), patch.dict(os.environ, {}, clear=True):
             with self.assertRaises(ValueError):
                 scope_command([], 'github-hosted')
+
+    def test_saved_root_and_effective_capabilities_are_rejected(self):
+        zero = 'CapEff: 0000\nCapPrm: 0000\nCapAmb: 0000\n'
+        with patch('os.getresuid', return_value=(1001, 1001, 0)), patch('os.getresgid', return_value=(1001, 1001, 1001)):
+            with self.assertRaises(PermissionError):
+                ensure_unprivileged()
+        with patch('os.getresuid', return_value=(1001, 1001, 1001)), patch('os.getresgid', return_value=(1001, 1001, 1001)):
+            with patch('pathlib.Path.read_text', return_value=zero):
+                ensure_unprivileged()
+            with patch('pathlib.Path.read_text', return_value=zero.replace('CapEff: 0000', 'CapEff: 0001')):
+                with self.assertRaises(PermissionError):
+                    ensure_unprivileged()
 
     def test_untrusted_descriptor_is_rejected_before_creating_output(self):
         with tempfile.TemporaryDirectory() as temporary:

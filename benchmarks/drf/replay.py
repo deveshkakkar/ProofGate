@@ -84,7 +84,7 @@ def scope_command(argv, backend):
     if backend != 'github-hosted' or os.environ.get('GITHUB_ACTIONS') != 'true' or os.environ.get('RUNNER_ENVIRONMENT') != 'github-hosted':
         raise ValueError('GitHub backend requires a GitHub-hosted Actions runner')
     drop = ['/usr/bin/setpriv', '--reuid=' + str(os.getuid()), '--regid=' + str(os.getgid()),
-            '--clear-groups', '--bounding-set=-all']
+            '--clear-groups', '--no-new-privs']
     return ['/usr/bin/sudo', '-n', '/usr/bin/systemd-run'] + properties + drop + helper
 
 
