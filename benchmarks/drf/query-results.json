@@ -1,0 +1,674 @@
+{
+  "schema": 1,
+  "scope": "permission-only shadow observations; no admission, full application or supported current-Django execution claim",
+  "specification_sha256": "000349e893dbdf414c30981ce1ae2fdd4676db212705384cb0db66e8918f6079",
+  "recorded_execution": {
+    "schema": 1,
+    "status": "complete",
+    "plan": {
+      "intended_behavior": "Live open-PR permission-only shadow diagnostic; preserve seven old method outputs, evaluate QUERY against author-declared intent separately.",
+      "excluded_scope": [
+        "No clean-room author or blind claim; PR body seen.",
+        "No whole app, CSRF/router/filtering/API or Django-version compatibility claim.",
+        "No upstream writes, new model calls, merge, services or package installs.",
+        "No authoritative business-policy admission."
+      ],
+      "allowed_writes": "This private directory only; sanitized evidence/spec in a later reviewable change.",
+      "bounds": {
+        "worker_runs": 2,
+        "worker_memory_mib": 512,
+        "network_download_bytes_each": 16777216,
+        "new_disk_mib": 128,
+        "command_seconds": 600
+      },
+      "stopping_conditions": [
+        "Archive/dependency/probe failure remains inconclusive.",
+        "Unexpected preserved-method changes require review; no automatic repair.",
+        "Upstream outcome and application-level permission approval external."
+      ],
+      "acceptance": "Exact512 observations per source, independent comparator checks448 old-method inputs; separately report64 QUERY outcomes against explicit proposed class policy.",
+      "repo": "encode/django-rest-framework",
+      "pr": 10091,
+      "base": "4acc64013b3ca101631efe5ebcacbb18960bbe37",
+      "head": "09518301043788cc9fb25b38bd5b6b48c0bd9233",
+      "status_at_selection": "open, unmerged",
+      "sources": [
+        "https://github.com/encode/django-rest-framework/pull/10091",
+        "https://www.rfc-editor.org/rfc/rfc10008.html"
+      ]
+    },
+    "runtime": {
+      "dependencies": "c4eee3208713a1e3bbbdff251cedeeb7103fc672dd5e0003c065bfae3c33c393",
+      "probe": "79b6b832ac933ba929aa0b642a209db1315278fb70bec737bb3cfcd1484eeeaf",
+      "python": "e50d468e8b0adfb05733f5b87b3cff34829c4a8c1aea50c865aa8bdfe4bb150f",
+      "bwrap": "e318903862396f96de3df57264e0158682b952fd3fb53ac23d876413e7b30f71",
+      "scope_wrapper": "ad809a87c7b07840b5c5421a79b2085ea6d07e0f3fbd126c55553c904b91532d",
+      "resource_helper": "419a5cd86e72ca242961b75d883470e54865118cd8f45267f38d50ad238060fd",
+      "host_libraries": "trusted; incomplete fingerprint"
+    },
+    "rows": [
+      {
+        "version": "base",
+        "revision": "4acc64013b3ca101631efe5ebcacbb18960bbe37",
+        "archive_sha256": "079f2fee3b5d70768fe6e0449000a58518ab658bb762b88b5930a9b61fa434d1",
+        "artifact_manifest_sha256": "85a76bbfe185c9b6ae5960a63ec1065b39d9794ce5c42b2898c754407a91ee06",
+        "module_sha256": "b4c6285334dc756081bc1896606574dd248dad44379ed4b55736a863f70e7e89",
+        "exit_code": 0,
+        "seconds": 0.41
+      },
+      {
+        "version": "head",
+        "revision": "09518301043788cc9fb25b38bd5b6b48c0bd9233",
+        "archive_sha256": "e5710d60b3fd6766ce1ffa88f23bad384649b947d4514a59a9fe08126b40a6f7",
+        "artifact_manifest_sha256": "5e022fd7b59b9619d5cf6b09a4f1f3a640cc621aad32d58906c0d38eba589a55",
+        "module_sha256": "7f7082b6f6fc9f55f3ffda52928f4cbffe65d179e7bbb973d7bd1da5e7ea48d9",
+        "exit_code": 0,
+        "seconds": 0.405
+      }
+    ],
+    "policy_sha256": "d15d2b211779c861674d3070fa876e4c183365750074751ac7c1e79fcea88b21",
+    "preservation": {
+      "assurance": "finite preservation only",
+      "new_semantics_checked": false,
+      "producer_authenticated": false,
+      "reference_correctness_established": false,
+      "valid": true,
+      "preserved": true,
+      "policy_sha256": "d15d2b211779c861674d3070fa876e4c183365750074751ac7c1e79fcea88b21",
+      "domain_inputs": 512,
+      "checked_inputs": 448,
+      "unverified_change_inputs": 64,
+      "violation_count": 0,
+      "counterexamples": [],
+      "reference_trace_sha256": "e863459d6ce02b7e037c635264d21f9f9d3f1f6235889575b10056e51dfffa6f",
+      "candidate_trace_sha256": "a69184c2d49f170bd88726c0ceeca9c5a042bceb279f540ea9361c7edd7f10d0"
+    },
+    "query": {
+      "scope": "author-declared empty permission map plus existing class authentication rules; not RFC authorization requirement",
+      "count": 64,
+      "mismatches": []
+    },
+    "claims": {
+      "blind_author": false,
+      "full_app_test": false,
+      "authoritative_policy": false,
+      "upstream_outcome_known": false
+    }
+  },
+  "actual_observation_checks": {
+    "base": {
+      "assurance": "finite observations only",
+      "policy_admitted": false,
+      "source_execution_verified": false,
+      "producer_authenticated": false,
+      "reference_correctness_established": false,
+      "specified_change_checked": true,
+      "valid": true,
+      "satisfied": false,
+      "specification_sha256": "000349e893dbdf414c30981ce1ae2fdd4676db212705384cb0db66e8918f6079",
+      "reference_trace_sha256": "e863459d6ce02b7e037c635264d21f9f9d3f1f6235889575b10056e51dfffa6f",
+      "candidate_trace_sha256": "e863459d6ce02b7e037c635264d21f9f9d3f1f6235889575b10056e51dfffa6f",
+      "preservation": {
+        "assurance": "finite preservation only",
+        "new_semantics_checked": false,
+        "producer_authenticated": false,
+        "reference_correctness_established": false,
+        "valid": true,
+        "preserved": true,
+        "policy_sha256": "d15d2b211779c861674d3070fa876e4c183365750074751ac7c1e79fcea88b21",
+        "domain_inputs": 512,
+        "checked_inputs": 448,
+        "unverified_change_inputs": 64,
+        "violation_count": 0,
+        "counterexamples": [],
+        "reference_trace_sha256": "e863459d6ce02b7e037c635264d21f9f9d3f1f6235889575b10056e51dfffa6f",
+        "candidate_trace_sha256": "e863459d6ce02b7e037c635264d21f9f9d3f1f6235889575b10056e51dfffa6f"
+      },
+      "intended_change": {
+        "satisfied": false,
+        "checked_inputs": 64,
+        "violation_count": 48,
+        "counterexamples": [
+          {
+            "input": {
+              "authenticated": false,
+              "can_add": false,
+              "can_change": false,
+              "can_delete": false,
+              "can_view": false,
+              "method": "QUERY",
+              "permission_class": "model_or_anon"
+            },
+            "expected": {
+              "kind": "return",
+              "value": true
+            },
+            "candidate": {
+              "kind": "raise",
+              "type": "rest_framework.exceptions.MethodNotAllowed"
+            }
+          },
+          {
+            "input": {
+              "authenticated": false,
+              "can_add": false,
+              "can_change": false,
+              "can_delete": false,
+              "can_view": true,
+              "method": "QUERY",
+              "permission_class": "model_or_anon"
+            },
+            "expected": {
+              "kind": "return",
+              "value": true
+            },
+            "candidate": {
+              "kind": "raise",
+              "type": "rest_framework.exceptions.MethodNotAllowed"
+            }
+          },
+          {
+            "input": {
+              "authenticated": false,
+              "can_add": false,
+              "can_change": false,
+              "can_delete": true,
+              "can_view": false,
+              "method": "QUERY",
+              "permission_class": "model_or_anon"
+            },
+            "expected": {
+              "kind": "return",
+              "value": true
+            },
+            "candidate": {
+              "kind": "raise",
+              "type": "rest_framework.exceptions.MethodNotAllowed"
+            }
+          },
+          {
+            "input": {
+              "authenticated": false,
+              "can_add": false,
+              "can_change": false,
+              "can_delete": true,
+              "can_view": true,
+              "method": "QUERY",
+              "permission_class": "model_or_anon"
+            },
+            "expected": {
+              "kind": "return",
+              "value": true
+            },
+            "candidate": {
+              "kind": "raise",
+              "type": "rest_framework.exceptions.MethodNotAllowed"
+            }
+          },
+          {
+            "input": {
+              "authenticated": false,
+              "can_add": false,
+              "can_change": true,
+              "can_delete": false,
+              "can_view": false,
+              "method": "QUERY",
+              "permission_class": "model_or_anon"
+            },
+            "expected": {
+              "kind": "return",
+              "value": true
+            },
+            "candidate": {
+              "kind": "raise",
+              "type": "rest_framework.exceptions.MethodNotAllowed"
+            }
+          },
+          {
+            "input": {
+              "authenticated": false,
+              "can_add": false,
+              "can_change": true,
+              "can_delete": false,
+              "can_view": true,
+              "method": "QUERY",
+              "permission_class": "model_or_anon"
+            },
+            "expected": {
+              "kind": "return",
+              "value": true
+            },
+            "candidate": {
+              "kind": "raise",
+              "type": "rest_framework.exceptions.MethodNotAllowed"
+            }
+          },
+          {
+            "input": {
+              "authenticated": false,
+              "can_add": false,
+              "can_change": true,
+              "can_delete": true,
+              "can_view": false,
+              "method": "QUERY",
+              "permission_class": "model_or_anon"
+            },
+            "expected": {
+              "kind": "return",
+              "value": true
+            },
+            "candidate": {
+              "kind": "raise",
+              "type": "rest_framework.exceptions.MethodNotAllowed"
+            }
+          },
+          {
+            "input": {
+              "authenticated": false,
+              "can_add": false,
+              "can_change": true,
+              "can_delete": true,
+              "can_view": true,
+              "method": "QUERY",
+              "permission_class": "model_or_anon"
+            },
+            "expected": {
+              "kind": "return",
+              "value": true
+            },
+            "candidate": {
+              "kind": "raise",
+              "type": "rest_framework.exceptions.MethodNotAllowed"
+            }
+          },
+          {
+            "input": {
+              "authenticated": false,
+              "can_add": true,
+              "can_change": false,
+              "can_delete": false,
+              "can_view": false,
+              "method": "QUERY",
+              "permission_class": "model_or_anon"
+            },
+            "expected": {
+              "kind": "return",
+              "value": true
+            },
+            "candidate": {
+              "kind": "raise",
+              "type": "rest_framework.exceptions.MethodNotAllowed"
+            }
+          },
+          {
+            "input": {
+              "authenticated": false,
+              "can_add": true,
+              "can_change": false,
+              "can_delete": false,
+              "can_view": true,
+              "method": "QUERY",
+              "permission_class": "model_or_anon"
+            },
+            "expected": {
+              "kind": "return",
+              "value": true
+            },
+            "candidate": {
+              "kind": "raise",
+              "type": "rest_framework.exceptions.MethodNotAllowed"
+            }
+          },
+          {
+            "input": {
+              "authenticated": false,
+              "can_add": true,
+              "can_change": false,
+              "can_delete": true,
+              "can_view": false,
+              "method": "QUERY",
+              "permission_class": "model_or_anon"
+            },
+            "expected": {
+              "kind": "return",
+              "value": true
+            },
+            "candidate": {
+              "kind": "raise",
+              "type": "rest_framework.exceptions.MethodNotAllowed"
+            }
+          },
+          {
+            "input": {
+              "authenticated": false,
+              "can_add": true,
+              "can_change": false,
+              "can_delete": true,
+              "can_view": true,
+              "method": "QUERY",
+              "permission_class": "model_or_anon"
+            },
+            "expected": {
+              "kind": "return",
+              "value": true
+            },
+            "candidate": {
+              "kind": "raise",
+              "type": "rest_framework.exceptions.MethodNotAllowed"
+            }
+          },
+          {
+            "input": {
+              "authenticated": false,
+              "can_add": true,
+              "can_change": true,
+              "can_delete": false,
+              "can_view": false,
+              "method": "QUERY",
+              "permission_class": "model_or_anon"
+            },
+            "expected": {
+              "kind": "return",
+              "value": true
+            },
+            "candidate": {
+              "kind": "raise",
+              "type": "rest_framework.exceptions.MethodNotAllowed"
+            }
+          },
+          {
+            "input": {
+              "authenticated": false,
+              "can_add": true,
+              "can_change": true,
+              "can_delete": false,
+              "can_view": true,
+              "method": "QUERY",
+              "permission_class": "model_or_anon"
+            },
+            "expected": {
+              "kind": "return",
+              "value": true
+            },
+            "candidate": {
+              "kind": "raise",
+              "type": "rest_framework.exceptions.MethodNotAllowed"
+            }
+          },
+          {
+            "input": {
+              "authenticated": false,
+              "can_add": true,
+              "can_change": true,
+              "can_delete": true,
+              "can_view": false,
+              "method": "QUERY",
+              "permission_class": "model_or_anon"
+            },
+            "expected": {
+              "kind": "return",
+              "value": true
+            },
+            "candidate": {
+              "kind": "raise",
+              "type": "rest_framework.exceptions.MethodNotAllowed"
+            }
+          },
+          {
+            "input": {
+              "authenticated": false,
+              "can_add": true,
+              "can_change": true,
+              "can_delete": true,
+              "can_view": true,
+              "method": "QUERY",
+              "permission_class": "model_or_anon"
+            },
+            "expected": {
+              "kind": "return",
+              "value": true
+            },
+            "candidate": {
+              "kind": "raise",
+              "type": "rest_framework.exceptions.MethodNotAllowed"
+            }
+          },
+          {
+            "input": {
+              "authenticated": true,
+              "can_add": false,
+              "can_change": false,
+              "can_delete": false,
+              "can_view": false,
+              "method": "QUERY",
+              "permission_class": "model"
+            },
+            "expected": {
+              "kind": "return",
+              "value": true
+            },
+            "candidate": {
+              "kind": "raise",
+              "type": "rest_framework.exceptions.MethodNotAllowed"
+            }
+          },
+          {
+            "input": {
+              "authenticated": true,
+              "can_add": false,
+              "can_change": false,
+              "can_delete": false,
+              "can_view": false,
+              "method": "QUERY",
+              "permission_class": "model_or_anon"
+            },
+            "expected": {
+              "kind": "return",
+              "value": true
+            },
+            "candidate": {
+              "kind": "raise",
+              "type": "rest_framework.exceptions.MethodNotAllowed"
+            }
+          },
+          {
+            "input": {
+              "authenticated": true,
+              "can_add": false,
+              "can_change": false,
+              "can_delete": false,
+              "can_view": true,
+              "method": "QUERY",
+              "permission_class": "model"
+            },
+            "expected": {
+              "kind": "return",
+              "value": true
+            },
+            "candidate": {
+              "kind": "raise",
+              "type": "rest_framework.exceptions.MethodNotAllowed"
+            }
+          },
+          {
+            "input": {
+              "authenticated": true,
+              "can_add": false,
+              "can_change": false,
+              "can_delete": false,
+              "can_view": true,
+              "method": "QUERY",
+              "permission_class": "model_or_anon"
+            },
+            "expected": {
+              "kind": "return",
+              "value": true
+            },
+            "candidate": {
+              "kind": "raise",
+              "type": "rest_framework.exceptions.MethodNotAllowed"
+            }
+          }
+        ]
+      }
+    },
+    "head": {
+      "assurance": "finite observations only",
+      "policy_admitted": false,
+      "source_execution_verified": false,
+      "producer_authenticated": false,
+      "reference_correctness_established": false,
+      "specified_change_checked": true,
+      "valid": true,
+      "satisfied": true,
+      "specification_sha256": "000349e893dbdf414c30981ce1ae2fdd4676db212705384cb0db66e8918f6079",
+      "reference_trace_sha256": "e863459d6ce02b7e037c635264d21f9f9d3f1f6235889575b10056e51dfffa6f",
+      "candidate_trace_sha256": "a69184c2d49f170bd88726c0ceeca9c5a042bceb279f540ea9361c7edd7f10d0",
+      "preservation": {
+        "assurance": "finite preservation only",
+        "new_semantics_checked": false,
+        "producer_authenticated": false,
+        "reference_correctness_established": false,
+        "valid": true,
+        "preserved": true,
+        "policy_sha256": "d15d2b211779c861674d3070fa876e4c183365750074751ac7c1e79fcea88b21",
+        "domain_inputs": 512,
+        "checked_inputs": 448,
+        "unverified_change_inputs": 64,
+        "violation_count": 0,
+        "counterexamples": [],
+        "reference_trace_sha256": "e863459d6ce02b7e037c635264d21f9f9d3f1f6235889575b10056e51dfffa6f",
+        "candidate_trace_sha256": "a69184c2d49f170bd88726c0ceeca9c5a042bceb279f540ea9361c7edd7f10d0"
+      },
+      "intended_change": {
+        "satisfied": true,
+        "checked_inputs": 64,
+        "violation_count": 0,
+        "counterexamples": []
+      }
+    }
+  },
+  "synthetic_fault_controls": {
+    "old_post_grant": {
+      "assurance": "finite observations only",
+      "policy_admitted": false,
+      "source_execution_verified": false,
+      "producer_authenticated": false,
+      "reference_correctness_established": false,
+      "specified_change_checked": true,
+      "valid": true,
+      "satisfied": false,
+      "specification_sha256": "000349e893dbdf414c30981ce1ae2fdd4676db212705384cb0db66e8918f6079",
+      "reference_trace_sha256": "e863459d6ce02b7e037c635264d21f9f9d3f1f6235889575b10056e51dfffa6f",
+      "candidate_trace_sha256": "2620901d618bfed50118d178d8faba421b9fb955012f0dcaa922b3d7df60bd67",
+      "preservation": {
+        "assurance": "finite preservation only",
+        "new_semantics_checked": false,
+        "producer_authenticated": false,
+        "reference_correctness_established": false,
+        "valid": true,
+        "preserved": false,
+        "policy_sha256": "d15d2b211779c861674d3070fa876e4c183365750074751ac7c1e79fcea88b21",
+        "domain_inputs": 512,
+        "checked_inputs": 448,
+        "unverified_change_inputs": 64,
+        "violation_count": 1,
+        "counterexamples": [
+          {
+            "input": {
+              "authenticated": true,
+              "can_add": false,
+              "can_change": false,
+              "can_delete": false,
+              "can_view": false,
+              "method": "POST",
+              "permission_class": "model"
+            },
+            "reference": {
+              "kind": "return",
+              "value": false
+            },
+            "candidate": {
+              "kind": "return",
+              "value": true
+            }
+          }
+        ],
+        "reference_trace_sha256": "e863459d6ce02b7e037c635264d21f9f9d3f1f6235889575b10056e51dfffa6f",
+        "candidate_trace_sha256": "2620901d618bfed50118d178d8faba421b9fb955012f0dcaa922b3d7df60bd67"
+      },
+      "intended_change": {
+        "satisfied": true,
+        "checked_inputs": 64,
+        "violation_count": 0,
+        "counterexamples": []
+      }
+    },
+    "query_denial": {
+      "assurance": "finite observations only",
+      "policy_admitted": false,
+      "source_execution_verified": false,
+      "producer_authenticated": false,
+      "reference_correctness_established": false,
+      "specified_change_checked": true,
+      "valid": true,
+      "satisfied": false,
+      "specification_sha256": "000349e893dbdf414c30981ce1ae2fdd4676db212705384cb0db66e8918f6079",
+      "reference_trace_sha256": "e863459d6ce02b7e037c635264d21f9f9d3f1f6235889575b10056e51dfffa6f",
+      "candidate_trace_sha256": "182dcdc2dfa567aa146ccdd067193edbf50ac9a25e1a2a99323a5f42314fa916",
+      "preservation": {
+        "assurance": "finite preservation only",
+        "new_semantics_checked": false,
+        "producer_authenticated": false,
+        "reference_correctness_established": false,
+        "valid": true,
+        "preserved": true,
+        "policy_sha256": "d15d2b211779c861674d3070fa876e4c183365750074751ac7c1e79fcea88b21",
+        "domain_inputs": 512,
+        "checked_inputs": 448,
+        "unverified_change_inputs": 64,
+        "violation_count": 0,
+        "counterexamples": [],
+        "reference_trace_sha256": "e863459d6ce02b7e037c635264d21f9f9d3f1f6235889575b10056e51dfffa6f",
+        "candidate_trace_sha256": "182dcdc2dfa567aa146ccdd067193edbf50ac9a25e1a2a99323a5f42314fa916"
+      },
+      "intended_change": {
+        "satisfied": false,
+        "checked_inputs": 64,
+        "violation_count": 1,
+        "counterexamples": [
+          {
+            "input": {
+              "authenticated": true,
+              "can_add": false,
+              "can_change": false,
+              "can_delete": false,
+              "can_view": false,
+              "method": "QUERY",
+              "permission_class": "model"
+            },
+            "expected": {
+              "kind": "return",
+              "value": true
+            },
+            "candidate": {
+              "kind": "return",
+              "value": false
+            }
+          }
+        ]
+      }
+    },
+    "missing_observation": {
+      "assurance": "finite observations only",
+      "policy_admitted": false,
+      "source_execution_verified": false,
+      "producer_authenticated": false,
+      "reference_correctness_established": false,
+      "specified_change_checked": false,
+      "valid": false,
+      "satisfied": false,
+      "error": "trace must cover the exact domain"
+    }
+  }
+}
