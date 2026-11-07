@@ -38,20 +38,38 @@ jobs:
           ref: ${{ github.sha }}
           path: evaluator
           persist-credentials: false
-      - name: Prepare the sandbox package on the disposable runner
+      - name: Prepare the packaged sandbox profile on the disposable runner
         run: |
-          if ! test -x /usr/bin/bwrap; then
-            sudo apt-get update -qq
-            sudo apt-get install --yes --no-install-recommends bubblewrap
-          fi
+          test "${RUNNER_ENVIRONMENT:-}" = github-hosted
+          test "${GITHUB_ACTIONS:-}" = true
+          umask 077
+          mkdir "$RUNNER_TEMP/shadow-setup"
+          printf '{"stage":"sandbox-package-setup"}\n' > "$RUNNER_TEMP/shadow-setup/setup-started.json"
+          sudo apt-get update -qq
+          sudo env NEEDRESTART_MODE=l apt-get install --yes --no-install-recommends bubblewrap apparmor-profiles
+          profile=/usr/share/apparmor/extra-profiles/bwrap-userns-restrict
+          cp "$profile" "$RUNNER_TEMP/shadow-setup/bwrap-userns-restrict"
+          cp /usr/share/doc/apparmor-profiles/copyright "$RUNNER_TEMP/shadow-setup/apparmor-copyright"
+          dpkg-query --show --showformat='${Package} ${Version}\n' bubblewrap apparmor-profiles > "$RUNNER_TEMP/shadow-setup/packages.txt"
+          echo "11d39094f044f0cda0febb3ad517b830301da6b2ce929664af09ee9e4dd264f9  $profile" | sha256sum --check --status
+          for local in /etc/apparmor.d/local/bwrap-userns-restrict /etc/apparmor.d/local/unpriv_bwrap; do
+            if test -f "$local" && grep -Eqv '^[[:space:]]*(#.*)?$' "$local"; then
+              echo "Custom AppArmor override requires separate review"
+              exit 2
+            fi
+          done
+          sudo /usr/sbin/apparmor_parser -r "$profile"
       - name: Require and record the sandbox prerequisites
         run: |
           umask 077
-          mkdir "$RUNNER_TEMP/shadow-setup"
+          test -d "$RUNNER_TEMP/shadow-setup"
           /usr/bin/python3 - "$RUNNER_TEMP/shadow-setup/prerequisites.json" <<'PYCODE'
-          import json, os, pathlib, sys
+          import hashlib, json, os, pathlib, subprocess, sys
           paths = ['/usr/bin/bwrap', '/usr/bin/systemd-run', '/usr/bin/setpriv', '/usr/bin/python3']
           result = {'executables': {p: os.access(p, os.X_OK) for p in paths}, 'uid': os.getuid()}
+          profile = pathlib.Path('/usr/share/apparmor/extra-profiles/bwrap-userns-restrict')
+          result['packaged_profile_sha256'] = hashlib.sha256(profile.read_bytes()).hexdigest()
+          result['kernel_restrictions'] = {key: subprocess.run(['/usr/sbin/sysctl', '-n', key], capture_output=True, text=True).stdout.strip() for key in ['kernel.unprivileged_userns_clone', 'kernel.apparmor_restrict_unprivileged_userns']}
           pathlib.Path(sys.argv[1]).write_text(json.dumps(result, indent=2) + '\n')
           print(json.dumps(result))
           raise SystemExit(0 if all(result['executables'].values()) and result['uid'] != 0 else 2)

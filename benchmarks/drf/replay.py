@@ -177,9 +177,16 @@ def evaluate(case, reference, candidate, heldout, dependencies, output, backend=
                                   'systemd-run': sha(Path('/usr/bin/systemd-run'))}}
         deps_before = manifest(dependencies)
         inputs['environment'].update({'dependencies/' + k: v for k, v in deps_before.items()})
-        for name in ('replay.py', 'run_tests.py', 'resource_exec.py', 'contracts.py', 'compatibility.py', 'score.py', 'ci.py'):
-            inputs['verifier'][name] = sha(HERE / name)
-        inputs['verifier']['kernel.py'] = sha(HERE.parents[1] / 'framework/kernel.py')
+        verifier_paths = {name: HERE / name for name in
+                          ('replay.py', 'run_tests.py', 'resource_exec.py', 'contracts.py', 'compatibility.py', 'score.py', 'ci.py')}
+        verifier_paths['kernel.py'] = HERE.parents[1] / 'framework/kernel.py'
+        for name in ('ci.yml', 'shadow-controls.yml'):
+            verifier_paths['workflow/' + name] = HERE.parents[1] / '.github/workflows' / name
+        inputs['verifier'].update({name: sha(path) for name, path in verifier_paths.items()})
+        profile = Path('/usr/share/apparmor/extra-profiles/bwrap-userns-restrict')
+        policy_sha = sha(profile) if profile.is_file() else None
+        if policy_sha is not None:
+            inputs['environment']['packaged_policy_file'] = policy_sha
         inputs['verifier']['heldout.py'] = hashlib.sha256(heldout_bytes).hexdigest()
         inputs['verifier']['case.json'] = digest(case)
         inputs['environment']['profile'] = digest({'backend': backend, 'network': 'disabled', 'host_libraries': 'trusted; not completely fingerprinted'})
@@ -189,12 +196,12 @@ def evaluate(case, reference, candidate, heldout, dependencies, output, backend=
         bound = identity(contract, inputs)
         results = {suite: run_suite(artifact, dependencies.resolve(), pinned, output, case, suite, backend)
                    for suite in suites}
-        verifier_changed = any(sha(HERE / name) != inputs['verifier'][name]
-                               for name in ('replay.py', 'run_tests.py', 'resource_exec.py', 'contracts.py', 'compatibility.py', 'score.py', 'ci.py'))
-        verifier_changed = verifier_changed or sha(HERE.parents[1] / 'framework/kernel.py') != inputs['verifier']['kernel.py']
+        verifier_changed = any(sha(path) != inputs['verifier'][name] for name, path in verifier_paths.items())
         binaries = ['python', 'bwrap', 'systemd-run'] + (['sudo', 'setpriv'] if backend == 'github-hosted' else [])
         binary_paths = {'python': Path('/usr/bin/python3').resolve()}
         environment_changed = any(sha(binary_paths.get(name, Path('/usr/bin') / name)) != inputs['environment'][name] for name in binaries)
+        if (sha(profile) if profile.is_file() else None) != policy_sha:
+            raise ValueError('packaged policy file changed during execution')
         if verifier_changed or environment_changed or inputs['artifact'] != manifest(artifact) or deps_before != manifest(dependencies):
             raise ValueError('evaluated inputs changed during execution')
         evidence = [{'id': suite, 'status': results[suite]['status'], 'identity': bound} for suite in suites]
