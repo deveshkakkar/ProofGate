@@ -1,0 +1,410 @@
+{
+  "schema": 1,
+  "scope": "retrospective inspected-code finite preservation diagnostic; proposed policy not admitted",
+  "environment": {
+    "python": "e50d468e8b0adfb05733f5b87b3cff34829c4a8c1aea50c865aa8bdfe4bb150f",
+    "bwrap": "e318903862396f96de3df57264e0158682b952fd3fb53ac23d876413e7b30f71",
+    "systemd-run": "de28cc5757d3789efa5f6fed5659893410469f68b42175d4531f5b34d3a09e16",
+    "probe": "79b6b832ac933ba929aa0b642a209db1315278fb70bec737bb3cfcd1484eeeaf",
+    "resource_helper": "419a5cd86e72ca242961b75d883470e54865118cd8f45267f38d50ad238060fd",
+    "scope_wrapper": "ad809a87c7b07840b5c5421a79b2085ea6d07e0f3fbd126c55553c904b91532d",
+    "host_libraries": "trusted; incompletely fingerprinted",
+    "dependencies_manifest_sha256": "c4eee3208713a1e3bbbdff251cedeeb7103fc672dd5e0003c065bfae3c33c393"
+  },
+  "policy": {
+    "schema": 1,
+    "input_domain": {
+      "permission_class": [
+        "model",
+        "model_or_anon"
+      ],
+      "authenticated": [
+        false,
+        true
+      ],
+      "method": [
+        "GET",
+        "HEAD",
+        "OPTIONS",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE"
+      ],
+      "can_view": [
+        false,
+        true
+      ],
+      "can_change": [
+        false,
+        true
+      ],
+      "can_add": [
+        false,
+        true
+      ],
+      "can_delete": [
+        false,
+        true
+      ]
+    },
+    "allowed_change": {
+      "authenticated": [
+        true
+      ],
+      "method": [
+        "GET",
+        "HEAD"
+      ]
+    },
+    "assumptions": [
+      "Retrospective proposed change scope, not admitted production policy.",
+      "Backend permission membership is independent of authentication; custom backends may grant anonymous users permissions.",
+      "Fresh permission instances and lightweight documented request/view interfaces; no database, concurrency or side effects modeled.",
+      "Only preservation outside the allowed region is checked. New read-policy correctness remains a separate unresolved obligation.",
+      "Reference behavior may contain bugs; preservation is not proof that legacy behavior is correct."
+    ]
+  },
+  "policy_sha256": "ab29077501dd2fe6e058c29c3803952850751833337db0446e1dccb2c60b7f2e",
+  "reference_cache": {
+    "key": "ad5da6c85cea3030ae3380f6ceea18142656a8e8e2df7906b814c7ac82d0e3f6",
+    "identity": {
+      "artifact": "66f1062e1a0955e9e72f9a21e5ae073d2d5e39bf0519a17f95785f7e7d10327c",
+      "domain": "e24d16969aa596af31e4f93df1672cd8beaf37f2a5829c2522a32a87eced88e1",
+      "runtime": "d10d16edf744d0627a4706ceb71327a583494d9cfceddbeb7acef5c366fb7eb8"
+    },
+    "trace_sha256": "0c5ae85cd3d1c1b8fafde983b9f0e0fd93688dc9459307767e4ab4ba471a5e37",
+    "producer_authenticated": false
+  },
+  "rows": [
+    {
+      "variant": "original",
+      "identity": {
+        "artifact": "66f1062e1a0955e9e72f9a21e5ae073d2d5e39bf0519a17f95785f7e7d10327c",
+        "domain": "e24d16969aa596af31e4f93df1672cd8beaf37f2a5829c2522a32a87eced88e1",
+        "runtime": "d10d16edf744d0627a4706ceb71327a583494d9cfceddbeb7acef5c366fb7eb8"
+      },
+      "exit_code": 0,
+      "result": {
+        "assurance": "finite preservation only",
+        "new_semantics_checked": false,
+        "producer_authenticated": false,
+        "reference_correctness_established": false,
+        "valid": true,
+        "preserved": true,
+        "policy_sha256": "ab29077501dd2fe6e058c29c3803952850751833337db0446e1dccb2c60b7f2e",
+        "domain_inputs": 448,
+        "checked_inputs": 384,
+        "unverified_change_inputs": 64,
+        "violation_count": 0,
+        "counterexamples": [],
+        "reference_trace_sha256": "0c5ae85cd3d1c1b8fafde983b9f0e0fd93688dc9459307767e4ab4ba471a5e37",
+        "candidate_trace_sha256": "0c5ae85cd3d1c1b8fafde983b9f0e0fd93688dc9459307767e4ab4ba471a5e37"
+      }
+    },
+    {
+      "variant": "baseline",
+      "identity": {
+        "artifact": "59a25b3c7b9835da33f394d2c9276b3f137b992e68a5719b44c424a6bdd15b4f",
+        "domain": "e24d16969aa596af31e4f93df1672cd8beaf37f2a5829c2522a32a87eced88e1",
+        "runtime": "d10d16edf744d0627a4706ceb71327a583494d9cfceddbeb7acef5c366fb7eb8"
+      },
+      "exit_code": 0,
+      "result": {
+        "assurance": "finite preservation only",
+        "new_semantics_checked": false,
+        "producer_authenticated": false,
+        "reference_correctness_established": false,
+        "valid": true,
+        "preserved": true,
+        "policy_sha256": "ab29077501dd2fe6e058c29c3803952850751833337db0446e1dccb2c60b7f2e",
+        "domain_inputs": 448,
+        "checked_inputs": 384,
+        "unverified_change_inputs": 64,
+        "violation_count": 0,
+        "counterexamples": [],
+        "reference_trace_sha256": "0c5ae85cd3d1c1b8fafde983b9f0e0fd93688dc9459307767e4ab4ba471a5e37",
+        "candidate_trace_sha256": "4c79422edef7b5d0ca03ab04b131f4fcf41403e715a3245f9ddf82e5feec8798"
+      }
+    },
+    {
+      "variant": "contract",
+      "identity": {
+        "artifact": "1cf77b894b205076884c2537f8f3791b4d23a36b01a0ed468cf42ecbb0500607",
+        "domain": "e24d16969aa596af31e4f93df1672cd8beaf37f2a5829c2522a32a87eced88e1",
+        "runtime": "d10d16edf744d0627a4706ceb71327a583494d9cfceddbeb7acef5c366fb7eb8"
+      },
+      "exit_code": 0,
+      "result": {
+        "assurance": "finite preservation only",
+        "new_semantics_checked": false,
+        "producer_authenticated": false,
+        "reference_correctness_established": false,
+        "valid": true,
+        "preserved": true,
+        "policy_sha256": "ab29077501dd2fe6e058c29c3803952850751833337db0446e1dccb2c60b7f2e",
+        "domain_inputs": 448,
+        "checked_inputs": 384,
+        "unverified_change_inputs": 64,
+        "violation_count": 0,
+        "counterexamples": [],
+        "reference_trace_sha256": "0c5ae85cd3d1c1b8fafde983b9f0e0fd93688dc9459307767e4ab4ba471a5e37",
+        "candidate_trace_sha256": "4c79422edef7b5d0ca03ab04b131f4fcf41403e715a3245f9ddf82e5feec8798"
+      }
+    },
+    {
+      "variant": "upstream",
+      "identity": {
+        "artifact": "e6a07c27d9a0bbea94724abfbd43bc68ce7bc3929cb41f96a5082fd1183098af",
+        "domain": "e24d16969aa596af31e4f93df1672cd8beaf37f2a5829c2522a32a87eced88e1",
+        "runtime": "d10d16edf744d0627a4706ceb71327a583494d9cfceddbeb7acef5c366fb7eb8"
+      },
+      "exit_code": 0,
+      "result": {
+        "assurance": "finite preservation only",
+        "new_semantics_checked": false,
+        "producer_authenticated": false,
+        "reference_correctness_established": false,
+        "valid": true,
+        "preserved": false,
+        "policy_sha256": "ab29077501dd2fe6e058c29c3803952850751833337db0446e1dccb2c60b7f2e",
+        "domain_inputs": 448,
+        "checked_inputs": 384,
+        "unverified_change_inputs": 64,
+        "violation_count": 12,
+        "counterexamples": [
+          {
+            "input": {
+              "authenticated": false,
+              "can_add": false,
+              "can_change": false,
+              "can_delete": false,
+              "can_view": false,
+              "method": "GET",
+              "permission_class": "model_or_anon"
+            },
+            "reference": {
+              "kind": "return",
+              "value": true
+            },
+            "candidate": {
+              "kind": "return",
+              "value": false
+            }
+          },
+          {
+            "input": {
+              "authenticated": false,
+              "can_add": false,
+              "can_change": false,
+              "can_delete": false,
+              "can_view": false,
+              "method": "HEAD",
+              "permission_class": "model_or_anon"
+            },
+            "reference": {
+              "kind": "return",
+              "value": true
+            },
+            "candidate": {
+              "kind": "return",
+              "value": false
+            }
+          },
+          {
+            "input": {
+              "authenticated": false,
+              "can_add": false,
+              "can_change": false,
+              "can_delete": true,
+              "can_view": false,
+              "method": "GET",
+              "permission_class": "model_or_anon"
+            },
+            "reference": {
+              "kind": "return",
+              "value": true
+            },
+            "candidate": {
+              "kind": "return",
+              "value": false
+            }
+          },
+          {
+            "input": {
+              "authenticated": false,
+              "can_add": false,
+              "can_change": false,
+              "can_delete": true,
+              "can_view": false,
+              "method": "HEAD",
+              "permission_class": "model_or_anon"
+            },
+            "reference": {
+              "kind": "return",
+              "value": true
+            },
+            "candidate": {
+              "kind": "return",
+              "value": false
+            }
+          },
+          {
+            "input": {
+              "authenticated": false,
+              "can_add": false,
+              "can_change": true,
+              "can_delete": false,
+              "can_view": false,
+              "method": "HEAD",
+              "permission_class": "model_or_anon"
+            },
+            "reference": {
+              "kind": "return",
+              "value": true
+            },
+            "candidate": {
+              "kind": "return",
+              "value": false
+            }
+          },
+          {
+            "input": {
+              "authenticated": false,
+              "can_add": false,
+              "can_change": true,
+              "can_delete": true,
+              "can_view": false,
+              "method": "HEAD",
+              "permission_class": "model_or_anon"
+            },
+            "reference": {
+              "kind": "return",
+              "value": true
+            },
+            "candidate": {
+              "kind": "return",
+              "value": false
+            }
+          },
+          {
+            "input": {
+              "authenticated": false,
+              "can_add": true,
+              "can_change": false,
+              "can_delete": false,
+              "can_view": false,
+              "method": "GET",
+              "permission_class": "model_or_anon"
+            },
+            "reference": {
+              "kind": "return",
+              "value": true
+            },
+            "candidate": {
+              "kind": "return",
+              "value": false
+            }
+          },
+          {
+            "input": {
+              "authenticated": false,
+              "can_add": true,
+              "can_change": false,
+              "can_delete": false,
+              "can_view": false,
+              "method": "HEAD",
+              "permission_class": "model_or_anon"
+            },
+            "reference": {
+              "kind": "return",
+              "value": true
+            },
+            "candidate": {
+              "kind": "return",
+              "value": false
+            }
+          },
+          {
+            "input": {
+              "authenticated": false,
+              "can_add": true,
+              "can_change": false,
+              "can_delete": true,
+              "can_view": false,
+              "method": "GET",
+              "permission_class": "model_or_anon"
+            },
+            "reference": {
+              "kind": "return",
+              "value": true
+            },
+            "candidate": {
+              "kind": "return",
+              "value": false
+            }
+          },
+          {
+            "input": {
+              "authenticated": false,
+              "can_add": true,
+              "can_change": false,
+              "can_delete": true,
+              "can_view": false,
+              "method": "HEAD",
+              "permission_class": "model_or_anon"
+            },
+            "reference": {
+              "kind": "return",
+              "value": true
+            },
+            "candidate": {
+              "kind": "return",
+              "value": false
+            }
+          },
+          {
+            "input": {
+              "authenticated": false,
+              "can_add": true,
+              "can_change": true,
+              "can_delete": false,
+              "can_view": false,
+              "method": "HEAD",
+              "permission_class": "model_or_anon"
+            },
+            "reference": {
+              "kind": "return",
+              "value": true
+            },
+            "candidate": {
+              "kind": "return",
+              "value": false
+            }
+          },
+          {
+            "input": {
+              "authenticated": false,
+              "can_add": true,
+              "can_change": true,
+              "can_delete": true,
+              "can_view": false,
+              "method": "HEAD",
+              "permission_class": "model_or_anon"
+            },
+            "reference": {
+              "kind": "return",
+              "value": true
+            },
+            "candidate": {
+              "kind": "return",
+              "value": false
+            }
+          }
+        ],
+        "reference_trace_sha256": "0c5ae85cd3d1c1b8fafde983b9f0e0fd93688dc9459307767e4ab4ba471a5e37",
+        "candidate_trace_sha256": "7ca63145e1e921f466a57b4aa1f1b7304c9d14ddbb7349e817feb8ed9a155b03"
+      }
+    }
+  ]
+}

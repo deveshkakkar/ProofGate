@@ -1,0 +1,213 @@
+{
+  "scope": "all doc-generated properties; no cherry-picking; proposals not admitted",
+  "rows": [
+    {
+      "sample": "one",
+      "variant": "original",
+      "exit_code": 1,
+      "seconds": 1.116,
+      "observation": {
+        "errors": 0,
+        "exit_code": 1,
+        "failures": 8,
+        "skipped": 0,
+        "tests": 32
+      }
+    },
+    {
+      "sample": "one",
+      "variant": "baseline",
+      "exit_code": 1,
+      "seconds": 1.116,
+      "observation": {
+        "errors": 0,
+        "exit_code": 1,
+        "failures": 8,
+        "skipped": 0,
+        "tests": 32
+      }
+    },
+    {
+      "sample": "one",
+      "variant": "contract",
+      "exit_code": 1,
+      "seconds": 1.066,
+      "observation": {
+        "errors": 0,
+        "exit_code": 1,
+        "failures": 8,
+        "skipped": 0,
+        "tests": 32
+      }
+    },
+    {
+      "sample": "one",
+      "variant": "upstream",
+      "exit_code": 1,
+      "seconds": 1.116,
+      "observation": {
+        "errors": 0,
+        "exit_code": 1,
+        "failures": 8,
+        "skipped": 0,
+        "tests": 32
+      }
+    },
+    {
+      "sample": "two",
+      "variant": "original",
+      "exit_code": 1,
+      "seconds": 1.116,
+      "observation": {
+        "errors": 0,
+        "exit_code": 1,
+        "failures": 8,
+        "skipped": 0,
+        "tests": 48
+      }
+    },
+    {
+      "sample": "two",
+      "variant": "baseline",
+      "exit_code": 1,
+      "seconds": 1.116,
+      "observation": {
+        "errors": 0,
+        "exit_code": 1,
+        "failures": 8,
+        "skipped": 0,
+        "tests": 48
+      }
+    },
+    {
+      "sample": "two",
+      "variant": "contract",
+      "exit_code": 1,
+      "seconds": 1.116,
+      "observation": {
+        "errors": 0,
+        "exit_code": 1,
+        "failures": 8,
+        "skipped": 0,
+        "tests": 48
+      }
+    },
+    {
+      "sample": "two",
+      "variant": "upstream",
+      "exit_code": 1,
+      "seconds": 1.117,
+      "observation": {
+        "errors": 0,
+        "exit_code": 1,
+        "failures": 8,
+        "skipped": 0,
+        "tests": 48
+      }
+    }
+  ],
+  "schema": 1,
+  "model": "gpt-6.1-sol",
+  "samples": 2,
+  "tools_enabled": false,
+  "selection": "prechange DRF permission documentation plus neutral interface; no implementation, patch, tests, issue or revert supplied",
+  "interpretation": "Both proposed an unauthenticated-write denial incompatible with the reference and all repairs. Neither proposed a read check. Requirements remain ambiguous; proposals were not admitted.",
+  "limitations": [
+    "Retrospectively chosen case; author training contamination cannot be excluded.",
+    "Two samples do not estimate general generation accuracy.",
+    "Tests use mocked user/view interfaces while importing real permission classes."
+  ],
+  "anonymous_backend_source": "https://docs.djangoproject.com/en/4.1/topics/auth/customizing/#authorization-for-anonymous-users",
+  "proposals": [
+    {
+      "sample": "one",
+      "properties": [
+        {
+          "id": "P1",
+          "claim": "Both classes deny unauthenticated write requests, even when the user reports having all relevant model permissions.",
+          "source_section": "DjangoModelPermissions authentication requirement; DjangoModelPermissionsOrAnonReadOnly read-only exception",
+          "test_name": "test_unauthenticated_writes_are_denied"
+        },
+        {
+          "id": "P2",
+          "claim": "For authenticated users, POST requires the add permission for the model resolved from either documented view interface, for both classes.",
+          "source_section": "DjangoModelPermissions model resolution and POST bullet; DjangoModelPermissionsOrAnonReadOnly",
+          "test_name": "test_post_requires_model_add_permission"
+        },
+        {
+          "id": "P3",
+          "claim": "For authenticated users, PUT requires the change permission for the model resolved from either documented view interface, for both classes.",
+          "source_section": "DjangoModelPermissions model resolution and PUT/PATCH bullet; DjangoModelPermissionsOrAnonReadOnly",
+          "test_name": "test_put_requires_model_change_permission"
+        },
+        {
+          "id": "P4",
+          "claim": "For authenticated users, PATCH requires the change permission for the model resolved from either documented view interface, for both classes.",
+          "source_section": "DjangoModelPermissions model resolution and PUT/PATCH bullet; DjangoModelPermissionsOrAnonReadOnly",
+          "test_name": "test_patch_requires_model_change_permission"
+        },
+        {
+          "id": "P5",
+          "claim": "For authenticated users, DELETE requires the delete permission for the model resolved from either documented view interface, for both classes.",
+          "source_section": "DjangoModelPermissions model resolution and DELETE bullet; DjangoModelPermissionsOrAnonReadOnly",
+          "test_name": "test_delete_requires_model_delete_permission"
+        }
+      ],
+      "ambiguities": [
+        "The planned GET/HEAD permission requirements are unresolved; these tests make no assertions about either method.",
+        "The anonymous read-only exception is documented, but its interaction with the planned GET/HEAD restrictions is unspecified.",
+        "The documentation does not enumerate other read-only methods or define OPTIONS and unsupported-method behavior.",
+        "The documentation does not specify precedence when both queryset and get_queryset() exist, or failure behavior when model information is missing.",
+        "Custom perms_map behavior is described only generally and refers to unavailable source details; these tests leave checker configuration unchanged.",
+        "All five properties are represented by executable, parametrized tests, but execution was unavailable under the no-tools constraint."
+      ],
+      "test_source": "from types import SimpleNamespace\n\nimport pytest\n\nfrom rest_framework.permissions import (\n    DjangoModelPermissions,\n    DjangoModelPermissionsOrAnonReadOnly,\n)\n\n\nPERMISSION_CLASSES = (\n    DjangoModelPermissions,\n    DjangoModelPermissionsOrAnonReadOnly,\n)\nVIEW_INTERFACES = ('queryset', 'get_queryset')\n\n\nclass User:\n    def __init__(self, authenticated, permissions=()):\n        self.is_authenticated = authenticated\n        self.permissions = set(permissions)\n\n    def has_perms(self, permission_names):\n        return all(name in self.permissions for name in permission_names)\n\n\ndef make_view(interface):\n    model = SimpleNamespace(\n        _meta=SimpleNamespace(app_label='demo', model_name='item')\n    )\n    queryset = SimpleNamespace(model=model)\n    if interface == 'queryset':\n        return SimpleNamespace(queryset=queryset)\n    return SimpleNamespace(get_queryset=lambda: queryset)\n\n\ndef check(permission_class, interface, method, authenticated, permissions):\n    request = SimpleNamespace(\n        method=method,\n        user=User(authenticated, permissions),\n    )\n    return permission_class().has_permission(request, make_view(interface))\n\n\ndef assert_write_permission(permission_class, interface, method, action):\n    required = f'demo.{action}_item'\n    unrelated = {\n        f'demo.{other}_item'\n        for other in ('add', 'change', 'delete', 'view')\n        if other != action\n    }\n    unrelated.update({f'other.{action}_item', f'demo.{action}_other'})\n\n    assert check(permission_class, interface, method, True, {required})\n    assert check(\n        permission_class, interface, method, True, unrelated | {required}\n    )\n    assert not check(permission_class, interface, method, True, set())\n    assert not check(permission_class, interface, method, True, unrelated)\n\n\n@pytest.mark.parametrize('permission_class', PERMISSION_CLASSES)\n@pytest.mark.parametrize('interface', VIEW_INTERFACES)\n@pytest.mark.parametrize('method', ('POST', 'PUT', 'PATCH', 'DELETE'))\ndef test_unauthenticated_writes_are_denied(permission_class, interface, method):\n    permissions = {\n        'demo.add_item',\n        'demo.change_item',\n        'demo.delete_item',\n        'demo.view_item',\n    }\n    assert not check(permission_class, interface, method, False, permissions)\n\n\n@pytest.mark.parametrize('permission_class', PERMISSION_CLASSES)\n@pytest.mark.parametrize('interface', VIEW_INTERFACES)\ndef test_post_requires_model_add_permission(permission_class, interface):\n    assert_write_permission(permission_class, interface, 'POST', 'add')\n\n\n@pytest.mark.parametrize('permission_class', PERMISSION_CLASSES)\n@pytest.mark.parametrize('interface', VIEW_INTERFACES)\ndef test_put_requires_model_change_permission(permission_class, interface):\n    assert_write_permission(permission_class, interface, 'PUT', 'change')\n\n\n@pytest.mark.parametrize('permission_class', PERMISSION_CLASSES)\n@pytest.mark.parametrize('interface', VIEW_INTERFACES)\ndef test_patch_requires_model_change_permission(permission_class, interface):\n    assert_write_permission(permission_class, interface, 'PATCH', 'change')\n\n\n@pytest.mark.parametrize('permission_class', PERMISSION_CLASSES)\n@pytest.mark.parametrize('interface', VIEW_INTERFACES)\ndef test_delete_requires_model_delete_permission(permission_class, interface):\n    assert_write_permission(permission_class, interface, 'DELETE', 'delete')\n",
+      "test_sha256": "2b0b09599ac81b3ba9e51df702dac29d83ec652002c8b2fb92a2f263bedfe876"
+    },
+    {
+      "sample": "two",
+      "properties": [
+        {
+          "id": "P1",
+          "claim": "For both classes, authenticated POST requests require the target model's add permission.",
+          "source_section": "DjangoModelPermissions: POST requirement; DjangoModelPermissionsOrAnonReadOnly: similar behavior with anonymous read-only access",
+          "test_name": "test_post_requires_add_permission"
+        },
+        {
+          "id": "P2",
+          "claim": "For both classes, authenticated PUT and PATCH requests require the target model's change permission.",
+          "source_section": "DjangoModelPermissions: PUT and PATCH requirement; DjangoModelPermissionsOrAnonReadOnly: similar behavior with anonymous read-only access",
+          "test_name": "test_put_and_patch_require_change_permission"
+        },
+        {
+          "id": "P3",
+          "claim": "For both classes, authenticated DELETE requests require the target model's delete permission.",
+          "source_section": "DjangoModelPermissions: DELETE requirement; DjangoModelPermissionsOrAnonReadOnly: similar behavior with anonymous read-only access",
+          "test_name": "test_delete_requires_delete_permission"
+        },
+        {
+          "id": "P4",
+          "claim": "Neither class grants unauthenticated users POST, PUT, PATCH, or DELETE access, even when their permission lookup reports all relevant permissions.",
+          "source_section": "DjangoModelPermissions: authentication requirement; DjangoModelPermissionsOrAnonReadOnly: anonymous access is read-only",
+          "test_name": "test_unauthenticated_writes_are_denied"
+        },
+        {
+          "id": "P5",
+          "claim": "Both classes resolve the target model through either documented view interface and require permissions for that model, rather than a different model.",
+          "source_section": "DjangoModelPermissions: model determined from get_queryset().model or queryset.model; DjangoModelPermissionsOrAnonReadOnly: similar behavior",
+          "test_name": "test_permissions_follow_the_view_model"
+        }
+      ],
+      "ambiguities": [
+        "The planned GET/HEAD policy is unresolved; no GET/HEAD outcomes are asserted.",
+        "The anonymous read-only exception does not enumerate its HTTP methods or establish how it interacts with the planned read restrictions.",
+        "The documentation does not specify precedence when a view exposes both queryset and get_queryset(), or the failure behavior when neither supplies a model.",
+        "The documentation does not specify OPTIONS or unsupported-method behavior.",
+        "Custom perms_map configuration is documented, but its detailed structure is deferred to source code; these tests leave checker configuration unchanged.",
+        "The module evaluates all five properties through direct parameterized checks, but it has not been executed because tools are unavailable."
+      ],
+      "test_source": "from types import SimpleNamespace\n\nimport pytest\nfrom rest_framework.permissions import (\n    DjangoModelPermissions,\n    DjangoModelPermissionsOrAnonReadOnly,\n)\n\n\nclass User:\n    def __init__(self, permissions=(), authenticated=True):\n        self.is_authenticated = authenticated\n        self.permissions = set(permissions)\n\n    def has_perms(self, permission_names):\n        return all(name in self.permissions for name in permission_names)\n\n\n@pytest.fixture(params=[DjangoModelPermissions, DjangoModelPermissionsOrAnonReadOnly])\ndef checker(request):\n    return request.param()\n\n\n@pytest.fixture(params=['queryset', 'get_queryset'])\ndef view_kind(request):\n    return request.param\n\n\ndef make_view(view_kind, model_name='item'):\n    model = type('Model', (), {\n        '_meta': SimpleNamespace(app_label='demo', model_name=model_name),\n    })\n    queryset = SimpleNamespace(model=model)\n    if view_kind == 'queryset':\n        return SimpleNamespace(queryset=queryset)\n    return SimpleNamespace(get_queryset=lambda: queryset)\n\n\ndef allowed(checker, view, method, permissions=(), authenticated=True):\n    request = SimpleNamespace(\n        method=method,\n        user=User(permissions, authenticated=authenticated),\n    )\n    return checker.has_permission(request, view)\n\n\ndef test_post_requires_add_permission(checker, view_kind):\n    view = make_view(view_kind)\n    assert allowed(checker, view, 'POST', {'demo.add_item'})\n    assert not allowed(checker, view, 'POST')\n    assert not allowed(checker, view, 'POST', {\n        'demo.change_item', 'demo.delete_item',\n    })\n\n\n@pytest.mark.parametrize('method', ['PUT', 'PATCH'])\ndef test_put_and_patch_require_change_permission(checker, view_kind, method):\n    view = make_view(view_kind)\n    assert allowed(checker, view, method, {'demo.change_item'})\n    assert not allowed(checker, view, method)\n    assert not allowed(checker, view, method, {\n        'demo.add_item', 'demo.delete_item',\n    })\n\n\ndef test_delete_requires_delete_permission(checker, view_kind):\n    view = make_view(view_kind)\n    assert allowed(checker, view, 'DELETE', {'demo.delete_item'})\n    assert not allowed(checker, view, 'DELETE')\n    assert not allowed(checker, view, 'DELETE', {\n        'demo.add_item', 'demo.change_item',\n    })\n\n\n@pytest.mark.parametrize('method', ['POST', 'PUT', 'PATCH', 'DELETE'])\ndef test_unauthenticated_writes_are_denied(checker, view_kind, method):\n    assert not allowed(\n        checker,\n        make_view(view_kind),\n        method,\n        {'demo.add_item', 'demo.change_item', 'demo.delete_item'},\n        authenticated=False,\n    )\n\n\n@pytest.mark.parametrize('method, action', [\n    ('POST', 'add'),\n    ('PUT', 'change'),\n    ('PATCH', 'change'),\n    ('DELETE', 'delete'),\n])\ndef test_permissions_follow_the_view_model(checker, view_kind, method, action):\n    view = make_view(view_kind, model_name='other')\n    assert not allowed(checker, view, method, {f'demo.{action}_item'})\n    assert allowed(checker, view, method, {f'demo.{action}_other'})\n",
+      "test_sha256": "b7f43027c80bced8b531930a35a8c29aefd9b48dd5d8c79882702bdebaea78f9"
+    }
+  ]
+}
