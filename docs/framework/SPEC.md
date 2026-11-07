@@ -15,7 +15,7 @@ A contract contains schema version, a nonempty list of uniquely named checks and
 
 ## Allowed writes and excluded scope
 
-Add framework/, tests/, docs/framework/ and a CI invocation. Preserve baseline/, candidate/, historical runs/, evidence/, review/ and BASELINE.sha256 byte for byte. Do not change services, authentication, firewall, backups or deployed agents. No package installs, toolchain downloads, model calls, merges or deployment. Framework prototype is not a replacement gate or production release authority.
+Add framework/, tests/, docs/framework/, examples/entitlement/ and a CI invocation. Preserve baseline/, candidate/, historical runs/, evidence/, review/ and BASELINE.sha256 byte for byte. Do not change services, authentication, firewall, backups or deployed agents. No package installs, toolchain downloads, model calls, merges or deployment. Framework prototype is not a replacement gate or production release authority.
 
 ## Acceptance evidence
 

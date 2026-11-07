@@ -1,6 +1,6 @@
 # Adapter experiments
 
-Status: specification; neither adapter is implemented in this slice.
+Status: experimental integrations now exist; see STATE.md for executed evidence and limitations. The full reservation adapter described below remains planned. The implemented archived adapter runs the existing offline checker only.
 
 ## Reservation adapter
 
@@ -16,7 +16,7 @@ Pure executable decision: allow access iff subject is active, subject tenant equ
 
 Required obligations: inactive subjects are denied; cross-tenant access is denied; missing entitlement or disabled resources are denied; every fully eligible request is allowed. Check the actual executable function over the complete declared finite domain. Describe this as exhaustive finite-domain checking, not an unrestricted mathematical proof. A later Bend/Lean adapter may supply stronger claims only after implementation correspondence is shown.
 
-Boundary checks must call the packaged executable through the application interface and include malformed input, JSON boolean/integer confusion, tenant spoofing and stale entitlement replay. Deliberate mutations must include an always-deny implementation (safety passes, completeness fails), a cross-tenant grant (rule fails), and an adapter that swaps tenant fields (rule passes, application checks fail). Evidence must identify the exact checked executable and packaged application. A receipt-only fixture is insufficient.
+Boundary checks must call the packaged executable through the application interface and include malformed input, JSON boolean/integer confusion, tenant spoofing. Stale entitlement replay requires a credential/version model and is deferred; this stateless experiment establishes no freshness assurance. Deliberate mutations must include an always-deny implementation (safety passes, completeness fails), a cross-tenant grant (rule fails), and an adapter that swaps tenant fields (rule passes, application checks fail). Evidence must identify the exact checked executable and packaged application. A receipt-only fixture is insufficient.
 
 Reusable core changes must be counted. Report contract authoring time, adapter code size, runtime and negative control outcomes; compare to competent ordinary CI. Do not infer superiority from a green demo. Defer deployment, persistent sessions, caching, distributed access control and paid provider calls.
 
