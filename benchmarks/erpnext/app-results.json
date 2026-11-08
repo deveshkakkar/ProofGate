@@ -1229,9 +1229,9 @@
       "environment_packages": 241
     }
   ],
-  "remaining_hosted_attempts": 0,
+  "remaining_hosted_attempts": 3,
   "automated_feedback_repair_pass": "This update is the one allowed repair pass for PR16; no further automatic code repairs after it.",
-  "next_step_status": "No additional repair/run authorized. Owner-directed next step would provision generated throwaway root credentials so Frappe does not prompt.",
+  "next_step_status": "Owner explicitly authorized up to3 additional setup-only repairs/hostedattempts. First temporary-credential repair applied; no test results yet.",
   "previous_blocked_reason": "Further automatic repair or a third hosted run prohibited by the declared two-attempt budget and user AGENTS one-pass automated repair boundary.",
   "owner_authorized_extension": {
     "additional_attempts": 1,
@@ -1239,5 +1239,13 @@
     "mode": "production Node and suppressed Yarn install scripts; backend-only",
     "limits_changed": false,
     "status": "consumed; site provisioning stopped before tests"
+  },
+  "owner_setup_phase": {
+    "max_attempts": 3,
+    "used": 0,
+    "max_setup_repair_passes": 3,
+    "repair_passes_applied": 1,
+    "mode": "generated root credential and subsequent setup-only defects, fixed tests/pins/caps",
+    "status": "first attempt pending"
   }
 }
