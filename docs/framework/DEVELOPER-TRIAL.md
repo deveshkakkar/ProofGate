@@ -3,6 +3,10 @@
 Audience confirmed by owner: developers using coding agents on business applications.
 Status: build and recruit a trial; no external user feedback collected.
 
+## Current starting point
+
+The fixed entitlement walkthrough remains a diagnostic demonstration. An owned compatible Python boundary can now use [the selected-file JSON adapter](EXTERNAL-JSON.md) from an external checkout without evaluator edits. [Verified audit execution](AUDIT-EXECUTION-RESULTS.md) records actual hosted observations and unresolved acceptance gaps. A pinned public-library example is technical integration evidence, not a participant trial. The real-developer thresholds below still require actual people and owned changes; no contact or trial is implied by this document.
+
 ## User task and hypothesis
 
 A developer changes a tenant entitlement rule with a coding agent and needs to understand whether the rule and its application still satisfy the reviewed behavior. Offer one local command against a small two-file application, a concrete counterexample on failure and a retained JSON record. Hypothesis: this reduces time to diagnose a rule/application mismatch compared with the developer's existing tests. It is unvalidated. Green tests and personal enthusiasm do not establish demand.
