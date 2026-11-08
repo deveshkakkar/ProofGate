@@ -208,3 +208,12 @@ All105 framework tests and release46/six checks pass. Actual complete/incomplete
 
 
 Fresh independent semantic review matched every description to the pinned test source and confirmed exact source/binding identities. It found an optional-coverage read failure that hid a valid raw archive score; fixed with a separate unavailable-coverage packet and exit1, preserving the raw score. A mocked missing/malformed metadata regression covers both paths. Final focused review has no remaining findings;105 framework tests and release46/six checks pass. No runtime evidence or acceptance meaning changed.
+
+
+## Validation frontier after PR23
+
+PR23 merged fa459c6 after passing current-head checks and completed Codex review without findings. The optional fixture coverage view is available; all 105 framework tests and release checks passed. No further source/model/application run is authorized by the completed experiment budget.
+
+[VALIDATION-DECISION.md](VALIDATION-DECISION.md) compares the retained observations fairly with the same five tests in protected CI and documents overlap with pinned Tenet/qed primary documentation. Documentation inspection is distinct from runtime validation. Neither passing ties nor a reusable kernel establishes developer demand or incremental detection.
+
+The [developer review packet](DEVELOPER-REVIEW-PACKET.md) prepares equal-fact test/source and scoped-coverage presentations, a separate operator rubric and blank response template. Fresh independent review found no supported findings. No participants, responses, review-time savings or outreach are invented. No messages were sent. The next usefulness decision requires an authorized reviewer/channel or actual developer response; source execution cannot answer it. Production policy admission and deployment remain excluded. See [VALIDATION-FRONTIER-PLAN.md](VALIDATION-FRONTIER-PLAN.md) for the bounded documentation-only scope.
