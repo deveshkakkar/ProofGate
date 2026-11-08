@@ -1,9 +1,10 @@
 # ERPNext validation evidence
 
-Three separate experiments cover different scopes:
+Separate experiments cover different scopes:
 
 - [Full report controls](FULL-APPLICATION-RESULTS.md): original fails three known checks; final passes all five in real ERPNext/Frappe/MariaDB sites. Earlier setup failures remain recorded.
 - [Intermediate patch](INTERMEDIATE-RESULTS.md): intermediate passes its four earlier checks but misses the added select-only read-denial requirement; final passes all five. This is a retrospectively selected known followup.
+- [Paired author replay](PAIRED-RESULTS.md): both raw diffs are malformed; paired application outcome is inconclusive, with zero hosted/source runs. A structured edit protocol is prepared but untested with a provider.
 - The finite arithmetic transfer below: 108 observations per source, isolated helper AST with fixture shims, separate from application execution.
 
 No experiment establishes novel discovery, improved agent repair, customer demand or release authority. Offline archive inspection and manual hosted execution are documented separately in the linked reports.

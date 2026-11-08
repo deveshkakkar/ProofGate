@@ -1,0 +1,102 @@
+{
+  "record_sha256": "5db2364a3621c3b9ca756adda60958cbec2aef9e96971079e50e06e86c883852",
+  "record": {
+    "schema": 1,
+    "scope": "frozen raw-diff paired author replay",
+    "outcome": "inconclusive",
+    "application_execution": false,
+    "hosted_attempts_used": 0,
+    "hosted_allowance_not_repurposed": true,
+    "author_sessions_used": 2,
+    "author_sessions_max": 2,
+    "base_revision": "04afe19d8ef067eec3852f4ac8007af42718d0b6",
+    "base_module_sha256": "394bf2f7608ce57a19d0f976896bd7f09fa1ec948d9e86d88475e9031851b687",
+    "existing_tests_sha256": "3593c887d4851516303f34cc3301bca7bb39385bd84050070cc031e9b0b96cc6",
+    "later_test_implementation_supplied": false,
+    "same_prose_requirements": true,
+    "model": "gpt-6.1-sol",
+    "cli_version": "0.164.0",
+    "cli_sha256": "b93f6811d3f653f0fb83be4050d857fb9abbb111dfa2ce160563327daff7f306",
+    "author_transport_sha256": "a98fb32783dd848e8215f1ac05ae39dda8ee251ab065f9aeb8b493ed69af6930",
+    "producer_authenticated": false,
+    "release_authority": false,
+    "arms": {
+      "baseline": {
+        "status": "inconclusive-invalid-diff",
+        "application_execution": false,
+        "strict_eligible": false,
+        "prompt_sha256": "098f634f1e7a31a178d27f8ace88a2e65593567a2cb53652105d8ce3fb73e241",
+        "raw_output_sha256": "b1649d670f1e4b12a207fdf01866121dfeb0896ad917086ab13a363ca290d8d1",
+        "event_stream_sha256": "f3d1b15bfc043a6c3a857d5eead767ba8fd8275740051f4a524646fa01a1bc9c",
+        "thread_id_sha256": "5236f04d006a1f02bb19636a07e0e3c3d9114dced2022b9aef9a0dcc04984b1a",
+        "transport": {
+          "exit_code": 0,
+          "seconds": 6.784,
+          "model": "gpt-6.1-sol",
+          "arm": "baseline"
+        },
+        "turn_completed": true,
+        "no_tool_actions_observed": true,
+        "tool_fail_closed_warning": "Code Mode is unavailable because code-mode host is disabled.",
+        "usage": {
+          "input_tokens": 12787,
+          "cached_input_tokens": 7552,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 163,
+          "reasoning_output_tokens": 51
+        },
+        "raw_patch": "--- a/report.py\n+++ b/report.py\n@@ -100,6 +100,8 @@ class ForecastingReport(ExponentialSmoothingForecast):\n \t\t\t\t\tvalue[\"avg\"] = flt(sum(list_of_period_value)) / flt(sum(total_qty))\n \n \tdef get_data_for_forecast(self):\n+\t\tfrappe.has_permission(self.doctype, ptype=\"read\", throw=True)\n+\n \t\tparent = frappe.qb.DocType(self.doctype)\n \t\tchild = frappe.qb.DocType(self.child_doctype)\n",
+        "strict_parser_reason": "hunk count mismatch: declared 6/8, supplied 5/7",
+        "git_apply_checks": {
+          "strict": {
+            "exit_code": 128,
+            "stderr": "error: corrupt patch at line 11\n"
+          },
+          "recount": {
+            "exit_code": 0,
+            "stderr": ""
+          }
+        },
+        "posthoc_recount_eligible_for_frozen_score": false
+      },
+      "feedback": {
+        "status": "inconclusive-invalid-diff",
+        "application_execution": false,
+        "strict_eligible": false,
+        "prompt_sha256": "63e45f055f58198407794785fac76c42c1d511ad6998d77f586934873aa79194",
+        "raw_output_sha256": "690179c3cea988b31ebd2189a4d4aff2e10eca3168da03d61f8984099ee287c0",
+        "event_stream_sha256": "f13ee75b68e9a8bf77f3ff0ef2328633c0544da0ab6f34df81910860bf8495e3",
+        "thread_id_sha256": "b81f7e87b3629c11fb2f7f6659008952372e3c3e31e80284193e3f85b4a55613",
+        "transport": {
+          "exit_code": 0,
+          "seconds": 6.484,
+          "model": "gpt-6.1-sol",
+          "arm": "feedback"
+        },
+        "turn_completed": true,
+        "no_tool_actions_observed": true,
+        "tool_fail_closed_warning": "Code Mode is unavailable because code-mode host is disabled.",
+        "usage": {
+          "input_tokens": 12871,
+          "cached_input_tokens": 7552,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 143,
+          "reasoning_output_tokens": 33
+        },
+        "raw_patch": "--- a/report.py\n+++ b/report.py\n@@ -99,6 +99,8 @@ class ForecastingReport(ExponentialSmoothingForecast):\n \t\t\t\tvalue[\"avg\"] = flt(sum(list_of_period_value)) / flt(sum(total_qty))\n \n \tdef get_data_for_forecast(self):\n+\t\tfrappe.has_permission(self.doctype, \"read\", throw=True)\n+\n \t\tparent = frappe.qb.DocType(self.doctype)\n \t\tchild = frappe.qb.DocType(self.child_doctype)\n",
+        "strict_parser_reason": "hunk count mismatch: declared 6/8, supplied 5/7",
+        "git_apply_checks": {
+          "strict": {
+            "exit_code": 128,
+            "stderr": "error: corrupt patch at line 11\n"
+          },
+          "recount": {
+            "exit_code": 1,
+            "stderr": "error: patch failed: report.py:99\nerror: report.py: patch does not apply\n"
+          }
+        },
+        "posthoc_recount_eligible_for_frozen_score": false
+      }
+    }
+  }
+}
