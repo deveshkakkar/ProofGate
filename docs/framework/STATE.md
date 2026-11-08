@@ -217,3 +217,12 @@ PR23 merged fa459c6 after passing current-head checks and completed Codex review
 [VALIDATION-DECISION.md](VALIDATION-DECISION.md) compares the retained observations fairly with the same five tests in protected CI and documents overlap with pinned Tenet/qed primary documentation. Documentation inspection is distinct from runtime validation. Neither passing ties nor a reusable kernel establishes developer demand or incremental detection.
 
 The [developer review packet](DEVELOPER-REVIEW-PACKET.md) prepares equal-fact test/source and scoped-coverage presentations, a separate operator rubric and blank response template. Fresh independent review found no supported findings. No participants, responses, review-time savings or outreach are invented. No messages were sent. The next usefulness decision requires an authorized reviewer/channel or actual developer response; source execution cannot answer it. Production policy admission and deployment remain excluded. See [VALIDATION-FRONTIER-PLAN.md](VALIDATION-FRONTIER-PLAN.md) for the bounded documentation-only scope.
+
+
+## Audit remediation: existing developer CLI
+
+Owner authorized the staged November 8 audit plan. [CLI-AUDIT-PLAN.md](CLI-AUDIT-PLAN.md) bounds the first implementation: preflight empty probe before reserving output, stable redacted error stages/partial completion, immutable retry guidance, full mismatch counts with three examples, visible source identity and an observed-current-source mismatch exit 2. Kernel and historical evidence are unchanged. No admission or general external adapter is introduced.
+
+114 offline framework tests and release checks pass. New negative/error/concurrent-edit tests use mocks, not candidate execution. The separate hosted CLI smoke is prepared for a bounded fresh baseline/tenant-spoof run; actual hosted behavior is not yet verified. No model or upstream application runs, production service changes or outreach are part of this phase. Fresh independent review precedes the PR and hosted execution.
+
+Fresh review caught an empty-probe command wiring error before hosted execution; corrected to a fixed Python `-c pass` probe under the same sandbox, with a regression that checks the actual command wiring. The 114 offline tests and release checks pass after correction.
