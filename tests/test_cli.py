@@ -66,7 +66,7 @@ class CLITests(unittest.TestCase):
             for name in ('app.py', 'rule.py'):
                 (candidate / name).write_text('')
             report = root / 'report.json'
-            with patch('examples.entitlement.experiment.run_variant', side_effect=RuntimeError('private')), contextlib.redirect_stderr(io.StringIO()) as error:
+            with patch('examples.entitlement.experiment.preflight'), patch('examples.entitlement.experiment.run_variant', side_effect=RuntimeError('private')), contextlib.redirect_stderr(io.StringIO()) as error:
                 self.assertEqual(main(['check-entitlement', '--candidate', str(candidate),
                                        '--output', str(report)]), 2)
             self.assertNotIn('private', error.getvalue())

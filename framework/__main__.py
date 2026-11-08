@@ -6,6 +6,9 @@ from pathlib import Path
 import stat
 import sys
 
+from framework.kernel import digest, identity
+from framework.errors import EvaluationError
+
 
 def validate_candidate(candidate):
     if candidate.is_symlink() or not candidate.is_dir():
@@ -21,34 +24,52 @@ def validate_candidate(candidate):
 
 
 def summarize(report):
-    lines = ['PASS: finite rule and application checks match the contract.' if
-             report['receipt']['consistent'] else 'FAIL: candidate does not match the contract.']
+    lines = ['PASS: checked snapshot matches the finite contract.' if
+             report['receipt']['consistent'] else 'FAIL: checked snapshot does not match the finite contract.']
+    if 'source' in report.get('inputs', {}):
+        lines.append('Source snapshot SHA256: ' + digest(report['inputs']['source']))
+        lines.append('Evidence identity: ' + report['receipt'].get('identity',
+                     identity(report['contract'], report['inputs'])))
+    if report.get('candidate_matches_snapshot') is False:
+        lines.append('CURRENT SOURCE CHANGED: this result describes the copied snapshot only; rerun with a new report path.')
     for check in report['checks']:
-        lines.append(f"  {check['id']}: {'PASS' if check['passed'] else 'FAIL'} ({check['cases']} cases)")
-        if not check['passed']:
-            observed = check['observed']
-            if not isinstance(observed, list) or len(observed) != len(check['expected']):
-                lines.append('    Expected a result list with one response per input.')
-                continue
-            for row, wanted, actual in zip(check['inputs'], check['expected'], observed):
-                if json.dumps(wanted, sort_keys=True) != json.dumps(actual, sort_keys=True):
-                    lines.extend(['    Input: ' + json.dumps(row, sort_keys=True),
-                                  '    Expected: ' + json.dumps(wanted, sort_keys=True),
-                                  '    Observed: ' + json.dumps(actual, sort_keys=True)])
-                    break
-    lines.append('Scope: finite declared inputs; local inspected code; no deployment authorization.')
+        observed = check['observed']
+        if not isinstance(observed, list) or len(observed) != len(check['expected']):
+            lines.append(f"  {check['id']}: FAIL; expected one response per input ({check['cases']} cases).")
+            continue
+        differences = [(row, want, actual) for row, want, actual in
+                       zip(check['inputs'], check['expected'], observed)
+                       if json.dumps(want, sort_keys=True) != json.dumps(actual, sort_keys=True)]
+        lines.append(f"  {check['id']}: {'PASS' if check['passed'] else 'FAIL'} "
+                     f"({len(differences)}/{check['cases']} mismatches)")
+        for row, wanted, actual in differences[:3]:
+            lines.extend(['    Input: ' + json.dumps(row, sort_keys=True),
+                          '    Expected: ' + json.dumps(wanted, sort_keys=True),
+                          '    Observed: ' + json.dumps(actual, sort_keys=True)])
+    lines.append('Scope: finite declared inputs; local inspected code; no policy admission or deployment authorization.')
     return '\n'.join(lines)
 
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description='Experimental business-rule verification trial')
     sub = parser.add_subparsers(dest='command', required=True)
+    sub.add_parser('doctor', help='probe Linux sandbox prerequisites without candidate execution')
     command = sub.add_parser('check-entitlement', help='check an inspected two-file entitlement application')
     command.add_argument('--candidate', type=Path, required=True)
     command.add_argument('--output', type=Path, required=True, help='new JSON report path; never overwritten')
     args = parser.parse_args(argv)
     try:
+        from examples.entitlement.experiment import preflight, run_variant
+        if args.command == 'doctor':
+            print(json.dumps(preflight(), sort_keys=True))
+            return 0
         validate_candidate(args.candidate)
+        # Avoid even the empty probe when an immutable report already exists.
+        if args.output.exists() or args.output.is_symlink():
+            raise FileExistsError()
+        if not args.output.parent.is_dir():
+            raise ValueError('Cannot create report. Check that its parent directory exists and is writable.')
+        preflight()
         # Reserve before execution: do not spend time running a check when the
         # requested evidence destination cannot be created safely.
         try:
@@ -59,28 +80,39 @@ def main(argv=None):
             raise ValueError('Cannot create report. Check that its parent directory exists and is writable.') from exc
         with os.fdopen(fd, 'w') as output:
             try:
-                from examples.entitlement.experiment import run_variant
                 report = run_variant('local_candidate', candidate=args.candidate.resolve())
-            except Exception:
-                json.dump({'schema': 1, 'completed': False,
-                           'reason': 'Evaluator could not complete; no acceptance result.'}, output)
+            except Exception as exc:
+                diagnostic = {'schema': 1, 'completed': False,
+                              'reason': 'Evaluator could not complete; no acceptance result.',
+                              'code': exc.code if isinstance(exc, EvaluationError) else 'evaluator_failed',
+                              'stage': exc.stage if isinstance(exc, EvaluationError) else 'evaluation',
+                              'completed_checks': exc.completed_checks if isinstance(exc, EvaluationError) else []}
+                json.dump(diagnostic, output)
                 output.write('\n')
                 raise
             json.dump(report, output, sort_keys=True, indent=2)
             output.write('\n')
         print(summarize(report))
         print('Report: ' + str(args.output))
+        if report.get('candidate_matches_snapshot') is False:
+            return 2
         return 0 if report['receipt']['consistent'] else 1
     except Exception as exc:
         # Raw child stderr may contain candidate-controlled content; keep this
         # terminal message to the exception category and a fixed diagnostic.
-        if isinstance(exc, FileExistsError):
+        if isinstance(exc, EvaluationError):
+            message = exc.code + ' [' + exc.stage + ']: ' + str(exc)
+        elif isinstance(exc, FileExistsError):
             message = 'Output already exists; choose a new report path.'
         elif isinstance(exc, ValueError):
             message = str(exc)
         else:
-            message = 'Check could not complete. Verify Linux, bubblewrap and systemd user-manager prerequisites.'
+            message = 'evaluator_failed: evaluation did not complete; no acceptance result.'
         print('ERROR: ' + message, file=sys.stderr)
+        if args.command == 'check-entitlement' and args.output.exists():
+            print('Report preserved: ' + str(args.output) +
+                  '. After resolving the failure, choose a new --output path; existing evidence is never overwritten.',
+                  file=sys.stderr)
         return 2
 
 

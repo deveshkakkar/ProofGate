@@ -3,8 +3,9 @@
 import hashlib
 import itertools
 import json
+import os
+import platform
 from pathlib import Path
-import resource
 import subprocess
 import sys
 import tempfile
@@ -13,6 +14,7 @@ import time
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
 from framework.kernel import digest, contract_digest, identity, verify
+from framework.errors import EvaluationError
 HERE = Path(__file__).resolve().parent
 CONTRACT = {'schema': 1, 'checks': ['finite_rule', 'application_boundary'],
             'assumptions': ['Only tenant IDs 0, 1, 2 and boolean flags are modeled.',
@@ -29,12 +31,36 @@ def manifest(path):
 
 
 def limits():
+    import resource
     resource.setrlimit(resource.RLIMIT_FSIZE, (1024 * 1024, 1024 * 1024))
     resource.setrlimit(resource.RLIMIT_CPU, (3, 3))
     resource.setrlimit(resource.RLIMIT_AS, (256 * 1024 * 1024, 256 * 1024 * 1024))
 
 
-def invoke(artifact, entry, rows, output):
+def preflight():
+    if platform.system() != 'Linux':
+        raise EvaluationError('unsupported_platform', 'preflight',
+                              'Use a Linux host with bubblewrap and a systemd user manager.')
+    for binary in ('/usr/bin/python3', '/usr/bin/bwrap', '/usr/bin/systemd-run'):
+        if not Path(binary).is_file() or not os.access(binary, os.X_OK):
+            raise EvaluationError('missing_dependency', 'preflight',
+                                  'Required executable unavailable: ' + binary)
+    # Exercise namespaces and the same bounded scope with a fixed empty probe,
+    # never candidate code. File checks alone cannot establish runtime usability.
+    with tempfile.TemporaryDirectory(prefix='proofgate-doctor-') as temporary:
+        base = Path(temporary)
+        artifact = base / 'empty'; artifact.mkdir()
+        output = base / 'probe'; output.mkdir()
+        try:
+            invoke(artifact, 'empty_probe', [], output, expect_json=False)
+        except EvaluationError as exc:
+            raise EvaluationError('sandbox_unavailable', 'preflight',
+                'The bounded sandbox probe failed. Check the systemd user manager, '
+                'unprivileged namespaces and cgroup support; do not disable isolation.') from exc
+    return {'ready': True, 'scope': 'Linux namespaces and bounded systemd user scope; empty probe only'}
+
+
+def invoke(artifact, entry, rows, output, expect_json=True):
     argv = ['/usr/bin/bwrap', '--unshare-user', '--unshare-pid', '--unshare-net',
             '--new-session', '--die-with-parent', '--cap-drop', 'ALL', '--proc', '/proc',
             '--dev', '/dev', '--size', '16777216', '--tmpfs', '/tmp']
@@ -43,16 +69,29 @@ def invoke(artifact, entry, rows, output):
             argv += ['--ro-bind', directory, directory]
     argv += ['--ro-bind', str(artifact), '/app', '--ro-bind', str(HERE / 'probe.py'),
              '/probe.py', '--chdir', '/app', '--clearenv', '--setenv', 'PATH', '/usr/bin:/bin',
-             '/usr/bin/python3', '-B', entry]
+             '/usr/bin/python3', '-B']
+    argv += [entry] if expect_json else ['-c', 'pass']
     argv = ['/usr/bin/systemd-run', '--user', '--scope', '--quiet',
             '--property=MemoryMax=268435456', '--property=TasksMax=16',
             '--property=CPUQuota=100%', '--property=RuntimeMaxSec=5s'] + argv
-    with (output / 'stdout').open('wb') as out, (output / 'stderr').open('wb') as err:
-        proc = subprocess.run(argv, input=json.dumps(rows).encode(), stdout=out, stderr=err,
-                              timeout=10, preexec_fn=limits)
+    try:
+        with (output / 'stdout').open('wb') as out, (output / 'stderr').open('wb') as err:
+            proc = subprocess.run(argv, input=json.dumps(rows).encode(), stdout=out, stderr=err,
+                                  timeout=10, preexec_fn=limits)
+    except subprocess.TimeoutExpired as exc:
+        raise EvaluationError('timeout', entry, 'The bounded check timed out.') from exc
+    except OSError as exc:
+        raise EvaluationError('runner_unavailable', entry, 'The sandbox process could not start.') from exc
     if proc.returncode:
-        raise RuntimeError('sandbox/check failed: ' + (output / 'stderr').read_text()[:500])
-    return json.loads((output / 'stdout').read_text())
+        raise EvaluationError('check_process_failed', entry,
+                              'The sandboxed check exited unsuccessfully; no passing result.')
+    if not expect_json:
+        return None
+    try:
+        return json.loads((output / 'stdout').read_text())
+    except (ValueError, UnicodeError) as exc:
+        raise EvaluationError('invalid_result', entry,
+                              'The check did not return valid JSON; no passing result.') from exc
 
 
 def expected(row):
@@ -88,7 +127,8 @@ def run_variant(variant, candidate=None):
                                   'bwrap': file_hash(Path('/usr/bin/bwrap')),
                                   'systemd-run': file_hash(Path('/usr/bin/systemd-run')),
                                   'scope': digest({'python': sys.version, 'stdlib': 'host-trusted; not fully fingerprinted'})}}
-        inputs['verifier']['kernel.py'] = file_hash(ROOT / 'framework/kernel.py')
+        for name in ('kernel.py', '__main__.py', 'errors.py'):
+            inputs['verifier']['framework/' + name] = file_hash(ROOT / 'framework' / name)
         bound = identity(CONTRACT, inputs)
         cases = [dict(zip(('subject_tenant', 'resource_tenant', 'active', 'entitled', 'enabled'), values))
                  for values in itertools.product(range(3), range(3), (False, True), (False, True), (False, True))]
@@ -102,7 +142,12 @@ def run_variant(variant, candidate=None):
                 ('application_boundary', '/app/app.py', cases + malformed,
                  [{'allowed': expected(r)} for r in cases] + [{'error': 'invalid request'}] * len(malformed))):
             output = base / check; output.mkdir()
-            observed = invoke(artifact, entry, rows, output)
+            try:
+                observed = invoke(artifact, entry, rows, output)
+            except EvaluationError as exc:
+                exc.stage = check
+                exc.completed_checks = [r['id'] for r in results]
+                raise
             # JSON booleans must remain booleans, rather than accepting integer equality.
             passed = json.dumps(observed, sort_keys=True) == json.dumps(wanted, sort_keys=True)
             observations.append({'id': check, 'status': 'passed' if passed else 'failed', 'identity': bound})
@@ -113,7 +158,11 @@ def run_variant(variant, candidate=None):
             raise RuntimeError('snapshot changed during checking')
         return {'variant': variant, 'contract': CONTRACT, 'inputs': inputs,
                 'observations': observations, 'checks': results,
-                'receipt': verify(CONTRACT, contract_digest(CONTRACT), inputs, observations)}
+                'receipt': verify(CONTRACT, contract_digest(CONTRACT), inputs, observations),
+                'candidate_matches_snapshot': all(
+                    (candidate / name).is_file() and not (candidate / name).is_symlink() and
+                    file_hash(candidate / name) == inputs['source'][name]
+                    for name in ('app.py', 'rule.py'))}
 
 
 def main():
