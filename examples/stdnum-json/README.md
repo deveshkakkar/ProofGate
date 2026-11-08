@@ -1,0 +1,11 @@
+# External python-stdnum JSON fixture integration
+
+Selected repository: [arthurdejong/python-stdnum](https://github.com/arthurdejong/python-stdnum/tree/006192e59be8ed6e08fd680256868a6c31eb2ba9). The Luhn module checks identifier checksums, a small business-application boundary independent of the entitlement demo. This is a standard-library-only slice, not the full package, an upstream contribution or a customer integration.
+
+[source.json](source.json) pins four consumed upstream source files at that revision and the exact [contract.json](contract.json) digest. Source is fetched into a separate checkout on the disposable hosted runner. Upstream source is LGPL-2.1-or-later with notices and COPYING retained in that checkout; no upstream source is redistributed in this repository. Our [run_json.py](run_json.py) shim is copied into the external checkout and exposes `is_valid`, `checksum` and `calc_check_digit` without changing ProofGate's evaluator.
+
+Five fixture expectations come from [the pinned Luhn docstring](https://github.com/arthurdejong/python-stdnum/blob/006192e59be8ed6e08fd680256868a6c31eb2ba9/stdnum/luhn.py): invalid `7894`, its checksum 6/check digit 9, valid `78949`, and hexadecimal `1234` checksum 14. Two added invalid-input expectations (empty and nonnumeric) are explicit agent-authored negative fixtures, not quoted upstream examples. Checksum validity does not establish account existence or payment authorization.
+
+The [hosted smoke helper](../../scripts/check_external_json_smoke.py) downloads a bounded pinned checkout, verifies the selected file hashes, runs `check-json` using the independently reviewed fixture pin, preserves its report, then intentionally changes the checksum predicate to always validate nonempty strings. The unchanged seven fixtures must reject that mutation (two mismatches). The same command can be used from outside ProofGate; see [external integration instructions](../../docs/framework/EXTERNAL-JSON.md).
+
+The workflow records actual baseline/mutation source identities and results; error-path unit tests are separate and mocked. At initial implementation the hosted run is pending. This example establishes neither protected admission, robustness against hostile source, general library correctness nor developer value. No maintainers were contacted.
