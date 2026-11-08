@@ -1,0 +1,18 @@
+# Full report trial: setup blocked, permission behavior unverified
+
+Both bounded hosted attempts stopped before the five application tests. Neither is a candidate rejection, pass or evidence about ERPNext document permission safety.
+
+| Attempt | Revision | Outcome |
+| --- | --- | --- |
+| [42441614137](https://github.com/deveshkakkar/ProofGate/actions/runs/42441614137) | a9de5d1 | Bench init denied access to system crontab under nonroot/read-only isolation; zero tests |
+| [42442011121](https://github.com/deveshkakkar/ProofGate/actions/runs/42442011121) | 1034d18 | Bench init and payments install passed; ERPNext banking frontend dependency installation hit ENOSPC under the temporary-storage caps; zero tests |
+
+The one supported repair used Bench's documented `--no-backups` option without adding privileges. It also fixed the automated review finding: MariaDB grant tables must remain enabled for new-site account creation. The second attempt did not reach database/service startup, so that provisioning fix remains untested in this environment.
+
+Exact source/archive/verifier identities and durations are in `app-results.json`; private downloaded artifacts and sanitized logs remain under `~/.local/share/proofgate-framework/erp-runtime-preflight-51wrsarb/attempt-RUNID/`. The56 offline framework tests and original release checks pass. No full environment inventory was produced: both failures precede its collection. No source containers, images, packages or services were started/installed on the home server; execution was on disposable GitHub-hosted runners.
+
+Mount-specific disk usage was not retained, so the exact exhausted mount is unverified. The container had a4GiB home tmpfs and128MiB /tmp. The observed space failure is in Yarn's nested `cd banking && yarn install`, including downloads of platform-specific Rolldown bindings. `--skip-assets` skips asset builds but did not prevent dependency installation. The image has no NODE_ENV setting; upstream ERPNext CI sets NODE_ENV=production. That alignment alone is not a demonstrated fix: banking lists Vite in production dependencies, so native tooling can still be downloaded. The relevant sources are [pinned upstream CI](https://github.com/frappe/erpnext/blob/79f6fc3cd720c2ba66e2a33cb97d853164ce0e41/.github/workflows/server-tests-mariadb.yml), [banking package manifest](https://github.com/frappe/erpnext/blob/46e19e0681ea65c34573ed9852b5b4306422ddf4/banking/package.json) and [Yarn install options](https://classic.yarnpkg.com/lang/en/docs/cli/install/).
+
+A concrete next proposal is a backend-only bootstrap: align NODE_ENV=production and use Yarn's supported install `ignore-scripts` setting to omit the nested frontend postinstall, while retaining all five real database/report tests and the same isolation/resource limits. This intentionally leaves frontend installation/build behavior unvalidated. A proposed patch is retained privately for owner review; it has not been applied or executed. It may still reveal another setup requirement, and no successful outcome is assumed.
+
+The declared two-attempt budget is exhausted. The user AGENTS policy says: “Make at most one repair pass for automated PR feedback” and “After that pass, stop automatic repairs and hand any new or unresolved findings to the owner.” The code repair pass is1034d18. Only records/documentation are added after that pass; no third dispatch or further automatic code repair is authorized. Owner choices are to authorize one explicit backend-only retry with unchanged caps, choose a different application/runtime, or stop this trial. PR16 remains open, unmerged, with full application behavior unverified. The earlier arithmetic and DRF evidence remain unchanged.
