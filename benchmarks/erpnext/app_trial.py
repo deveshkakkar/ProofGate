@@ -90,6 +90,25 @@ def local_snapshot(directory):
         subprocess.run(argv, cwd=directory, env=env, check=True, timeout=45, stdout=subprocess.DEVNULL)
 
 
+def capture_observations(variants, read_result):
+    """Retain existing fixed result files; missing/invalid data never becomes a pass."""
+    if variants not in (('base', 'head'), ('base', 'head', 'baseline', 'feedback')):
+        raise ValueError('unsupported fixed variant inventory')
+    observations, errors = {}, {}
+    for variant in variants:
+        try:
+            raw = read_result(variant)
+            if type(raw) is not bytes or len(raw) > 1024 * 1024:
+                raise ValueError('observation bound/type')
+            value = json.loads(raw)
+            if type(value) is not dict:
+                raise ValueError('observation must be a JSON object')
+            observations[variant] = value
+        except (OSError, ValueError, RecursionError, subprocess.SubprocessError) as exc:
+            errors[variant] = type(exc).__name__
+    return observations, errors
+
+
 def execute(work, profile='original'):
     if profile not in ('original', 'intermediate', 'structured'):
         raise ValueError('unknown fixed trial profile')
@@ -108,6 +127,13 @@ def execute(work, profile='original'):
     report['profile'] = profile
     name = 'proofgate-erp-' + uuid.uuid4().hex
     started = time.monotonic()
+    variants = ('base', 'head')
+
+    def read_result(variant):
+        return subprocess.check_output(['docker', 'exec', name, 'python', '-c',
+                                        'import sys;sys.stdout.buffer.write(open(sys.argv[1],"rb").read(1048577))',
+                                        '/home/ci/trial/' + variant + '-result.json'],
+                                       timeout=30, stderr=subprocess.DEVNULL)
 
     def save():
         (output / 'report.json').write_text(json.dumps(report, indent=2) + '\n')
@@ -139,7 +165,6 @@ def execute(work, profile='original'):
         for filename, source_path in (('head-report.py', case['module']), ('heldout.py', case['tests'])):
             report['sources'][filename] = {'sha256': download('https://raw.githubusercontent.com/frappe/erpnext/' +
                 case['erpnext_head'] + '/' + source_path, inputs / filename, 256 * 1024)}
-        variants = ('base', 'head')
         if profile == 'structured':
             from framework.kernel import digest
             from .structured import prepare_candidates, VARIANTS
@@ -187,13 +212,9 @@ def execute(work, profile='original'):
                                'user': info['Config']['User'], 'image_id': info['Image']}
         report['stage'] = 'application-controls';save()
         command('application-controls', ['docker', 'exec', name, 'python', '/driver/app_bootstrap.py', 'test'], timeout=900)
-        report['observations'] = {}
-        for variant in variants:
-            raw = subprocess.check_output(['docker', 'exec', name, 'cat', '/home/ci/trial/' + variant + '-result.json'], timeout=30)
-            if len(raw) > 1024 * 1024:
-                raise ValueError('observation bound')
-            value = json.loads(raw)
-            report['observations'][variant] = value
+        report['observations'], report['capture_errors'] = capture_observations(variants, read_result)
+        if report['capture_errors']:
+            raise ValueError('incomplete structured observation capture')
         report['controls_match'] = all(
             classify(case, value, variant) and value.get('source_before') == value.get('source_after') and
             value.get('source_before') == {
@@ -206,6 +227,8 @@ def execute(work, profile='original'):
         report['error'] = str(exc)
     finally:
         if created:
+            if not report.get('completed'):
+                report['observations'], report['capture_errors'] = capture_observations(variants, read_result)
             # Export only our fixed sanitized log/result directory, never site
             # configurations, databases, environment dumps or a container root.
             export = "import json,pathlib,re; p=pathlib.Path('/home/ci/trial'); ok=json.loads((p/'logs-sanitized.json').read_text()).get('sanitized') is True; print(json.dumps({f.name:'\\n'.join('<redacted sensitive line>' if re.search('password|secret|token|encryption_key|authorization',l,re.I) else l for l in f.read_text(errors='replace')[-2097152:].splitlines()) for f in p.glob('*.log') if ok and f.is_file() and not f.is_symlink()}))"

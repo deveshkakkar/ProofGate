@@ -135,3 +135,89 @@ class StructuredScoreTests(unittest.TestCase):
             self.assertFalse(score(value, digest(value), self.producer, self.manifest)['valid_controls'])
             self.assertFalse(score(self.report, digest(self.report), value, self.manifest)['valid_controls'])
             self.assertFalse(score(self.report, digest(self.report), self.producer, value)['valid_controls'])
+
+
+class StructuredReviewTests(unittest.TestCase):
+    """Presentation fixtures are synthetic; actual CLI evidence follows runtime."""
+    def test_invalid_controls_never_show_passing_candidates(self):
+        from benchmarks.erpnext.structured_review import summary
+        text = summary({'valid_controls': False, 'outcome': 'inconclusive', 'reason': 'wrong pin'})
+        self.assertNotIn('passed', text)
+        self.assertIn('Controls unverified', text)
+        self.assertIn('no fresh execution', text)
+
+    def test_complete_pair_separates_control_and_author_success_from_advantage(self):
+        from benchmarks.erpnext.structured_review import summary
+        row = {'status': 'passed', 'tests': 5, 'failure_ids': [],
+               'earlier_four_preserved': True, 'read_denial_satisfied': True}
+        result = {'valid_controls': True, 'outcome': 'passing-tie', 'arms': {'baseline': row, 'feedback': row},
+                  'record_sha256': 'a' * 64}
+        text = summary(result)
+        self.assertIn('Baseline author: 5/5 passed', text)
+        self.assertIn('Feedback author: 5/5 passed', text)
+        self.assertIn('No observed repair advantage', text)
+        self.assertIn('no fresh execution, producer authentication, policy admission or release authority', text)
+        result['arms']['feedback'] = {'status': 'inconclusive'};result['outcome'] = 'inconclusive'
+        text = summary(result)
+        self.assertIn('Feedback author: inconclusive', text)
+        self.assertNotIn('Feedback author: 5/5', text)
+        self.assertNotIn('No observed repair advantage', text)
+
+
+class FailureCaptureTests(unittest.TestCase):
+    def test_partial_results_survive_missing_later_site_without_inventing_success(self):
+        from benchmarks.erpnext.app_trial import capture_observations, classify
+        old = json.loads((HERE / 'intermediate-results.json').read_text())['report']
+        payloads = {name: json.dumps(row).encode() for name, row in old['observations'].items()}
+        partial = {'schema': 1, 'runs': [], 'transport_exit': 1}
+        payloads['baseline'] = json.dumps(partial).encode()
+        def read(name):
+            if name not in payloads: raise FileNotFoundError(name)
+            return payloads[name]
+        observations, errors = capture_observations(('base', 'head', 'baseline', 'feedback'), read)
+        self.assertEqual(set(observations), {'base', 'head', 'baseline'})
+        self.assertEqual(observations['baseline'], partial)
+        self.assertEqual(errors, {'feedback': 'FileNotFoundError'})
+        self.assertFalse(classify(old['case'], observations['baseline'], 'head'))
+
+    def test_malformed_oversized_or_deep_data_records_errors_without_aborting_capture(self):
+        from benchmarks.erpnext.app_trial import capture_observations
+        for bad in (b'not JSON', b'[]', b'x' * (1048576 + 1), b'[' * 2000 + b']' * 2000):
+            def read(name): return bad if name == 'base' else b'{"schema":1,"runs":[]}'
+            observations, errors = capture_observations(('base', 'head'), read)
+            self.assertEqual(set(observations), {'head'})
+            self.assertEqual(set(errors), {'base'})
+
+    def test_arbitrary_variant_names_never_reach_reader(self):
+        from benchmarks.erpnext.app_trial import capture_observations
+        called = []
+        with self.assertRaises(ValueError):
+            capture_observations(('base', '../config'), lambda name: called.append(name))
+        self.assertEqual(called, [])
+
+
+class ActualIncompleteReplayTests(unittest.TestCase):
+    """Actual failed run, never promoted from partial logs to valid controls."""
+    def test_failed_application_report_stays_inconclusive(self):
+        wrapper = json.loads((HERE / 'structured-results.json').read_text())
+        producer = json.loads((HERE / 'structured-producer.json').read_text())
+        manifest = json.loads((HERE / 'structured-candidates.json').read_text())
+        self.assertEqual(digest(wrapper['report']), wrapper['record_sha256'])
+        self.assertFalse(wrapper['report']['completed'])
+        self.assertNotIn('observations', wrapper['report'])
+        result = score(wrapper['report'], wrapper['record_sha256'], producer, manifest)
+        self.assertFalse(result['valid_controls'])
+        self.assertEqual(result['outcome'], 'inconclusive')
+        self.assertNotIn('arms', result)
+
+    def test_actual_review_cli_reports_failure_and_wrong_pin_never_shows_passes(self):
+        import subprocess
+        import sys
+        for flags, expected in (([], 'application-controls exit=1'),
+                                (['--expected-record-sha256', '0' * 64], 'record identity mismatch')):
+            proc = subprocess.run([sys.executable, '-B', '-m', 'benchmarks.erpnext.structured_review', *flags],
+                                  cwd=HERE.parents[1], text=True, capture_output=True, timeout=10)
+            self.assertEqual(proc.returncode, 1, proc.stderr)
+            self.assertIn('Archived paired replay: inconclusive', proc.stdout)
+            self.assertIn(expected, proc.stdout)
+            self.assertNotIn('5/5 passed', proc.stdout)
