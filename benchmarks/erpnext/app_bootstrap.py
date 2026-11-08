@@ -95,7 +95,14 @@ def test():
     run('database-root-credential', ['mariadb', '--user=root',
                                     '--socket=' + str(HOME / 'mysql.sock')],
         input_data=statement.encode(), timeout=30)
-    for variant in ('base', 'head'):
+    variants = ('base', 'head')
+    descriptor = Path('/inputs/structured-variants.json')
+    if descriptor.is_file():
+        declared = json.loads(descriptor.read_text())
+        if declared != ['base', 'head', 'baseline', 'feedback']:
+            raise ValueError('unsupported fixed structured variant inventory')
+        variants = ('base', 'head', 'baseline', 'feedback')
+    for variant in variants:
         target = BENCH / 'apps/erpnext' / CASE['module']
         target.write_bytes(Path('/inputs/' + variant + '-report.py').read_bytes())
         heldout = BENCH / 'apps/erpnext' / CASE['tests']

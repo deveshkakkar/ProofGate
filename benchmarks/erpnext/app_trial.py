@@ -91,7 +91,7 @@ def local_snapshot(directory):
 
 
 def execute(work, profile='original'):
-    if profile not in ('original', 'intermediate'):
+    if profile not in ('original', 'intermediate', 'structured'):
         raise ValueError('unknown fixed trial profile')
     if os.environ.get('GITHUB_ACTIONS') != 'true' or os.environ.get('RUNNER_ENVIRONMENT') != 'github-hosted' or os.getuid() == 0:
         raise ValueError('requires disposable GitHub-hosted runner and unprivileged controller')
@@ -139,6 +139,18 @@ def execute(work, profile='original'):
         for filename, source_path in (('head-report.py', case['module']), ('heldout.py', case['tests'])):
             report['sources'][filename] = {'sha256': download('https://raw.githubusercontent.com/frappe/erpnext/' +
                 case['erpnext_head'] + '/' + source_path, inputs / filename, 256 * 1024)}
+        variants = ('base', 'head')
+        if profile == 'structured':
+            from framework.kernel import digest
+            from .structured import prepare_candidates, VARIANTS
+            manifest = json.loads((HERE / 'structured-candidates.json').read_text())
+            prepare_candidates(base.read_text(), manifest, inputs)
+            variants = VARIANTS
+            report['candidate_manifest_sha256'] = digest(manifest)
+            report['verifier'].update({filename: sha(HERE / filename) for filename in
+                                      ('module_edits.py', 'structured.py', 'structured-candidates.json')})
+            for arm in ('baseline', 'feedback'):
+                report['sources'][arm + '-report.py'] = {'sha256': sha(inputs / (arm + '-report.py'))}
         report['stage'] = 'image-acquisition';save()
         command('image-pull', ['docker', 'pull', case['image']], timeout=300)
         argv = ['docker', 'create', '--name', name, '--user', '1001:1001', '--read-only',
@@ -176,7 +188,7 @@ def execute(work, profile='original'):
         report['stage'] = 'application-controls';save()
         command('application-controls', ['docker', 'exec', name, 'python', '/driver/app_bootstrap.py', 'test'], timeout=900)
         report['observations'] = {}
-        for variant in ('base', 'head'):
+        for variant in variants:
             raw = subprocess.check_output(['docker', 'exec', name, 'cat', '/home/ci/trial/' + variant + '-result.json'], timeout=30)
             if len(raw) > 1024 * 1024:
                 raise ValueError('observation bound')
@@ -187,7 +199,8 @@ def execute(work, profile='original'):
             value.get('source_before') == {
                 'module_sha256': report['sources']['base-module' if variant == 'base' else 'head-report.py']['sha256'],
                 'heldout_sha256': report['sources']['heldout.py']['sha256']}
-            for variant, value in report['observations'].items())
+            for variant in ('base', 'head')
+            for value in (report['observations'][variant],))
         report['completed'] = True
     except (OSError, ValueError, RuntimeError, tarfile.TarError, subprocess.SubprocessError) as exc:
         report['error'] = str(exc)
@@ -210,6 +223,6 @@ def execute(work, profile='original'):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--work', required=True, type=Path)
-    parser.add_argument('--profile', choices=('original', 'intermediate'), default='original')
+    parser.add_argument('--profile', choices=('original', 'intermediate', 'structured'), default='original')
     args = parser.parse_args()
     raise SystemExit(execute(args.work, args.profile))
