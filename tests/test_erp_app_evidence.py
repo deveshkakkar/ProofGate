@@ -33,6 +33,19 @@ class ArchivedAppEvidenceTests(unittest.TestCase):
         self.assertEqual(result['inputs']['verifier']['producer/app_trial.py'],
                          self.good['report']['verifier']['app_trial.py'])
 
+    def test_actual_intermediate_record_requires_its_own_profile_and_obligation(self):
+        row = json.loads((HERE / 'intermediate-results.json').read_text())
+        result = inspect(row['report'], row['record_sha256'])
+        self.assertTrue(result['consistent'], result)
+        self.assertEqual(result['producer_profile'], 'intermediate-15ae916')
+        self.assertFalse(result['release_authority'])
+        self.assertFalse(inspect(row['report'], self.good['record_sha256'])['consistent'])
+        for mutation in ('no-failure', 'wrong-profile'):
+            report = copy.deepcopy(row['report'])
+            if mutation == 'no-failure': report['observations']['base']['runs'][0]['failure_ids'] = []
+            if mutation == 'wrong-profile': report['verifier'] = copy.deepcopy(self.good['report']['verifier'])
+            self.assertFalse(inspect(report, digest(report))['consistent'], mutation)
+
     def test_unknown_ambiguous_malformed_or_changed_predicate_profiles_reject(self):
         registry = json.loads((HERE / 'producer-profiles.json').read_text())
         for mutation in ('unknown', 'ambiguous', 'duplicate-id', 'malformed', 'predicate', 'source-predicate'):
