@@ -30,6 +30,9 @@ def summarize(report):
         lines.append('Source snapshot SHA256: ' + digest(report['inputs']['source']))
         lines.append('Evidence identity: ' + report['receipt'].get('identity',
                      identity(report['contract'], report['inputs'])))
+    if 'fixture_contract_sha256' in report:
+        lines.append('Reviewed fixture SHA256: ' + report['fixture_contract_sha256'])
+        lines.append('Authority: observations only; producer unauthenticated; policy not admitted.')
     if report.get('candidate_matches_snapshot') is False:
         lines.append('CURRENT SOURCE CHANGED: this result describes the copied snapshot only; rerun with a new report path.')
     for check in report['checks']:
@@ -57,13 +60,23 @@ def main(argv=None):
     command = sub.add_parser('check-entitlement', help='check an inspected two-file entitlement application')
     command.add_argument('--candidate', type=Path, required=True)
     command.add_argument('--output', type=Path, required=True, help='new JSON report path; never overwritten')
+    external = sub.add_parser('check-json', help='check selected Python files against independently pinned JSON fixtures')
+    external.add_argument('--candidate', type=Path, required=True)
+    external.add_argument('--contract', type=Path, required=True)
+    external.add_argument('--expected-contract', required=True, help='SHA256 obtained from independent contract review')
+    external.add_argument('--output', type=Path, required=True)
     args = parser.parse_args(argv)
     try:
         from examples.entitlement.experiment import preflight, run_variant
         if args.command == 'doctor':
             print(json.dumps(preflight(), sort_keys=True))
             return 0
-        validate_candidate(args.candidate)
+        prepared = None
+        if args.command == 'check-json':
+            from framework import json_contract
+            prepared = json_contract.prepare(args.candidate, args.contract, args.expected_contract)
+        else:
+            validate_candidate(args.candidate)
         # Avoid even the empty probe when an immutable report already exists.
         if args.output.exists() or args.output.is_symlink():
             raise FileExistsError()
@@ -80,7 +93,8 @@ def main(argv=None):
             raise ValueError('Cannot create report. Check that its parent directory exists and is writable.') from exc
         with os.fdopen(fd, 'w') as output:
             try:
-                report = run_variant('local_candidate', candidate=args.candidate.resolve())
+                report = (json_contract.run(prepared) if prepared is not None else
+                          run_variant('local_candidate', candidate=args.candidate.resolve()))
             except Exception as exc:
                 diagnostic = {'schema': 1, 'completed': False,
                               'reason': 'Evaluator could not complete; no acceptance result.',
@@ -109,7 +123,7 @@ def main(argv=None):
         else:
             message = 'evaluator_failed: evaluation did not complete; no acceptance result.'
         print('ERROR: ' + message, file=sys.stderr)
-        if args.command == 'check-entitlement' and args.output.exists():
+        if args.command != 'doctor' and args.output.exists():
             print('Report preserved: ' + str(args.output) +
                   '. After resolving the failure, choose a new --output path; existing evidence is never overwritten.',
                   file=sys.stderr)

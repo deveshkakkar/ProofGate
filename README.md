@@ -4,6 +4,13 @@
 
 ProofGate combines formal proofs with independent service tests, then deploys the exact build that passed. This research prototype demonstrates a TypeScript/SQLite credit-reservation service with admission logic compiled from Bend.
 
+## Choose a path
+
+- **Check your selected Python code:** [experimental JSON fixture adapter](docs/framework/EXTERNAL-JSON.md). Linux sandbox required; finite observations with no admission authority. [Entitlement walkthrough](docs/framework/TRY.md) provides a fixed demo.
+- **Reproduce the research:** follow the reservation demonstration below. Offline recorded consistency and fresh formal/service execution are separate commands.
+- **Understand assurance:** [framework trust boundary](docs/framework/SPEC.md#authority-and-trust) and [architecture](docs/architecture.md).
+- **Browse retained evidence:** [validation decision](docs/framework/VALIDATION-DECISION.md) links the historical pairs, null results and coverage limits.
+
 ## The demonstration
 
 In the [recorded Codex experiment](REPORT.md#actual-codex-implementation-and-repair), an injected double-charging bug passed the core proofs but failed integration tests. The agent repaired it, the unchanged gate accepted the repair, and a separate supervisor deployed the accepted artifact without rebuilding.
