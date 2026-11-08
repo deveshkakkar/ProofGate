@@ -9,6 +9,8 @@ Separate experiments cover different scopes:
 - [Paired author replay](PAIRED-RESULTS.md): both raw diffs are malformed; paired application outcome is inconclusive, with zero hosted/source runs. At that phase's close the structured edit protocol was prepared but untested; the later structured replay above records provider validation and its separate setup failure.
 - The finite arithmetic transfer below: 108 observations per source, isolated helper AST with fixture shims, separate from application execution.
 
+Use the [declared fixture coverage view](OBLIGATIONS.md) to inspect the business meaning, exact pinned test bindings and limits of the five checks. It adds no new execution or acceptance authority.
+
 No experiment establishes novel discovery, improved agent repair, customer demand or release authority. Offline archive inspection and manual hosted execution are documented separately in the linked reports.
 
 ## Forecast-helper transfer test

@@ -1,0 +1,41 @@
+{
+  "schema": 1,
+  "test_source_sha256": "57bc21891324dd9c099af619b5d0132ad6c507d3f4e887e163d168b1c9b7be6b",
+  "groups": [
+    {
+      "id": "monthly-forecast",
+      "test": "test_monthly_qty_forecast_from_sales_orders",
+      "title": "Monthly demand and smoothing fixture",
+      "scope": "March/April/May quantities 7/4/9 match buckets; average and June forecast match the fixture formula; June forecast column is present while June raw and March historical columns are absent."
+    },
+    {
+      "id": "date-and-status",
+      "test": "test_ignores_documents_outside_range_and_other_docstatus",
+      "title": "May history fixture with draft and boundary orders",
+      "scope": "May quantity equals 6 with a submitted May order of 6, a draft May order of 100 and an order of 100 at FROM_DATE present. This does not separately check every other month bucket."
+    },
+    {
+      "id": "future-flat",
+      "test": "test_future_forecast_stays_flat",
+      "title": "Flat future forecast fixture",
+      "scope": "History 100/100/100 with alpha 0.3 produces 100 for June, July and August to six decimal places."
+    },
+    {
+      "id": "document-access",
+      "test": "test_report_follows_document_permissions",
+      "title": "Document denial and customer restriction fixture",
+      "scope": "Stock User invoice execution raises PermissionError; the fixture item is absent for Sales User restricted to Customer 1. One grouped test, not separately observed subclaims or proof of every customer row."
+    },
+    {
+      "id": "select-without-read",
+      "test": "test_select_only_access_does_not_show_invoice_figures",
+      "title": "Select without Read denies invoice access",
+      "scope": "The fixture user has a role granting Sales Invoice Select with Read removed; report execution must raise PermissionError."
+    }
+  ],
+  "limits": [
+    "Statuses describe whole named fixture tests, not general policy proofs.",
+    "A failing grouped test may stop before later assertions; subclaim outcomes are not separately observed.",
+    "Descriptions interpret pinned historical tests; they are not an approved customer policy or independently discovered requirements."
+  ]
+}
