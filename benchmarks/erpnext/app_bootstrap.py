@@ -43,6 +43,8 @@ def run(label, argv, cwd=HOME, timeout=600):
 
 
 def setup():
+    # Backend-only trial: do not invoke frontend package lifecycle scripts.
+    (HOME / '.yarnrc').write_text('--install.ignore-scripts true\n')
     run('bench-init', ['bench', 'init', '--skip-assets', '--no-backups', '--frappe-path', '/inputs/frappe',
                        '--frappe-branch', 'develop', '--python', sys.executable, str(BENCH)])
     for app in ('payments', 'erpnext'):

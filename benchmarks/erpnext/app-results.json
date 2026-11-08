@@ -149,8 +149,15 @@
       "repair_budget_exhausted": true
     }
   ],
-  "remaining_hosted_attempts": 0,
+  "remaining_hosted_attempts": 1,
   "automated_feedback_repair_pass": "This update is the one allowed repair pass for PR16; no further automatic code repairs after it.",
-  "blocked_reason": "Further automatic repair or a third hosted run prohibited by the declared two-attempt budget and user AGENTS one-pass automated repair boundary.",
-  "next_step_status": "Proposal only; owner decision required. No limits or bootstrap code changed after final attempt."
+  "next_step_status": "Owner-authorized backend-only repair applied; exactly one additional hosted attempt pending.",
+  "previous_blocked_reason": "Further automatic repair or a third hosted run prohibited by the declared two-attempt budget and user AGENTS one-pass automated repair boundary.",
+  "owner_authorized_extension": {
+    "additional_attempts": 1,
+    "used": 0,
+    "mode": "production Node and suppressed Yarn install scripts; backend-only",
+    "limits_changed": false,
+    "status": "authorized, execution pending"
+  }
 }
