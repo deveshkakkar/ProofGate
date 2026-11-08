@@ -18,6 +18,30 @@ HEAD_SHA = '3e916f2c9c7f6a17fa6f27b30c134ee2d22c7c40258d8a50ec8e92723f714049'
 TEST_SHA = '57bc21891324dd9c099af619b5d0132ad6c507d3f4e887e163d168b1c9b7be6b'
 
 
+def validate_lifecycle(value, complete=False):
+    variants = {'base', 'head', 'baseline', 'feedback'}
+    if (type(value) is not dict or set(value) != {'schema', 'sites'} or
+            type(value['schema']) is not int or value['schema'] != 1 or
+            type(value['sites']) is not dict or not set(value['sites']) <= variants or
+            (complete and set(value['sites']) != variants)):
+        raise ValueError('invalid fixed disposable-site lifecycle inventory')
+    for row in value['sites'].values():
+        if (type(row) is not dict or not {'free_bytes_before', 'free_bytes_after'} <= set(row) or
+                not set(row) <= {'free_bytes_before', 'free_bytes_after', 'database_removed', 'active_site_removed', 'error_type'}):
+            raise ValueError('invalid lifecycle entry')
+        for field in ('free_bytes_before', 'free_bytes_after'):
+            if type(row[field]) is not int or not 0 <= row[field] <= 2 ** 63:
+                raise ValueError('invalid storage observation')
+        for field in ('database_removed', 'active_site_removed'):
+            if field in row and type(row[field]) is not bool:
+                raise ValueError('invalid retirement status')
+        if 'error_type' in row and (type(row['error_type']) is not str or not 0 < len(row['error_type']) <= 128):
+            raise ValueError('invalid lifecycle error')
+        if complete and (row.get('database_removed') is not True or row.get('active_site_removed') is not True or 'error_type' in row):
+            raise ValueError('incomplete disposable-site retirement')
+    return value
+
+
 def prepare_candidates(source, manifest, destination):
     """Reconstruct both exact eligible edits into fixed readonly worker inputs."""
     if (type(manifest) is not dict or type(manifest.get('schema')) is not int or manifest['schema'] != 1 or
@@ -133,6 +157,7 @@ def score(report, expected_record, producer, manifest):
                 raise ValueError('source/test identity drift: ' + variant)
             if variant in ('base', 'head') and not classify(case, observation, variant):
                 raise ValueError('fixed control inventory/outcome mismatch')
+        validate_lifecycle(report['site_lifecycle'], complete=True)
         result['valid_controls'] = True
         arms = {arm: candidate_verdict(case, report['observations'][arm]) for arm in ARMS}
         result['arms'] = arms

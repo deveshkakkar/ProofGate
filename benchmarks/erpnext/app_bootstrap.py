@@ -87,6 +87,55 @@ def services():
     config.write_text(json.dumps(value))
 
 
+def retirement_details(variant, config):
+    if variant not in ('base', 'head', 'baseline', 'feedback'):
+        raise ValueError('fixed disposable site only')
+    if (type(config) is not dict or config.get('db_socket') != str(HOME / 'mysql.sock') or
+            type(config.get('db_name')) is not str or not re.fullmatch(r'_[0-9a-f]{16}', config['db_name']) or
+            config.get('db_user') not in (None, config['db_name']) or
+            config.get('db_host') not in (None, 'localhost', '127.0.0.1')):
+        raise ValueError('disposable local database identity required')
+    return 'shadow-' + variant + '.localhost', config['db_name']
+
+
+def retire_site(variant, root_secret):
+    # Authorized only in the fixed disposable container.
+    if (os.getuid() != 1001 or HOME != Path('/home/ci') or
+            not re.fullmatch(r'[0-9a-f]{64}', root_secret) or
+            variant not in ('base', 'head', 'baseline', 'feedback')):
+        raise ValueError('fixed disposable worker required')
+    mounts = Path('/proc/self/mountinfo').read_text().splitlines()
+    if not any(line.split()[4] == str(HOME) and ' - tmpfs ' in line for line in mounts):
+        raise ValueError('temporary home mount required')
+    site_dir = BENCH / 'sites' / ('shadow-' + variant + '.localhost')
+    config_path = site_dir / 'site_config.json'
+    if site_dir.is_symlink() or config_path.is_symlink() or not config_path.is_file():
+        raise ValueError('fixed local site config required')
+    config = json.loads(config_path.read_text())
+    site, db_name = retirement_details(variant, config)
+    socket = HOME / 'mysql.sock'
+    if socket.is_symlink() or not socket.is_socket():
+        raise ValueError('local trial database socket required')
+    state_path = STATE / 'site-lifecycle.json'
+    state = json.loads(state_path.read_text()) if state_path.is_file() else {'schema': 1, 'sites': {}}
+    row = {'free_bytes_before': shutil.disk_usage(HOME).free}
+    try:
+        run('retire-' + variant, ['bench', 'drop-site', site, '--no-backup',
+                                  '--db-root-username', 'root', '--db-root-password', root_secret,
+                                  '--archived-sites-path', str(STATE / 'retired-sites')], cwd=BENCH, timeout=120)
+        row['database_removed'] = not (HOME / 'db' / db_name).exists()
+        row['active_site_removed'] = not site_dir.exists()
+        if not row['database_removed'] or not row['active_site_removed']:
+            raise RuntimeError('disposable site retirement incomplete')
+    except BaseException as exc:
+        row['error_type'] = type(exc).__name__
+        raise
+    finally:
+        row['free_bytes_after'] = shutil.disk_usage(HOME).free
+        state['sites'][variant] = row
+        state_path.write_text(json.dumps(state, indent=2))
+
+
 def test():
     services()
     root_secret = secrets.token_hex(32)
@@ -132,6 +181,8 @@ def test():
         value['source_after'] = {'module_sha256': hashlib.sha256(target.read_bytes()).hexdigest(),
                                  'heldout_sha256': hashlib.sha256(heldout.read_bytes()).hexdigest()}
         output.write_text(json.dumps(value, indent=2))
+        if len(variants) == 4:
+            retire_site(variant, root_secret)
     print(json.dumps({'stage': 'tests-finished'}))
 
 
