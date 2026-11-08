@@ -138,10 +138,27 @@ def inspect(report, expected_record):
     return result
 
 
+def summary(report, result):
+    """Present validated controls without treating expected failures as passes."""
+    if not result['consistent']:
+        return 'Archived controls: inconsistent\nReason: ' + json.dumps(result.get('reason', 'unknown'), ensure_ascii=True)
+    lines = ['Archived controls: consistent', 'Producer profile: ' + result['producer_profile']]
+    for variant, label, revision in (('base', 'Baseline', report['case']['erpnext_base']),
+                                      ('head', 'Final report control', report['case']['erpnext_head'])):
+        row = report['observations'][variant]['runs'][0]
+        failures = len(row['failure_ids'])
+        lines.append(f'{label} {revision}: {row["tests"] - failures}/{row["tests"]} tests passed; {failures} failed')
+    lines.append('Expected baseline failures reproduced: ' + ', '.join(report['case']['original_failure_names']))
+    lines.extend(['Record SHA256: ' + result['record_sha256'],
+                  'Archived observations only: no fresh execution, producer authentication or release authority.'])
+    return '\n'.join(lines)
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--report', type=Path, required=True)
     parser.add_argument('--expected-record-sha256', required=True)
+    parser.add_argument('--format', choices=('json', 'summary'), default='json')
     args = parser.parse_args()
     from framework.preservation import read_json
     try:
@@ -149,7 +166,7 @@ def main():
     except (OSError, ValueError, RecursionError) as exc:
         parser.exit(2, 'Cannot read archive: ' + type(exc).__name__ + '\n')
     result = inspect(report, args.expected_record_sha256)
-    print(json.dumps(result, indent=2))
+    print(summary(report, result) if args.format == 'summary' else json.dumps(result, indent=2))
     return 0 if result['consistent'] else 1
 
 

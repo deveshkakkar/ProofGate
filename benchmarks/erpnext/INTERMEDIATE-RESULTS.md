@@ -41,11 +41,13 @@ Offline inspection of the retained new run:
 python3 -B - <<'PYCODE'
 import json
 from pathlib import Path
-from benchmarks.erpnext.app_evidence import inspect
+from benchmarks.erpnext.app_evidence import inspect, summary
 row = json.loads(Path('benchmarks/erpnext/intermediate-results.json').read_text())
 result = inspect(row['report'], row['record_sha256'])
-print(result['mode'], result['consistent'], result.get('producer_profile'))
+print(summary(row['report'], result))
 PYCODE
 ```
 
-Expected: `archived-consistency-only True intermediate-15ae916`. This reads the trusted reviewed pin alongside the report; it does not rerun application code. Current66 framework tests and original46 regression/six rejection checks pass. A fresh review of the final evidence accompanies the PR.
+Expected: archived controls consistent; baseline4/5, final5/5, one named expected baseline failure, no fresh execution or authority. This reads the trusted reviewed pin alongside the report; it does not rerun application code. Current66 framework tests and original46 regression/six rejection checks pass. A fresh review of the final evidence accompanies the PR.
+
+For a standalone raw report, add `--format summary` to the existing archive CLI. `--expected-record-sha256` is still required and must come from an independently trusted reviewed record. Default output remains machine JSON and exits0 only when archived controls are consistent; malformed or altered records exit1 without a passing-test summary.
