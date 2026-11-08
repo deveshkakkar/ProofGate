@@ -90,17 +90,22 @@ def local_snapshot(directory):
         subprocess.run(argv, cwd=directory, env=env, check=True, timeout=45, stdout=subprocess.DEVNULL)
 
 
-def execute(work):
+def execute(work, profile='original'):
+    if profile not in ('original', 'intermediate'):
+        raise ValueError('unknown fixed trial profile')
     if os.environ.get('GITHUB_ACTIONS') != 'true' or os.environ.get('RUNNER_ENVIRONMENT') != 'github-hosted' or os.getuid() == 0:
         raise ValueError('requires disposable GitHub-hosted runner and unprivileged controller')
     work.mkdir(parents=False, exist_ok=False)
     output = work / 'results';output.mkdir()
     inputs = work / 'inputs';inputs.mkdir()
-    case = json.loads((HERE / 'app_case.json').read_text())
+    descriptor = HERE / ('app_case.json' if profile == 'original' else 'intermediate_case.json')
+    case = json.loads(descriptor.read_text())
     report = {'schema': 1, 'scope': 'inspected-code full-app historical controls only',
               'completed': False, 'case': case, 'sources': {}, 'stage': 'preflight',
               'verifier': {name: sha(HERE / name) for name in
                            ('app_case.json', 'app_trial.py', 'app_bootstrap.py', 'app_collect.py', 'app_inventory.py')}}
+    report['verifier']['app_case.json'] = sha(descriptor)
+    report['profile'] = profile
     name = 'proofgate-erp-' + uuid.uuid4().hex
     started = time.monotonic()
 
@@ -143,6 +148,7 @@ def execute(work):
                 '--tmpfs', '/tmp:rw,nosuid,size=134217728,uid=1001,gid=1001,mode=1777',
                 '--mount', 'type=bind,src=' + str(inputs.resolve()) + ',dst=/inputs,readonly',
                 '--mount', 'type=bind,src=' + str(HERE) + ',dst=/driver,readonly',
+                '--mount', 'type=bind,src=' + str(descriptor) + ',dst=/driver/app_case.json,readonly',
                 '--env', 'HOME=/home/ci', '--env', 'NODE_ENV=production',
                 '--env', 'PYTHONDONTWRITEBYTECODE=1',
                 '--env', 'PIP_CONFIG_FILE=/dev/null', '--env', 'PIP_INDEX_URL=https://pypi.org/simple',
@@ -204,4 +210,6 @@ def execute(work):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--work', required=True, type=Path)
-    raise SystemExit(execute(parser.parse_args().work))
+    parser.add_argument('--profile', choices=('original', 'intermediate'), default='original')
+    args = parser.parse_args()
+    raise SystemExit(execute(args.work, args.profile))

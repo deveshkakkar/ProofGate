@@ -28,6 +28,19 @@ class AppControlTests(unittest.TestCase):
         row['failure_ids'][0] = self.ids[0]
         self.assertFalse(classify(self.case, {'schema': 1, 'transport_exit': 0, 'runs': [row]}, 'base'))
 
+    def test_intermediate_requires_exact_single_later_failure(self):
+        case = json.loads((Path(__file__).resolve().parents[1] /
+                           'benchmarks/erpnext/intermediate_case.json').read_text())
+        row = copy.deepcopy(self.row)
+        row['failure_ids'] = [self.ids[-1]]
+        observation = {'schema': 1, 'transport_exit': 0, 'runs': [row]}
+        self.assertTrue(classify(case, observation, 'base'))
+        self.assertFalse(classify(case, observation, 'head'))
+        row['failure_ids'] = self.ids[-2:]
+        self.assertFalse(classify(case, observation, 'base'))
+        row['failure_ids'] = []
+        self.assertFalse(classify(case, observation, 'base'))
+
     def test_missing_duplicate_skipped_errors_and_xfails_never_pass(self):
         for mutation in ('missing', 'duplicate', 'skip', 'error', 'xfail', 'extra-run', 'bool-count', 'bool-schema'):
             row = copy.deepcopy(self.row);obs = {'schema': 1, 'transport_exit': 0, 'runs': [row]}

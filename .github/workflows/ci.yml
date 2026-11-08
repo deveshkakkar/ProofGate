@@ -6,6 +6,12 @@ on:
   pull_request:
   workflow_dispatch:
     inputs:
+      erpnext_profile:
+        description: Fixed ERPNext source comparison
+        required: true
+        default: original
+        type: choice
+        options: [original, intermediate]
       erpnext_trial:
         description: Optional bounded full ERPNext historical control trial
         required: true
@@ -57,5 +63,7 @@ jobs:
   erpnext:
     if: github.event_name == 'workflow_dispatch' && inputs.erpnext_trial == true
     uses: ./.github/workflows/erpnext-shadow.yml
+    with:
+      profile: ${{ inputs.erpnext_profile }}
     permissions:
       contents: read

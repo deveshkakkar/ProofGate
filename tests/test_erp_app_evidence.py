@@ -2,8 +2,10 @@ import copy
 import json
 from pathlib import Path
 import unittest
+import tempfile
+from unittest.mock import patch
 
-from benchmarks.erpnext.app_evidence import inspect
+from benchmarks.erpnext.app_evidence import inspect, producer_profile, HERE
 from framework.kernel import digest
 
 
@@ -21,6 +23,36 @@ class ArchivedAppEvidenceTests(unittest.TestCase):
                          ['original-regressions-reproduced', 'upstream-fixed-tests'])
         for name in ('producer_authenticated', 'fresh_source_execution', 'policy_admitted', 'release_authority'):
             self.assertFalse(result[name])
+
+    def test_historical_producer_survives_new_transport(self):
+        from benchmarks.erpnext.app_trial import sha
+        self.assertNotEqual(self.good['report']['verifier']['app_trial.py'], sha(HERE / 'app_trial.py'))
+        result = inspect(self.good['report'], self.good['record_sha256'])
+        self.assertTrue(result['consistent'], result)
+        self.assertEqual(result['producer_profile'], 'original-7249964')
+        self.assertEqual(result['inputs']['verifier']['producer/app_trial.py'],
+                         self.good['report']['verifier']['app_trial.py'])
+
+    def test_unknown_ambiguous_malformed_or_changed_predicate_profiles_reject(self):
+        registry = json.loads((HERE / 'producer-profiles.json').read_text())
+        for mutation in ('unknown', 'ambiguous', 'duplicate-id', 'malformed', 'predicate', 'source-predicate'):
+            changed = copy.deepcopy(registry)
+            source = (HERE / 'app_trial.py').read_text()
+            if mutation == 'unknown': changed['profiles'][0]['verifier']['app_trial.py'] = '0' * 64
+            if mutation == 'ambiguous':
+                other = copy.deepcopy(changed['profiles'][0]);other['id'] = 'another'
+                changed['profiles'].append(other)
+            if mutation == 'duplicate-id': changed['profiles'].append(copy.deepcopy(changed['profiles'][0]))
+            if mutation == 'malformed': changed['profiles'][0] = None
+            if mutation == 'predicate': changed['profiles'][0]['control_predicate_source_sha256'] = '0' * 64
+            if mutation == 'source-predicate': source = source.replace('def classify(case, observation, variant):',
+                                                                      'def classify(case, observation, variant):\n    return True')
+            with tempfile.TemporaryDirectory() as temporary:
+                root = Path(temporary)
+                (root / 'producer-profiles.json').write_text(json.dumps(changed))
+                (root / 'app_trial.py').write_text(source)
+                with patch('benchmarks.erpnext.app_evidence.HERE', root):
+                    with self.assertRaises(ValueError, msg=mutation): producer_profile(self.good['report'])
 
     def test_retained_setup_failures_are_not_reproduced_controls(self):
         for row in self.recorded['attempts']:
