@@ -28,12 +28,12 @@ def log_tail(path):
         return handle.read(2097152).decode(errors='replace')
 
 
-def run(label, argv, cwd=HOME, timeout=600):
+def run(label, argv, cwd=HOME, timeout=600, input_data=None):
     # Captured logs are bounded by the container filesystem; only explicit,
     # redacted command output is later exported. Command arguments stay private.
     log = STATE / (label + '.log')
     with log.open('wb') as output:
-        proc = subprocess.run(argv, cwd=cwd, stdout=output, stderr=subprocess.STDOUT, timeout=timeout)
+        proc = subprocess.run(argv, cwd=cwd, stdout=output, stderr=subprocess.STDOUT, timeout=timeout, input=input_data)
     text = log_tail(log)
     for value in SECRETS:
         text = text.replace(value, '<redacted>')
@@ -89,6 +89,12 @@ def services():
 
 def test():
     services()
+    root_secret = secrets.token_hex(32)
+    SECRETS.append(root_secret)
+    statement = ("ALTER USER 'root'@'localhost' IDENTIFIED BY '" + root_secret + "';")
+    run('database-root-credential', ['mariadb', '--user=root',
+                                    '--socket=' + str(HOME / 'mysql.sock')],
+        input_data=statement.encode(), timeout=30)
     for variant in ('base', 'head'):
         target = BENCH / 'apps/erpnext' / CASE['module']
         target.write_bytes(Path('/inputs/' + variant + '-report.py').read_bytes())
@@ -100,8 +106,8 @@ def test():
         secret = secrets.token_urlsafe(32)
         db_secret = secrets.token_urlsafe(32)
         SECRETS.extend([secret, db_secret])
-        run('site-' + variant, ['bench', 'new-site', site, '--db-host', '127.0.0.1',
-                                '--db-root-username', 'root', '--db-root-password', '',
+        run('site-' + variant, ['bench', 'new-site', site, '--db-socket', str(HOME / 'mysql.sock'),
+                                '--db-root-username', 'root', '--db-root-password', root_secret,
                                 '--admin-password', secret, '--db-password', db_secret, '--install-app', 'erpnext'], cwd=BENCH)
         run('enable-tests-' + variant, ['bench', '--site', site, 'set-config', 'allow_tests', 'true'], cwd=BENCH)
         output = STATE / (variant + '-result.json')

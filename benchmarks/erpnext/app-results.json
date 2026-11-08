@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "scope": "bounded hosted full-app setup attempts; no application result inferred from setup failure",
+  "scope": "bounded fixed-report application attempts; setup failures remain inconclusive",
   "attempts": [
     {
       "run_id": 42441614137,
@@ -1227,11 +1227,1154 @@
       "cause": "Backend-only dependency bootstrap completed and local-only MariaDB/Redis started, but Frappe treats an empty supplied root password as missing and calls getpass; noninteractive site creation fails with EOFError.",
       "environment_artifact_sha256": "6846b13be8411d21ecb772c1aa448e88c57b278d876a5da6b8e494d8eaca0704",
       "environment_packages": 241
+    },
+    {
+      "run_id": 42443539018,
+      "revision": "724996477854a3ef693451c7d158b75d07c3e0d6",
+      "url": "https://github.com/deveshkakkar/ProofGate/actions/runs/42443539018",
+      "status": "historical_controls_reproduced",
+      "application_tests_run": 10,
+      "record_sha256": "2a32cd8a31e784db396372ab4975d23dd3dab8079443d61b880d4f5d3f9d20c1",
+      "report": {
+        "schema": 1,
+        "scope": "inspected-code full-app historical controls only",
+        "completed": true,
+        "case": {
+          "schema": 1,
+          "erpnext_base": "46e19e0681ea65c34573ed9852b5b4306422ddf4",
+          "erpnext_head": "79f6fc3cd720c2ba66e2a33cb97d853164ce0e41",
+          "frappe": "f2543267f6d585f64ea5e19c6c26874568e4bad8",
+          "payments": "b2ceb4a0484cf5c4f4f8625a63182dda63de8895",
+          "image": "ghcr.io/frappe/erpnext-ci-mariadb@sha256:87cb14304c55960a9f7dc9356c2884a4fdea1a3bf3ab46948a98cd6010889f27",
+          "module": "erpnext/manufacturing/report/exponential_smoothing_forecasting/exponential_smoothing_forecasting.py",
+          "tests": "erpnext/manufacturing/report/exponential_smoothing_forecasting/test_exponential_smoothing_forecasting.py",
+          "test_module": "erpnext.manufacturing.report.exponential_smoothing_forecasting.test_exponential_smoothing_forecasting",
+          "test_class": "TestExponentialSmoothingForecasting",
+          "test_names": [
+            "test_monthly_qty_forecast_from_sales_orders",
+            "test_ignores_documents_outside_range_and_other_docstatus",
+            "test_future_forecast_stays_flat",
+            "test_report_follows_document_permissions",
+            "test_select_only_access_does_not_show_invoice_figures"
+          ],
+          "original_failure_names": [
+            "test_future_forecast_stays_flat",
+            "test_report_follows_document_permissions",
+            "test_select_only_access_does_not_show_invoice_figures"
+          ]
+        },
+        "sources": {
+          "frappe": {
+            "revision": "f2543267f6d585f64ea5e19c6c26874568e4bad8",
+            "archive_sha256": "06df49420e27d4d55f8b35d39bfbd09adaf136d787f2b76d286372f16e607cce"
+          },
+          "payments": {
+            "revision": "b2ceb4a0484cf5c4f4f8625a63182dda63de8895",
+            "archive_sha256": "bc2d549eb5c17696718220a73ec2d9e6a910d7f4675d10bfcdfdd1ec7dc5336a"
+          },
+          "erpnext": {
+            "revision": "46e19e0681ea65c34573ed9852b5b4306422ddf4",
+            "archive_sha256": "2c5994ba11fbd8fc4e39ca05fd5be4446805e3059868559286248ba39d8a68d1"
+          },
+          "base-module": {
+            "sha256": "f80ce5ae0a7aa1f736ca89ca2319ce51e173a2666925d806fc3bc3d4d463ecdd"
+          },
+          "head-report.py": {
+            "sha256": "3e916f2c9c7f6a17fa6f27b30c134ee2d22c7c40258d8a50ec8e92723f714049"
+          },
+          "heldout.py": {
+            "sha256": "57bc21891324dd9c099af619b5d0132ad6c507d3f4e887e163d168b1c9b7be6b"
+          }
+        },
+        "stage": "application-controls",
+        "verifier": {
+          "app_case.json": "0d6b8d75bbf363a209152e31948174f311f5e8c3348bc9bb975fe25f76ca8c2d",
+          "app_trial.py": "7d20733b31c324c3826df304a058aca90e08d22904caf21526d8b2bf9aa3cd9a",
+          "app_bootstrap.py": "961fa978f96d746de7f70fa7dc153efbe1833442039ba91096807b8eeaa87f6c",
+          "app_collect.py": "20d5f18da4b0505ee1047327e2ed94db407fc9dcff6035a5d9674bfefdab4b64",
+          "app_inventory.py": "bad21966a3467ee7af8fcd343a4ccd28e46c10343cc002b1d8694dc1e8c7dd46"
+        },
+        "environment": {
+          "schema": 1,
+          "python": "3.14.6",
+          "python_sha256": "7b1cb3a462045674fde5943ca4e36c8f04d37efb7cabfc462f2defcd39aacfe2",
+          "packages": [
+            {
+              "name": "Faker",
+              "version": "40.43.0"
+            },
+            {
+              "name": "GitPython",
+              "version": "3.2.1"
+            },
+            {
+              "name": "Jinja2",
+              "version": "3.1.6"
+            },
+            {
+              "name": "MarkupSafe",
+              "version": "3.0.4"
+            },
+            {
+              "name": "PyJWT",
+              "version": "2.15.1"
+            },
+            {
+              "name": "PyMySQL",
+              "version": "1.1.2"
+            },
+            {
+              "name": "PyOTP",
+              "version": "2.10.0"
+            },
+            {
+              "name": "PyPika",
+              "version": "0.51.1"
+            },
+            {
+              "name": "PyQRCode",
+              "version": "1.2.1"
+            },
+            {
+              "name": "PyYAML",
+              "version": "6.0.3"
+            },
+            {
+              "name": "Pygments",
+              "version": "2.21.0"
+            },
+            {
+              "name": "RapidFuzz",
+              "version": "3.14.6"
+            },
+            {
+              "name": "RestrictedPython",
+              "version": "8.5"
+            },
+            {
+              "name": "Unidecode",
+              "version": "1.4.0"
+            },
+            {
+              "name": "Werkzeug",
+              "version": "3.1.9"
+            },
+            {
+              "name": "a2wsgi",
+              "version": "1.10.10"
+            },
+            {
+              "name": "aiohappyeyeballs",
+              "version": "2.7.1"
+            },
+            {
+              "name": "aiohttp",
+              "version": "3.14.5"
+            },
+            {
+              "name": "aiosignal",
+              "version": "1.4.0"
+            },
+            {
+              "name": "annotated-doc",
+              "version": "0.0.5"
+            },
+            {
+              "name": "annotated-types",
+              "version": "0.8.0"
+            },
+            {
+              "name": "anyio",
+              "version": "4.16.0"
+            },
+            {
+              "name": "asttokens",
+              "version": "3.0.2"
+            },
+            {
+              "name": "attrs",
+              "version": "26.1.0"
+            },
+            {
+              "name": "babel",
+              "version": "2.18.0"
+            },
+            {
+              "name": "barcodenumber",
+              "version": "0.5.0"
+            },
+            {
+              "name": "beautifulsoup4",
+              "version": "4.15.0"
+            },
+            {
+              "name": "bidict",
+              "version": "0.24.1"
+            },
+            {
+              "name": "bleach-allowlist",
+              "version": "1.0.3"
+            },
+            {
+              "name": "boto3",
+              "version": "1.43.126"
+            },
+            {
+              "name": "botocore",
+              "version": "1.43.126"
+            },
+            {
+              "name": "braintree",
+              "version": "4.20.0"
+            },
+            {
+              "name": "cachetools",
+              "version": "8.0.0"
+            },
+            {
+              "name": "certifi",
+              "version": "2026.10.23"
+            },
+            {
+              "name": "cffi",
+              "version": "2.1.1"
+            },
+            {
+              "name": "chardet",
+              "version": "7.6.0"
+            },
+            {
+              "name": "charset-normalizer",
+              "version": "3.5.2"
+            },
+            {
+              "name": "click",
+              "version": "8.5.1"
+            },
+            {
+              "name": "colorlog",
+              "version": "6.12.0"
+            },
+            {
+              "name": "coverage",
+              "version": "7.14.3"
+            },
+            {
+              "name": "croniter",
+              "version": "6.2.4"
+            },
+            {
+              "name": "cryptography",
+              "version": "50.0.2"
+            },
+            {
+              "name": "cssselect",
+              "version": "1.6.0"
+            },
+            {
+              "name": "cssutils",
+              "version": "2.15.0"
+            },
+            {
+              "name": "dataclasses-json",
+              "version": "0.6.7"
+            },
+            {
+              "name": "deprecation",
+              "version": "2.1.0"
+            },
+            {
+              "name": "distro",
+              "version": "1.9.0"
+            },
+            {
+              "name": "docopt",
+              "version": "0.6.2"
+            },
+            {
+              "name": "duckdb",
+              "version": "1.4.5"
+            },
+            {
+              "name": "email-reply-parser",
+              "version": "0.5.12"
+            },
+            {
+              "name": "encutils",
+              "version": "1.0.0"
+            },
+            {
+              "name": "erpnext",
+              "version": "17.0.0.dev0"
+            },
+            {
+              "name": "et_xmlfile",
+              "version": "2.0.0"
+            },
+            {
+              "name": "executing",
+              "version": "2.3.0"
+            },
+            {
+              "name": "fastapi",
+              "version": "0.162.2"
+            },
+            {
+              "name": "fastuuid",
+              "version": "0.14.0"
+            },
+            {
+              "name": "filelock",
+              "version": "4.2.9"
+            },
+            {
+              "name": "filetype",
+              "version": "1.2.0"
+            },
+            {
+              "name": "flatbuffers",
+              "version": "25.12.19"
+            },
+            {
+              "name": "frappe",
+              "version": "17.0.0.dev0"
+            },
+            {
+              "name": "frappe-flow",
+              "version": "0.1.26"
+            },
+            {
+              "name": "freezegun",
+              "version": "1.5.5"
+            },
+            {
+              "name": "frozenlist",
+              "version": "1.8.0"
+            },
+            {
+              "name": "fsspec",
+              "version": "2026.9.0"
+            },
+            {
+              "name": "gitdb",
+              "version": "4.0.12"
+            },
+            {
+              "name": "gocardless_pro",
+              "version": "1.22.0"
+            },
+            {
+              "name": "google-api-core",
+              "version": "2.44.0"
+            },
+            {
+              "name": "google-api-python-client",
+              "version": "2.201.0"
+            },
+            {
+              "name": "google-auth",
+              "version": "2.62.1"
+            },
+            {
+              "name": "google-auth-httplib2",
+              "version": "0.4.4"
+            },
+            {
+              "name": "google-auth-oauthlib",
+              "version": "1.5.0"
+            },
+            {
+              "name": "googleapis-common-protos",
+              "version": "1.76.0"
+            },
+            {
+              "name": "googlemaps",
+              "version": "4.10.0"
+            },
+            {
+              "name": "gunicorn",
+              "version": "23.0.0"
+            },
+            {
+              "name": "h11",
+              "version": "0.16.0"
+            },
+            {
+              "name": "h2",
+              "version": "4.4.1"
+            },
+            {
+              "name": "hf-xet",
+              "version": "1.8.0"
+            },
+            {
+              "name": "hiredis",
+              "version": "3.4.2"
+            },
+            {
+              "name": "holidays",
+              "version": "0.108"
+            },
+            {
+              "name": "hpack",
+              "version": "4.2.0"
+            },
+            {
+              "name": "html5lib",
+              "version": "1.1"
+            },
+            {
+              "name": "httpcore",
+              "version": "1.0.9"
+            },
+            {
+              "name": "httpcore2",
+              "version": "2.16.0"
+            },
+            {
+              "name": "httplib2",
+              "version": "0.32.1"
+            },
+            {
+              "name": "httpx",
+              "version": "0.28.1"
+            },
+            {
+              "name": "httpx2",
+              "version": "2.16.0"
+            },
+            {
+              "name": "huggingface_hub",
+              "version": "2.4.0"
+            },
+            {
+              "name": "hyperframe",
+              "version": "6.1.0"
+            },
+            {
+              "name": "hypothesis",
+              "version": "6.155.7"
+            },
+            {
+              "name": "idna",
+              "version": "3.20"
+            },
+            {
+              "name": "importlib_metadata",
+              "version": "8.9.0"
+            },
+            {
+              "name": "ipython",
+              "version": "9.17.1"
+            },
+            {
+              "name": "ipython_pygments_lexers",
+              "version": "1.1.1"
+            },
+            {
+              "name": "isodate",
+              "version": "0.7.2"
+            },
+            {
+              "name": "jedi",
+              "version": "0.20.1"
+            },
+            {
+              "name": "jiter",
+              "version": "0.19.0"
+            },
+            {
+              "name": "jmespath",
+              "version": "1.1.0"
+            },
+            {
+              "name": "json_repair",
+              "version": "0.64.6"
+            },
+            {
+              "name": "jsonschema",
+              "version": "4.26.0"
+            },
+            {
+              "name": "jsonschema-specifications",
+              "version": "2025.9.1"
+            },
+            {
+              "name": "lance-namespace",
+              "version": "0.13.0"
+            },
+            {
+              "name": "lance-namespace-urllib3-client",
+              "version": "0.13.0"
+            },
+            {
+              "name": "lancedb",
+              "version": "0.41.0"
+            },
+            {
+              "name": "ldap3",
+              "version": "2.9.1"
+            },
+            {
+              "name": "linkify-it-py",
+              "version": "2.2.0"
+            },
+            {
+              "name": "litellm",
+              "version": "1.103.2"
+            },
+            {
+              "name": "lxml",
+              "version": "6.1.3"
+            },
+            {
+              "name": "markdown-it-py",
+              "version": "4.2.0"
+            },
+            {
+              "name": "markdown2",
+              "version": "2.5.5"
+            },
+            {
+              "name": "markdownify",
+              "version": "1.2.3"
+            },
+            {
+              "name": "marshmallow",
+              "version": "3.26.2"
+            },
+            {
+              "name": "matplotlib-inline",
+              "version": "0.2.2"
+            },
+            {
+              "name": "mdit-py-plugins",
+              "version": "0.6.1"
+            },
+            {
+              "name": "mdurl",
+              "version": "0.1.2"
+            },
+            {
+              "name": "more-itertools",
+              "version": "11.2.1"
+            },
+            {
+              "name": "mt-940",
+              "version": "5.1.3"
+            },
+            {
+              "name": "multidict",
+              "version": "7.2.1"
+            },
+            {
+              "name": "mypy_extensions",
+              "version": "1.2.0"
+            },
+            {
+              "name": "mysqlclient",
+              "version": "2.3.0"
+            },
+            {
+              "name": "nh3",
+              "version": "0.3.7"
+            },
+            {
+              "name": "num2words",
+              "version": "0.5.14"
+            },
+            {
+              "name": "numpy",
+              "version": "2.5.4"
+            },
+            {
+              "name": "oauthlib",
+              "version": "4.0.1"
+            },
+            {
+              "name": "omegaconf",
+              "version": "2.4.0"
+            },
+            {
+              "name": "onnxruntime",
+              "version": "1.31.1"
+            },
+            {
+              "name": "openai",
+              "version": "2.54.0"
+            },
+            {
+              "name": "opencv-python-headless",
+              "version": "5.0.0.93"
+            },
+            {
+              "name": "openpyxl",
+              "version": "3.1.5"
+            },
+            {
+              "name": "opentelemetry-api",
+              "version": "1.45.2"
+            },
+            {
+              "name": "orjson",
+              "version": "3.13.0"
+            },
+            {
+              "name": "packaging",
+              "version": "26.3"
+            },
+            {
+              "name": "parso",
+              "version": "0.8.7"
+            },
+            {
+              "name": "passlib",
+              "version": "1.7.4"
+            },
+            {
+              "name": "payments",
+              "version": "0.0.1"
+            },
+            {
+              "name": "paytmchecksum",
+              "version": "1.7.0"
+            },
+            {
+              "name": "pdfminer.six",
+              "version": "20260107"
+            },
+            {
+              "name": "pdfplumber",
+              "version": "0.11.10"
+            },
+            {
+              "name": "pexpect",
+              "version": "4.9.0"
+            },
+            {
+              "name": "phonenumbers",
+              "version": "9.0.43"
+            },
+            {
+              "name": "pillow",
+              "version": "13.0.0"
+            },
+            {
+              "name": "pip",
+              "version": "26.3"
+            },
+            {
+              "name": "plaid-python",
+              "version": "7.2.1"
+            },
+            {
+              "name": "platformdirs",
+              "version": "4.14.5"
+            },
+            {
+              "name": "plutoprint",
+              "version": "0.22.0"
+            },
+            {
+              "name": "premailer",
+              "version": "3.10.0"
+            },
+            {
+              "name": "prompt_toolkit",
+              "version": "3.0.53"
+            },
+            {
+              "name": "propcache",
+              "version": "0.5.4"
+            },
+            {
+              "name": "proto-plus",
+              "version": "1.29.0"
+            },
+            {
+              "name": "protobuf",
+              "version": "7.36.2"
+            },
+            {
+              "name": "psutil",
+              "version": "7.2.2"
+            },
+            {
+              "name": "psycopg",
+              "version": "3.3.8"
+            },
+            {
+              "name": "psycopg-binary",
+              "version": "3.3.8"
+            },
+            {
+              "name": "ptyprocess",
+              "version": "0.7.0"
+            },
+            {
+              "name": "pure_eval",
+              "version": "0.2.4"
+            },
+            {
+              "name": "pyOpenSSL",
+              "version": "26.4.0"
+            },
+            {
+              "name": "pyarrow",
+              "version": "26.0.1"
+            },
+            {
+              "name": "pyasn1",
+              "version": "0.6.5"
+            },
+            {
+              "name": "pyasn1_modules",
+              "version": "0.4.2"
+            },
+            {
+              "name": "pyclipper",
+              "version": "1.4.0"
+            },
+            {
+              "name": "pycountry",
+              "version": "26.2.16"
+            },
+            {
+              "name": "pycparser",
+              "version": "3.12"
+            },
+            {
+              "name": "pycryptodome",
+              "version": "3.24.1"
+            },
+            {
+              "name": "pydantic",
+              "version": "2.14.3"
+            },
+            {
+              "name": "pydantic-settings",
+              "version": "2.16.2"
+            },
+            {
+              "name": "pydantic_core",
+              "version": "2.50.4"
+            },
+            {
+              "name": "pyngrok",
+              "version": "8.1.2"
+            },
+            {
+              "name": "pyparsing",
+              "version": "3.3.3"
+            },
+            {
+              "name": "pypdf",
+              "version": "6.21.4"
+            },
+            {
+              "name": "pypdfium2",
+              "version": "5.15.1"
+            },
+            {
+              "name": "pyperf",
+              "version": "2.8.1"
+            },
+            {
+              "name": "pypng",
+              "version": "0.20220715.0"
+            },
+            {
+              "name": "python-barcode",
+              "version": "0.16.1"
+            },
+            {
+              "name": "python-dateutil",
+              "version": "2.9.0.post0"
+            },
+            {
+              "name": "python-docx",
+              "version": "1.2.0"
+            },
+            {
+              "name": "python-dotenv",
+              "version": "1.2.4"
+            },
+            {
+              "name": "python-engineio",
+              "version": "4.14.0"
+            },
+            {
+              "name": "python-multipart",
+              "version": "0.0.33"
+            },
+            {
+              "name": "python-socketio",
+              "version": "5.17.0"
+            },
+            {
+              "name": "python-stdnum",
+              "version": "2.2"
+            },
+            {
+              "name": "python-youtube",
+              "version": "0.9.9"
+            },
+            {
+              "name": "pytz",
+              "version": "2026.5"
+            },
+            {
+              "name": "rapidocr",
+              "version": "3.10.0"
+            },
+            {
+              "name": "rauth",
+              "version": "0.7.3"
+            },
+            {
+              "name": "razorpay",
+              "version": "2.0.1"
+            },
+            {
+              "name": "redis",
+              "version": "7.4.1"
+            },
+            {
+              "name": "referencing",
+              "version": "0.37.0"
+            },
+            {
+              "name": "regex",
+              "version": "2026.11.7"
+            },
+            {
+              "name": "requests",
+              "version": "2.34.2"
+            },
+            {
+              "name": "requests-oauthlib",
+              "version": "2.0.0"
+            },
+            {
+              "name": "responses",
+              "version": "0.23.1"
+            },
+            {
+              "name": "rich",
+              "version": "15.0.0"
+            },
+            {
+              "name": "rpds-py",
+              "version": "2026.9.1"
+            },
+            {
+              "name": "rq",
+              "version": "2.6.1"
+            },
+            {
+              "name": "rsa",
+              "version": "4.9.1"
+            },
+            {
+              "name": "s3transfer",
+              "version": "0.19.3"
+            },
+            {
+              "name": "semantic-version",
+              "version": "2.10.0"
+            },
+            {
+              "name": "sentry-sdk",
+              "version": "2.72.0"
+            },
+            {
+              "name": "setuptools",
+              "version": "84.2.1"
+            },
+            {
+              "name": "shapely",
+              "version": "2.2.0"
+            },
+            {
+              "name": "simple-websocket",
+              "version": "1.1.0"
+            },
+            {
+              "name": "six",
+              "version": "1.17.0"
+            },
+            {
+              "name": "smmap",
+              "version": "5.0.3"
+            },
+            {
+              "name": "sniffio",
+              "version": "1.3.1"
+            },
+            {
+              "name": "sortedcontainers",
+              "version": "2.4.0"
+            },
+            {
+              "name": "soupsieve",
+              "version": "4.0.1"
+            },
+            {
+              "name": "sql_metadata",
+              "version": "3.0.1"
+            },
+            {
+              "name": "sqlglot",
+              "version": "30.22.0"
+            },
+            {
+              "name": "sqlparse",
+              "version": "0.6.1"
+            },
+            {
+              "name": "stack-data",
+              "version": "0.6.3"
+            },
+            {
+              "name": "starlette",
+              "version": "1.10.0"
+            },
+            {
+              "name": "stripe",
+              "version": "10.12.1"
+            },
+            {
+              "name": "tenacity",
+              "version": "9.2.1"
+            },
+            {
+              "name": "terminaltables",
+              "version": "3.1.10"
+            },
+            {
+              "name": "textual",
+              "version": "8.2.8"
+            },
+            {
+              "name": "tiktoken",
+              "version": "0.14.0"
+            },
+            {
+              "name": "tokenizers",
+              "version": "0.23.3"
+            },
+            {
+              "name": "tqdm",
+              "version": "4.70.1"
+            },
+            {
+              "name": "traceback-with-variables",
+              "version": "2.2.1"
+            },
+            {
+              "name": "traitlets",
+              "version": "5.16.1"
+            },
+            {
+              "name": "truststore",
+              "version": "0.10.5"
+            },
+            {
+              "name": "types-PyYAML",
+              "version": "6.0.12.20261103"
+            },
+            {
+              "name": "typing-inspect",
+              "version": "0.9.0"
+            },
+            {
+              "name": "typing-inspection",
+              "version": "0.4.5"
+            },
+            {
+              "name": "typing_extensions",
+              "version": "4.16.0"
+            },
+            {
+              "name": "typst",
+              "version": "0.15.2"
+            },
+            {
+              "name": "tzdata",
+              "version": "2026.6"
+            },
+            {
+              "name": "unittest-xml-reporting",
+              "version": "4.0.0"
+            },
+            {
+              "name": "uritemplate",
+              "version": "4.2.0"
+            },
+            {
+              "name": "urllib3",
+              "version": "2.8.0"
+            },
+            {
+              "name": "uvicorn",
+              "version": "0.54.0"
+            },
+            {
+              "name": "vobject",
+              "version": "0.9.9"
+            },
+            {
+              "name": "watchdog",
+              "version": "6.0.0"
+            },
+            {
+              "name": "wcwidth",
+              "version": "0.9.4"
+            },
+            {
+              "name": "webencodings",
+              "version": "0.6.1"
+            },
+            {
+              "name": "websockets",
+              "version": "17.4"
+            },
+            {
+              "name": "wsproto",
+              "version": "1.3.2"
+            },
+            {
+              "name": "xlrd",
+              "version": "2.0.2"
+            },
+            {
+              "name": "xlsxwriter",
+              "version": "3.2.9"
+            },
+            {
+              "name": "yarl",
+              "version": "1.25.1"
+            },
+            {
+              "name": "zipp",
+              "version": "4.1.2"
+            },
+            {
+              "name": "zxcvbn",
+              "version": "4.5.0"
+            }
+          ],
+          "binaries": {
+            "bench": {
+              "sha256": "1adf1627d0c111916256053cac3bb5f0d536a7dfaa0b7a15b905d4576ff8fc74",
+              "version": "5.31.0"
+            },
+            "node": {
+              "sha256": "62d66443847de1f527f74afe715900b12884ace52136dc9cd8e91e61acc2f527",
+              "version": "v24.17.0"
+            },
+            "mariadbd": {
+              "sha256": "99e73e260c9958b788753d4249592c1f2a38dba1a33444d926ea18c67e3187c2",
+              "version": "/usr/sbin/mariadbd  Ver 10.11.14-MariaDB-0ubuntu0.24.04.1 for debian-linux-gnu on x86_64 (Ubuntu 24.04)"
+            },
+            "redis-server": {
+              "sha256": "1b2950213684d355e0e49fe6702c7bfb9d40b78f0da9ce289fc0e8f2a295e540",
+              "version": "redis-check-rdb 7.0.15"
+            }
+          },
+          "site_packages": {
+            "sha256": "8d505a4c50ffb6d7028bec56466ac8aca8d178ef56be7db5c4cb2832748553be",
+            "files": 32662
+          }
+        },
+        "isolation": {
+          "network_attachments": {},
+          "memory": 5368709120,
+          "memory_swap": 5368709120,
+          "pids": 256,
+          "readonly_root": true,
+          "cap_drop": [
+            "ALL"
+          ],
+          "security": [
+            "no-new-privileges"
+          ],
+          "user": "1001:1001",
+          "image_id": "sha256:4643e61ff9ef910bac8e011107d87c0fd0ab14ebacf1d296b0c0a0cd96fefff4"
+        },
+        "observations": {
+          "base": {
+            "schema": 1,
+            "runs": [
+              {
+                "test_ids": [
+                  "erpnext.manufacturing.report.exponential_smoothing_forecasting.test_exponential_smoothing_forecasting.TestExponentialSmoothingForecasting.test_future_forecast_stays_flat",
+                  "erpnext.manufacturing.report.exponential_smoothing_forecasting.test_exponential_smoothing_forecasting.TestExponentialSmoothingForecasting.test_ignores_documents_outside_range_and_other_docstatus",
+                  "erpnext.manufacturing.report.exponential_smoothing_forecasting.test_exponential_smoothing_forecasting.TestExponentialSmoothingForecasting.test_monthly_qty_forecast_from_sales_orders",
+                  "erpnext.manufacturing.report.exponential_smoothing_forecasting.test_exponential_smoothing_forecasting.TestExponentialSmoothingForecasting.test_report_follows_document_permissions",
+                  "erpnext.manufacturing.report.exponential_smoothing_forecasting.test_exponential_smoothing_forecasting.TestExponentialSmoothingForecasting.test_select_only_access_does_not_show_invoice_figures"
+                ],
+                "tests": 5,
+                "failure_ids": [
+                  "erpnext.manufacturing.report.exponential_smoothing_forecasting.test_exponential_smoothing_forecasting.TestExponentialSmoothingForecasting.test_future_forecast_stays_flat",
+                  "erpnext.manufacturing.report.exponential_smoothing_forecasting.test_exponential_smoothing_forecasting.TestExponentialSmoothingForecasting.test_report_follows_document_permissions",
+                  "erpnext.manufacturing.report.exponential_smoothing_forecasting.test_exponential_smoothing_forecasting.TestExponentialSmoothingForecasting.test_select_only_access_does_not_show_invoice_figures"
+                ],
+                "error_ids": [],
+                "skipped_ids": [],
+                "expected_failure_ids": [],
+                "unexpected_success_ids": []
+              }
+            ],
+            "transport_exit": 1,
+            "source_before": {
+              "module_sha256": "f80ce5ae0a7aa1f736ca89ca2319ce51e173a2666925d806fc3bc3d4d463ecdd",
+              "heldout_sha256": "57bc21891324dd9c099af619b5d0132ad6c507d3f4e887e163d168b1c9b7be6b"
+            },
+            "source_after": {
+              "module_sha256": "f80ce5ae0a7aa1f736ca89ca2319ce51e173a2666925d806fc3bc3d4d463ecdd",
+              "heldout_sha256": "57bc21891324dd9c099af619b5d0132ad6c507d3f4e887e163d168b1c9b7be6b"
+            }
+          },
+          "head": {
+            "schema": 1,
+            "runs": [
+              {
+                "test_ids": [
+                  "erpnext.manufacturing.report.exponential_smoothing_forecasting.test_exponential_smoothing_forecasting.TestExponentialSmoothingForecasting.test_future_forecast_stays_flat",
+                  "erpnext.manufacturing.report.exponential_smoothing_forecasting.test_exponential_smoothing_forecasting.TestExponentialSmoothingForecasting.test_ignores_documents_outside_range_and_other_docstatus",
+                  "erpnext.manufacturing.report.exponential_smoothing_forecasting.test_exponential_smoothing_forecasting.TestExponentialSmoothingForecasting.test_monthly_qty_forecast_from_sales_orders",
+                  "erpnext.manufacturing.report.exponential_smoothing_forecasting.test_exponential_smoothing_forecasting.TestExponentialSmoothingForecasting.test_report_follows_document_permissions",
+                  "erpnext.manufacturing.report.exponential_smoothing_forecasting.test_exponential_smoothing_forecasting.TestExponentialSmoothingForecasting.test_select_only_access_does_not_show_invoice_figures"
+                ],
+                "tests": 5,
+                "failure_ids": [],
+                "error_ids": [],
+                "skipped_ids": [],
+                "expected_failure_ids": [],
+                "unexpected_success_ids": []
+              }
+            ],
+            "transport_exit": 0,
+            "source_before": {
+              "module_sha256": "3e916f2c9c7f6a17fa6f27b30c134ee2d22c7c40258d8a50ec8e92723f714049",
+              "heldout_sha256": "57bc21891324dd9c099af619b5d0132ad6c507d3f4e887e163d168b1c9b7be6b"
+            },
+            "source_after": {
+              "module_sha256": "3e916f2c9c7f6a17fa6f27b30c134ee2d22c7c40258d8a50ec8e92723f714049",
+              "heldout_sha256": "57bc21891324dd9c099af619b5d0132ad6c507d3f4e887e163d168b1c9b7be6b"
+            }
+          }
+        },
+        "controls_match": true,
+        "seconds": 373.933
+      },
+      "interpretation": "Exact5-test suites: original3specified failures, upstream5passes; no errors/skips. Known regression reproduction, not a new repair trial or universal ERPNext result."
     }
   ],
   "remaining_hosted_attempts": 0,
-  "automated_feedback_repair_pass": "This update is the one allowed repair pass for PR16; no further automatic code repairs after it.",
-  "next_step_status": "No additional repair/run authorized. Owner-directed next step would provision generated throwaway root credentials so Frappe does not prompt.",
+  "automated_feedback_repair_pass": "PR16 initial automated feedback repair1034d18; subsequent owner-authorized extensions recorded separately. Current setup phase stopped on success.",
+  "next_step_status": "Setup objective achieved on first authorized phase attempt. Unused2attempts do not authorize different trials. Archive consistency integration only; no additional runtime execution.",
   "previous_blocked_reason": "Further automatic repair or a third hosted run prohibited by the declared two-attempt budget and user AGENTS one-pass automated repair boundary.",
   "owner_authorized_extension": {
     "additional_attempts": 1,
@@ -1239,5 +2382,13 @@
     "mode": "production Node and suppressed Yarn install scripts; backend-only",
     "limits_changed": false,
     "status": "consumed; site provisioning stopped before tests"
+  },
+  "owner_setup_phase": {
+    "max_attempts": 3,
+    "used": 1,
+    "max_setup_repair_passes": 3,
+    "repair_passes_applied": 1,
+    "mode": "generated root credential and subsequent setup-only defects, fixed tests/pins/caps",
+    "status": "controls match; setup phase stops on success"
   }
 }
