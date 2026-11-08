@@ -43,7 +43,7 @@ def run(label, argv, cwd=HOME, timeout=600):
 
 
 def setup():
-    run('bench-init', ['bench', 'init', '--skip-assets', '--frappe-path', '/inputs/frappe',
+    run('bench-init', ['bench', 'init', '--skip-assets', '--no-backups', '--frappe-path', '/inputs/frappe',
                        '--frappe-branch', 'develop', '--python', sys.executable, str(BENCH)])
     for app in ('payments', 'erpnext'):
         run('install-' + app, ['bench', 'get-app', '--skip-assets', '--branch', 'develop', app,
@@ -66,7 +66,7 @@ def services():
                           '--auth-root-authentication-method=normal', '--skip-test-db'])
     launch('mariadb', ['mariadbd', '--datadir=' + str(data), '--socket=' + str(HOME / 'mysql.sock'),
                        '--pid-file=' + str(HOME / 'mysql.pid'), '--bind-address=127.0.0.1',
-                       '--port=3306', '--skip-grant-tables', '--innodb-buffer-pool-size=128M',
+                       '--port=3306', '--innodb-buffer-pool-size=128M',
                        '--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci'])
     for _ in range(60):
         ping = subprocess.run(['mariadb-admin', '--socket=' + str(HOME / 'mysql.sock'), 'ping'],

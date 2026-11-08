@@ -1,0 +1,83 @@
+{
+  "schema": 1,
+  "scope": "bounded hosted full-app setup attempts; no application result inferred from setup failure",
+  "attempts": [
+    {
+      "run_id": 42441614137,
+      "revision": "a9de5d1e658d5162fec6c0d4cdc66739a416eb79",
+      "url": "https://github.com/deveshkakkar/ProofGate/actions/runs/42441614137",
+      "status": "inconclusive",
+      "application_tests_run": 0,
+      "report": {
+        "schema": 1,
+        "scope": "inspected-code full-app historical controls only",
+        "completed": false,
+        "case": {
+          "schema": 1,
+          "erpnext_base": "46e19e0681ea65c34573ed9852b5b4306422ddf4",
+          "erpnext_head": "79f6fc3cd720c2ba66e2a33cb97d853164ce0e41",
+          "frappe": "f2543267f6d585f64ea5e19c6c26874568e4bad8",
+          "payments": "b2ceb4a0484cf5c4f4f8625a63182dda63de8895",
+          "image": "ghcr.io/frappe/erpnext-ci-mariadb@sha256:87cb14304c55960a9f7dc9356c2884a4fdea1a3bf3ab46948a98cd6010889f27",
+          "module": "erpnext/manufacturing/report/exponential_smoothing_forecasting/exponential_smoothing_forecasting.py",
+          "tests": "erpnext/manufacturing/report/exponential_smoothing_forecasting/test_exponential_smoothing_forecasting.py",
+          "test_module": "erpnext.manufacturing.report.exponential_smoothing_forecasting.test_exponential_smoothing_forecasting",
+          "test_class": "TestExponentialSmoothingForecasting",
+          "test_names": [
+            "test_monthly_qty_forecast_from_sales_orders",
+            "test_ignores_documents_outside_range_and_other_docstatus",
+            "test_future_forecast_stays_flat",
+            "test_report_follows_document_permissions",
+            "test_select_only_access_does_not_show_invoice_figures"
+          ],
+          "original_failure_names": [
+            "test_future_forecast_stays_flat",
+            "test_report_follows_document_permissions",
+            "test_select_only_access_does_not_show_invoice_figures"
+          ]
+        },
+        "sources": {
+          "frappe": {
+            "revision": "f2543267f6d585f64ea5e19c6c26874568e4bad8",
+            "archive_sha256": "06df49420e27d4d55f8b35d39bfbd09adaf136d787f2b76d286372f16e607cce"
+          },
+          "payments": {
+            "revision": "b2ceb4a0484cf5c4f4f8625a63182dda63de8895",
+            "archive_sha256": "bc2d549eb5c17696718220a73ec2d9e6a910d7f4675d10bfcdfdd1ec7dc5336a"
+          },
+          "erpnext": {
+            "revision": "46e19e0681ea65c34573ed9852b5b4306422ddf4",
+            "archive_sha256": "2c5994ba11fbd8fc4e39ca05fd5be4446805e3059868559286248ba39d8a68d1"
+          },
+          "base-module": {
+            "sha256": "f80ce5ae0a7aa1f736ca89ca2319ce51e173a2666925d806fc3bc3d4d463ecdd"
+          },
+          "head-report.py": {
+            "sha256": "3e916f2c9c7f6a17fa6f27b30c134ee2d22c7c40258d8a50ec8e92723f714049"
+          },
+          "heldout.py": {
+            "sha256": "57bc21891324dd9c099af619b5d0132ad6c507d3f4e887e163d168b1c9b7be6b"
+          }
+        },
+        "stage": "dependency-bootstrap",
+        "verifier": {
+          "app_case.json": "0d6b8d75bbf363a209152e31948174f311f5e8c3348bc9bb975fe25f76ca8c2d",
+          "app_trial.py": "42d9094fcaddab684fc5f2159ef637591df050dc6fc03513c4feef3c51de323e",
+          "app_bootstrap.py": "6c2f27e4515e20b167a8a064f1b9909fc9bb027275eafb415d7cdbdbf0cae34d",
+          "app_collect.py": "20d5f18da4b0505ee1047327e2ed94db407fc9dcff6035a5d9674bfefdab4b64",
+          "app_inventory.py": "bad21966a3467ee7af8fcd343a4ccd28e46c10343cc002b1d8694dc1e8c7dd46"
+        },
+        "error": "dependency-bootstrap exit=1",
+        "seconds": 157.082
+      },
+      "cause": "Bench init tried system crontab backup scheduling; read-only nonroot isolation refused access.",
+      "repair": "Use supported bench5.31.0 --no-backups flag. Preserve isolation. Remove skip-grant-tables per verified automated finding so fresh site account creation can work.",
+      "sources": [
+        "https://github.com/frappe/bench/blob/v5.31.0/bench/commands/make.py",
+        "https://mariadb.com/docs/server/server-management/starting-and-stopping-mariadb/mariadbd-options#skip-grant-tables"
+      ]
+    }
+  ],
+  "remaining_hosted_attempts": 1,
+  "automated_feedback_repair_pass": "This update is the one allowed repair pass for PR16; no further automatic code repairs after it."
+}

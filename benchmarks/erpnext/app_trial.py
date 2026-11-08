@@ -106,6 +106,7 @@ def execute(work):
 
     def save():
         (output / 'report.json').write_text(json.dumps(report, indent=2) + '\n')
+        print(json.dumps({'stage': report['stage'], 'completed': report['completed']}), flush=True)
 
     def command(label, argv, timeout=600):
         with (output / (label + '.log')).open('xb') as handle:
