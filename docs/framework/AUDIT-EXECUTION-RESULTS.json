@@ -1,0 +1,174 @@
+{
+  "schema": 1,
+  "scope": "Reviewed archival summaries, not fresh execution or authenticated admission. Raw artifacts retained privately; GitHub retention is finite.",
+  "producer_authenticated": false,
+  "policy_admitted": false,
+  "release_authorized": false,
+  "runs": [
+    {
+      "name": "entitlement-cli",
+      "run_url": "https://github.com/deveshkakkar/ProofGate/actions/runs/42536381195",
+      "reviewed_pr_head": "4bf390830a38aa8e1fdd15596870b0adbe4732e0",
+      "hosted_checkout_revision": "023d9bcc29358e62571c2e03f400381269c54e36",
+      "artifact_id": 13639109304,
+      "artifact_zip_sha256": "f9166e793fb97fb3e3c627d594d0861eca4a93b7912a6c32416bff49635ecb63",
+      "smoke_result_sha256": "23238c0a75f168c4ed277476d8334cd2eb83429337706f859af945ddc0f9a2c2",
+      "completed": true,
+      "commands": [
+        {
+          "name": "doctor",
+          "exit": 0,
+          "expected_exit": 0
+        },
+        {
+          "name": "baseline",
+          "exit": 0,
+          "expected_exit": 0
+        },
+        {
+          "name": "no-overwrite",
+          "exit": 2,
+          "expected_exit": 2
+        },
+        {
+          "name": "tenant-spoof",
+          "exit": 1,
+          "expected_exit": 1
+        }
+      ],
+      "upstream_revision": null,
+      "upstream_archive_sha256": null,
+      "reports": [
+        {
+          "variant": "baseline",
+          "raw_report_sha256": "d6f4f0b80672f5b7c767241708c856a371c620d172d3cbcebcfca87d75910b51",
+          "source_manifest_sha256": "3eddbe1e4d5b3ef49a11bfb50a64412b107afd9c096b0d0f0218bbd6246720a2",
+          "source_sha256": {
+            "app.py": "e62f171010d5ef7fc477d22a2e638e3b5d254ceab5b7460657c2d818a6a590be",
+            "rule.py": "15e31ae94c187b68e43984c616b5b52dc0c40c57e9d1d64173ff4ee17da47a6f"
+          },
+          "checks": [
+            {
+              "id": "finite_rule",
+              "passed": true,
+              "cases": 72,
+              "mismatches": 0
+            },
+            {
+              "id": "application_boundary",
+              "passed": true,
+              "cases": 80,
+              "mismatches": 0
+            }
+          ],
+          "snapshot_consistent": true,
+          "candidate_matches_snapshot": true,
+          "fixture_contract_sha256": null
+        },
+        {
+          "variant": "spoof",
+          "raw_report_sha256": "f7549d5ea8d9aea78cf06227e83db6dbe8592768cc68c8e45952ebc6239ef914",
+          "source_manifest_sha256": "7fad4a520e6ebe911d67aca2241eeb451f4f1e0bff041f4148dd62ac1cdd8ee3",
+          "source_sha256": {
+            "app.py": "22bb886686434367345a3f6d350fe3e2742076b2de4a634c825ab63e4fe1f747",
+            "rule.py": "15e31ae94c187b68e43984c616b5b52dc0c40c57e9d1d64173ff4ee17da47a6f"
+          },
+          "checks": [
+            {
+              "id": "finite_rule",
+              "passed": true,
+              "cases": 72,
+              "mismatches": 0
+            },
+            {
+              "id": "application_boundary",
+              "passed": false,
+              "cases": 80,
+              "mismatches": 6
+            }
+          ],
+          "snapshot_consistent": false,
+          "candidate_matches_snapshot": true,
+          "fixture_contract_sha256": null
+        }
+      ]
+    },
+    {
+      "name": "external-json",
+      "run_url": "https://github.com/deveshkakkar/ProofGate/actions/runs/42537171457",
+      "reviewed_pr_head": "01e8d7b1f3b19d3b18d7c519a0e6f81da9ab03e8",
+      "hosted_checkout_revision": "8660fee3e42f70726a149836539ed72845bfc43d",
+      "artifact_id": 13640235386,
+      "artifact_zip_sha256": "f12eb7a70bc5a5a273a18c366bbff6019d852a54d0d39c084b50858c16cad143",
+      "smoke_result_sha256": "734fa0d516f5c49231b3dee5decb3151d4d740b7c4235f8e8f21a68b29a83c75",
+      "completed": true,
+      "commands": [
+        {
+          "name": "upstream-baseline",
+          "exit": 0,
+          "expected_exit": 0
+        },
+        {
+          "name": "immutable-report",
+          "exit": 2,
+          "expected_exit": 2
+        },
+        {
+          "name": "broken-checksum-control",
+          "exit": 1,
+          "expected_exit": 1
+        }
+      ],
+      "upstream_revision": "006192e59be8ed6e08fd680256868a6c31eb2ba9",
+      "upstream_archive_sha256": "72c2932facc30f8b4ab4570a7aeb27bf78a30a9f16b4afd0c4e26f3905f6f5e1",
+      "reports": [
+        {
+          "variant": "baseline",
+          "raw_report_sha256": "1496a5cb5058390caea174d8c8834c40e4fa9e5502135554c23a42357ad7213a",
+          "source_manifest_sha256": "078aa8e639ac3c50141e3628ec74e2462e808756d6a6f4b6d3b5481eca806e86",
+          "source_sha256": {
+            "run_json.py": "82a4ea3f0e6c271e2d705aec82b82dd910350a5c2d4ee635c9dfd0609442af6c",
+            "stdnum/__init__.py": "164fee456b70114c01925e7918094d0d518bff1c8ff3b2a9ef2c99e97b9ed7a9",
+            "stdnum/exceptions.py": "de76246ac996adbb8718fd15f2256fb4c333dd2fcf6c913914505dd913cd5bf6",
+            "stdnum/luhn.py": "1ee6c812e3e153ce1bc25e6f3d6e50bcec9fc645505ce315e4c22b2fed974790",
+            "stdnum/util.py": "804f4e816d9133d6d392e2bce6b0b864ea02e91b07b9bd35a07a399dc82b145f"
+          },
+          "checks": [
+            {
+              "id": "luhn_examples",
+              "passed": true,
+              "cases": 7,
+              "mismatches": 0
+            }
+          ],
+          "snapshot_consistent": true,
+          "candidate_matches_snapshot": true,
+          "fixture_contract_sha256": "dd9130f5f93f3a156600fb70e22e76d026bb3bc9c14bb6f0aacd5ebe505d9411"
+        },
+        {
+          "variant": "mutation",
+          "raw_report_sha256": "183f05d5436c793557044cb4a4cef8640e936d88c8406a7419d6f58225a51f6c",
+          "source_manifest_sha256": "8bf378473380128a09440f32f1a7c767ca846aa3f8928f3f6b4e9d234fa73d92",
+          "source_sha256": {
+            "run_json.py": "82a4ea3f0e6c271e2d705aec82b82dd910350a5c2d4ee635c9dfd0609442af6c",
+            "stdnum/__init__.py": "164fee456b70114c01925e7918094d0d518bff1c8ff3b2a9ef2c99e97b9ed7a9",
+            "stdnum/exceptions.py": "de76246ac996adbb8718fd15f2256fb4c333dd2fcf6c913914505dd913cd5bf6",
+            "stdnum/luhn.py": "8f49fc15f62c124c219ba879f3145f04f562c2cdcc0a346028efbfb1b040e9c2",
+            "stdnum/util.py": "804f4e816d9133d6d392e2bce6b0b864ea02e91b07b9bd35a07a399dc82b145f"
+          },
+          "checks": [
+            {
+              "id": "luhn_examples",
+              "passed": false,
+              "cases": 7,
+              "mismatches": 2
+            }
+          ],
+          "snapshot_consistent": false,
+          "candidate_matches_snapshot": true,
+          "fixture_contract_sha256": "dd9130f5f93f3a156600fb70e22e76d026bb3bc9c14bb6f0aacd5ebe505d9411"
+        }
+      ]
+    }
+  ]
+}
