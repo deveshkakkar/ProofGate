@@ -1,0 +1,9 @@
+# Owner-authorized backend-only retry
+
+The owner replied “Approved, merge. Keep building without stopping until a blocker” to the explicit request for one additional repair and hosted attempt. This authorizes the prepared backend-only patch and exactly one third hosted attempt, plus merging PR16 after current checks/review. It does not authorize deployments, production service/security changes, unlimited repairs, or additional runs after this attempt.
+
+Apply only the prepared changes: NODE_ENV=production to match upstream CI; a temporary-home Yarn setting `--install.ignore-scripts true` to skip JavaScript lifecycle scripts, including ERPNext's nested banking frontend installation. Keep all five real database/report tests, source/image pins, separate sites and existing controls unchanged. Frontend installation/build remains outside this mode; skipping its scripts is not evidence that frontend behavior passes.
+
+Same bounds: one disposable GitHub-hosted container,30min/job, uid1001, readonly root/inputs/driver, capsALLdropped/NNP,5GiB memory/no swap growth,2CPU/256PIDs,4GiB home tmpfs/128MiB tmp. No home-server image/container/service/package operations, owner credentials, host socket/home mounts, public ports or new author calls. Preserve both prior inconclusive attempts and the next actual outcome. Stop on any further setup/control failure and hand it to the owner; do not silently create a new retry allowance.
+
+Acceptance: existing56 offline tests and release checks; reviewed patch; actual exact five-test suites with three specified base failures and head5pass, zero errors/skips, unchanged module/heldout identities. Any missing setup/inventory/protocol result is inconclusive. Record current revision, full source/verifier/environment IDs and unverified behavior before merge. If execution is inconclusive, do not characterize the runtime as validated; an owner-approved merge of the default-off diagnostic scaffold must retain that limitation.

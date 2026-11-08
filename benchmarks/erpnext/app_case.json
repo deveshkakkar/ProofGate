@@ -1,0 +1,24 @@
+{
+  "schema": 1,
+  "erpnext_base": "46e19e0681ea65c34573ed9852b5b4306422ddf4",
+  "erpnext_head": "79f6fc3cd720c2ba66e2a33cb97d853164ce0e41",
+  "frappe": "f2543267f6d585f64ea5e19c6c26874568e4bad8",
+  "payments": "b2ceb4a0484cf5c4f4f8625a63182dda63de8895",
+  "image": "ghcr.io/frappe/erpnext-ci-mariadb@sha256:87cb14304c55960a9f7dc9356c2884a4fdea1a3bf3ab46948a98cd6010889f27",
+  "module": "erpnext/manufacturing/report/exponential_smoothing_forecasting/exponential_smoothing_forecasting.py",
+  "tests": "erpnext/manufacturing/report/exponential_smoothing_forecasting/test_exponential_smoothing_forecasting.py",
+  "test_module": "erpnext.manufacturing.report.exponential_smoothing_forecasting.test_exponential_smoothing_forecasting",
+  "test_class": "TestExponentialSmoothingForecasting",
+  "test_names": [
+    "test_monthly_qty_forecast_from_sales_orders",
+    "test_ignores_documents_outside_range_and_other_docstatus",
+    "test_future_forecast_stays_flat",
+    "test_report_follows_document_permissions",
+    "test_select_only_access_does_not_show_invoice_figures"
+  ],
+  "original_failure_names": [
+    "test_future_forecast_stays_flat",
+    "test_report_follows_document_permissions",
+    "test_select_only_access_does_not_show_invoice_figures"
+  ]
+}

@@ -6,6 +6,11 @@ on:
   pull_request:
   workflow_dispatch:
     inputs:
+      erpnext_trial:
+        description: Optional bounded full ERPNext historical control trial
+        required: true
+        default: false
+        type: boolean
       shadow_case:
         description: Optional fixed historical shadow control
         required: true
@@ -46,5 +51,11 @@ jobs:
     with:
       case: ${{ inputs.shadow_case }}
       version: ${{ inputs.shadow_version }}
+    permissions:
+      contents: read
+
+  erpnext:
+    if: github.event_name == 'workflow_dispatch' && inputs.erpnext_trial == true
+    uses: ./.github/workflows/erpnext-shadow.yml
     permissions:
       contents: read
