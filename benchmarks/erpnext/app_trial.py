@@ -135,6 +135,16 @@ def execute(work, profile='original'):
                                         '/home/ci/trial/' + variant + '-result.json'],
                                        timeout=30, stderr=subprocess.DEVNULL)
 
+
+    def read_lifecycle(complete=False):
+        from .structured import validate_lifecycle
+        raw = subprocess.check_output(['docker', 'exec', name, 'python', '-c',
+            'import sys;sys.stdout.buffer.write(open(sys.argv[1],"rb").read(1048577))',
+            '/home/ci/trial/site-lifecycle.json'], timeout=30, stderr=subprocess.DEVNULL)
+        if len(raw) > 1024 * 1024:
+            raise ValueError('lifecycle record bound')
+        return validate_lifecycle(json.loads(raw), complete)
+
     def save():
         (output / 'report.json').write_text(json.dumps(report, indent=2) + '\n')
         print(json.dumps({'stage': report['stage'], 'completed': report['completed']}), flush=True)
@@ -215,6 +225,8 @@ def execute(work, profile='original'):
         report['observations'], report['capture_errors'] = capture_observations(variants, read_result)
         if report['capture_errors']:
             raise ValueError('incomplete structured observation capture')
+        if profile == 'structured':
+            report['site_lifecycle'] = read_lifecycle(complete=True)
         report['controls_match'] = all(
             classify(case, value, variant) and value.get('source_before') == value.get('source_after') and
             value.get('source_before') == {
@@ -229,6 +241,11 @@ def execute(work, profile='original'):
         if created:
             if not report.get('completed'):
                 report['observations'], report['capture_errors'] = capture_observations(variants, read_result)
+                if profile == 'structured':
+                    try:
+                        report['site_lifecycle'] = read_lifecycle()
+                    except (OSError, ValueError, RecursionError, subprocess.SubprocessError) as exc:
+                        report['lifecycle_capture_error'] = type(exc).__name__
             # Export only our fixed sanitized log/result directory, never site
             # configurations, databases, environment dumps or a container root.
             export = "import json,pathlib,re; p=pathlib.Path('/home/ci/trial'); ok=json.loads((p/'logs-sanitized.json').read_text()).get('sanitized') is True; print(json.dumps({f.name:'\\n'.join('<redacted sensitive line>' if re.search('password|secret|token|encryption_key|authorization',l,re.I) else l for l in f.read_text(errors='replace')[-2097152:].splitlines()) for f in p.glob('*.log') if ok and f.is_file() and not f.is_symlink()}))"

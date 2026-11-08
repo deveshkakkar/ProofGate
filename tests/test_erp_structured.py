@@ -63,6 +63,8 @@ class StructuredScoreTests(unittest.TestCase):
         self.report = copy.deepcopy(json.loads((HERE / 'intermediate-results.json').read_text())['report'])
         r = self.report
         r['profile'] = 'structured';r['candidate_manifest_sha256'] = digest(self.manifest)
+        r['site_lifecycle'] = {'schema': 1, 'sites': {name: {'free_bytes_before': 100, 'free_bytes_after': 1000,
+            'database_removed': True, 'active_site_removed': True} for name in ('base', 'head', 'baseline', 'feedback')}}
         r['verifier'] = {name: hashlib.sha256((HERE / ('intermediate_case.json' if name == 'app_case.json' else name)).read_bytes()).hexdigest()
                          for name in FILES}
         for arm in ('baseline', 'feedback'):
@@ -119,7 +121,7 @@ class StructuredScoreTests(unittest.TestCase):
     def test_wrong_record_reviewed_manifest_environment_verifier_source_and_controls_reject(self):
         self.assertFalse(score(self.report, '0' * 64, self.producer, self.manifest)['valid_controls'])
         original = copy.deepcopy(self.report)
-        for mutation in ('manifest', 'environment', 'verifier', 'source', 'control', 'missing-arm', 'test'):
+        for mutation in ('manifest', 'environment', 'verifier', 'source', 'control', 'missing-arm', 'test', 'lifecycle'):
             self.report = copy.deepcopy(original);r = self.report
             if mutation == 'manifest': r['candidate_manifest_sha256'] = '0' * 64
             if mutation == 'environment': r['environment']['packages'] = []
@@ -128,6 +130,7 @@ class StructuredScoreTests(unittest.TestCase):
             if mutation == 'control': r['observations']['base']['runs'][0]['failure_ids'] = []
             if mutation == 'missing-arm': r['observations'].pop('feedback')
             if mutation == 'test': r['sources']['heldout.py']['sha256'] = '0' * 64
+            if mutation == 'lifecycle': r['site_lifecycle']['sites']['feedback']['database_removed'] = False
             self.assertFalse(self.check()['valid_controls'], mutation)
 
     def test_malformed_top_level_inputs_fail_closed(self):
