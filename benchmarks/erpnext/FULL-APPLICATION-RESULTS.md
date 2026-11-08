@@ -21,7 +21,7 @@ The owner separately authorized the one backend-only retry and then a phase of u
 
 ## Archived consistency through the unchanged ProofGate kernel
 
-`app_evidence.py` consumes the actual fixed-case report using an independently supplied canonical record pin. It rechecks exact original/fixed outcomes, case/source/held-out identities, current producer verifier bytes and fixed isolation/environment shape, then reuses `framework.kernel` unchanged to bind source/archive/verifier/environment inputs. A passing original-control check means its known failures were reproduced; it does not accept original source.
+`app_evidence.py` consumes the actual fixed-case report using an independently supplied canonical record pin. It rechecks exact original/fixed outcomes, case/source/held-out identities, frozen reviewed producer verifier bytes and fixed isolation/environment shape, then reuses `framework.kernel` unchanged to bind source/archive/verifier/environment inputs. A passing original-control check means its known failures were reproduced; it does not accept original source.
 
 ```sh
 python3 -B - <<'PY'
@@ -36,6 +36,6 @@ print(result.get('receipt'))
 PY
 ```
 
-Expected mode is `archived-consistency-only`, consistentTrue. For a standalone record, use `python3 -B -m benchmarks.erpnext.app_evidence --report FILE --expected-record-sha256 PIN`; JSON result exits0 only for consistent archived controls. Obtain the pin from a trusted reviewed record, not by hashing arbitrary untrusted input and approving itself. Producer authentication, fresh source execution, policy admission and release authority remain false. This checker validates archived claims and hashes; it cannot authenticate that source execution produced them. It is conservative: a changed producer verifier requires the corresponding frozen evaluator rather than restamping old data with a new implementation.
+Expected mode is `archived-consistency-only`, consistentTrue. For a standalone record, use `python3 -B -m benchmarks.erpnext.app_evidence --report FILE --expected-record-sha256 PIN`; JSON result exits0 only for consistent archived controls. Obtain the pin from a trusted reviewed record, not by hashing arbitrary untrusted input and approving itself. Producer authentication, fresh source execution, policy admission and release authority remain false. This checker validates archived claims and hashes; it cannot authenticate that source execution produced them. It selects a reviewed frozen producer profile rather than restamping old data with a new implementation; the current validator and matching control predicate are bound separately. See INTERMEDIATE-RESULTS.md for the versioned registry added after this run.
 
-Current validation includes the actual archived run, altered/missing-control/source/pin/verifier/profile rejection controls, all earlier inconclusive records, and independent review. No extra source workers or author calls were used for archive integration. PR17 merge remains separate owner-approved work.
+Current validation includes the actual archived run, altered/missing-control/source/pin/verifier/profile rejection controls, all earlier inconclusive records, and independent review. No extra source workers or author calls were used for archive integration. PR17 was merged with explicit owner approval at1390a79. Subsequent merges follow the owner's standing condition: passing checks and no findings from current-revision Codex review.

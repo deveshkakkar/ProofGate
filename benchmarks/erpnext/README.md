@@ -1,4 +1,14 @@
-# ERPNext forecast-helper transfer test
+# ERPNext validation evidence
+
+Three separate experiments cover different scopes:
+
+- [Full report controls](FULL-APPLICATION-RESULTS.md): original fails three known checks; final passes all five in real ERPNext/Frappe/MariaDB sites. Earlier setup failures remain recorded.
+- [Intermediate patch](INTERMEDIATE-RESULTS.md): intermediate passes its four earlier checks but misses the added select-only read-denial requirement; final passes all five. This is a retrospectively selected known followup.
+- The finite arithmetic transfer below: 108 observations per source, isolated helper AST with fixture shims, separate from application execution.
+
+No experiment establishes novel discovery, improved agent repair, customer demand or release authority. Offline archive inspection and manual hosted execution are documented separately in the linked reports.
+
+## Forecast-helper transfer test
 
 This checks whether the unchanged finite preservation/change evaluator transfers from permission logic to business arithmetic. It reproduces the known forecast defect fixed in merged [ERPNext60977](https://github.com/frappe/erpnext/pull/60977). It is not a new repair author trial, blind discovery or an ERPNext application run.
 

@@ -4,6 +4,8 @@ This does not execute source or authenticate the producer. A passing historical
 control includes expected original failures and grants no release authority.
 """
 import argparse
+import ast
+import hashlib
 import json
 from pathlib import Path
 import sys
@@ -20,6 +22,39 @@ CONTRACT = {'schema': 1, 'checks': ['original-regressions-reproduced', 'upstream
 FILES = ('app_case.json', 'app_trial.py', 'app_bootstrap.py', 'app_collect.py', 'app_inventory.py')
 
 
+def producer_profile(report):
+    """Select a reviewed historical producer, never infer one from the record."""
+    registry = json.loads((HERE / 'producer-profiles.json').read_text())
+    if (type(registry) is not dict or set(registry) != {'schema', 'profiles'} or
+            type(registry['schema']) is not int or registry['schema'] != 1 or
+            type(registry['profiles']) is not list or not registry['profiles']):
+        raise ValueError('invalid producer profile registry')
+    source = (HERE / 'app_trial.py').read_text()
+    predicates = [node for node in ast.parse(source).body if isinstance(node, ast.FunctionDef) and node.name == 'classify']
+    if len(predicates) != 1:
+        raise ValueError('ambiguous control predicate')
+    predicate = hashlib.sha256(ast.get_source_segment(source, predicates[0]).encode()).hexdigest()
+    matches = []
+    ids = set()
+    for profile in registry['profiles']:
+        if (type(profile) is not dict or set(profile) !=
+                {'id', 'producer_revision', 'case', 'verifier', 'control_predicate_source_sha256'} or
+                type(profile['id']) is not str or not profile['id'] or profile['id'] in ids or
+                type(profile['producer_revision']) is not str or len(profile['producer_revision']) != 40 or
+                any(c not in '0123456789abcdef' for c in profile['producer_revision']) or
+                type(profile['case']) is not dict or type(profile['verifier']) is not dict or
+                set(profile['verifier']) != set(FILES)):
+            raise ValueError('invalid producer profile')
+        ids.add(profile['id'])
+        for value in [*profile['verifier'].values(), profile['control_predicate_source_sha256']]:
+            valid_sha(value)
+        if profile['case'] == report['case'] and profile['verifier'] == report['verifier']:
+            matches.append(profile)
+    if len(matches) != 1 or matches[0]['control_predicate_source_sha256'] != predicate:
+        raise ValueError('unknown/ambiguous producer profile or changed control predicate')
+    return matches[0]
+
+
 def inspect(report, expected_record):
     result = {'mode': 'archived-consistency-only', 'producer_authenticated': False,
               'fresh_source_execution': False, 'policy_admitted': False, 'release_authority': False}
@@ -32,11 +67,8 @@ def inspect(report, expected_record):
         if (type(report.get('schema')) is not int or report['schema'] != 1 or
                 report.get('completed') is not True or report.get('controls_match') is not True or report.get('error')):
             raise ValueError('incomplete or failed source run')
-        case = json.loads((HERE / 'app_case.json').read_text())
-        if report['case'] != case or type(report['verifier']) is not dict or set(report['verifier']) != set(FILES):
-            raise ValueError('unsupported case or verifier inventory')
-        if any(sha(HERE / name) != report['verifier'][name] for name in FILES):
-            raise ValueError('recorded producer verifier differs from current fixed evaluator')
+        profile = producer_profile(report)
+        case = profile['case']
         observations = report['observations']
         if type(observations) is not dict or set(observations) != {'base', 'head'}:
             raise ValueError('incomplete control observations')
@@ -87,6 +119,8 @@ def inspect(report, expected_record):
                          'heldout.py': sources['heldout.py']['sha256'], 'record': expected_record, 'case': digest(case)},
             'verifier': {**{'producer/' + name: value for name, value in report['verifier'].items()},
                          'archive-validator.py': sha(Path(__file__)),
+                         'producer-profile': digest(profile),
+                         'current-control-predicate': profile['control_predicate_source_sha256'],
                          'kernel.py': sha(HERE.parents[1] / 'framework/kernel.py')},
             'environment': {'recorded-packages-binaries': digest(report['environment']),
                             'recorded-isolation': digest(report['isolation']),
@@ -97,8 +131,9 @@ def inspect(report, expected_record):
         evidence = [{'id': name, 'status': 'passed', 'identity': bound} for name in CONTRACT['checks']]
         receipt = verify(CONTRACT, contract_digest(CONTRACT), inputs, evidence)
         result.update(consistent=receipt['consistent'], contract=CONTRACT, inputs=inputs,
-                      evidence=evidence, receipt=receipt, record_sha256=expected_record)
-    except (KeyError, TypeError, ValueError, OSError, RecursionError) as exc:
+                      evidence=evidence, receipt=receipt, record_sha256=expected_record,
+                      producer_profile=profile['id'])
+    except (KeyError, TypeError, ValueError, OSError, RecursionError, SyntaxError) as exc:
         result.update(consistent=False, reason=str(exc))
     return result
 

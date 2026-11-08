@@ -1,0 +1,75 @@
+{
+  "schema": 1,
+  "profiles": [
+    {
+      "id": "original-7249964",
+      "producer_revision": "724996477854a3ef693451c7d158b75d07c3e0d6",
+      "case": {
+        "schema": 1,
+        "erpnext_base": "46e19e0681ea65c34573ed9852b5b4306422ddf4",
+        "erpnext_head": "79f6fc3cd720c2ba66e2a33cb97d853164ce0e41",
+        "frappe": "f2543267f6d585f64ea5e19c6c26874568e4bad8",
+        "payments": "b2ceb4a0484cf5c4f4f8625a63182dda63de8895",
+        "image": "ghcr.io/frappe/erpnext-ci-mariadb@sha256:87cb14304c55960a9f7dc9356c2884a4fdea1a3bf3ab46948a98cd6010889f27",
+        "module": "erpnext/manufacturing/report/exponential_smoothing_forecasting/exponential_smoothing_forecasting.py",
+        "tests": "erpnext/manufacturing/report/exponential_smoothing_forecasting/test_exponential_smoothing_forecasting.py",
+        "test_module": "erpnext.manufacturing.report.exponential_smoothing_forecasting.test_exponential_smoothing_forecasting",
+        "test_class": "TestExponentialSmoothingForecasting",
+        "test_names": [
+          "test_monthly_qty_forecast_from_sales_orders",
+          "test_ignores_documents_outside_range_and_other_docstatus",
+          "test_future_forecast_stays_flat",
+          "test_report_follows_document_permissions",
+          "test_select_only_access_does_not_show_invoice_figures"
+        ],
+        "original_failure_names": [
+          "test_future_forecast_stays_flat",
+          "test_report_follows_document_permissions",
+          "test_select_only_access_does_not_show_invoice_figures"
+        ]
+      },
+      "verifier": {
+        "app_case.json": "0d6b8d75bbf363a209152e31948174f311f5e8c3348bc9bb975fe25f76ca8c2d",
+        "app_trial.py": "7d20733b31c324c3826df304a058aca90e08d22904caf21526d8b2bf9aa3cd9a",
+        "app_bootstrap.py": "961fa978f96d746de7f70fa7dc153efbe1833442039ba91096807b8eeaa87f6c",
+        "app_collect.py": "20d5f18da4b0505ee1047327e2ed94db407fc9dcff6035a5d9674bfefdab4b64",
+        "app_inventory.py": "bad21966a3467ee7af8fcd343a4ccd28e46c10343cc002b1d8694dc1e8c7dd46"
+      },
+      "control_predicate_source_sha256": "bd401f1c1f13fb4c575959dce7390936b2d23bf25a22c1e0d5aba5a01257afef"
+    },
+    {
+      "id": "intermediate-15ae916",
+      "producer_revision": "15ae916726e570b563847e35ca6ed7987446fb99",
+      "case": {
+        "schema": 1,
+        "erpnext_base": "04afe19d8ef067eec3852f4ac8007af42718d0b6",
+        "erpnext_head": "79f6fc3cd720c2ba66e2a33cb97d853164ce0e41",
+        "frappe": "f2543267f6d585f64ea5e19c6c26874568e4bad8",
+        "payments": "b2ceb4a0484cf5c4f4f8625a63182dda63de8895",
+        "image": "ghcr.io/frappe/erpnext-ci-mariadb@sha256:87cb14304c55960a9f7dc9356c2884a4fdea1a3bf3ab46948a98cd6010889f27",
+        "module": "erpnext/manufacturing/report/exponential_smoothing_forecasting/exponential_smoothing_forecasting.py",
+        "tests": "erpnext/manufacturing/report/exponential_smoothing_forecasting/test_exponential_smoothing_forecasting.py",
+        "test_module": "erpnext.manufacturing.report.exponential_smoothing_forecasting.test_exponential_smoothing_forecasting",
+        "test_class": "TestExponentialSmoothingForecasting",
+        "test_names": [
+          "test_monthly_qty_forecast_from_sales_orders",
+          "test_ignores_documents_outside_range_and_other_docstatus",
+          "test_future_forecast_stays_flat",
+          "test_report_follows_document_permissions",
+          "test_select_only_access_does_not_show_invoice_figures"
+        ],
+        "original_failure_names": [
+          "test_select_only_access_does_not_show_invoice_figures"
+        ]
+      },
+      "verifier": {
+        "app_case.json": "a23d868d082fec77d7d6d9c34f378ffa2bef17243ff92850bf60019757b45c5d",
+        "app_trial.py": "6d75b44cc9b6c810a4620aaaafa550a9894450989da977d9859fd68645beb770",
+        "app_bootstrap.py": "961fa978f96d746de7f70fa7dc153efbe1833442039ba91096807b8eeaa87f6c",
+        "app_collect.py": "20d5f18da4b0505ee1047327e2ed94db407fc9dcff6035a5d9674bfefdab4b64",
+        "app_inventory.py": "bad21966a3467ee7af8fcd343a4ccd28e46c10343cc002b1d8694dc1e8c7dd46"
+      },
+      "control_predicate_source_sha256": "bd401f1c1f13fb4c575959dce7390936b2d23bf25a22c1e0d5aba5a01257afef"
+    }
+  ]
+}

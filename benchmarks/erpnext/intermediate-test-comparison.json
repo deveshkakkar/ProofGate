@@ -1,0 +1,10 @@
+{
+  "schema": 1,
+  "method": "Python AST equality without location attributes; entire module after removing exactly one final test method",
+  "base_revision": "04afe19d8ef067eec3852f4ac8007af42718d0b6",
+  "head_revision": "79f6fc3cd720c2ba66e2a33cb97d853164ce0e41",
+  "removed_method": "test_select_only_access_does_not_show_invoice_figures",
+  "base_sha256": "3593c887d4851516303f34cc3301bca7bb39385bd84050070cc031e9b0b96cc6",
+  "head_sha256": "57bc21891324dd9c099af619b5d0132ad6c507d3f4e887e163d168b1c9b7be6b",
+  "equivalent": true
+}
