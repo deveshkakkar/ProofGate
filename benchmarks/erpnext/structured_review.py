@@ -42,14 +42,16 @@ def summary(result):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--attempt', choices=('structured', 'lifecycle'), default='structured',
+                        help='Choose a retained attempt; default preserves the original structured replay')
     parser.add_argument('--json', action='store_true')
     parser.add_argument('--expected-record-sha256', help='Override the reviewed checkout record pin with an independently obtained pin')
     args = parser.parse_args()
     try:
-        wrapper = read_json(HERE / 'structured-results.json')
+        wrapper = read_json(HERE / (args.attempt + '-results.json'))
         pin = args.expected_record_sha256 or wrapper['record_sha256']
         result = score(wrapper['report'], pin,
-                       read_json(HERE / 'structured-producer.json'), read_json(HERE / 'structured-candidates.json'))
+                       read_json(HERE / (args.attempt + '-producer.json')), read_json(HERE / 'structured-candidates.json'))
         if digest(wrapper['report']) == pin and type(wrapper['report']) is dict:
             result['record_sha256'] = pin
             for key in ('stage', 'error'):

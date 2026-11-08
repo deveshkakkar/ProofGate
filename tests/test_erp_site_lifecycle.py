@@ -61,3 +61,41 @@ class LifecycleTests(unittest.TestCase):
             if mutation == 'extra-field': row['unexpected_config_field'] = 'redacted'
             if mutation == 'error': row['error_type'] = 'RuntimeError'
             with self.assertRaises(ValueError, msg=mutation): validate_lifecycle(value, True)
+
+
+class ActualLifecycleReplayTests(unittest.TestCase):
+    """Read the actual hosted archive; this does not rerun ERPNext or a provider."""
+    def test_actual_complete_pair_is_tied_and_has_no_authority(self):
+        import json
+        from benchmarks.erpnext.structured import score
+        from framework.kernel import digest
+        wrapper = json.loads((HERE / 'lifecycle-results.json').read_text())
+        producer = json.loads((HERE / 'lifecycle-producer.json').read_text())
+        manifest = json.loads((HERE / 'structured-candidates.json').read_text())
+        self.assertEqual(digest(wrapper['report']), wrapper['record_sha256'])
+        result = score(wrapper['report'], wrapper['record_sha256'], producer, manifest)
+        self.assertTrue(result['valid_controls'], result)
+        self.assertEqual(result['outcome'], 'passing-tie')
+        for row in result['arms'].values():
+            self.assertEqual(row['tests'], 5)
+            self.assertTrue(row['earlier_four_preserved']);self.assertTrue(row['read_denial_satisfied'])
+        for key in ('producer_authenticated', 'fresh_source_execution', 'policy_admitted', 'release_authority'):
+            self.assertFalse(result[key])
+        for row in wrapper['report']['site_lifecycle']['sites'].values():
+            self.assertGreater(row['free_bytes_after'], row['free_bytes_before'])
+
+    def test_actual_cli_selects_attempt_and_wrong_pin_never_shows_passes(self):
+        import subprocess
+        import sys
+        argv = [sys.executable, '-B', '-m', 'benchmarks.erpnext.structured_review', '--attempt', 'lifecycle']
+        result = subprocess.run(argv, cwd=HERE.parents[1], capture_output=True, text=True, timeout=10)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn('passing-tie', result.stdout)
+        self.assertIn('Baseline author: 5/5 passed', result.stdout)
+        self.assertIn('Feedback author: 5/5 passed', result.stdout)
+        self.assertIn('No observed repair advantage', result.stdout)
+        bad = subprocess.run(argv + ['--expected-record-sha256', '0' * 64],
+                             cwd=HERE.parents[1], capture_output=True, text=True, timeout=10)
+        self.assertEqual(bad.returncode, 1)
+        self.assertIn('record identity mismatch', bad.stdout)
+        self.assertNotIn('5/5 passed', bad.stdout)
