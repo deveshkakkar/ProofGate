@@ -1,0 +1,79 @@
+{
+  "schema": 1,
+  "protocol": "structured-exact-text-v2",
+  "base_revision": "04afe19d8ef067eec3852f4ac8007af42718d0b6",
+  "source_sha256": "394bf2f7608ce57a19d0f976896bd7f09fa1ec948d9e86d88475e9031851b687",
+  "model": "gpt-6.1-sol",
+  "output_schema_sha256": "c8f4eaac895107121f9ac4f9c9535fa8f480a9740302a586217dea9a95504bb4",
+  "author_transport_sha256": "ada622818674ce0cc413e9edb7a56e993029cce2c978c516a5c487226f3f2808",
+  "arms": {
+    "baseline": {
+      "eligible": true,
+      "proposal": {
+        "schema": 1,
+        "source_sha256": "394bf2f7608ce57a19d0f976896bd7f09fa1ec948d9e86d88475e9031851b687",
+        "edits": [
+          {
+            "old": "\tdef get_data_for_forecast(self):\n\t\tparent = frappe.qb.DocType(self.doctype)",
+            "new": "\tdef get_data_for_forecast(self):\n\t\tfrappe.has_permission(self.doctype, ptype=\"read\", throw=True)\n\t\tparent = frappe.qb.DocType(self.doctype)"
+          }
+        ]
+      },
+      "module_sha256": "1f0474f8657f8d91e635934b037e70f03e30be7f1f083056233d4621c6de4803",
+      "prompt_sha256": "82a1d23036dfe159549917adba73db6d71585c04e21f78ba844f7555882b089e",
+      "output_sha256": "e5457c91969951b39de22aa6ec7ca7afff0ce553eceb855d519f6ccd1ea80e6f",
+      "events_sha256": "50cdba62f96b9b96bd60414619f60a2df736b6dde51e791be3706ee393944ea0",
+      "thread_sha256": "338b737226ac27f29b22003a2502c010b55b8303152e178f1a7c61fc1bcbab00",
+      "status": {
+        "exit_code": 0,
+        "seconds": 6.784,
+        "model": "gpt-6.1-sol",
+        "arm": "baseline"
+      },
+      "turn_completed": true,
+      "no_tool_actions_observed": true,
+      "usage": {
+        "input_tokens": 13010,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 187,
+        "reasoning_output_tokens": 49
+      },
+      "tool_fail_closed_warning": "Code Mode is unavailable because code-mode host is disabled."
+    },
+    "feedback": {
+      "eligible": true,
+      "proposal": {
+        "schema": 1,
+        "source_sha256": "394bf2f7608ce57a19d0f976896bd7f09fa1ec948d9e86d88475e9031851b687",
+        "edits": [
+          {
+            "old": "\tdef get_data_for_forecast(self):\n\t\tparent = frappe.qb.DocType(self.doctype)",
+            "new": "\tdef get_data_for_forecast(self):\n\t\tfrappe.has_permission(self.doctype, \"read\", throw=True)\n\n\t\tparent = frappe.qb.DocType(self.doctype)"
+          }
+        ]
+      },
+      "module_sha256": "ed192b6861ed618c63f339fdbed39650e47be70c0bc06745724fd2feeaabbd4d",
+      "prompt_sha256": "ebae9401138328a87ffbcb17730918283784581da27d6e57b86e1bc61b0306c6",
+      "output_sha256": "59f12e01ce64da0d7deada344edeb9bf99f62641a2fee0d09f4e715f110f7183",
+      "events_sha256": "289e398550bcb1539facaaeaea5ab683e736a0f7f8ba15ec6ffb94f432f78a45",
+      "thread_sha256": "7d94b17459f1f13ce36863aeb3901eb61bbd076f833bf15cba6da46bf11edd9c",
+      "status": {
+        "exit_code": 0,
+        "seconds": 6.685,
+        "model": "gpt-6.1-sol",
+        "arm": "feedback"
+      },
+      "turn_completed": true,
+      "no_tool_actions_observed": true,
+      "usage": {
+        "input_tokens": 13094,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 185,
+        "reasoning_output_tokens": 48
+      },
+      "tool_fail_closed_warning": "Code Mode is unavailable because code-mode host is disabled."
+    }
+  }
+}

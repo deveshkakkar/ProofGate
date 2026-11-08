@@ -4,7 +4,8 @@ Separate experiments cover different scopes:
 
 - [Full report controls](FULL-APPLICATION-RESULTS.md): original fails three known checks; final passes all five in real ERPNext/Frappe/MariaDB sites. Earlier setup failures remain recorded.
 - [Intermediate patch](INTERMEDIATE-RESULTS.md): intermediate passes its four earlier checks but misses the added select-only read-denial requirement; final passes all five. This is a retrospectively selected known followup.
-- [Paired author replay](PAIRED-RESULTS.md): both raw diffs are malformed; paired application outcome is inconclusive, with zero hosted/source runs. A structured edit protocol is prepared but untested with a provider.
+- [Structured author replay](STRUCTURED-RESULTS.md): both edit proposals validate, but database storage exhaustion stops candidate testing; actual paired outcome remains inconclusive. Offline review explains the archived failure without rerunning code.
+- [Paired author replay](PAIRED-RESULTS.md): both raw diffs are malformed; paired application outcome is inconclusive, with zero hosted/source runs. At that phase's close the structured edit protocol was prepared but untested; the later structured replay above records provider validation and its separate setup failure.
 - The finite arithmetic transfer below: 108 observations per source, isolated helper AST with fixture shims, separate from application execution.
 
 No experiment establishes novel discovery, improved agent repair, customer demand or release authority. Offline archive inspection and manual hosted execution are documented separately in the linked reports.

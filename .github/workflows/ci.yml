@@ -11,7 +11,7 @@ on:
         required: true
         default: original
         type: choice
-        options: [original, intermediate]
+        options: [original, intermediate, structured]
       erpnext_trial:
         description: Optional bounded full ERPNext historical control trial
         required: true
