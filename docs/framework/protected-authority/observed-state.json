@@ -1,0 +1,13 @@
+{
+  "observed_date_utc": "2026-11-09",
+  "repository": "deveshkakkar/ProofGate",
+  "main_sha": "2a6c54128ec97c7efc5af17daf09b746721ef1a5",
+  "repository_rulesets_including_parents": [],
+  "connector_classic_protection": {"http_status": 403, "reason": "Resource not accessible by integration"},
+  "local_github_client": {
+    "main_protected": false,
+    "classic_protection_http_status": 404,
+    "classic_protection_reason": "Branch not protected"
+  },
+  "scope": "Read-only observations, not continuous enforcement or authenticated admission. No rules, identities, credentials or permissions were changed."
+}
