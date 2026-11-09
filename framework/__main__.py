@@ -8,6 +8,7 @@ import sys
 
 from framework.kernel import digest, identity
 from framework.errors import EvaluationError
+from framework.report import ReportDestination
 
 
 def validate_candidate(candidate):
@@ -33,6 +34,8 @@ def summarize(report):
     if 'fixture_contract_sha256' in report:
         lines.append('Reviewed fixture SHA256: ' + report['fixture_contract_sha256'])
         lines.append('Authority: observations only; producer unauthenticated; policy not admitted.')
+        lines.append('Driver: independently pinned snapshot.' if report.get('entrypoint_pinned') else
+                     'Driver: candidate-controlled; fixture agreement does not verify an intended function call.')
     if report.get('candidate_matches_snapshot') is False:
         lines.append('CURRENT SOURCE CHANGED: this result describes the copied snapshot only; rerun with a new report path.')
     for check in report['checks']:
@@ -83,38 +86,39 @@ def main(argv=None):
         if not args.output.parent.is_dir():
             raise ValueError('Cannot create report. Check that its parent directory exists and is writable.')
         preflight()
-        # Reserve before execution: do not spend time running a check when the
-        # requested evidence destination cannot be created safely.
+        destination = ReportDestination(args.output)
         try:
-            fd = os.open(args.output, os.O_CREAT | os.O_EXCL | os.O_WRONLY, 0o600)
+            destination.publish({'schema': 1, 'completed': False,
+                'code': 'evaluation_in_progress', 'stage': 'evaluation', 'completed_checks': [],
+                'reason': 'Evaluation has not completed; no acceptance result.'}, reserve=True)
         except FileExistsError:
             raise
         except OSError as exc:
-            raise ValueError('Cannot create report. Check that its parent directory exists and is writable.') from exc
-        with os.fdopen(fd, 'w') as output:
-            try:
-                report = (json_contract.run(prepared) if prepared is not None else
-                          run_variant('local_candidate', candidate=args.candidate.resolve()))
-            except Exception as exc:
-                diagnostic = {'schema': 1, 'completed': False,
-                              'reason': 'Evaluator could not complete; no acceptance result.',
-                              'code': exc.code if isinstance(exc, EvaluationError) else 'evaluator_failed',
-                              'stage': exc.stage if isinstance(exc, EvaluationError) else 'evaluation',
-                              'completed_checks': exc.completed_checks if isinstance(exc, EvaluationError) else []}
-                json.dump(diagnostic, output)
-                output.write('\n')
-                raise
-            json.dump(report, output, sort_keys=True, indent=2)
-            output.write('\n')
+            raise ValueError('Cannot create report. Its directory must be writable and support hard links and atomic rename.') from exc
+        try:
+            report = (json_contract.run(prepared) if prepared is not None else
+                      run_variant('local_candidate', candidate=args.candidate.resolve()))
+            destination.publish(report)
+        except (Exception, KeyboardInterrupt) as exc:
+            diagnostic = {'schema': 1, 'completed': False,
+                          'reason': 'Evaluator could not complete; no acceptance result.',
+                          'code': ('interrupted' if isinstance(exc, KeyboardInterrupt) else
+                                   exc.code if isinstance(exc, EvaluationError) else 'evaluator_failed'),
+                          'stage': exc.stage if isinstance(exc, EvaluationError) else 'evaluation',
+                          'completed_checks': exc.completed_checks if isinstance(exc, EvaluationError) else []}
+            destination.publish(diagnostic)
+            raise
         print(summarize(report))
         print('Report: ' + str(args.output))
         if report.get('candidate_matches_snapshot') is False:
             return 2
         return 0 if report['receipt']['consistent'] else 1
-    except Exception as exc:
+    except (Exception, KeyboardInterrupt) as exc:
         # Raw child stderr may contain candidate-controlled content; keep this
         # terminal message to the exception category and a fixed diagnostic.
-        if isinstance(exc, EvaluationError):
+        if isinstance(exc, KeyboardInterrupt):
+            message = 'interrupted: evaluation did not complete; no acceptance result.'
+        elif isinstance(exc, EvaluationError):
             message = exc.code + ' [' + exc.stage + ']: ' + str(exc)
         elif isinstance(exc, FileExistsError):
             message = 'Output already exists; choose a new report path.'

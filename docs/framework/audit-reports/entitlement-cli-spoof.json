@@ -1,0 +1,1753 @@
+{
+  "candidate_matches_snapshot": true,
+  "checks": [
+    {
+      "cases": 72,
+      "expected": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        true
+      ],
+      "id": "finite_rule",
+      "inputs": [
+        {
+          "active": false,
+          "enabled": false,
+          "entitled": false,
+          "resource_tenant": 0,
+          "subject_tenant": 0
+        },
+        {
+          "active": false,
+          "enabled": true,
+          "entitled": false,
+          "resource_tenant": 0,
+          "subject_tenant": 0
+        },
+        {
+          "active": false,
+          "enabled": false,
+          "entitled": true,
+          "resource_tenant": 0,
+          "subject_tenant": 0
+        },
+        {
+          "active": false,
+          "enabled": true,
+          "entitled": true,
+          "resource_tenant": 0,
+          "subject_tenant": 0
+        },
+        {
+          "active": true,
+          "enabled": false,
+          "entitled": false,
+          "resource_tenant": 0,
+          "subject_tenant": 0
+        },
+        {
+          "active": true,
+          "enabled": true,
+          "entitled": false,
+          "resource_tenant": 0,
+          "subject_tenant": 0
+        },
+        {
+          "active": true,
+          "enabled": false,
+          "entitled": true,
+          "resource_tenant": 0,
+          "subject_tenant": 0
+        },
+        {
+          "active": true,
+          "enabled": true,
+          "entitled": true,
+          "resource_tenant": 0,
+          "subject_tenant": 0
+        },
+        {
+          "active": false,
+          "enabled": false,
+          "entitled": false,
+          "resource_tenant": 1,
+          "subject_tenant": 0
+        },
+        {
+          "active": false,
+          "enabled": true,
+          "entitled": false,
+          "resource_tenant": 1,
+          "subject_tenant": 0
+        },
+        {
+          "active": false,
+          "enabled": false,
+          "entitled": true,
+          "resource_tenant": 1,
+          "subject_tenant": 0
+        },
+        {
+          "active": false,
+          "enabled": true,
+          "entitled": true,
+          "resource_tenant": 1,
+          "subject_tenant": 0
+        },
+        {
+          "active": true,
+          "enabled": false,
+          "entitled": false,
+          "resource_tenant": 1,
+          "subject_tenant": 0
+        },
+        {
+          "active": true,
+          "enabled": true,
+          "entitled": false,
+          "resource_tenant": 1,
+          "subject_tenant": 0
+        },
+        {
+          "active": true,
+          "enabled": false,
+          "entitled": true,
+          "resource_tenant": 1,
+          "subject_tenant": 0
+        },
+        {
+          "active": true,
+          "enabled": true,
+          "entitled": true,
+          "resource_tenant": 1,
+          "subject_tenant": 0
+        },
+        {
+          "active": false,
+          "enabled": false,
+          "entitled": false,
+          "resource_tenant": 2,
+          "subject_tenant": 0
+        },
+        {
+          "active": false,
+          "enabled": true,
+          "entitled": false,
+          "resource_tenant": 2,
+          "subject_tenant": 0
+        },
+        {
+          "active": false,
+          "enabled": false,
+          "entitled": true,
+          "resource_tenant": 2,
+          "subject_tenant": 0
+        },
+        {
+          "active": false,
+          "enabled": true,
+          "entitled": true,
+          "resource_tenant": 2,
+          "subject_tenant": 0
+        },
+        {
+          "active": true,
+          "enabled": false,
+          "entitled": false,
+          "resource_tenant": 2,
+          "subject_tenant": 0
+        },
+        {
+          "active": true,
+          "enabled": true,
+          "entitled": false,
+          "resource_tenant": 2,
+          "subject_tenant": 0
+        },
+        {
+          "active": true,
+          "enabled": false,
+          "entitled": true,
+          "resource_tenant": 2,
+          "subject_tenant": 0
+        },
+        {
+          "active": true,
+          "enabled": true,
+          "entitled": true,
+          "resource_tenant": 2,
+          "subject_tenant": 0
+        },
+        {
+          "active": false,
+          "enabled": false,
+          "entitled": false,
+          "resource_tenant": 0,
+          "subject_tenant": 1
+        },
+        {
+          "active": false,
+          "enabled": true,
+          "entitled": false,
+          "resource_tenant": 0,
+          "subject_tenant": 1
+        },
+        {
+          "active": false,
+          "enabled": false,
+          "entitled": true,
+          "resource_tenant": 0,
+          "subject_tenant": 1
+        },
+        {
+          "active": false,
+          "enabled": true,
+          "entitled": true,
+          "resource_tenant": 0,
+          "subject_tenant": 1
+        },
+        {
+          "active": true,
+          "enabled": false,
+          "entitled": false,
+          "resource_tenant": 0,
+          "subject_tenant": 1
+        },
+        {
+          "active": true,
+          "enabled": true,
+          "entitled": false,
+          "resource_tenant": 0,
+          "subject_tenant": 1
+        },
+        {
+          "active": true,
+          "enabled": false,
+          "entitled": true,
+          "resource_tenant": 0,
+          "subject_tenant": 1
+        },
+        {
+          "active": true,
+          "enabled": true,
+          "entitled": true,
+          "resource_tenant": 0,
+          "subject_tenant": 1
+        },
+        {
+          "active": false,
+          "enabled": false,
+          "entitled": false,
+          "resource_tenant": 1,
+          "subject_tenant": 1
+        },
+        {
+          "active": false,
+          "enabled": true,
+          "entitled": false,
+          "resource_tenant": 1,
+          "subject_tenant": 1
+        },
+        {
+          "active": false,
+          "enabled": false,
+          "entitled": true,
+          "resource_tenant": 1,
+          "subject_tenant": 1
+        },
+        {
+          "active": false,
+          "enabled": true,
+          "entitled": true,
+          "resource_tenant": 1,
+          "subject_tenant": 1
+        },
+        {
+          "active": true,
+          "enabled": false,
+          "entitled": false,
+          "resource_tenant": 1,
+          "subject_tenant": 1
+        },
+        {
+          "active": true,
+          "enabled": true,
+          "entitled": false,
+          "resource_tenant": 1,
+          "subject_tenant": 1
+        },
+        {
+          "active": true,
+          "enabled": false,
+          "entitled": true,
+          "resource_tenant": 1,
+          "subject_tenant": 1
+        },
+        {
+          "active": true,
+          "enabled": true,
+          "entitled": true,
+          "resource_tenant": 1,
+          "subject_tenant": 1
+        },
+        {
+          "active": false,
+          "enabled": false,
+          "entitled": false,
+          "resource_tenant": 2,
+          "subject_tenant": 1
+        },
+        {
+          "active": false,
+          "enabled": true,
+          "entitled": false,
+          "resource_tenant": 2,
+          "subject_tenant": 1
+        },
+        {
+          "active": false,
+          "enabled": false,
+          "entitled": true,
+          "resource_tenant": 2,
+          "subject_tenant": 1
+        },
+        {
+          "active": false,
+          "enabled": true,
+          "entitled": true,
+          "resource_tenant": 2,
+          "subject_tenant": 1
+        },
+        {
+          "active": true,
+          "enabled": false,
+          "entitled": false,
+          "resource_tenant": 2,
+          "subject_tenant": 1
+        },
+        {
+          "active": true,
+          "enabled": true,
+          "entitled": false,
+          "resource_tenant": 2,
+          "subject_tenant": 1
+        },
+        {
+          "active": true,
+          "enabled": false,
+          "entitled": true,
+          "resource_tenant": 2,
+          "subject_tenant": 1
+        },
+        {
+          "active": true,
+          "enabled": true,
+          "entitled": true,
+          "resource_tenant": 2,
+          "subject_tenant": 1
+        },
+        {
+          "active": false,
+          "enabled": false,
+          "entitled": false,
+          "resource_tenant": 0,
+          "subject_tenant": 2
+        },
+        {
+          "active": false,
+          "enabled": true,
+          "entitled": false,
+          "resource_tenant": 0,
+          "subject_tenant": 2
+        },
+        {
+          "active": false,
+          "enabled": false,
+          "entitled": true,
+          "resource_tenant": 0,
+          "subject_tenant": 2
+        },
+        {
+          "active": false,
+          "enabled": true,
+          "entitled": true,
+          "resource_tenant": 0,
+          "subject_tenant": 2
+        },
+        {
+          "active": true,
+          "enabled": false,
+          "entitled": false,
+          "resource_tenant": 0,
+          "subject_tenant": 2
+        },
+        {
+          "active": true,
+          "enabled": true,
+          "entitled": false,
+          "resource_tenant": 0,
+          "subject_tenant": 2
+        },
+        {
+          "active": true,
+          "enabled": false,
+          "entitled": true,
+          "resource_tenant": 0,
+          "subject_tenant": 2
+        },
+        {
+          "active": true,
+          "enabled": true,
+          "entitled": true,
+          "resource_tenant": 0,
+          "subject_tenant": 2
+        },
+        {
+          "active": false,
+          "enabled": false,
+          "entitled": false,
+          "resource_tenant": 1,
+          "subject_tenant": 2
+        },
+        {
+          "active": false,
+          "enabled": true,
+          "entitled": false,
+          "resource_tenant": 1,
+          "subject_tenant": 2
+        },
+        {
+          "active": false,
+          "enabled": false,
+          "entitled": true,
+          "resource_tenant": 1,
+          "subject_tenant": 2
+        },
+        {
+          "active": false,
+          "enabled": true,
+          "entitled": true,
+          "resource_tenant": 1,
+          "subject_tenant": 2
+        },
+        {
+          "active": true,
+          "enabled": false,
+          "entitled": false,
+          "resource_tenant": 1,
+          "subject_tenant": 2
+        },
+        {
+          "active": true,
+          "enabled": true,
+          "entitled": false,
+          "resource_tenant": 1,
+          "subject_tenant": 2
+        },
+        {
+          "active": true,
+          "enabled": false,
+          "entitled": true,
+          "resource_tenant": 1,
+          "subject_tenant": 2
+        },
+        {
+          "active": true,
+          "enabled": true,
+          "entitled": true,
+          "resource_tenant": 1,
+          "subject_tenant": 2
+        },
+        {
+          "active": false,
+          "enabled": false,
+          "entitled": false,
+          "resource_tenant": 2,
+          "subject_tenant": 2
+        },
+        {
+          "active": false,
+          "enabled": true,
+          "entitled": false,
+          "resource_tenant": 2,
+          "subject_tenant": 2
+        },
+        {
+          "active": false,
+          "enabled": false,
+          "entitled": true,
+          "resource_tenant": 2,
+          "subject_tenant": 2
+        },
+        {
+          "active": false,
+          "enabled": true,
+          "entitled": true,
+          "resource_tenant": 2,
+          "subject_tenant": 2
+        },
+        {
+          "active": true,
+          "enabled": false,
+          "entitled": false,
+          "resource_tenant": 2,
+          "subject_tenant": 2
+        },
+        {
+          "active": true,
+          "enabled": true,
+          "entitled": false,
+          "resource_tenant": 2,
+          "subject_tenant": 2
+        },
+        {
+          "active": true,
+          "enabled": false,
+          "entitled": true,
+          "resource_tenant": 2,
+          "subject_tenant": 2
+        },
+        {
+          "active": true,
+          "enabled": true,
+          "entitled": true,
+          "resource_tenant": 2,
+          "subject_tenant": 2
+        }
+      ],
+      "observed": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        true
+      ],
+      "passed": true,
+      "stdout_sha256": "a61b3be1cd199eb21d8f8bfefd92accf24f6694af49eb9d0e03071277467346f"
+    },
+    {
+      "cases": 80,
+      "expected": [
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": true
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": true
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": true
+        },
+        {
+          "error": "invalid request"
+        },
+        {
+          "error": "invalid request"
+        },
+        {
+          "error": "invalid request"
+        },
+        {
+          "error": "invalid request"
+        },
+        {
+          "error": "invalid request"
+        },
+        {
+          "error": "invalid request"
+        },
+        {
+          "error": "invalid request"
+        },
+        {
+          "error": "invalid request"
+        }
+      ],
+      "id": "application_boundary",
+      "inputs": [
+        {
+          "active": false,
+          "enabled": false,
+          "entitled": false,
+          "resource_tenant": 0,
+          "subject_tenant": 0
+        },
+        {
+          "active": false,
+          "enabled": true,
+          "entitled": false,
+          "resource_tenant": 0,
+          "subject_tenant": 0
+        },
+        {
+          "active": false,
+          "enabled": false,
+          "entitled": true,
+          "resource_tenant": 0,
+          "subject_tenant": 0
+        },
+        {
+          "active": false,
+          "enabled": true,
+          "entitled": true,
+          "resource_tenant": 0,
+          "subject_tenant": 0
+        },
+        {
+          "active": true,
+          "enabled": false,
+          "entitled": false,
+          "resource_tenant": 0,
+          "subject_tenant": 0
+        },
+        {
+          "active": true,
+          "enabled": true,
+          "entitled": false,
+          "resource_tenant": 0,
+          "subject_tenant": 0
+        },
+        {
+          "active": true,
+          "enabled": false,
+          "entitled": true,
+          "resource_tenant": 0,
+          "subject_tenant": 0
+        },
+        {
+          "active": true,
+          "enabled": true,
+          "entitled": true,
+          "resource_tenant": 0,
+          "subject_tenant": 0
+        },
+        {
+          "active": false,
+          "enabled": false,
+          "entitled": false,
+          "resource_tenant": 1,
+          "subject_tenant": 0
+        },
+        {
+          "active": false,
+          "enabled": true,
+          "entitled": false,
+          "resource_tenant": 1,
+          "subject_tenant": 0
+        },
+        {
+          "active": false,
+          "enabled": false,
+          "entitled": true,
+          "resource_tenant": 1,
+          "subject_tenant": 0
+        },
+        {
+          "active": false,
+          "enabled": true,
+          "entitled": true,
+          "resource_tenant": 1,
+          "subject_tenant": 0
+        },
+        {
+          "active": true,
+          "enabled": false,
+          "entitled": false,
+          "resource_tenant": 1,
+          "subject_tenant": 0
+        },
+        {
+          "active": true,
+          "enabled": true,
+          "entitled": false,
+          "resource_tenant": 1,
+          "subject_tenant": 0
+        },
+        {
+          "active": true,
+          "enabled": false,
+          "entitled": true,
+          "resource_tenant": 1,
+          "subject_tenant": 0
+        },
+        {
+          "active": true,
+          "enabled": true,
+          "entitled": true,
+          "resource_tenant": 1,
+          "subject_tenant": 0
+        },
+        {
+          "active": false,
+          "enabled": false,
+          "entitled": false,
+          "resource_tenant": 2,
+          "subject_tenant": 0
+        },
+        {
+          "active": false,
+          "enabled": true,
+          "entitled": false,
+          "resource_tenant": 2,
+          "subject_tenant": 0
+        },
+        {
+          "active": false,
+          "enabled": false,
+          "entitled": true,
+          "resource_tenant": 2,
+          "subject_tenant": 0
+        },
+        {
+          "active": false,
+          "enabled": true,
+          "entitled": true,
+          "resource_tenant": 2,
+          "subject_tenant": 0
+        },
+        {
+          "active": true,
+          "enabled": false,
+          "entitled": false,
+          "resource_tenant": 2,
+          "subject_tenant": 0
+        },
+        {
+          "active": true,
+          "enabled": true,
+          "entitled": false,
+          "resource_tenant": 2,
+          "subject_tenant": 0
+        },
+        {
+          "active": true,
+          "enabled": false,
+          "entitled": true,
+          "resource_tenant": 2,
+          "subject_tenant": 0
+        },
+        {
+          "active": true,
+          "enabled": true,
+          "entitled": true,
+          "resource_tenant": 2,
+          "subject_tenant": 0
+        },
+        {
+          "active": false,
+          "enabled": false,
+          "entitled": false,
+          "resource_tenant": 0,
+          "subject_tenant": 1
+        },
+        {
+          "active": false,
+          "enabled": true,
+          "entitled": false,
+          "resource_tenant": 0,
+          "subject_tenant": 1
+        },
+        {
+          "active": false,
+          "enabled": false,
+          "entitled": true,
+          "resource_tenant": 0,
+          "subject_tenant": 1
+        },
+        {
+          "active": false,
+          "enabled": true,
+          "entitled": true,
+          "resource_tenant": 0,
+          "subject_tenant": 1
+        },
+        {
+          "active": true,
+          "enabled": false,
+          "entitled": false,
+          "resource_tenant": 0,
+          "subject_tenant": 1
+        },
+        {
+          "active": true,
+          "enabled": true,
+          "entitled": false,
+          "resource_tenant": 0,
+          "subject_tenant": 1
+        },
+        {
+          "active": true,
+          "enabled": false,
+          "entitled": true,
+          "resource_tenant": 0,
+          "subject_tenant": 1
+        },
+        {
+          "active": true,
+          "enabled": true,
+          "entitled": true,
+          "resource_tenant": 0,
+          "subject_tenant": 1
+        },
+        {
+          "active": false,
+          "enabled": false,
+          "entitled": false,
+          "resource_tenant": 1,
+          "subject_tenant": 1
+        },
+        {
+          "active": false,
+          "enabled": true,
+          "entitled": false,
+          "resource_tenant": 1,
+          "subject_tenant": 1
+        },
+        {
+          "active": false,
+          "enabled": false,
+          "entitled": true,
+          "resource_tenant": 1,
+          "subject_tenant": 1
+        },
+        {
+          "active": false,
+          "enabled": true,
+          "entitled": true,
+          "resource_tenant": 1,
+          "subject_tenant": 1
+        },
+        {
+          "active": true,
+          "enabled": false,
+          "entitled": false,
+          "resource_tenant": 1,
+          "subject_tenant": 1
+        },
+        {
+          "active": true,
+          "enabled": true,
+          "entitled": false,
+          "resource_tenant": 1,
+          "subject_tenant": 1
+        },
+        {
+          "active": true,
+          "enabled": false,
+          "entitled": true,
+          "resource_tenant": 1,
+          "subject_tenant": 1
+        },
+        {
+          "active": true,
+          "enabled": true,
+          "entitled": true,
+          "resource_tenant": 1,
+          "subject_tenant": 1
+        },
+        {
+          "active": false,
+          "enabled": false,
+          "entitled": false,
+          "resource_tenant": 2,
+          "subject_tenant": 1
+        },
+        {
+          "active": false,
+          "enabled": true,
+          "entitled": false,
+          "resource_tenant": 2,
+          "subject_tenant": 1
+        },
+        {
+          "active": false,
+          "enabled": false,
+          "entitled": true,
+          "resource_tenant": 2,
+          "subject_tenant": 1
+        },
+        {
+          "active": false,
+          "enabled": true,
+          "entitled": true,
+          "resource_tenant": 2,
+          "subject_tenant": 1
+        },
+        {
+          "active": true,
+          "enabled": false,
+          "entitled": false,
+          "resource_tenant": 2,
+          "subject_tenant": 1
+        },
+        {
+          "active": true,
+          "enabled": true,
+          "entitled": false,
+          "resource_tenant": 2,
+          "subject_tenant": 1
+        },
+        {
+          "active": true,
+          "enabled": false,
+          "entitled": true,
+          "resource_tenant": 2,
+          "subject_tenant": 1
+        },
+        {
+          "active": true,
+          "enabled": true,
+          "entitled": true,
+          "resource_tenant": 2,
+          "subject_tenant": 1
+        },
+        {
+          "active": false,
+          "enabled": false,
+          "entitled": false,
+          "resource_tenant": 0,
+          "subject_tenant": 2
+        },
+        {
+          "active": false,
+          "enabled": true,
+          "entitled": false,
+          "resource_tenant": 0,
+          "subject_tenant": 2
+        },
+        {
+          "active": false,
+          "enabled": false,
+          "entitled": true,
+          "resource_tenant": 0,
+          "subject_tenant": 2
+        },
+        {
+          "active": false,
+          "enabled": true,
+          "entitled": true,
+          "resource_tenant": 0,
+          "subject_tenant": 2
+        },
+        {
+          "active": true,
+          "enabled": false,
+          "entitled": false,
+          "resource_tenant": 0,
+          "subject_tenant": 2
+        },
+        {
+          "active": true,
+          "enabled": true,
+          "entitled": false,
+          "resource_tenant": 0,
+          "subject_tenant": 2
+        },
+        {
+          "active": true,
+          "enabled": false,
+          "entitled": true,
+          "resource_tenant": 0,
+          "subject_tenant": 2
+        },
+        {
+          "active": true,
+          "enabled": true,
+          "entitled": true,
+          "resource_tenant": 0,
+          "subject_tenant": 2
+        },
+        {
+          "active": false,
+          "enabled": false,
+          "entitled": false,
+          "resource_tenant": 1,
+          "subject_tenant": 2
+        },
+        {
+          "active": false,
+          "enabled": true,
+          "entitled": false,
+          "resource_tenant": 1,
+          "subject_tenant": 2
+        },
+        {
+          "active": false,
+          "enabled": false,
+          "entitled": true,
+          "resource_tenant": 1,
+          "subject_tenant": 2
+        },
+        {
+          "active": false,
+          "enabled": true,
+          "entitled": true,
+          "resource_tenant": 1,
+          "subject_tenant": 2
+        },
+        {
+          "active": true,
+          "enabled": false,
+          "entitled": false,
+          "resource_tenant": 1,
+          "subject_tenant": 2
+        },
+        {
+          "active": true,
+          "enabled": true,
+          "entitled": false,
+          "resource_tenant": 1,
+          "subject_tenant": 2
+        },
+        {
+          "active": true,
+          "enabled": false,
+          "entitled": true,
+          "resource_tenant": 1,
+          "subject_tenant": 2
+        },
+        {
+          "active": true,
+          "enabled": true,
+          "entitled": true,
+          "resource_tenant": 1,
+          "subject_tenant": 2
+        },
+        {
+          "active": false,
+          "enabled": false,
+          "entitled": false,
+          "resource_tenant": 2,
+          "subject_tenant": 2
+        },
+        {
+          "active": false,
+          "enabled": true,
+          "entitled": false,
+          "resource_tenant": 2,
+          "subject_tenant": 2
+        },
+        {
+          "active": false,
+          "enabled": false,
+          "entitled": true,
+          "resource_tenant": 2,
+          "subject_tenant": 2
+        },
+        {
+          "active": false,
+          "enabled": true,
+          "entitled": true,
+          "resource_tenant": 2,
+          "subject_tenant": 2
+        },
+        {
+          "active": true,
+          "enabled": false,
+          "entitled": false,
+          "resource_tenant": 2,
+          "subject_tenant": 2
+        },
+        {
+          "active": true,
+          "enabled": true,
+          "entitled": false,
+          "resource_tenant": 2,
+          "subject_tenant": 2
+        },
+        {
+          "active": true,
+          "enabled": false,
+          "entitled": true,
+          "resource_tenant": 2,
+          "subject_tenant": 2
+        },
+        {
+          "active": true,
+          "enabled": true,
+          "entitled": true,
+          "resource_tenant": 2,
+          "subject_tenant": 2
+        },
+        null,
+        {},
+        [],
+        {
+          "active": 1,
+          "enabled": true,
+          "entitled": true,
+          "resource_tenant": 2,
+          "subject_tenant": 2
+        },
+        {
+          "active": true,
+          "enabled": true,
+          "entitled": true,
+          "resource_tenant": 2,
+          "subject_tenant": true
+        },
+        {
+          "active": true,
+          "enabled": true,
+          "entitled": true,
+          "resource_tenant": 3,
+          "subject_tenant": 2
+        },
+        {
+          "active": true,
+          "enabled": true,
+          "entitled": true,
+          "extra": true,
+          "resource_tenant": 2,
+          "subject_tenant": 2
+        },
+        {
+          "active": true,
+          "enabled": true,
+          "entitled": "true",
+          "resource_tenant": 2,
+          "subject_tenant": 2
+        }
+      ],
+      "observed": [
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": true
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": true
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": true
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": true
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": true
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": true
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": true
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": true
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": false
+        },
+        {
+          "allowed": true
+        },
+        {
+          "error": "invalid request"
+        },
+        {
+          "error": "invalid request"
+        },
+        {
+          "error": "invalid request"
+        },
+        {
+          "error": "invalid request"
+        },
+        {
+          "error": "invalid request"
+        },
+        {
+          "error": "invalid request"
+        },
+        {
+          "error": "invalid request"
+        },
+        {
+          "error": "invalid request"
+        }
+      ],
+      "passed": false,
+      "stdout_sha256": "4a7f81f988fbad4469579b6e04cf3270a373ae088a1beddb25085ab7a71a958d"
+    }
+  ],
+  "contract": {
+    "assumptions": [
+      "Only tenant IDs 0, 1, 2 and boolean flags are modeled.",
+      "Same-user trusted evaluator; hashes do not authenticate observations.",
+      "Finite exhaustive checking is not a proof over arbitrary programs or inputs."
+    ],
+    "checks": [
+      "finite_rule",
+      "application_boundary"
+    ],
+    "schema": 1
+  },
+  "inputs": {
+    "artifact": {
+      "app.py": "22bb886686434367345a3f6d350fe3e2742076b2de4a634c825ab63e4fe1f747",
+      "rule.py": "15e31ae94c187b68e43984c616b5b52dc0c40c57e9d1d64173ff4ee17da47a6f"
+    },
+    "environment": {
+      "bwrap": "e318903862396f96de3df57264e0158682b952fd3fb53ac23d876413e7b30f71",
+      "python": "e50d468e8b0adfb05733f5b87b3cff34829c4a8c1aea50c865aa8bdfe4bb150f",
+      "scope": "9ea7392e987e040b6eb9340a49aacf5bf34ac9d059e147abed0b2285c9a177b2",
+      "systemd-run": "de28cc5757d3789efa5f6fed5659893410469f68b42175d4531f5b34d3a09e16"
+    },
+    "source": {
+      "app.py": "22bb886686434367345a3f6d350fe3e2742076b2de4a634c825ab63e4fe1f747",
+      "rule.py": "15e31ae94c187b68e43984c616b5b52dc0c40c57e9d1d64173ff4ee17da47a6f"
+    },
+    "verifier": {
+      "experiment.py": "09f86fef079d78e715974d5e0fc66f1361976c7167e9f59c92c9ba602d3624c9",
+      "framework/__main__.py": "cea2452e064bc17087c74af2b73fc538ad177f78ca61245a2735e47d6b0d5e67",
+      "framework/errors.py": "1bc52996db16efcf2dae6a4922eb129db14ad8f5a6375dae323be3e657b363ed",
+      "framework/kernel.py": "40ebc5be2ad7cdf9435da1ec474e7f9161c95d0d53bf32fe3d113e1fa17376bb",
+      "probe.py": "06fb89c92f6ea3ab353550403c9e4b38247ef50accecf8297828e829cbf38cdf"
+    }
+  },
+  "observations": [
+    {
+      "id": "finite_rule",
+      "identity": "f01cb706ee6a3febc94830ee6f986990141574ab52604b05850d40d0e5ae6bea",
+      "status": "passed"
+    },
+    {
+      "id": "application_boundary",
+      "identity": "f01cb706ee6a3febc94830ee6f986990141574ab52604b05850d40d0e5ae6bea",
+      "status": "failed"
+    }
+  ],
+  "receipt": {
+    "consistent": false,
+    "reason": "check did not pass: application_boundary",
+    "schema": 1
+  },
+  "variant": "local_candidate"
+}

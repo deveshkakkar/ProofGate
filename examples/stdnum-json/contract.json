@@ -1,7 +1,13 @@
 {
-  "schema": 1,
+  "schema": 2,
   "runtime": "python-json-batch-v1",
-  "files": ["run_json.py", "stdnum/__init__.py", "stdnum/exceptions.py", "stdnum/luhn.py", "stdnum/util.py"],
+  "files": [
+    "run_json.py",
+    "stdnum/__init__.py",
+    "stdnum/exceptions.py",
+    "stdnum/luhn.py",
+    "stdnum/util.py"
+  ],
   "entrypoint": "run_json.py",
   "assumptions": [
     "Only five published Luhn docstring examples and two explicit invalid-input fixtures (empty and nonnumeric) are checked through the inspected JSON shim.",
@@ -12,15 +18,46 @@
     {
       "id": "luhn_examples",
       "inputs": [
-        {"operation": "is_valid", "number": "7894"},
-        {"operation": "checksum", "number": "7894"},
-        {"operation": "check_digit", "number": "7894"},
-        {"operation": "is_valid", "number": "78949"},
-        {"operation": "checksum", "number": "1234", "alphabet": "0123456789abcdef"},
-        {"operation": "is_valid", "number": ""},
-        {"operation": "is_valid", "number": "not-a-number"}
+        {
+          "operation": "is_valid",
+          "number": "7894"
+        },
+        {
+          "operation": "checksum",
+          "number": "7894"
+        },
+        {
+          "operation": "check_digit",
+          "number": "7894"
+        },
+        {
+          "operation": "is_valid",
+          "number": "78949"
+        },
+        {
+          "operation": "checksum",
+          "number": "1234",
+          "alphabet": "0123456789abcdef"
+        },
+        {
+          "operation": "is_valid",
+          "number": ""
+        },
+        {
+          "operation": "is_valid",
+          "number": "not-a-number"
+        }
       ],
-      "expected": [false, 6, "9", true, 14, false, false]
+      "expected": [
+        false,
+        6,
+        "9",
+        true,
+        14,
+        false,
+        false
+      ]
     }
-  ]
+  ],
+  "entrypoint_sha256": "82a4ea3f0e6c271e2d705aec82b82dd910350a5c2d4ee635c9dfd0609442af6c"
 }

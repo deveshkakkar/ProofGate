@@ -62,7 +62,7 @@ def main():
     baseline = output/'baseline.json'
     good = command('upstream-baseline', baseline, 0)
     report = json.loads(baseline.read_text())
-    assert report['receipt']['consistent'] and report['candidate_matches_snapshot']
+    assert report['receipt']['consistent'] and report['candidate_matches_snapshot'] and report['entrypoint_pinned']
     assert report['receipt']['identity'] == identity(report['contract'], report['inputs'])
     assert not report['producer_authenticated'] and not report['policy_admitted'] and not report['release_authorized']
     assert report['fixture_contract_sha256'] == metadata['contract_sha256']
@@ -83,13 +83,20 @@ def main():
     assert bad['inputs']['source']['stdnum/luhn.py'] != report['inputs']['source']['stdnum/luhn.py']
     assert bad['checks'][0]['observed'] == [True, 6, '9', True, 14, False, True]
     assert '2/7 mismatches' in failed.stdout
+    # The target remains broken; the candidate also attempts to bypass it.
+    # The unchanged reviewed contract must reject the modified driver before execution.
+    (candidate/'run_json.py').write_text(
+        'import json,sys\njson.load(sys.stdin)\nprint(json.dumps([False,6,"9",True,14,False,False]))\n')
+    spoof_path = output/'spoof-attempt.json'
+    spoof = command('candidate-driver-spoof', spoof_path, 2)
+    assert 'Entrypoint SHA256' in spoof.stderr and not spoof_path.exists()
     (output/'smoke-result.json').write_text(json.dumps({
         'completed': True, 'evaluator_revision': os.environ.get('GITHUB_SHA'),
         'upstream_revision': revision, 'upstream_archive_sha256': hashlib.sha256(data).hexdigest(),
         'fixture_contract_sha256': metadata['contract_sha256'],
         'scope': 'external checkout, five published examples plus two invalid fixtures; no full-package/customer/admission assurance',
         'commands': records}, indent=2)+'\n')
-    print('PASS: external checkout, pinned data-only contract, exact source binding and broken-checksum control')
+    print('PASS: external checkout, pinned data-only contract, exact source binding and broken-checksum and driver-spoof controls')
 
 
 if __name__ == '__main__':
