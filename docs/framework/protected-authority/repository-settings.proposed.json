@@ -1,0 +1,12 @@
+{
+  "document_kind": "inactive settings proposal; preserve observed values",
+  "repository": "deveshkakkar/ProofGate",
+  "repository_patch": {
+    "allow_auto_merge": false
+  },
+  "actions_workflow_permissions_to_preserve": {
+    "default_workflow_permissions": "read",
+    "can_approve_pull_request_reviews": false
+  },
+  "activation_authorized": false
+}

@@ -1,5 +1,7 @@
 # Protected policy authority — proposal, not active enforcement
 
+**November 9 update:** architecture is approved; activation is not. The current [approval packet](APPROVAL-PACKET.md) contains the authentication inventory, exact App/config proposals, evidence gaps, negative tests and rollback. No credentials/permissions/protections/auto-merge are activated, and this packet is not automatically merged. The design below remains the staged implementation contract.
+
 Issue [28](https://github.com/deveshkakkar/ProofGate/issues/28) remains open. A contract and its hash supplied by the same caller cannot establish independent policy approval. The current kernel, CLI, schema 2 driver pins and clean CI runs supply no authenticated admission authority. A schema 1 warning is useful diagnostic wording, not an acceptable admission fallback.
 
 ## Confirmed current state
@@ -12,7 +14,7 @@ The coding session currently operates through the owner's GitHub context. While 
 
 Human policy owner: `@deveshkakkar`, acting through credentials unavailable to the agent. Candidate author: a distinct restricted GitHub App/account. The agent may propose branches/PRs, but cannot administer rules, impersonate the owner, bypass main protection, or publish the future trusted verifier's check. Contents-write permission alone does not prohibit the merge API: server-side protections must remain enforced for that actor. It may merge only when those independent server requirements have been satisfied.
 
-The inactive [CODEOWNERS proposal](CODEOWNERS.proposed) initially assigns every changed path to the human policy owner, including transitive evaluator/runtime dependencies and newly added helpers. Narrowing that scope is a later reviewed change; it is not inferred from a list of current top-level policy files. The inactive [main ruleset proposal](main-ruleset.proposed.json) requires a PR and one approval, code-owner approval, dismissal of stale approvals, approval of the most recent push, resolved review threads, and no force pushes/deletion. There are no bypass actors. CODEOWNERS is not protection by itself; it must be installed and enforced together with the ruleset. The administrator remains the ultimate trusted owner able to change governance.
+The inactive [CODEOWNERS proposal](CODEOWNERS.proposed) initially assigns every changed path to the human policy owner, including transitive evaluator/runtime dependencies and newly added helpers. The refined inactive ruleset also restricts review dismissal to that human and requires the observed ordinary `offline` check against the latest base. Narrowing that scope is a later reviewed change; it is not inferred from a list of current top-level policy files. The inactive [main ruleset proposal](main-ruleset.proposed.json) requires a PR and one approval, code-owner approval, dismissal of stale approvals, approval of the most recent push, resolved review threads, and no force pushes/deletion. There are no bypass actors. CODEOWNERS is not protection by itself; it must be installed and enforced together with the ruleset. The administrator remains the ultimate trusted owner able to change governance.
 
 Activation preconditions:
 
@@ -60,7 +62,7 @@ Separate pure parsing tests, hosted verifier observations, live GitHub enforceme
 
 The human administrator retains a separately stored recovery route and a snapshot of prior effective configuration. Before activation, agree how to restore prior rules if the owner cannot approve a test PR; any removal/relaxation is an explicit owner action, not an agent bypass or automatic fallback. No credentials are copied into Git, and no recovery secrets belong in these files. A test activation that cannot be independently verified is rolled back by the owner rather than silently treated as secure.
 
-The immediate required decision is whether to adopt this independent-principal/human-approval model and which restricted agent identity/environment will be used. Until then, dependent credential/protection activation remains paused. All diagnostic results stay unauthenticated/unadmitted and issue #28 remains open.
+The independent-principal/human-approval architecture is now approved. The owner still must review the concrete App/identity/environment/configuration packet and explicitly authorize activation actions; none are approved merely by architecture. Dependent credential/protection activation remains paused. All diagnostic results stay unauthenticated/unadmitted and issue #28 remains open.
 
 ## Primary references checked November 9, 2026
 

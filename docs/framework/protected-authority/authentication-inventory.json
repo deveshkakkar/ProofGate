@@ -1,0 +1,91 @@
+{
+  "observed_date_utc": "2026-11-09",
+  "repository": "deveshkakkar/ProofGate",
+  "repository_id": 1437623154,
+  "main_sha": "c282fdd5cc1379f71a3d53f9a33183bc9bedba84",
+  "connector": {
+    "authenticated_login": "deveshkakkar",
+    "repository_role": "admin",
+    "effective_admin_api_access": "not established; classic-protection endpoint previously403",
+    "owner_installation_id": 109562828,
+    "repository_selection": "all",
+    "inventory_scope": "Connector-specific App installations, not an account-wide installed-App list"
+  },
+  "local_gh": {
+    "authenticated_login": "deveshkakkar",
+    "account_type": "User",
+    "repository_permissions": {
+      "admin": true,
+      "maintain": true,
+      "push": true,
+      "triage": true,
+      "pull": true
+    },
+    "relevant_oauth_scope_names": [
+      "repo",
+      "workflow",
+      "admin:repo_hook",
+      "delete_repo"
+    ],
+    "scope_list_exhaustive": false,
+    "credential_config_present": true,
+    "credential_config_mode": "0600",
+    "credential_config_owner_uid": 1000,
+    "current_uid": 1000,
+    "readable_by_current_uid": true,
+    "token_values_or_fingerprints_collected": false,
+    "credential_kind": "user-scoped owner credential; exact OAuth-versus-PAT origin not independently identified"
+  },
+  "git": {
+    "origin_transport": "https",
+    "origin_host": "github.com",
+    "embedded_userinfo": false,
+    "resolved_credential_helper": "GitHub CLI credential helper",
+    "ssh_command_override_present": false,
+    "askpass_override_present": false,
+    "git_credentials_file_present": false
+  },
+  "environment": {
+    "GH_TOKEN_present": false,
+    "GITHUB_TOKEN_present": false,
+    "enterprise_token_environment_present": false,
+    "SSH_AUTH_SOCK_present": false,
+    "askpass_environment_present": false
+  },
+  "ssh": {
+    "default_private_key_files_found": false,
+    "ssh_config_present": false,
+    "custom_keys_not_enumerated": true,
+    "private_key_contents_read": false,
+    "ssh_authentication_attempted": false
+  },
+  "identity_search": {
+    "suitable_restricted_principal_confirmed": false,
+    "account_wide_installation_query": "403 requires a GitHub-App-authorized user access token",
+    "public_proofgate_coder_app_lookup": "404 Not Found",
+    "public_slug_absence_proves_name_available": false,
+    "conclusion": "No suitable independent identity confirmed within accessible metadata; private or otherwise inaccessible Apps may exist"
+  },
+  "governance": {
+    "main_protected": false,
+    "classic_protection": "404 Branch not protected",
+    "rulesets_including_parents": [],
+    "effective_rules_for_main": [],
+    "allow_auto_merge": false,
+    "actions_default_workflow_permissions": "read",
+    "actions_can_approve_pr_reviews": false,
+    "observed_offline_check": {
+      "name": "offline",
+      "app_id": 15368,
+      "app_slug": "github-actions",
+      "conclusion": "success"
+    }
+  },
+  "issue28": {
+    "found_state": "closed",
+    "reopened_under_latest_explicit_instruction": true,
+    "current_state": "open",
+    "enforcement_verified": false
+  },
+  "scope": "Read-only metadata inventory except explicitly authorized issue reopen. No credentials/App/installations/protections/owner access/auto-merge changed. No complete secret or private-App inventory claimed."
+}

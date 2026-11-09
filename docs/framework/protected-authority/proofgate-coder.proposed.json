@@ -1,0 +1,76 @@
+{
+  "document_kind": "inactive configuration proposal, not an App manifest or activation request",
+  "proposed_name": "proofgate-coder",
+  "proposed_slug": "proofgate-coder",
+  "name_reserved": false,
+  "existing_suitable_identity_confirmed": false,
+  "registration_owner": "deveshkakkar",
+  "visibility": "private",
+  "oauth_user_authorization": false,
+  "webhook_active": false,
+  "webhook_events": [],
+  "repository_permissions": {
+    "metadata": "read",
+    "contents": "write",
+    "pull_requests": "write",
+    "issues": "read",
+    "actions": "read",
+    "checks": "read",
+    "statuses": "read"
+  },
+  "all_other_repository_permissions": "none",
+  "organization_permissions": {},
+  "account_permissions": {},
+  "enterprise_permissions": {},
+  "explicitly_forbidden_permissions": [
+    "administration",
+    "workflows",
+    "secrets",
+    "environments",
+    "deployments",
+    "attestations",
+    "checks:write",
+    "statuses:write",
+    "actions:write",
+    "issues:write"
+  ],
+  "operational_repository_selection": {
+    "mode": "selected",
+    "repositories": [
+      "deveshkakkar/ProofGate"
+    ],
+    "repository_ids": [
+      1437623154
+    ]
+  },
+  "test_installation_scope": "Only an owner-approved disposable canary repository first; actual repository ID must be supplied/verified before installation. No canary is created by this proposal.",
+  "token_profile": {
+    "kind": "GitHub App installation access token only",
+    "repository_ids": [
+      1437623154
+    ],
+    "permissions": {
+      "metadata": "read",
+      "contents": "write",
+      "pull_requests": "write",
+      "issues": "read",
+      "actions": "read",
+      "checks": "read",
+      "statuses": "read"
+    },
+    "maximum_provider_lifetime_minutes": 60,
+    "issuer": "owner-controlled broker outside coding agent",
+    "private_key_available_to_coder": false,
+    "owner_user_tokens_available_to_coder": false
+  },
+  "automatic_merging_enabled": false,
+  "human_approval": "deveshkakkar on every main PR, enforced by base CODEOWNERS/ruleset after separately approved activation",
+  "not_enforced_by_permission_alone": [
+    "contents:write includes merge capabilities; server rules must deny merge without human approval",
+    "pull_requests:write permits review operations; coder cannot meet human CODEOWNER approval",
+    "public repository reads are not a proof of installation scope",
+    "No workflows write: workflow upload/merge blocked until a separately approved independent author/pusher or reviewer arrangement; offline patches are not an executable merge route"
+  ],
+  "activation_authorized": false,
+  "workflow_change_route": "Not available under initial two-actor grant; separate explicit approval required; no implicit coder elevation or review bypass"
+}
