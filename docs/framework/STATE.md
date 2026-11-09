@@ -270,3 +270,10 @@ Owner approves a separate restricted GitHub App architecture with @deveshkakkar 
 ## PR44 COMMENT review corrections (preparation only)
 
 Owner requested revisions at 065df3e: self-contained canary offline CI and a real authorized positive merge before crediting merge-denial tests; distinguish enforced human approval from procedural human merge execution; separate canary/production token profiles. The revision supplies an inactive owner-bound canary workflow/marker and evidence template, explicitly leaves A14/live readiness NOT_RUN, and forbids production scope during canary tests. Contents-write App tokens may merge after legitimate approval/checks; the initial rules do not technically exclude that executor. Manual-only exclusion would require a separately approved enforcing design. COMMENT/internal reviews are not independent owner approval. PR44 remains open/unmerged, issue #28 open; no activation is authorized or performed.
+
+
+## Milestone 1 executable implementation
+
+Owner instructs implementation toward issue #28 with separate explicit credential/protection activation gates. Reviewed inactive documentation PR44 merged under that instruction (5bbc9a1); this is not independent human approval or live enforcement. New `proofgate_authority` code implements a fixed canary-only scope guard and a credential-free bounded process probe, with an offline redacted-metadata CLI and hosted diagnostic workflow. It does not issue tokens, read owner auth, publish checks or merge.
+
+138 offline framework tests and release checks pass. Scope metadata is synthetic in unit tests, controller execution is mocked locally, and actual hosted process observations remain pending. Even a passing process probe leaves full coding-agent tool/identity isolation and credential release false. [Executable usage and limits](protected-authority/IMPLEMENTATION.md) distinguish this code from the still-unprovisioned App and future protected registry/admission service. No credentials, App install, repository protection, owner access, source/provider run or auto-merge activation occurs; issue #28 stays open and A14 stays NOT_RUN.
