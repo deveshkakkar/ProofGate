@@ -23,7 +23,7 @@ Activation preconditions:
 3. Capture current rules/CODEOWNERS as rollback inputs. Install the approved CODEOWNERS and exact reviewed ruleset through an owner-controlled administration step. These files under docs are not automatically applied. No application action or branch-protection write occurs in this PR.
 4. Read back the effective rules and test denied direct pushes, unapproved policy PRs, stale approvals, agent approval attempts, and force pushes using harmless proposed commits in a designated test repository first. Test the owner's recovery path before applying to main. Missing permissions/state produce an unverified result, not assumed protection.
 
-When activated and verified, this step enforces a human review boundary for every main PR. It does **not** authenticate arbitrary JSON evidence or complete issue #28. It also changes the current automatic-merge arrangement: a clean Codex review alone would no longer satisfy human policy approval. That operational change and credential/role changes require the owner's explicit approval.
+When activated and verified, this step enforces human approval before every main PR merge. It does not enforce that a human executes the merge: the Contents-write App may call the merge API after requirements pass. A human-operated merge remains a procedure unless a separately approved enforcing boundary is added. It does **not** authenticate arbitrary JSON evidence or complete issue #28. It also changes the current automatic-merge arrangement: a clean Codex review alone would no longer satisfy human policy approval. That operational change and credential/role changes require the owner's explicit approval.
 
 ## Next implementation: protected evaluator and authenticated merge check
 

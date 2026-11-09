@@ -8,5 +8,7 @@
     "default_workflow_permissions": "read",
     "can_approve_pull_request_reviews": false
   },
-  "activation_authorized": false
+  "activation_authorized": false,
+  "merge_actor_exclusion_enforced": false,
+  "auto_merge_scope_note": "Disables GitHub auto-merge feature only; does not prohibit direct App merge API calls after required approval/checks"
 }

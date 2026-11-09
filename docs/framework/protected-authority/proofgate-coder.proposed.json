@@ -44,25 +44,6 @@
     ]
   },
   "test_installation_scope": "Only an owner-approved disposable canary repository first; actual repository ID must be supplied/verified before installation. No canary is created by this proposal.",
-  "token_profile": {
-    "kind": "GitHub App installation access token only",
-    "repository_ids": [
-      1437623154
-    ],
-    "permissions": {
-      "metadata": "read",
-      "contents": "write",
-      "pull_requests": "write",
-      "issues": "read",
-      "actions": "read",
-      "checks": "read",
-      "statuses": "read"
-    },
-    "maximum_provider_lifetime_minutes": 60,
-    "issuer": "owner-controlled broker outside coding agent",
-    "private_key_available_to_coder": false,
-    "owner_user_tokens_available_to_coder": false
-  },
   "automatic_merging_enabled": false,
   "human_approval": "deveshkakkar on every main PR, enforced by base CODEOWNERS/ruleset after separately approved activation",
   "not_enforced_by_permission_alone": [
@@ -72,5 +53,67 @@
     "No workflows write: workflow upload/merge blocked until a separately approved independent author/pusher or reviewer arrangement; offline patches are not an executable merge route"
   ],
   "activation_authorized": false,
-  "workflow_change_route": "Not available under initial two-actor grant; separate explicit approval required; no implicit coder elevation or review bypass"
+  "workflow_change_route": "Not available under initial two-actor grant; separate explicit approval required; no implicit coder elevation or review bypass",
+  "token_profiles": {
+    "canary": {
+      "kind": "GitHub App installation access token only",
+      "repository_ids": [],
+      "permissions": {
+        "metadata": "read",
+        "contents": "write",
+        "pull_requests": "write",
+        "issues": "read",
+        "actions": "read",
+        "checks": "read",
+        "statuses": "read"
+      },
+      "maximum_provider_lifetime_minutes": 60,
+      "issuer": "owner-controlled broker outside coding agent",
+      "private_key_available_to_coder": false,
+      "owner_user_tokens_available_to_coder": false,
+      "owner_approved_repository": null,
+      "owner_approved_repository_id": null,
+      "binding_state": "unbound-do-not-mint",
+      "minting_authorized": false,
+      "forbidden_repository_ids": [
+        1437623154
+      ],
+      "require_installation_repository_ids_to_equal_profile": true
+    },
+    "production": {
+      "kind": "GitHub App installation access token only",
+      "repository_ids": [
+        1437623154
+      ],
+      "permissions": {
+        "metadata": "read",
+        "contents": "write",
+        "pull_requests": "write",
+        "issues": "read",
+        "actions": "read",
+        "checks": "read",
+        "statuses": "read"
+      },
+      "maximum_provider_lifetime_minutes": 60,
+      "issuer": "owner-controlled broker outside coding agent",
+      "private_key_available_to_coder": false,
+      "owner_user_tokens_available_to_coder": false,
+      "minting_authorized": false,
+      "requires_separate_production_approval": true,
+      "binding_state": "production-defined-but-disabled",
+      "require_installation_repository_ids_to_equal_profile": true
+    }
+  },
+  "token_scope_invariants": [
+    "Canary name/ID must be supplied, verified against GitHub and explicitly approved; a positive integer ID distinct from 1437623154 is mandatory",
+    "Unbound/empty/missing repository_ids are not an API request: refuse to mint, never omit scope or inherit all installation repositories",
+    "Canary installation, requested token scope and returned token repository_ids must all equal the one approved canary ID; production ID1437623154 is forbidden throughout canary testing",
+    "Production profile is disabled until separate production authorization; never choose production as a default/fallback for canary"
+  ],
+  "merge_authority": {
+    "mandatory_human_approval_before_merge": "intended server-enforced condition after actual activation/tests",
+    "human_execution_of_merge": "operating procedure only; not enforced by this App permission map/ruleset",
+    "coder_merge_api_after_valid_approval": "may be authorized by GitHub because contents:write is granted; manual-only actor exclusion is not claimed",
+    "if_manual_actor_exclusion_is_mandatory": "stop rollout until separately approved enforcing broker/merge-actor design and live test exist"
+  }
 }
