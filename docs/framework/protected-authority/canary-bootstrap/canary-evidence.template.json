@@ -1,0 +1,40 @@
+{
+  "scope": "Template only; not executed security evidence",
+  "activation_authorized": false,
+  "canary_repository": null,
+  "canary_repository_id": null,
+  "isolated_coder_identity_verified": false,
+  "app_id": null,
+  "installation_id": null,
+  "approved_bound_marker_sha256": null,
+  "approved_workflow_sha256": null,
+  "bootstrap_offline": {
+    "status": "NOT_RUN",
+    "run_id": null,
+    "check_id": null,
+    "observed_context": null,
+    "observed_app_id": null,
+    "head_sha": null,
+    "workflow_revision": null,
+    "conclusion": null
+  },
+  "A14_authorized_positive_merge": {
+    "status": "NOT_RUN",
+    "pr_number": null,
+    "app_author": null,
+    "human_approver": null,
+    "approving_review_id": null,
+    "approved_head_sha": null,
+    "base_sha_before": null,
+    "applicable_check_id": null,
+    "merge_executor": null,
+    "merge_result_sha": null
+  },
+  "A16_app_merge_after_approval": {
+    "status": "NOT_RUN_NOT_AUTHORIZED",
+    "purpose": "Capability probe; current design may allow App merge after valid human approval",
+    "observed_merge_executor_exclusion": null
+  },
+  "permission_denial_credit_allowed": false,
+  "canary_readiness": "UNPROVEN"
+}
