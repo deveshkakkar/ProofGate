@@ -126,8 +126,9 @@ def run_variant(variant, candidate=None):
                   'environment': {'python': file_hash(Path('/usr/bin/python3').resolve()),
                                   'bwrap': file_hash(Path('/usr/bin/bwrap')),
                                   'systemd-run': file_hash(Path('/usr/bin/systemd-run')),
-                                  'scope': digest({'python': sys.version, 'stdlib': 'host-trusted; not fully fingerprinted'})}}
-        for name in ('kernel.py', '__main__.py', 'errors.py'):
+                                  'scope': digest({'python': sys.version, 'stdlib': 'host-trusted; not fully fingerprinted',
+                                                   'site': 'enabled; host-installed packages may be importable; inventory unbound'})}}
+        for name in ('kernel.py', '__main__.py', 'errors.py', 'report.py'):
             inputs['verifier']['framework/' + name] = file_hash(ROOT / 'framework' / name)
         bound = identity(CONTRACT, inputs)
         cases = [dict(zip(('subject_tenant', 'resource_tenant', 'active', 'entitled', 'enabled'), values))

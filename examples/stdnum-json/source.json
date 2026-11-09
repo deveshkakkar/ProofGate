@@ -8,5 +8,5 @@
     "stdnum/__init__.py": "164fee456b70114c01925e7918094d0d518bff1c8ff3b2a9ef2c99e97b9ed7a9"
   },
   "license": "LGPL-2.1-or-later; upstream source fetched only in hosted setup, not redistributed here",
-  "contract_sha256": "dd9130f5f93f3a156600fb70e22e76d026bb3bc9c14bb6f0aacd5ebe505d9411"
+  "contract_sha256": "075685301fa43185df162e4d952b5676bb8f481fa685630ae47556fbb9c2b8c9"
 }

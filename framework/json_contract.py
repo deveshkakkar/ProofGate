@@ -47,9 +47,14 @@ def prepare(candidate, contract_path, expected_sha):
                           parse_constant=lambda value: (_ for _ in ()).throw(ValueError('Non-finite JSON value.')))
     except (ValueError, UnicodeError, RecursionError) as exc:
         raise ValueError('Contract must be bounded strict JSON without duplicate keys or non-finite values.') from exc
-    _require(isinstance(spec, dict) and set(spec) == {'schema', 'runtime', 'files', 'entrypoint', 'assumptions', 'checks'},
-             'Invalid contract fields.')
-    _require(type(spec['schema']) is int and spec['schema'] == 1 and spec['runtime'] == 'python-json-batch-v1',
+    _require(isinstance(spec, dict), 'Invalid contract fields.')
+    schema = spec.get('schema')
+    _require(type(schema) is int and schema in (1, 2), 'Unsupported contract schema.')
+    fields = {'schema', 'runtime', 'files', 'entrypoint', 'assumptions', 'checks'}
+    if schema == 2:
+        fields.add('entrypoint_sha256')
+    _require(set(spec) == fields, 'Invalid contract fields.')
+    _require(spec['runtime'] == 'python-json-batch-v1',
              'Unsupported contract schema/runtime.')
     files = spec['files']
     _require(isinstance(files, list) and 1 <= len(files) <= 32 and all(isinstance(p, str) for p in files),
@@ -58,6 +63,10 @@ def prepare(candidate, contract_path, expected_sha):
     for name in files:
         _path(name)
     _require(spec['entrypoint'] in files, 'Entrypoint must be a selected source file.')
+    if schema == 2:
+        _require(isinstance(spec['entrypoint_sha256'], str) and
+                 re.fullmatch('[0-9a-f]{64}', spec['entrypoint_sha256']),
+                 'Schema 2 requires a reviewed entrypoint SHA256.')
     checks = spec['checks']
     _require(isinstance(checks, list) and 1 <= len(checks) <= 4, 'Contract needs 1–4 finite checks.')
     for check in checks:
@@ -86,6 +95,9 @@ def prepare(candidate, contract_path, expected_sha):
         _require(len(data) <= MAX_FILE, 'Selected source exceeds 256 KiB per file.')
         selected[name] = data
     _require(sum(map(len, selected.values())) <= MAX_SOURCE, 'Selected source exceeds 1 MiB total.')
+    if schema == 2:
+        _require(hashlib.sha256(selected[spec['entrypoint']]).hexdigest() == spec['entrypoint_sha256'],
+                 'Entrypoint SHA256 does not match the independently reviewed driver pin.')
     return {'spec': spec, 'contract': contract, 'contract_sha256': expected_sha,
             'candidate': candidate, 'selected': selected}
 
@@ -126,8 +138,11 @@ def run(prepared):
                                   'systemd-run': runtime.file_hash(Path('/usr/bin/systemd-run')),
                                   'scope': digest({'python': runtime.sys.version,
                                       'environment': 'cleared; PATH=/usr/bin:/bin',
-                                      'stdlib': 'host-trusted; not fully fingerprinted'})}}
-        for name in ('kernel.py', '__main__.py', 'errors.py'):
+                                      'stdlib': 'host-trusted; not fully fingerprinted',
+                                      'site': 'enabled; host-installed packages may be importable; inventory unbound'})}}
+        if spec['schema'] == 2:
+            inputs['verifier']['reviewed-entrypoint/' + spec['entrypoint']] = spec['entrypoint_sha256']
+        for name in ('kernel.py', '__main__.py', 'errors.py', 'report.py'):
             inputs['verifier']['framework/' + name] = runtime.file_hash(runtime.ROOT / 'framework' / name)
         for name in ('experiment.py', 'probe.py'):
             inputs['verifier']['examples/entitlement/' + name] = runtime.file_hash(runtime.HERE / name)
@@ -158,4 +173,5 @@ def run(prepared):
                 'checks': checks, 'observations': observations,
                 'receipt': verify(contract, contract_digest(contract), inputs, observations),
                 'candidate_matches_snapshot': source_matches(prepared['candidate'], prepared['selected']),
+                'entrypoint_pinned': spec['schema'] == 2,
                 'producer_authenticated': False, 'policy_admitted': False, 'release_authorized': False}

@@ -19,10 +19,11 @@ The pin is the SHA256 of the exact contract file bytes, obtained through your re
 
 ```json
 {
-  "schema": 1,
+  "schema": 2,
   "runtime": "python-json-batch-v1",
   "files": ["service.py", "rules/credit.py"],
   "entrypoint": "service.py",
+  "entrypoint_sha256": "SHA256_OF_INDEPENDENTLY_REVIEWED_SERVICE_DRIVER",
   "assumptions": ["Only these two integer credit examples in a cleared environment are modeled."],
   "checks": [{
     "id": "credit_examples",
@@ -32,13 +33,17 @@ The pin is the SHA256 of the exact contract file bytes, obtained through your re
 }
 ```
 
+Schema 2 requires `entrypoint_sha256`: the independently reviewed SHA256 of the driver bytes. The adapter rejects a changed driver before any sandbox probe or report reservation, copies the verified bytes into the read-only snapshot and includes the required driver digest in the verifier manifest. Keep the driver unchanged while the selected business-rule module evolves. A driver that merely prints expected fixtures is not an acceptable reviewed application boundary.
+
+Schema 1 remains compatible as **candidate-controlled fixture agreement only**. It does not pin the driver or establish that an intended function was called; the summary warns about this. Existing schema 1 observations remain historical and are not upgraded by the new format. Even with a pinned driver, finite behavioral checks cannot prove that arbitrary adversarial modules invoked a particular function or are correct for all inputs. Policy/producer authority remains false.
+
 `service.py` must read the input list and produce the expected list through the actual business-rule boundary. The adapter always invokes the fixed sandboxed Python interpreter; the contract contains no shell commands or executable oracle. Each named group launches a fresh process with the whole input batch. State between groups/processes is not checked. Use JSON booleans as booleans; `true`, `1` and `1.0` are distinct observations.
 
-The contract allows 1–32 explicitly selected `.py` files, at most 256 KiB each/1 MiB total. Relative paths and their components cannot traverse symlinks. Other checkout files—including `.git`, docs, credentials, unselected dependencies and configuration—are excluded from the worker and coverage. Entrypoint must be selected. Modules must work from the selected tree with the host Python standard library; no third-party dependencies are installed. Dependency packaging, native extensions, network services and alternate environment profiles are unsupported.
+The contract allows 1–32 explicitly selected `.py` files, at most 256 KiB each/1 MiB total. Relative paths and their components cannot traverse symlinks. Other checkout files—including `.git`, docs, credentials, unselected dependencies and configuration—are excluded from the worker and coverage. Entrypoint must be selected. The adapter installs no third-party dependencies. Worker Python uses `-B` with normal `site` initialization: host-installed third-party packages may be importable even though the environment is cleared. This is **not** an enforced standard-library-only or hermetic dependency environment. Host packages and standard libraries are trusted and not fully fingerprinted; a cleared environment is not a package inventory. The new environment scope metadata records that limitation. Managed dependency packaging, native-extension isolation, network services and alternate environment profiles are unsupported.
 
 There are 1–4 uniquely named check groups, each with 1–256 inputs and the same number of expected outputs. Contract bytes are limited to 256 KiB; duplicate JSON keys and non-finite numbers reject. The existing resource limits (256 MiB address space/memory scope, one CPU, 16 tasks, 5-second scope, 1 MiB output files and 10-second parent timeout per group) remain unchanged. Limits are not an established hostile-source security guarantee. Host libraries are trusted and partially fingerprinted.
 
-Exit 0 means the selected snapshot matches all finite expectations and current selected files still matched at the final observation. Exit 1 means a mismatch. Exit 2 means setup/evaluation failure or observed current-source change. Reports are owner-only, never overwritten, and include fixture/source/evaluator/environment identities, all available observations and explicit assurance limits. Keep failed records and choose a new output path. Postcheck is an observation rather than a lock; PR admission would need independently protected policy/evaluator and an identity check at the merge boundary.
+Exit 0 means the selected snapshot matches all finite expectations and current selected files still matched at the final observation. Exit 1 means a mismatch. Exit 2 means setup/evaluation failure or observed current-source change. Reports are owner-only, never overwrite a pre-existing destination, and include fixture/source/evaluator/environment identities, all available observations and explicit assurance limits. Before evaluation, the CLI atomically creates a fully written/fsynced `completed:false` record using a hard link. Results/errors replace that reservation atomically with a complete JSON record. SIGINT returns exit 2 and records `interrupted`; an abrupt kill leaves an explicit incomplete reservation rather than a partial JSON file. Output directories must support same-filesystem hard links and atomic rename. This protects process-interruption visibility, not sudden-power-loss recovery or hostile same-user destination races. Keep failed records and choose a new output path. Postcheck is an observation rather than a lock; PR admission would need independently protected policy/evaluator and an identity check at the merge boundary.
 
 ## External integration example
 

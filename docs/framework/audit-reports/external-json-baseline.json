@@ -1,0 +1,124 @@
+{
+  "adapter": "python-json-batch-v1",
+  "candidate_matches_snapshot": true,
+  "checks": [
+    {
+      "cases": 7,
+      "expected": [
+        false,
+        6,
+        "9",
+        true,
+        14,
+        false,
+        false
+      ],
+      "id": "luhn_examples",
+      "inputs": [
+        {
+          "number": "7894",
+          "operation": "is_valid"
+        },
+        {
+          "number": "7894",
+          "operation": "checksum"
+        },
+        {
+          "number": "7894",
+          "operation": "check_digit"
+        },
+        {
+          "number": "78949",
+          "operation": "is_valid"
+        },
+        {
+          "alphabet": "0123456789abcdef",
+          "number": "1234",
+          "operation": "checksum"
+        },
+        {
+          "number": "",
+          "operation": "is_valid"
+        },
+        {
+          "number": "not-a-number",
+          "operation": "is_valid"
+        }
+      ],
+      "observed": [
+        false,
+        6,
+        "9",
+        true,
+        14,
+        false,
+        false
+      ],
+      "passed": true,
+      "stdout_sha256": "8566762ad903207b4581c0df49a29cb553452bfef606ca8ff0e1fd1cfc670d96"
+    }
+  ],
+  "contract": {
+    "assumptions": [
+      "Only five published Luhn docstring examples and two explicit invalid-input fixtures (empty and nonnumeric) are checked through the inspected JSON shim.",
+      "This checksum fixture does not establish account existence, payment authorization, full-package correctness or developer usefulness.",
+      "Inspected Python source, cleared environment and same-user trusted evaluator; host libraries are partially fingerprinted. No producer authentication or policy admission."
+    ],
+    "checks": [
+      "luhn_examples"
+    ],
+    "schema": 1
+  },
+  "fixture_contract_sha256": "dd9130f5f93f3a156600fb70e22e76d026bb3bc9c14bb6f0aacd5ebe505d9411",
+  "inputs": {
+    "artifact": {
+      "run_json.py": "82a4ea3f0e6c271e2d705aec82b82dd910350a5c2d4ee635c9dfd0609442af6c",
+      "stdnum/__init__.py": "164fee456b70114c01925e7918094d0d518bff1c8ff3b2a9ef2c99e97b9ed7a9",
+      "stdnum/exceptions.py": "de76246ac996adbb8718fd15f2256fb4c333dd2fcf6c913914505dd913cd5bf6",
+      "stdnum/luhn.py": "1ee6c812e3e153ce1bc25e6f3d6e50bcec9fc645505ce315e4c22b2fed974790",
+      "stdnum/util.py": "804f4e816d9133d6d392e2bce6b0b864ea02e91b07b9bd35a07a399dc82b145f"
+    },
+    "environment": {
+      "bwrap": "e318903862396f96de3df57264e0158682b952fd3fb53ac23d876413e7b30f71",
+      "python": "e50d468e8b0adfb05733f5b87b3cff34829c4a8c1aea50c865aa8bdfe4bb150f",
+      "scope": "6072aa05645410c1b761a6faa12d5a0affd204be46a318e038b644ea1b7095ef",
+      "systemd-run": "de28cc5757d3789efa5f6fed5659893410469f68b42175d4531f5b34d3a09e16"
+    },
+    "source": {
+      "run_json.py": "82a4ea3f0e6c271e2d705aec82b82dd910350a5c2d4ee635c9dfd0609442af6c",
+      "stdnum/__init__.py": "164fee456b70114c01925e7918094d0d518bff1c8ff3b2a9ef2c99e97b9ed7a9",
+      "stdnum/exceptions.py": "de76246ac996adbb8718fd15f2256fb4c333dd2fcf6c913914505dd913cd5bf6",
+      "stdnum/luhn.py": "1ee6c812e3e153ce1bc25e6f3d6e50bcec9fc645505ce315e4c22b2fed974790",
+      "stdnum/util.py": "804f4e816d9133d6d392e2bce6b0b864ea02e91b07b9bd35a07a399dc82b145f"
+    },
+    "verifier": {
+      "examples/entitlement/experiment.py": "09f86fef079d78e715974d5e0fc66f1361976c7167e9f59c92c9ba602d3624c9",
+      "examples/entitlement/probe.py": "06fb89c92f6ea3ab353550403c9e4b38247ef50accecf8297828e829cbf38cdf",
+      "fixture-contract.json": "dd9130f5f93f3a156600fb70e22e76d026bb3bc9c14bb6f0aacd5ebe505d9411",
+      "framework/__main__.py": "3a58cc5a572fe1c37e6e4c1bd8a34b3cc13ee836f01283ab25b0df7b3a315458",
+      "framework/errors.py": "1bc52996db16efcf2dae6a4922eb129db14ad8f5a6375dae323be3e657b363ed",
+      "framework/json_contract.py": "6a947b9675aa0723420605dd847e4f38a8df77ce62384c41a329b0cd782e36d8",
+      "framework/kernel.py": "40ebc5be2ad7cdf9435da1ec474e7f9161c95d0d53bf32fe3d113e1fa17376bb",
+      "scripts/proofgate.py": "141babc5f5819dbf252a71551e64d8cdd5ee092bb44ca303a4500077d1567827"
+    }
+  },
+  "observations": [
+    {
+      "id": "luhn_examples",
+      "identity": "bdf6b7f0501016bd8123af03a3bbb9a106a805b4f2c428e0d1875516fa7423ea",
+      "status": "passed"
+    }
+  ],
+  "policy_admitted": false,
+  "producer_authenticated": false,
+  "receipt": {
+    "checks": [
+      "luhn_examples"
+    ],
+    "consistent": true,
+    "contract": "80ad173aa17f02741a458fa9862bd03ad4ebc8b5968d904ebc15fb4ec69b904b",
+    "identity": "bdf6b7f0501016bd8123af03a3bbb9a106a805b4f2c428e0d1875516fa7423ea",
+    "schema": 1
+  },
+  "release_authorized": false
+}

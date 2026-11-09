@@ -92,6 +92,8 @@ class JSONContractTests(unittest.TestCase):
             prepared = self.prepare(candidate, path, spec)
             good = self.execute_mocked(prepared, [True, False])
             self.assertTrue(good['receipt']['consistent'])
+            self.assertFalse(good['entrypoint_pinned'])
+            self.assertIn('candidate-controlled',summarize(good))
             self.assertEqual(good['inputs']['verifier']['fixture-contract.json'], prepared['contract_sha256'])
             self.assertEqual(set(good['inputs']['source']), {'main.py'})
             self.assertFalse(good['policy_admitted']); self.assertFalse(good['producer_authenticated'])
@@ -111,6 +113,31 @@ class JSONContractTests(unittest.TestCase):
             self.assertTrue(report['receipt']['consistent'])
             self.assertFalse(report['candidate_matches_snapshot'])
             self.assertIn('CURRENT SOURCE CHANGED', summarize(report))
+
+    def test_reviewed_driver_pin_rejects_candidate_fixture_spoof_before_execution(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root=Path(temp); candidate,path,spec=self.setup_case(root)
+            spec['schema']=2
+            spec['entrypoint_sha256']=hashlib.sha256((candidate/'main.py').read_bytes()).hexdigest()
+            prepared=self.prepare(candidate,path,spec)
+            report=self.execute_mocked(prepared,[True,False])
+            self.assertTrue(report['entrypoint_pinned'])
+            self.assertEqual(report['inputs']['verifier']['reviewed-entrypoint/main.py'],spec['entrypoint_sha256'])
+            self.assertFalse(report['policy_admitted'])
+            (candidate/'main.py').write_text('print("[true,false]")\n')
+            pin=hashlib.sha256(path.read_bytes()).hexdigest()
+            with patch.object(adapter.runtime,'preflight') as probe, patch.object(adapter,'run') as execute, \
+                 contextlib.redirect_stderr(io.StringIO()) as err:
+                result=main(['check-json','--candidate',str(candidate),'--contract',str(path),
+                             '--expected-contract',pin,'--output',str(root/'spoof.json')])
+            self.assertEqual(result,2);probe.assert_not_called();execute.assert_not_called()
+            self.assertFalse((root/'spoof.json').exists())
+            self.assertIn('Entrypoint SHA256',err.getvalue())
+            for value in ('bad',None):
+                spec['entrypoint_sha256']=value
+                with self.assertRaises(ValueError): self.prepare(candidate,path,spec)
+            del spec['entrypoint_sha256']
+            with self.assertRaises(ValueError): self.prepare(candidate,path,spec)
 
     def test_isolated_evaluator_launcher_from_an_external_directory(self):
         with tempfile.TemporaryDirectory() as temp:
