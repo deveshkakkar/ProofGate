@@ -188,3 +188,105 @@ coalesces duplicate branch/PR jobs. Its current check results and fresh receipt
 belong to the final PR revision, not the older local handoff above. No automatic
 repair loop was used; any later findings require owner assessment after the
 single repair-pass boundary in the global policy.
+
+
+## Bounded source-policy snapshot repair
+
+Independent review of `40af8d4` found an early A→B→A race between live-source
+policy checks and source copying. This is a new bounded repair task. Intended
+behavior: verify the controlled snapshot, then apply both the immutable-service
+pin and admission-syntax policy to its exact bytes before any candidate process.
+Proof checking and clean runtime compilation must keep using that snapshot;
+subsequent live-source and protected-input freshness checks remain required.
+
+Allowed writes: `lean4/gate.py`, focused boundary regressions/old-function fixture,
+the Lean CI workflow, this status, and new repair evidence/documentation. Preserve
+all original Bend inputs, existing Lean v1 baseline, earlier evidence and receipts.
+The previous CPU/memory/task/time limits remain unchanged. No authority, Photon,
+merge, deployment, host administration, keys or token changes are in scope.
+Rollback: revert the focused repair commit; no running service/state is changed.
+
+Acceptance: deterministic runtime-source and driver A→B→A cases reach controlled
+preflight on the exact old evaluate function, then fail at `runtime-policy` and
+`driver-policy` on the repaired function before execution. These are focused
+boundary tests with substituted toolchain/preflight calls and real file/hash
+operations, not Lean/build execution. Separately rerun actual Lean/build/bridge,
+HTTP, negative-control, core-failure and offline workflows on the repaired head.
+Retain original `40af8d4` receipt as historical evidence, and retain final-head
+receipts, logs, controls and executable bytes durably in the project. Stop on
+unexpected policy layers or verification failures; preserve existing human review
+and deployment/admission gates.
+
+- [x] Validate both policies on verified frozen source; preserve shared proof/build input
+- [x] Deterministic old/new A→B→A regressions for both policies
+- [x] Fresh-context review of the bounded repair
+- [x] Required local real verification on the working repair snapshot
+- [x] Original receipt archived; durable final-head retention location established
+- Final-head hosted verification, identity inspection and PR/issue handoff: see
+  the durable `lean4/evidence/local/final/inspection.json` record and the live
+  [PR #47](https://github.com/deveshkakkar/ProofGate/pull/47) /
+  [issue #46](https://github.com/deveshkakkar/ProofGate/issues/46) repair checkpoint.
+  Those results must identify the final committed head; local development results
+  below are not an approval of a later revision.
+
+The earlier successful receipts describe their original commits. They do not
+approve this repair or any changed head. Remaining migration acceptance still
+includes human baseline/evaluator review, the separate Photon demonstration,
+protected admission authority (#28), and explicit default-path cutover.
+
+
+### Repair validation record
+
+The production diff moves both existing policy checks from the live candidate to
+`output/source` immediately after `snapshot(frozen) == initial`. Both `prepare`
+calls still consume that same `frozen` directory. Live-source, protected-input,
+evaluator and post-test artifact freshness checks remain unchanged. No baseline,
+proof statement, dependency, service, bridge or runtime source was changed.
+
+Focused command (real file/hash operations; substituted toolchain/preflight;
+no Lean/build execution):
+
+```sh
+python3 -B lean4/test_snapshot_policy.py --output /tmp/proofgate-policy-repair-focused.json
+```
+
+All six tests passed: the old evaluator reaches intercepted preflight with
+unapproved runtime/driver A after A→B→A edits; the repaired evaluator rejects at
+`runtime-policy` / `driver-policy` with zero execution/preparation calls. Approved
+source still reaches preflight; a changed copy fails identity verification. The
+pinned old evaluate fixture was independently verified against `40af8d4`.
+[Focused evidence](evidence/source-policy-repair/focused-boundary.json) is distinct
+from the actual Lean/build evidence.
+
+Real local workflows executed on the working repair snapshot (evaluator SHA256
+`6a7c1d862b7663d89fab24d5004af287bc4dfa9e8807b87e3208460e7b1ed4f5`):
+
+```sh
+python3 -B lean4/check.py --output /home/devesh/ProofGate-lean4-migration/lean4/evidence/local/repair-development
+python3 -B lean4/check_core_failure.py --artifact lean4/evidence/local/repair-development/valid/artifact --output lean4/evidence/local/repair-development/core-failure
+python3 -B scripts/check_release.py
+python3 -B -m unittest discover -s tests -v
+```
+
+The 26-control real suite passed: dual-kernel proofs, native build, both 11,716
+case bridges, seven HTTP groups, mathematical/spec/axiom/driver negatives,
+double charging, live edits, artifact substitution and real infrastructure
+failures. The genuine executable EACCES/HTTP 500, rollback, retry and restart
+control passed separately. Offline results: 46 historical regressions plus six
+archived rejection cases, and all 126 framework tests passed.
+
+Fresh-context review found no actionable issue in this bounded fix and
+independently reran the six focused tests. The Lean CI workflow now runs and
+uploads those focused boundary results in a separate named step before real
+Lean verification. Final-revision workflows and inspected evidence are retained
+under `lean4/evidence/local/<full-head-sha>/`; `local/final/inspection.json` is the
+current local handoff pointer. These generated files are ignored so recording a
+receipt cannot alter the Git revision it identifies. They are project data on
+the home-server filesystem, rather than transient `/tmp` storage.
+
+The original hosted receipt SHA256
+`6e300bd1249bed6211c2388d8ed146a2577f23ddfee1050ed2d1e40f1cb75fa3`
+and its six logs are preserved verbatim in
+[evidence/source-policy-repair/previous-40af8d4](evidence/source-policy-repair/previous-40af8d4/receipt.json).
+It retains its original provenance and the reviewed limitation; it does not
+validate the repaired evaluator.

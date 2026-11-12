@@ -38,6 +38,8 @@ jobs:
           test "$lean_uid" -ne 0
           sudo systemctl start "user@$lean_uid.service"
           echo "XDG_RUNTIME_DIR=/run/user/$lean_uid" >> "$GITHUB_ENV"
+      - name: Focused source-policy snapshot boundaries (no Lean execution)
+        run: python3 -B lean4/test_snapshot_policy.py --output "$RUNNER_TEMP/lean4-source-policy.json"
       - name: Install and verify pinned user-local tools
         run: python3 -B lean4/bootstrap.py
       - name: Probe isolation and resource manager
@@ -51,6 +53,8 @@ jobs:
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: lean4-${{ github.run_id }}
-          path: ${{ runner.temp }}/lean4/
+          path: |
+            ${{ runner.temp }}/lean4/
+            ${{ runner.temp }}/lean4-source-policy.json
           retention-days: 7
           if-no-files-found: warn

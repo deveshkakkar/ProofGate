@@ -1,0 +1,65 @@
+def evaluate(candidate, output, cache):
+    if output.exists(): raise Rejected('output-policy', 'output already exists')
+    initial = snapshot(candidate)
+    if sha(candidate/'app/server.ts') != sha(BASE/'server.ts'):
+        raise Rejected('driver-policy','service and call binding must match the protected v1 service')
+    validate_admission((candidate/'formal/Admission.lean').read_text())
+    protected = tree(BASE)
+    evaluator_identity=sha(Path(__file__))
+    manifest=ROOT/'baseline-v1.json'
+    expected=(ROOT/'BASELINE.v1.sha256').read_text().strip()
+    if sha(manifest)!=expected or json.loads(manifest.read_text())!=protected:
+        raise Rejected('protected-inputs','Lean baseline identity mismatch')
+    tools, node = check_tools(cache)
+    output.mkdir(parents=True)
+    frozen=output/'source'; shutil.copytree(candidate,frozen)
+    if snapshot(frozen)!=initial: raise Rejected('identity','source changed while snapshotting')
+    # Probe actual isolation/resource manager before any candidate elaboration.
+    probe = output/'probe'; probe.mkdir()
+    run(scope()+sandbox(tools,node,probe,[])+['/bin/true'], output, output/'preflight.log', timeout=15)
+    project = output/'proof'; prepare(project, frozen, True)
+    config = json.loads((project/'comparator.json').read_text())
+    config['external_kernels']['nanoda'] = [str(tools/'bin/nanoda_bin')]
+    (project/'comparator.json').write_text(json.dumps(config,sort_keys=True)+'\n')
+    checker_env = {'PATH':str(tools/'bin')+':/usr/bin:/bin', 'HOME':str(Path.home()),
+                   'COMPARATOR_BWRAP':str(BASE/'checker-bwrap.py'), 'LEAN_ABORT_ON_PANIC':'1',
+                   'XDG_RUNTIME_DIR':f'/run/user/{os.getuid()}'}
+    prefix = scope()
+    started = time.monotonic()
+    try:
+        # Lake sandboxes build/export through the protected minimal-root wrapper.
+        # Comparator and replay kernels run outside candidate-writable mounts.
+        run(prefix+[str(tools/'bin/lake'),'comparator'], project, output/'proof.log', env=checker_env)
+    except Rejected as exc:
+        # Candidate output is adversarial. A nonzero comparator result can be a
+        # proof rejection, crash, missing tool, or sandbox failure. Do not infer
+        # the cause from merged stdout/stderr. Controlled fixtures are adjudicated
+        # separately against known inputs; an unknown failure is never a proof result.
+        if exc.layer == 'process':
+            raise Rejected('formal-failed', 'unverified failure (cause unknown); '+str(exc)) from exc
+        raise
+    # Build again in a fresh sandbox that never sees candidate proof code or its
+    # generated .olean/C files. Only the validated executable term is compiled.
+    runtime = output/'runtime'; prepare(runtime, frozen, False)
+    run(scope()+sandbox(tools,node,runtime,[(runtime/'.lake','/project/.lake')])+['/tools/bin/lake','build','core'],
+        runtime, output/'build.log')
+    artifact = output/'artifact'; artifact.mkdir()
+    shutil.copyfile(runtime/'.lake/build/bin/core', artifact/'core'); (artifact/'core').chmod(0o755)
+    shutil.copyfile(BASE/'admission.mjs', artifact/'admission.mjs')
+    shutil.copyfile(frozen/'app/server.ts', artifact/'server.ts')
+    for name in ('LICENSE','LICENSES'):
+        shutil.copyfile(tools/name,artifact/('LEAN-'+name))
+    receipt = {'schema':1, 'backend':'lean4-v1', 'observations_consistent':False, 'policy_admitted':False,
+               'source': initial, 'protected':protected, 'toolchains':json.loads((BASE/'toolchain.json').read_text()),
+               'evaluator':evaluator_identity, 'artifact':tree(artifact),
+               'checker_configuration':json.loads((project/'comparator.json').read_text()),
+               'proof_inputs':{p.name:sha(p) for p in project.iterdir() if p.is_file()},
+               'build_inputs':{p.name:sha(p) for p in runtime.iterdir() if p.is_file()},
+               'build_outputs':tree(runtime/'.lake'),
+               'snapshot_sha256':digest(initial), 'revision':revision(candidate),
+               'environment':{'system':platform.platform(),'python':sys.version,
+                   'os_release':Path('/etc/os-release').read_text(),
+                   'host_tools':host_tools()} , 'formal_seconds':time.monotonic()-started}
+    if snapshot(candidate)!=initial or tree(BASE)!=protected or sha(Path(__file__))!=evaluator_identity: raise Rejected('identity','inputs changed during checking')
+    (output/'checkpoint.json').write_text(json.dumps(receipt,indent=2,sort_keys=True)+'\n')
+    return receipt,tools,node

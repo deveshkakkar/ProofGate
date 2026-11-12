@@ -1,0 +1,378 @@
+{
+  "application": {
+    "bridge": {
+      "batch_milliseconds": 26.067133,
+      "cases": 11716,
+      "single_pair_milliseconds": 7.774323999999999
+    },
+    "http": {
+      "schema": 1,
+      "tests": [
+        {
+          "id": "fresh-grant",
+          "status": "passed"
+        },
+        {
+          "id": "boundary",
+          "status": "passed"
+        },
+        {
+          "id": "invalid",
+          "status": "passed"
+        },
+        {
+          "id": "repeat-conflict",
+          "status": "passed"
+        },
+        {
+          "id": "concurrent-distinct",
+          "status": "passed"
+        },
+        {
+          "id": "concurrent-same",
+          "status": "passed"
+        },
+        {
+          "id": "restart",
+          "status": "passed"
+        }
+      ]
+    }
+  },
+  "artifact": {
+    "LEAN-LICENSE": {
+      "executable": false,
+      "sha256": "8b28515ffffc5c0fe2807d8ae3735b00b324d9b7ce807dd63ff6ac8922fbce7e"
+    },
+    "LEAN-LICENSES": {
+      "executable": false,
+      "sha256": "0af1535aa474a58f5d21b2f4b503bb91cad4ff34fec0f10dc776a0a041795fd8"
+    },
+    "admission.mjs": {
+      "executable": false,
+      "sha256": "86e12682e8b73b246a29525b172000d51ce72c0204844883fe03336eabf0031e"
+    },
+    "core": {
+      "executable": true,
+      "sha256": "47011829f546b3db8e4a2571be436cec5be42edfdda60430bbfb03d6f0fb4a73"
+    },
+    "server.ts": {
+      "executable": false,
+      "sha256": "0a71fd2b140713bd80d253e829694bb0ea5dd53fd9934dee813374ffab93e09d"
+    }
+  },
+  "backend": "lean4-v1",
+  "build_inputs": {
+    "Admission.lean": "584f5bad8bb3a41db079f15834f264dfaf075192cfb9b34db0be76d842ba9b98",
+    "Challenge.lean": "8dfbd68627962e6a6312b78675334cb5549d4293a522d5d790778ee2fd64534b",
+    "Main.lean": "ddce86f5f8fa2c0f8f7f6fbece4ef3b19495e2d2b39ef2c638797bc6aae9a58f",
+    "Model.lean": "133c626733178910d8c33da38a7c923134bd8c6a1a05befe20ce21cb70c83f3a",
+    "comparator.json": "49b39eff446fcbeeac3c71d0dc4e823cf9b40e6f3eacc5b0225a422d7c23fabb",
+    "lake-manifest.json": "d192bdcbbfa20cc190c2187446a15bae4c759dcb1326b17accf60da707711ede",
+    "lakefile.toml": "7fe118525b790cd9053df84fb4e1b69c4207e57bc48968e0fced9d2379eb61f7",
+    "lean-toolchain": "ca5f1f601d34c49079e38d7e7041eb0f2a9c227fbc1df0f404820069a052330c"
+  },
+  "build_outputs": {
+    "build/bin/core": {
+      "executable": true,
+      "sha256": "47011829f546b3db8e4a2571be436cec5be42edfdda60430bbfb03d6f0fb4a73"
+    },
+    "build/bin/core.hash": {
+      "executable": false,
+      "sha256": "c2f6f68c083c2cac5f5550d9ae329a0982a9847e13174da670311b63921d26e0"
+    },
+    "build/bin/core.rsp": {
+      "executable": false,
+      "sha256": "0476152421f4909dab6a6932a440ce3e13da55f0a7c0689d8f334c2eeaacf43b"
+    },
+    "build/bin/core.trace": {
+      "executable": false,
+      "sha256": "217c6fdca40a15899f3c5df78083f7e8e2b157a7831c90f1c5c630adc90f85b2"
+    },
+    "build/ir/Admission.c": {
+      "executable": false,
+      "sha256": "1661df4bb4be6e8f43bb6f1cec15bd10be1d926606d6691cbb2077edebe84c7e"
+    },
+    "build/ir/Admission.c.hash": {
+      "executable": false,
+      "sha256": "703a5a60166002836782d962fd2fafdaaf87ec638ab062612878729e86adf8aa"
+    },
+    "build/ir/Admission.c.o.export": {
+      "executable": false,
+      "sha256": "0ce1df7f7280071484548bf477154c86c4f79b1539b938bea50b8de0d0a63195"
+    },
+    "build/ir/Admission.c.o.export.hash": {
+      "executable": false,
+      "sha256": "508925bc736bb3a3c354ea268b8a63de7243737573771db7eec5aaaeb7ad98dc"
+    },
+    "build/ir/Admission.c.o.export.trace": {
+      "executable": false,
+      "sha256": "4ec636e6e3170a76964ba86ccb466416e02d7bd1aa4f93149e93e5295eea5c3a"
+    },
+    "build/ir/Admission.setup.json": {
+      "executable": false,
+      "sha256": "6a64cbb47c93daa767754c8410b72840d10f06658f66757d509ef5506295c113"
+    },
+    "build/ir/Main.c": {
+      "executable": false,
+      "sha256": "c0bcf7fae0fad7a1b5dc136af1a9f84727d3da305a4cbd8667dc9f1a265b9eac"
+    },
+    "build/ir/Main.c.hash": {
+      "executable": false,
+      "sha256": "c4985c19323fa19351a5fe2272cddb3a40c8a97a7403c0e6d574745ce682c345"
+    },
+    "build/ir/Main.c.o.export": {
+      "executable": false,
+      "sha256": "e556ae6b143d153c684815f273070c010f2ef67fbc256379dcba7817640d94e1"
+    },
+    "build/ir/Main.c.o.export.hash": {
+      "executable": false,
+      "sha256": "a6ca9c088b3e4b5ec031d8739bf5ce248f6a137b52f0d381dc784d2f0d00b353"
+    },
+    "build/ir/Main.c.o.export.trace": {
+      "executable": false,
+      "sha256": "9dfe24e2dc825dbd7e5aabe66d976892b7e4f5a56304376626af4fa447d80ec3"
+    },
+    "build/ir/Main.setup.json": {
+      "executable": false,
+      "sha256": "48767ba1962381c9a6f6e0abe5824901c8841fc15241b722bf9e53356ec1a6b6"
+    },
+    "build/ir/Model.c": {
+      "executable": false,
+      "sha256": "43536fc8132ea12418b1297755f0fd06209739c4b7d6b35695d5091362dea2b6"
+    },
+    "build/ir/Model.c.hash": {
+      "executable": false,
+      "sha256": "f6b58bb19a47e25f79eae94be8ddad2691b98f7183d7b58a2d4766879366bb6d"
+    },
+    "build/ir/Model.c.o.export": {
+      "executable": false,
+      "sha256": "764864841ce8c1d482c919b97603e3b60201d87cef7444168d079c3dc2ffd885"
+    },
+    "build/ir/Model.c.o.export.hash": {
+      "executable": false,
+      "sha256": "8824143f5c4bff81664aada5c10d34c020d7b21a1c474dbd98d6d0ccd62ce926"
+    },
+    "build/ir/Model.c.o.export.trace": {
+      "executable": false,
+      "sha256": "3a132e5b1af155c8a31c07d14fc626c2a37b944dcbdba24b0e6ae466c87524fc"
+    },
+    "build/ir/Model.setup.json": {
+      "executable": false,
+      "sha256": "48a170f0601fe5514439bc341c49195987ffab6522066aa39d8d366bb94acb93"
+    },
+    "build/lib/lean/Admission.ilean": {
+      "executable": false,
+      "sha256": "53985b96e4760410a92ef1338d25fe0712464247ff0726d0cd71f6f0fd7d657b"
+    },
+    "build/lib/lean/Admission.ilean.hash": {
+      "executable": false,
+      "sha256": "db294de0ce418ff9870dd34b122ccecc18cb7694d17cc95745c0d0a517e67e5b"
+    },
+    "build/lib/lean/Admission.olean": {
+      "executable": false,
+      "sha256": "16fe6045c5037d931b7a97ac05b1a1576396e8b295a54edc54f022046fe7b4c1"
+    },
+    "build/lib/lean/Admission.olean.hash": {
+      "executable": false,
+      "sha256": "c34aa1fdff109f90743812469b91281ad297acda5ddbb360bf16ec1fc8424117"
+    },
+    "build/lib/lean/Admission.trace": {
+      "executable": false,
+      "sha256": "30affe647dbda6862415845705aa7bda3f6e985a50be75db866cf28d88cc27af"
+    },
+    "build/lib/lean/Main.ilean": {
+      "executable": false,
+      "sha256": "d1015634943a8280aee78584e23d20247e613f8427da461ecd669ec1c7140a86"
+    },
+    "build/lib/lean/Main.ilean.hash": {
+      "executable": false,
+      "sha256": "7b09c9bd11060f9bb368f8e736b5566c7dd4dbee8f83bfe5d8a80d09c1eafa22"
+    },
+    "build/lib/lean/Main.olean": {
+      "executable": false,
+      "sha256": "06d606dae74ef58f0558489ff39d48b25569f86fc0be07544832fb59ab4d8435"
+    },
+    "build/lib/lean/Main.olean.hash": {
+      "executable": false,
+      "sha256": "a7c2b60a80b4a49ec32050c7090c67473334dde14640cc88299823b113204379"
+    },
+    "build/lib/lean/Main.trace": {
+      "executable": false,
+      "sha256": "30bbff5bb5e979bb4014bb3301db209db7d9b55c7179824d87baee9b9efa638d"
+    },
+    "build/lib/lean/Model.ilean": {
+      "executable": false,
+      "sha256": "5f17facbfb2868507a40c751797c8870425e44350e8c37cc2c80bd1fbff06ae0"
+    },
+    "build/lib/lean/Model.ilean.hash": {
+      "executable": false,
+      "sha256": "35e16ff1849b7583ba24b50768089ad10a4900d8d3a4df4503c490efcad6e661"
+    },
+    "build/lib/lean/Model.olean": {
+      "executable": false,
+      "sha256": "561d30e91646b21a0dadca41f8a575b6e7420a6f6251d8a508e637a0941764f5"
+    },
+    "build/lib/lean/Model.olean.hash": {
+      "executable": false,
+      "sha256": "861afbed2136fc8997d4324d83b20ba76544876762d4bbbef0a3f7efb9b00ab4"
+    },
+    "build/lib/lean/Model.trace": {
+      "executable": false,
+      "sha256": "9cfd3c6055340a4f2f09f3ba12b136406348b8aba3b0200e2a90af13c845b640"
+    }
+  },
+  "checker_configuration": {
+    "challenge_module": "Challenge",
+    "definition_names": [],
+    "external_kernels": {
+      "nanoda": [
+        "/home/runner/.cache/proofgate-lean4/lean-4.35.0-linux/bin/nanoda_bin"
+      ]
+    },
+    "permitted_axioms": [
+      "propext",
+      "Quot.sound",
+      "Classical.choice"
+    ],
+    "solution_module": "Proof",
+    "theorem_names": [
+      "ProofGate.exact_grant",
+      "ProofGate.conservation",
+      "ProofGate.failure_preservation",
+      "ProofGate.total_success"
+    ]
+  },
+  "environment": {
+    "host_tools": {
+      "/lib64/ld-linux-x86-64.so.2": "c20a2dc8917c755f02b94049356320fe1f62ac7d9f8994731f807d9df39302da",
+      "/usr/bin/bwrap": "e318903862396f96de3df57264e0158682b952fd3fb53ac23d876413e7b30f71",
+      "/usr/bin/git": "824d5b2fffef332ec7ba053e579659bb12f26a0b4747da6f9c6dc0e71d36f235",
+      "/usr/bin/python3": "e50d468e8b0adfb05733f5b87b3cff34829c4a8c1aea50c865aa8bdfe4bb150f",
+      "/usr/bin/systemd-run": "de28cc5757d3789efa5f6fed5659893410469f68b42175d4531f5b34d3a09e16",
+      "/usr/lib/x86_64-linux-gnu/libc.so.6": "3a15d66867d83762c7f2f1e37359cb8f6c5743edb369c65285cb0b1c4f7498bf",
+      "/usr/lib/x86_64-linux-gnu/libdl.so.2": "c2994527172cc23b7fb0f7d611b71e00a37da27af12c2e5e9e0dc1a742886c96",
+      "/usr/lib/x86_64-linux-gnu/libgcc_s.so.1": "d93224d2b0dab4247598be683adca02f5cf00586f99c187579cd7e92058fb7cb",
+      "/usr/lib/x86_64-linux-gnu/libm.so.6": "fce00b6f25f459cf4ae0b7fae4257909a1a8a86f9149e7c029a5d617baf1ccd0",
+      "/usr/lib/x86_64-linux-gnu/libpthread.so.0": "90491a21ce44efcf3bd4b65ec82501c091d7ebe7f8d9b341dd01d721001d9ecd",
+      "/usr/lib/x86_64-linux-gnu/librt.so.1": "6d072187d88e092e81561a44c03a4a41397319022c6d43519757cc051c576d82",
+      "/usr/lib/x86_64-linux-gnu/libstdc++.so.6": "1fd75fe70354a416d75aef22bcae68c47bd25d20e2d0568c30b1a9838cf62f11"
+    },
+    "os_release": "PRETTY_NAME=\"Ubuntu 24.04.5 LTS\"\nNAME=\"Ubuntu\"\nVERSION_ID=\"24.04\"\nVERSION=\"24.04.5 LTS (Noble Numbat)\"\nVERSION_CODENAME=noble\nID=ubuntu\nID_LIKE=debian\nHOME_URL=\"https://www.ubuntu.com/\"\nSUPPORT_URL=\"https://help.ubuntu.com/\"\nBUG_REPORT_URL=\"https://bugs.launchpad.net/ubuntu/\"\nPRIVACY_POLICY_URL=\"https://www.ubuntu.com/legal/terms-and-policies/privacy-policy\"\nUBUNTU_CODENAME=noble\nLOGO=ubuntu-logo\n",
+    "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+    "system": "Linux-7.0.0-1017-azure-x86_64-with-glibc2.39"
+  },
+  "evaluator": "86648b184cf7c8aa0c3e5a077f0838791931d17366eb99fceef482686cbc1dc0",
+  "formal_seconds": 5.054221449000011,
+  "identity_sha256": "3c65388217636ec6b0aaeea02fc8057e9da4ba893b78eaf90ce5914fecc7c7ba",
+  "logs": {
+    "application.log": "a942bf69ba35b642b11b708d57bfdeeb64fa822c5d394ea564501481a77f47a5",
+    "bridge.log": "6506016e37495c6c73a4f5b1c0312f59116e7b063a8e4d61270f4046379ee06c",
+    "build.log": "b0f48afc353c16b8ed9f863315ac2f94e9f583fb483788bc07f8690a99dcf180",
+    "legacy-bridge.log": "9ec765ff63d5a755422905e7fe2f0f103e96041c5f2508fab7cf2061692d0fa2",
+    "preflight.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "proof.log": "12df2adfb665f0824358336955e6e012a5a52c3fa6e85c325e546f1f82370e55"
+  },
+  "observations_consistent": true,
+  "policy_admitted": false,
+  "proof_inputs": {
+    "Admission.lean": "584f5bad8bb3a41db079f15834f264dfaf075192cfb9b34db0be76d842ba9b98",
+    "Challenge.lean": "8dfbd68627962e6a6312b78675334cb5549d4293a522d5d790778ee2fd64534b",
+    "Main.lean": "ddce86f5f8fa2c0f8f7f6fbece4ef3b19495e2d2b39ef2c638797bc6aae9a58f",
+    "Model.lean": "133c626733178910d8c33da38a7c923134bd8c6a1a05befe20ce21cb70c83f3a",
+    "Proof.lean": "2eac0f3613e4e5485d66d3c43bdb4de19b5cf25a8c8024fc2f7e821089ffc550",
+    "comparator.json": "9c9263bbb50ba443e1d66f743c6134809a2ddd1c47634b7311f4f7afd2228ddf",
+    "lake-manifest.json": "d192bdcbbfa20cc190c2187446a15bae4c759dcb1326b17accf60da707711ede",
+    "lakefile.toml": "7fe118525b790cd9053df84fb4e1b69c4207e57bc48968e0fced9d2379eb61f7",
+    "lean-toolchain": "ca5f1f601d34c49079e38d7e7041eb0f2a9c227fbc1df0f404820069a052330c"
+  },
+  "protected": {
+    "Challenge.lean": {
+      "executable": false,
+      "sha256": "8dfbd68627962e6a6312b78675334cb5549d4293a522d5d790778ee2fd64534b"
+    },
+    "Main.lean": {
+      "executable": false,
+      "sha256": "ddce86f5f8fa2c0f8f7f6fbece4ef3b19495e2d2b39ef2c638797bc6aae9a58f"
+    },
+    "Model.lean": {
+      "executable": false,
+      "sha256": "133c626733178910d8c33da38a7c923134bd8c6a1a05befe20ce21cb70c83f3a"
+    },
+    "Statements.lean": {
+      "executable": false,
+      "sha256": "900615255a74e6a72be78cd7c83a580585f5a3f939ba4d830b15ad11292a500c"
+    },
+    "admission.mjs": {
+      "executable": false,
+      "sha256": "86e12682e8b73b246a29525b172000d51ce72c0204844883fe03336eabf0031e"
+    },
+    "bridge.mjs": {
+      "executable": false,
+      "sha256": "3645bfd4067a33feae7787a2a49f8754c986bf95ccb7c68f9bcf743c4d9ccf6e"
+    },
+    "checker-bwrap.py": {
+      "executable": true,
+      "sha256": "4d68aa577c9769052a2b82bc0fdf8aecdc422825f79e5795e6d5887714f023ab"
+    },
+    "comparator.json": {
+      "executable": false,
+      "sha256": "49b39eff446fcbeeac3c71d0dc4e823cf9b40e6f3eacc5b0225a422d7c23fabb"
+    },
+    "http_tests.py": {
+      "executable": false,
+      "sha256": "c5765879592892c17dbf62640bea4c97d521b0f0392f8eb88115affeffac9182"
+    },
+    "lake-manifest.json": {
+      "executable": false,
+      "sha256": "d192bdcbbfa20cc190c2187446a15bae4c759dcb1326b17accf60da707711ede"
+    },
+    "lakefile.toml": {
+      "executable": false,
+      "sha256": "7fe118525b790cd9053df84fb4e1b69c4207e57bc48968e0fced9d2379eb61f7"
+    },
+    "lean-toolchain": {
+      "executable": false,
+      "sha256": "ca5f1f601d34c49079e38d7e7041eb0f2a9c227fbc1df0f404820069a052330c"
+    },
+    "legacy_bridge.mjs": {
+      "executable": false,
+      "sha256": "a2d37e5b9d413ca02cb5ab98c526bebea4d233e7ffff1715bb04ad837453dad3"
+    },
+    "server.ts": {
+      "executable": false,
+      "sha256": "0a71fd2b140713bd80d253e829694bb0ea5dd53fd9934dee813374ffab93e09d"
+    },
+    "toolchain.json": {
+      "executable": false,
+      "sha256": "089fa6d93683020aed36e7c6a8632213916c4b3c831683804037301f9cac84f5"
+    }
+  },
+  "revision": {
+    "commit": "40af8d46f89b0fb1e219157974f4b6fbb142b660",
+    "dirty": ""
+  },
+  "schema": 1,
+  "snapshot_sha256": "2394f6ead910ea5d48421fc08d4831fd241c25a368d4684fc461359e2449c0a6",
+  "source": {
+    "app/server.ts": "0a71fd2b140713bd80d253e829694bb0ea5dd53fd9934dee813374ffab93e09d",
+    "formal/Admission.lean": "584f5bad8bb3a41db079f15834f264dfaf075192cfb9b34db0be76d842ba9b98",
+    "formal/Proof.lean": "2eac0f3613e4e5485d66d3c43bdb4de19b5cf25a8c8024fc2f7e821089ffc550"
+  },
+  "toolchains": {
+    "lean": {
+      "archive": "lean-4.35.0-linux.tar.zst",
+      "archive_sha256": "7289597a44543246c9227b8cae501767e095ce17f6d448b95fc4a8dc97268f6d",
+      "directory": "lean-4.35.0-linux",
+      "tree_sha256": "c404e1d11cc09ba4feeb0d4002c1b34e20b098900d8da49cff6bdc3c5f60b89f",
+      "url": "https://github.com/leanprover/lean4/releases/download/v4.35.0/lean-4.35.0-linux.tar.zst"
+    },
+    "node": {
+      "archive": "node-v24.22.1-linux-x64.tar.xz",
+      "archive_sha256": "6c172a9ab6718f7b801fb5a7bd486af2ee5e32758086a04b84fcce2aa77095e6",
+      "directory": "node-v24.22.1-linux-x64",
+      "tree_sha256": "c292f6e8652f82f0ea34870cedc1c5d94b7597676eb669b766dcc36742a25103",
+      "url": "https://nodejs.org/dist/v24.22.1/node-v24.22.1-linux-x64.tar.xz"
+    }
+  }
+}

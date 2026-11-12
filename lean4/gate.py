@@ -116,9 +116,6 @@ def check_tools(cache):
 def evaluate(candidate, output, cache):
     if output.exists(): raise Rejected('output-policy', 'output already exists')
     initial = snapshot(candidate)
-    if sha(candidate/'app/server.ts') != sha(BASE/'server.ts'):
-        raise Rejected('driver-policy','service and call binding must match the protected v1 service')
-    validate_admission((candidate/'formal/Admission.lean').read_text())
     protected = tree(BASE)
     evaluator_identity=sha(Path(__file__))
     manifest=ROOT/'baseline-v1.json'
@@ -129,6 +126,11 @@ def evaluate(candidate, output, cache):
     output.mkdir(parents=True)
     frozen=output/'source'; shutil.copytree(candidate,frozen)
     if snapshot(frozen)!=initial: raise Rejected('identity','source changed while snapshotting')
+    # Policy checks must cover the exact evaluator-owned bytes used by both
+    # proof checking and runtime compilation, never a later read of live source.
+    if sha(frozen/'app/server.ts') != sha(BASE/'server.ts'):
+        raise Rejected('driver-policy','service and call binding must match the protected v1 service')
+    validate_admission((frozen/'formal/Admission.lean').read_text())
     # Probe actual isolation/resource manager before any candidate elaboration.
     probe = output/'probe'; probe.mkdir()
     run(scope()+sandbox(tools,node,probe,[])+['/bin/true'], output, output/'preflight.log', timeout=15)
