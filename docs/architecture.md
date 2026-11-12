@@ -1,5 +1,9 @@
 # Architecture and verification boundaries
 
+This document describes the preserved Bend experiment. The separately versioned
+[direct Lean 4 migration](../lean4/README.md) documents its new proof validation,
+compiled interface, trust assumptions and [acceptance status](../lean4/STATUS.md).
+
 ProofGate separates the code being evaluated from the authority that decides whether it may be deployed. Its demonstration is deliberately small: reserve credits from an initial balance of 100, persist each decision, and make retries safe.
 
 ## Three responsibilities

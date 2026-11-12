@@ -21,3 +21,15 @@ The bootstrap downloads these tools into the ignored `toolchains/` directory. Th
 | Node.js | 24.22.1 | [Node.js license and bundled third-party notices](https://github.com/nodejs/node/blob/v24.22.1/LICENSE) |
 
 The bootstrap URLs and archive checksums are recorded in [`baseline/bootstrap.py`](baseline/bootstrap.py). The frozen runtime inventory is [`baseline/toolchain-lock.json`](baseline/toolchain-lock.json).
+
+## Direct Lean 4 migration
+
+The separate [Lean v1 baseline](lean4/baseline/v1/toolchain.json) downloads Lean
+4.35.0 (including Lake, comparator, leanchecker and bundled external checkers)
+and Node 24.22.1 into the user cache. Those distributions are not committed.
+Lean's [Apache 2.0 license](https://github.com/leanprover/lean4/blob/v4.35.0/LICENSE)
+and bundled third-party `LICENSES` remain in the pinned distribution. The new
+native application artifact includes verbatim `LEAN-LICENSE` and `LEAN-LICENSES`
+sidecars; retain them with redistributed executable bytes. The generated runtime,
+compiler and external checkers retain their upstream licenses. Historical Bend
+notices and artifact bytes are unchanged.

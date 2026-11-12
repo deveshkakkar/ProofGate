@@ -4,6 +4,14 @@
 
 ProofGate combines formal proofs with independent service tests, then deploys the exact build that passed. This research prototype demonstrates a TypeScript/SQLite credit-reservation service with admission logic compiled from Bend.
 
+## Lean 4 migration
+
+The highest-priority [direct Lean 4 migration](lean4/README.md) has a separate
+versioned core, proof checker, native bridge and service verification path.
+[Acceptance status](lean4/STATUS.md) distinguishes fresh engineering evidence
+from the pending Photon restricted-agent demonstration and admission authority.
+The historical Bend experiment and its reproduction commands below remain intact.
+
 ## Choose a path
 
 - **Check your selected Python code:** [experimental JSON fixture adapter](docs/framework/EXTERNAL-JSON.md). Linux sandbox required; finite observations with no admission authority. [Entitlement walkthrough](docs/framework/TRY.md) provides a fixed demo.

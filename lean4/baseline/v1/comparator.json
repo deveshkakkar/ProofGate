@@ -1,0 +1,21 @@
+{
+  "challenge_module": "Challenge",
+  "solution_module": "Proof",
+  "theorem_names": [
+    "ProofGate.exact_grant",
+    "ProofGate.conservation",
+    "ProofGate.failure_preservation",
+    "ProofGate.total_success"
+  ],
+  "definition_names": [],
+  "permitted_axioms": [
+    "propext",
+    "Quot.sound",
+    "Classical.choice"
+  ],
+  "external_kernels": {
+    "nanoda": [
+      "/tools/bin/nanoda_bin"
+    ]
+  }
+}
