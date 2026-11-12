@@ -1,0 +1,17 @@
+{
+  "canonical_source": {
+    "app/server.ts": "0a71fd2b140713bd80d253e829694bb0ea5dd53fd9934dee813374ffab93e09d",
+    "formal/Admission.lean": "584f5bad8bb3a41db079f15834f264dfaf075192cfb9b34db0be76d842ba9b98",
+    "formal/Proof.lean": "2eac0f3613e4e5485d66d3c43bdb4de19b5cf25a8c8024fc2f7e821089ffc550"
+  },
+  "fault": "deliberately seeded overgrant",
+  "phase": "lean4-reservation-v1",
+  "policy_admitted": false,
+  "seed_created_before_model_execution": true,
+  "source": {
+    "app/server.ts": "0a71fd2b140713bd80d253e829694bb0ea5dd53fd9934dee813374ffab93e09d",
+    "formal/Admission.lean": "2efd40bb23f0cde8985441dec4242ab7328eda3d599d02035c860ec1c13fbacf",
+    "formal/Proof.lean": "2eac0f3613e4e5485d66d3c43bdb4de19b5cf25a8c8024fc2f7e821089ffc550"
+  },
+  "source_commit": "3ed4e8d868808bde351e750020dc9644a3fe44b0"
+}

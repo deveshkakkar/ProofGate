@@ -1,0 +1,15 @@
+{
+  "checked_commit": "3ed4e8d868808bde351e750020dc9644a3fe44b0",
+  "premerge_head": "18199c65264ef020312c9d35f02166924c4ace8c",
+  "lean_run": 43174126038,
+  "offline_run": 43174126041,
+  "receipt_sha256": "e33a96fb033156d12b9348028b109cfb2392e2e1557cbee21645f73ebec977e2",
+  "evaluator_sha256": "6a7c1d862b7663d89fab24d5004af287bc4dfa9e8807b87e3208460e7b1ed4f5",
+  "baseline_manifest_sha256": "dcfc951a38a5fc84627894babcef07005b6d813bdaee25d6b4bb49ba05252e03",
+  "core_sha256": "47011829f546b3db8e4a2571be436cec5be42edfdda60430bbfb03d6f0fb4a73",
+  "source_sha256": "2394f6ead910ea5d48421fc08d4831fd241c25a368d4684fc461359e2449c0a6",
+  "all_source_log_artifact_copy_hashes": "passed",
+  "merge_actor": "deveshkakkar",
+  "separate_policy_approval_record": false,
+  "policy_admitted": false
+}

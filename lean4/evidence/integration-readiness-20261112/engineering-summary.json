@@ -1,0 +1,70 @@
+{
+  "class": "real merged evaluator adapter; operator engineering control, NOT Photon repair",
+  "sanitized_public_summary": true,
+  "original_receipt_preserved_privately": true,
+  "original_receipt_sha256": "c16e88495160fc296036e377464d770dfb3b5abd2491a018d44d503da7ad6ef3",
+  "source_commit": "3ed4e8d868808bde351e750020dc9644a3fe44b0",
+  "evaluator_sha256": "6a7c1d862b7663d89fab24d5004af287bc4dfa9e8807b87e3208460e7b1ed4f5",
+  "baseline_sha256": "dcfc951a38a5fc84627894babcef07005b6d813bdaee25d6b4bb49ba05252e03",
+  "controller_sha256": "f0e8b971eea9e4ca9268d758b10b49e1c304dd439c73e577d92719dccd16f5a8",
+  "candidate_source": {
+    "app/server.ts": "0a71fd2b140713bd80d253e829694bb0ea5dd53fd9934dee813374ffab93e09d",
+    "formal/Admission.lean": "584f5bad8bb3a41db079f15834f264dfaf075192cfb9b34db0be76d842ba9b98",
+    "formal/Proof.lean": "2eac0f3613e4e5485d66d3c43bdb4de19b5cf25a8c8024fc2f7e821089ffc550"
+  },
+  "artifact": {
+    "LEAN-LICENSE": {
+      "executable": false,
+      "sha256": "8b28515ffffc5c0fe2807d8ae3735b00b324d9b7ce807dd63ff6ac8922fbce7e"
+    },
+    "LEAN-LICENSES": {
+      "executable": false,
+      "sha256": "0af1535aa474a58f5d21b2f4b503bb91cad4ff34fec0f10dc776a0a041795fd8"
+    },
+    "admission.mjs": {
+      "executable": false,
+      "sha256": "86e12682e8b73b246a29525b172000d51ce72c0204844883fe03336eabf0031e"
+    },
+    "core": {
+      "executable": true,
+      "sha256": "47011829f546b3db8e4a2571be436cec5be42edfdda60430bbfb03d6f0fb4a73"
+    },
+    "server.ts": {
+      "executable": false,
+      "sha256": "0a71fd2b140713bd80d253e829694bb0ea5dd53fd9934dee813374ffab93e09d"
+    }
+  },
+  "seeded_overgrant_rejection": "Lean proof obligations: unsolved goals",
+  "operator_restoration": "passed proof/kernel/nanoda/build/bridges/application",
+  "patch": {
+    "paths": [
+      "formal/Admission.lean"
+    ],
+    "patch_sha256": "b116a94bca3f9143c4df3f37ef4c15206874155ec8626911558857b91b93f429",
+    "patch_bytes": 389
+  },
+  "matches_merged_candidate": true,
+  "publication_needed": false,
+  "coding_tests": {
+    "run": 134,
+    "passed": 131,
+    "skipped": 3
+  },
+  "real_cli_fake_provider_tests": {
+    "run": 2,
+    "passed": 2,
+    "live_inference": false
+  },
+  "real_scope_cleanup_tests": {
+    "run": 1,
+    "passed": 1
+  },
+  "live_model_requests": 0,
+  "mission_dispatches": 0,
+  "policy_admitted": false,
+  "limitations": [
+    "Not an actual Photon coding demonstration",
+    "Not authenticated admission",
+    "Private raw receipt/logs are retained unchanged outside public history"
+  ]
+}
