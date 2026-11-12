@@ -1,0 +1,16 @@
+Resolving dependencies
+Building Challenge
+✔ [2/5] Built Model (310ms)
+✔ [3/5] Built Admission (260ms)
+⚠ [4/5] Built Challenge (260ms)
+warning: Challenge.lean:4:8: declaration uses `sorry`
+warning: Challenge.lean:7:8: declaration uses `sorry`
+warning: Challenge.lean:10:8: declaration uses `sorry`
+warning: Challenge.lean:13:8: declaration uses `sorry`
+Build completed successfully (5 jobs).
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, ProofGate.exact_grant, ProofGate.conservation, ProofGate.failure_preservation, ProofGate.total_success, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from Challenge
+Building Proof
+✔ [4/5] Built Proof (256ms)
+Build completed successfully (5 jobs).
+error: Challenge and solution theorem statement do not match: 'ProofGate.exact_grant'
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, ProofGate.exact_grant, ProofGate.conservation, ProofGate.failure_preservation, ProofGate.total_success, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from Proof

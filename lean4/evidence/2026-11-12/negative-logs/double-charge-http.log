@@ -1,0 +1,10 @@
+ProofGate listening on http://127.0.0.1:58755
+
+Traceback (most recent call last):
+  File "/home/devesh/ProofGate-lean4-migration/lean4/baseline/v1/http_tests.py", line 115, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/devesh/ProofGate-lean4-migration/lean4/baseline/v1/http_tests.py", line 92, in main
+    assert app.balance()==65
+           ^^^^^^^^^^^^^^^^^
+AssertionError

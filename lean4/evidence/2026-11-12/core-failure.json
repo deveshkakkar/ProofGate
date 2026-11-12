@@ -1,0 +1,5 @@
+{
+  "case": "core-execution-failure",
+  "passed": true,
+  "observed": "EACCES -> HTTP 500, rollback, successful retry, persistence/restart"
+}
