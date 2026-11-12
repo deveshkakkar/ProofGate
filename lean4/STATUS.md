@@ -41,7 +41,7 @@ rejections. Fresh execution, mocks and archived evidence must remain distinct.
 - [x] 11,716 boundary cases, interface timing and HTTP/SQLite regression tests
 - [x] Exact fresh identity receipt, stale/substitution rejection, copy without rebuild
 - [x] Negative controls and real infrastructure failures
-- [ ] Fresh CI execution on supported host
+- [x] Fresh CI execution on supported host
 - [x] Fresh-context review of requirements/diff/evidence
 - [ ] Photon-origin restricted agent demonstration (separate; authority prerequisites)
 - [ ] Authenticated admission (#28; separate release blocker)
@@ -110,8 +110,12 @@ separate.
 
 ## Remaining acceptance / handoff
 
-- Hosted CI: open the normal PR, inspect its fresh Lean job and preserve the run
-  link and artifact. A locally passing run does not count as hosted execution.
+- Hosted CI completed: [run 43160320209](https://github.com/deveshkakkar/ProofGate/actions/runs/43160320209)
+  passed the complete final harness and genuine core-failure test at `abc6d97`.
+  Its [artifact](https://github.com/deveshkakkar/ProofGate/actions/runs/43160320209/artifacts/13916899595)
+  contains the compiled bytes, receipt and full diagnostics. The PR workflow now
+  explicitly checks out its head SHA; final-revision checks remain visible in
+  [PR #47](https://github.com/deveshkakkar/ProofGate/pull/47).
 - Human baseline review: review this separately versioned Lean baseline and
   evaluator in the PR. A new manifest identity alone is not external approval.
 - Photon-origin restricted agent demonstration: blocked on the existing separate
@@ -155,3 +159,32 @@ passed a real executable EACCES -> HTTP 500 -> rollback -> successful retry ->
 persisted/restarted response sequence. Its result is retained with the evidence.
 The final workflow runs both the complete matrix and this additional failure
 check against its freshly compiled artifact.
+
+
+### Reviewable PR and stable-head handoff
+
+Normal ready-for-review [PR #47](https://github.com/deveshkakkar/ProofGate/pull/47),
+branch `codex/lean4-migration`. Implementation commit `14837ca`; evidence commit
+`abc6d97`. GitHub's automated review of `abc6d97` completed with no findings;
+review submissions and inline review threads were empty when inspected. Human
+baseline review/merge/deploy authority is not implied by that result.
+
+A stable-head rerun at `abc6d9705d3661a1f58c0ae11914a42ecf5f2655`, clean candidate,
+passed all proof/build/bridge/HTTP stages and exact identity/copy rechecking:
+
+```sh
+python3 -B lean4/gate.py --output /tmp/proofgate-lean-final-head-2
+```
+
+Receipt `/tmp/proofgate-lean-final-head-2/receipt.json`, SHA256
+`25fb4e8847e42e0a344bf0bd89ca4347c0ef571ebc198143afb700707c6dab88`.
+`copy_checked` copied its exact artifact to
+`/tmp/proofgate-lean-final-head-2-accepted-copy` without rebuild. A prior receipt
+at the transient pre-amend evidence commit was correctly rejected by the commit
+identity check; it was not used as the final handoff.
+
+The final small CI/documentation update pins PR checkout to the actual head and
+coalesces duplicate branch/PR jobs. Its current check results and fresh receipt
+belong to the final PR revision, not the older local handoff above. No automatic
+repair loop was used; any later findings require owner assessment after the
+single repair-pass boundary in the global policy.
