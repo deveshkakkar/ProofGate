@@ -1,0 +1,146 @@
+{
+  "cases": [
+    {
+      "A_sha256": "b3657071fef14382889512b0371275c071f927c094bfcb91cb4a928c7d0ec741",
+      "B_sha256": "584f5bad8bb3a41db079f15834f264dfaf075192cfb9b34db0be76d842ba9b98",
+      "approved_control": true,
+      "candidate_processes_started": 0,
+      "evaluator": "repaired",
+      "frozen_source": {
+        "app/server.ts": "0a71fd2b140713bd80d253e829694bb0ea5dd53fd9934dee813374ffab93e09d",
+        "formal/Admission.lean": "584f5bad8bb3a41db079f15834f264dfaf075192cfb9b34db0be76d842ba9b98",
+        "formal/Proof.lean": "2eac0f3613e4e5485d66d3c43bdb4de19b5cf25a8c8024fc2f7e821089ffc550"
+      },
+      "inconsistent_copy_control": false,
+      "outcome": "preflight-stop-no-execution",
+      "policy": "runtime",
+      "schedule": [
+        "hash-initial-B",
+        "live-B",
+        "live-B",
+        "verify-frozen",
+        "preflight-stop-no-execution"
+      ],
+      "unapproved_snapshot_reached_preflight": false
+    },
+    {
+      "A_sha256": "b3657071fef14382889512b0371275c071f927c094bfcb91cb4a928c7d0ec741",
+      "B_sha256": "584f5bad8bb3a41db079f15834f264dfaf075192cfb9b34db0be76d842ba9b98",
+      "approved_control": false,
+      "candidate_processes_started": 0,
+      "evaluator": "repaired",
+      "frozen_source": {
+        "app/server.ts": "0a71fd2b140713bd80d253e829694bb0ea5dd53fd9934dee813374ffab93e09d",
+        "formal/Admission.lean": "584f5bad8bb3a41db079f15834f264dfaf075192cfb9b34db0be76d842ba9b98",
+        "formal/Proof.lean": "2eac0f3613e4e5485d66d3c43bdb4de19b5cf25a8c8024fc2f7e821089ffc550"
+      },
+      "inconsistent_copy_control": true,
+      "outcome": "identity",
+      "policy": "runtime",
+      "schedule": [
+        "hash-initial-A",
+        "live-B",
+        "live-B",
+        "verify-frozen"
+      ],
+      "unapproved_snapshot_reached_preflight": false
+    },
+    {
+      "A_sha256": "349c6c549f69a107b9ead87f1d28c776bf7d7679d9b6b10fb26a4454c3a7d21a",
+      "B_sha256": "0a71fd2b140713bd80d253e829694bb0ea5dd53fd9934dee813374ffab93e09d",
+      "approved_control": false,
+      "candidate_processes_started": 0,
+      "evaluator": "repaired",
+      "frozen_source": {
+        "app/server.ts": "349c6c549f69a107b9ead87f1d28c776bf7d7679d9b6b10fb26a4454c3a7d21a",
+        "formal/Admission.lean": "584f5bad8bb3a41db079f15834f264dfaf075192cfb9b34db0be76d842ba9b98",
+        "formal/Proof.lean": "2eac0f3613e4e5485d66d3c43bdb4de19b5cf25a8c8024fc2f7e821089ffc550"
+      },
+      "inconsistent_copy_control": false,
+      "outcome": "driver-policy",
+      "policy": "driver",
+      "schedule": [
+        "hash-initial-A",
+        "live-B",
+        "live-A",
+        "verify-frozen"
+      ],
+      "unapproved_snapshot_reached_preflight": false
+    },
+    {
+      "A_sha256": "b3657071fef14382889512b0371275c071f927c094bfcb91cb4a928c7d0ec741",
+      "B_sha256": "584f5bad8bb3a41db079f15834f264dfaf075192cfb9b34db0be76d842ba9b98",
+      "approved_control": false,
+      "candidate_processes_started": 0,
+      "evaluator": "repaired",
+      "frozen_source": {
+        "app/server.ts": "0a71fd2b140713bd80d253e829694bb0ea5dd53fd9934dee813374ffab93e09d",
+        "formal/Admission.lean": "b3657071fef14382889512b0371275c071f927c094bfcb91cb4a928c7d0ec741",
+        "formal/Proof.lean": "2eac0f3613e4e5485d66d3c43bdb4de19b5cf25a8c8024fc2f7e821089ffc550"
+      },
+      "inconsistent_copy_control": false,
+      "outcome": "runtime-policy",
+      "policy": "runtime",
+      "schedule": [
+        "hash-initial-A",
+        "live-B",
+        "live-A",
+        "verify-frozen"
+      ],
+      "unapproved_snapshot_reached_preflight": false
+    },
+    {
+      "A_sha256": "349c6c549f69a107b9ead87f1d28c776bf7d7679d9b6b10fb26a4454c3a7d21a",
+      "B_sha256": "0a71fd2b140713bd80d253e829694bb0ea5dd53fd9934dee813374ffab93e09d",
+      "approved_control": false,
+      "candidate_processes_started": 0,
+      "evaluator": "reviewed-40af8d46f89b0fb1e219157974f4b6fbb142b660",
+      "frozen_source": {
+        "app/server.ts": "349c6c549f69a107b9ead87f1d28c776bf7d7679d9b6b10fb26a4454c3a7d21a",
+        "formal/Admission.lean": "584f5bad8bb3a41db079f15834f264dfaf075192cfb9b34db0be76d842ba9b98",
+        "formal/Proof.lean": "2eac0f3613e4e5485d66d3c43bdb4de19b5cf25a8c8024fc2f7e821089ffc550"
+      },
+      "inconsistent_copy_control": false,
+      "outcome": "preflight-stop-no-execution",
+      "policy": "driver",
+      "schedule": [
+        "hash-initial-A",
+        "live-B",
+        "live-A",
+        "verify-frozen",
+        "preflight-stop-no-execution"
+      ],
+      "unapproved_snapshot_reached_preflight": true
+    },
+    {
+      "A_sha256": "b3657071fef14382889512b0371275c071f927c094bfcb91cb4a928c7d0ec741",
+      "B_sha256": "584f5bad8bb3a41db079f15834f264dfaf075192cfb9b34db0be76d842ba9b98",
+      "approved_control": false,
+      "candidate_processes_started": 0,
+      "evaluator": "reviewed-40af8d46f89b0fb1e219157974f4b6fbb142b660",
+      "frozen_source": {
+        "app/server.ts": "0a71fd2b140713bd80d253e829694bb0ea5dd53fd9934dee813374ffab93e09d",
+        "formal/Admission.lean": "b3657071fef14382889512b0371275c071f927c094bfcb91cb4a928c7d0ec741",
+        "formal/Proof.lean": "2eac0f3613e4e5485d66d3c43bdb4de19b5cf25a8c8024fc2f7e821089ffc550"
+      },
+      "inconsistent_copy_control": false,
+      "outcome": "preflight-stop-no-execution",
+      "policy": "runtime",
+      "schedule": [
+        "hash-initial-A",
+        "live-B",
+        "live-A",
+        "verify-frozen",
+        "preflight-stop-no-execution"
+      ],
+      "unapproved_snapshot_reached_preflight": true
+    }
+  ],
+  "passed": true,
+  "repaired_evaluator_sha256": "6a7c1d862b7663d89fab24d5004af287bc4dfa9e8807b87e3208460e7b1ed4f5",
+  "reviewed_commit": "40af8d46f89b0fb1e219157974f4b6fbb142b660",
+  "reviewed_evaluate_sha256": "ad2f1652874c3b41949c3be7b9cb678373a54a8ba45a03c0359dd5996d885176",
+  "schema": 1,
+  "scope": "focused policy/snapshot boundary; controlled scheduling; substituted toolchain/preflight; no Lean/build execution",
+  "tests_run": 6
+}

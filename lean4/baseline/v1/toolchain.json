@@ -1,0 +1,16 @@
+{
+  "lean": {
+    "directory": "lean-4.35.0-linux",
+    "archive": "lean-4.35.0-linux.tar.zst",
+    "url": "https://github.com/leanprover/lean4/releases/download/v4.35.0/lean-4.35.0-linux.tar.zst",
+    "archive_sha256": "7289597a44543246c9227b8cae501767e095ce17f6d448b95fc4a8dc97268f6d",
+    "tree_sha256": "c404e1d11cc09ba4feeb0d4002c1b34e20b098900d8da49cff6bdc3c5f60b89f"
+  },
+  "node": {
+    "directory": "node-v24.22.1-linux-x64",
+    "archive": "node-v24.22.1-linux-x64.tar.xz",
+    "url": "https://nodejs.org/dist/v24.22.1/node-v24.22.1-linux-x64.tar.xz",
+    "archive_sha256": "6c172a9ab6718f7b801fb5a7bd486af2ee5e32758086a04b84fcce2aa77095e6",
+    "tree_sha256": "c292f6e8652f82f0ea34870cedc1c5d94b7597676eb669b766dcc36742a25103"
+  }
+}

@@ -14,3 +14,6 @@ auth.json
 /candidate/data/
 /runs/reproduce-*/
 /supervisor/codex-state/
+
+# Durable local final-head verification bundles; receipts cannot contain their own Git commit.
+/lean4/evidence/local/

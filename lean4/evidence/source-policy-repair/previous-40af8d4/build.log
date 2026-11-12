@@ -1,0 +1,8 @@
+✔ [2/8] Built Model (381ms)
+✔ [3/8] Built Model:c.o (114ms)
+✔ [4/8] Built Admission (345ms)
+✔ [5/8] Built Admission:c.o (58ms)
+✔ [6/8] Built Main (412ms)
+✔ [7/8] Built Main:c.o (137ms)
+✔ [8/8] Built core:exe (175ms)
+Build completed successfully (8 jobs).

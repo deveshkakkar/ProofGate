@@ -1,0 +1,22 @@
+Resolving dependencies
+Building Challenge
+✔ [2/5] Built Model (310ms)
+✔ [3/5] Built Admission (264ms)
+⚠ [4/5] Built Challenge (256ms)
+warning: Challenge.lean:4:8: declaration uses `sorry`
+warning: Challenge.lean:7:8: declaration uses `sorry`
+warning: Challenge.lean:10:8: declaration uses `sorry`
+warning: Challenge.lean:13:8: declaration uses `sorry`
+Build completed successfully (5 jobs).
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, ProofGate.exact_grant, ProofGate.conservation, ProofGate.failure_preservation, ProofGate.total_success, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from Challenge
+Building Proof
+✖ [4/5] Building Proof (279ms)
+trace: .> LEAN_PATH=/tmp/proofgate-lean-matrix-4/always-reject/run/proof/.lake/build/lib/lean /home/devesh/.cache/proofgate-lean4/lean-4.35.0-linux/bin/lean /tmp/proofgate-lean-matrix-4/always-reject/run/proof/Proof.lean -o /tmp/proofgate-lean-matrix-4/always-reject/run/proof/.lake/build/lib/lean/Proof.olean -i /tmp/proofgate-lean-matrix-4/always-reject/run/proof/.lake/build/lib/lean/Proof.ilean -c /tmp/proofgate-lean-matrix-4/always-reject/run/proof/.lake/build/ir/Proof.c --setup /tmp/proofgate-lean-matrix-4/always-reject/run/proof/.lake/build/ir/Proof.setup.json --json
+error: Proof.lean:21:13: unsolved goals
+case nonneg
+b n : Nat
+⊢ 0 < n → b < n
+Some required targets logged failures:
+- Proof
+error: build failed
+error: Child exited with 1

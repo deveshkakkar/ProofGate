@@ -1,0 +1,195 @@
+[
+  {
+    "control": "valid",
+    "result": "passed",
+    "layer": "formal/build/bridge/application",
+    "detail": {
+      "receipt_sha256": "668aaa6b8b3c63b1a135a441142b6c7e44d00b73963cd97b39b285a15ca32c8b",
+      "snapshot_sha256": "2394f6ead910ea5d48421fc08d4831fd241c25a368d4684fc461359e2449c0a6"
+    }
+  },
+  {
+    "control": "accepted-copy",
+    "result": "passed",
+    "layer": "identity",
+    "detail": "copied tested bytes without rebuild; no service deployed"
+  },
+  {
+    "control": "overgrant",
+    "result": "passed",
+    "layer": "proof-obligation",
+    "detail": {
+      "gate_status": "formal-failed",
+      "known_fixture_diagnostic": "unsolved goals"
+    }
+  },
+  {
+    "control": "always-reject",
+    "result": "passed",
+    "layer": "proof-obligation",
+    "detail": {
+      "gate_status": "formal-failed",
+      "known_fixture_diagnostic": "unsolved goals"
+    }
+  },
+  {
+    "control": "sorry",
+    "result": "passed",
+    "layer": "statement-or-axiom",
+    "detail": {
+      "gate_status": "formal-failed",
+      "known_fixture_diagnostic": "Illegal axiom detected: 'sorryAx'"
+    }
+  },
+  {
+    "control": "custom-axiom",
+    "result": "passed",
+    "layer": "statement-or-axiom",
+    "detail": {
+      "gate_status": "formal-failed",
+      "known_fixture_diagnostic": "Illegal axiom detected: 'ProofGate.forbidden'"
+    }
+  },
+  {
+    "control": "altered-statement",
+    "result": "passed",
+    "layer": "statement-or-axiom",
+    "detail": {
+      "gate_status": "formal-failed",
+      "known_fixture_diagnostic": "Challenge and solution theorem statement do not match"
+    }
+  },
+  {
+    "control": "spoofed-proof-success",
+    "result": "passed",
+    "layer": "statement-or-axiom",
+    "detail": {
+      "gate_status": "formal-failed",
+      "known_fixture_diagnostic": "Illegal axiom detected: 'sorryAx'"
+    }
+  },
+  {
+    "control": "native-evaluation",
+    "result": "passed",
+    "layer": "statement-or-axiom",
+    "detail": {
+      "gate_status": "formal-failed",
+      "known_fixture_diagnostic": "Illegal axiom detected:"
+    }
+  },
+  {
+    "control": "referenced-definition-bypass",
+    "result": "passed",
+    "layer": "statement-or-axiom",
+    "detail": {
+      "gate_status": "formal-failed",
+      "known_fixture_diagnostic": "Const does not match between challenge and target 'ProofGate.admission'"
+    }
+  },
+  {
+    "control": "crash-with-spoofed-diagnostics",
+    "result": "passed",
+    "layer": "formal-failed",
+    "detail": "formal-failed: unverified failure (cause unknown); process: exit 1; /tmp/proofgate-lean-matrix-4/crash-with-spoofed-diagnostics/run/proof.log"
+  },
+  {
+    "control": "missing-proof",
+    "result": "passed",
+    "layer": "source-policy",
+    "detail": "source-policy: expected exactly ('formal/Admission.lean', 'formal/Proof.lean', 'app/server.ts'); found ['app/server.ts', 'formal/Admission.lean', 'formal/Other.lean']"
+  },
+  {
+    "control": "altered-model",
+    "result": "passed",
+    "layer": "source-policy",
+    "detail": "source-policy: expected exactly ('formal/Admission.lean', 'formal/Proof.lean', 'app/server.ts'); found ['app/server.ts', 'formal/Admission.lean', 'formal/Model.lean', 'formal/Proof.lean']"
+  },
+  {
+    "control": "runtime-substitution",
+    "result": "passed",
+    "layer": "runtime-policy",
+    "detail": "runtime-policy: admission declaration envelope changed"
+  },
+  {
+    "control": "extern-substitution",
+    "result": "passed",
+    "layer": "runtime-policy",
+    "detail": "runtime-policy: admission declaration envelope changed"
+  },
+  {
+    "control": "driver-spoof",
+    "result": "passed",
+    "layer": "driver-policy",
+    "detail": "driver-policy: service and call binding must match the protected v1 service"
+  },
+  {
+    "control": "double-charge-http",
+    "result": "passed",
+    "layer": "process",
+    "detail": "process: exit 1; /tmp/proofgate-lean-matrix-4/double-charge-tests/application.log"
+  },
+  {
+    "control": "artifact-substitution",
+    "result": "passed",
+    "layer": "identity",
+    "detail": "identity: accepted artifact substituted"
+  },
+  {
+    "control": "forged-receipt",
+    "result": "passed",
+    "layer": "identity",
+    "detail": "identity: receipt does not match independently supplied digest"
+  },
+  {
+    "control": "stale-source",
+    "result": "passed",
+    "layer": "identity",
+    "detail": "identity: source, specification, checker or evaluator changed"
+  },
+  {
+    "control": "missing-evidence",
+    "result": "passed",
+    "layer": "identity",
+    "detail": "identity: required evidence changed"
+  },
+  {
+    "control": "concurrent-edit",
+    "result": "passed",
+    "layer": "identity",
+    "detail": "identity: inputs changed during checking"
+  },
+  {
+    "control": "missing-tool",
+    "result": "passed",
+    "layer": "infrastructure",
+    "detail": "infrastructure: missing lean: /tmp/proofgate-lean-matrix-4/missing-cache/lean-4.35.0-linux; run bootstrap.py"
+  },
+  {
+    "control": "missing-executable",
+    "result": "passed",
+    "layer": "infrastructure",
+    "detail": "infrastructure: [Errno 2] No such file or directory: '/missing/proofgate-checker'"
+  },
+  {
+    "control": "real-timeout",
+    "result": "passed",
+    "layer": "infrastructure",
+    "detail": "infrastructure: timeout after 0.2s; /tmp/proofgate-lean-matrix-4/timeout.log"
+  },
+  {
+    "control": "isolation-mount-failure",
+    "result": "passed",
+    "layer": "process",
+    "detail": "process: exit 1; /tmp/proofgate-lean-matrix-4/isolation-failure.log"
+  },
+  {
+    "control": "all-controls",
+    "result": "passed",
+    "layer": "summary",
+    "detail": {
+      "count": 26,
+      "policy_admitted": false,
+      "photon_demonstration": false
+    }
+  }
+]

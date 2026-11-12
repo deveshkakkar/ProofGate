@@ -1,0 +1,14 @@
+name = "proofgate"
+version = "1.0.0"
+defaultTargets = ["core"]
+[[lean_lib]]
+name = "Model"
+[[lean_lib]]
+name = "Admission"
+[[lean_lib]]
+name = "Proof"
+[[lean_lib]]
+name = "Challenge"
+[[lean_exe]]
+name = "core"
+root = "Main"

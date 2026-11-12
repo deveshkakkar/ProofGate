@@ -1,0 +1,60 @@
+name: Fresh Lean reservation checks
+on:
+  pull_request:
+    paths: ['lean4/**', '.github/workflows/lean4.yml']
+  push:
+    branches: [main, codex/lean4-migration]
+    paths: ['lean4/**', '.github/workflows/lean4.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: lean4-${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
+jobs:
+  lean4:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Prepare disposable hosted Linux runner
+        run: |
+          test "${RUNNER_ENVIRONMENT:-}" = github-hosted
+          test "${GITHUB_ACTIONS:-}" = true
+          sudo apt-get update -qq
+          sudo env NEEDRESTART_MODE=l apt-get install --yes --no-install-recommends bubblewrap apparmor-profiles zstd
+          profile=/usr/share/apparmor/extra-profiles/bwrap-userns-restrict
+          echo "11d39094f044f0cda0febb3ad517b830301da6b2ce929664af09ee9e4dd264f9  $profile" | sha256sum --check --status
+          for local in /etc/apparmor.d/local/bwrap-userns-restrict /etc/apparmor.d/local/unpriv_bwrap; do
+            if test -f "$local" && grep -Eqv '^[[:space:]]*(#.*)?$' "$local"; then
+              echo 'Custom AppArmor override requires review'; exit 2
+            fi
+          done
+          sudo /usr/sbin/apparmor_parser -r "$profile"
+          lean_uid=$(id -u)
+          test "$lean_uid" -ne 0
+          sudo systemctl start "user@$lean_uid.service"
+          echo "XDG_RUNTIME_DIR=/run/user/$lean_uid" >> "$GITHUB_ENV"
+      - name: Focused source-policy snapshot boundaries (no Lean execution)
+        run: python3 -B lean4/test_snapshot_policy.py --output "$RUNNER_TEMP/lean4-source-policy.json"
+      - name: Install and verify pinned user-local tools
+        run: python3 -B lean4/bootstrap.py
+      - name: Probe isolation and resource manager
+        run: python3 -B lean4/doctor.py
+      - name: Run fresh proof, build, bridge, HTTP and negative controls
+        run: python3 -B lean4/check.py --output "$RUNNER_TEMP/lean4"
+      - name: Exercise genuine core failure and transaction rollback
+        run: python3 -B lean4/check_core_failure.py --artifact "$RUNNER_TEMP/lean4/valid/artifact" --output "$RUNNER_TEMP/lean4/core-failure"
+      - name: Preserve diagnostics and exact checked artifact
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: lean4-${{ github.run_id }}
+          path: |
+            ${{ runner.temp }}/lean4/
+            ${{ runner.temp }}/lean4-source-policy.json
+          retention-days: 7
+          if-no-files-found: warn

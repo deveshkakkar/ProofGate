@@ -1,0 +1,62 @@
+{
+  "Challenge.lean": {
+    "executable": false,
+    "sha256": "8dfbd68627962e6a6312b78675334cb5549d4293a522d5d790778ee2fd64534b"
+  },
+  "Main.lean": {
+    "executable": false,
+    "sha256": "ddce86f5f8fa2c0f8f7f6fbece4ef3b19495e2d2b39ef2c638797bc6aae9a58f"
+  },
+  "Model.lean": {
+    "executable": false,
+    "sha256": "133c626733178910d8c33da38a7c923134bd8c6a1a05befe20ce21cb70c83f3a"
+  },
+  "Statements.lean": {
+    "executable": false,
+    "sha256": "900615255a74e6a72be78cd7c83a580585f5a3f939ba4d830b15ad11292a500c"
+  },
+  "admission.mjs": {
+    "executable": false,
+    "sha256": "86e12682e8b73b246a29525b172000d51ce72c0204844883fe03336eabf0031e"
+  },
+  "bridge.mjs": {
+    "executable": false,
+    "sha256": "3645bfd4067a33feae7787a2a49f8754c986bf95ccb7c68f9bcf743c4d9ccf6e"
+  },
+  "checker-bwrap.py": {
+    "executable": true,
+    "sha256": "4d68aa577c9769052a2b82bc0fdf8aecdc422825f79e5795e6d5887714f023ab"
+  },
+  "comparator.json": {
+    "executable": false,
+    "sha256": "49b39eff446fcbeeac3c71d0dc4e823cf9b40e6f3eacc5b0225a422d7c23fabb"
+  },
+  "http_tests.py": {
+    "executable": false,
+    "sha256": "c5765879592892c17dbf62640bea4c97d521b0f0392f8eb88115affeffac9182"
+  },
+  "lake-manifest.json": {
+    "executable": false,
+    "sha256": "d192bdcbbfa20cc190c2187446a15bae4c759dcb1326b17accf60da707711ede"
+  },
+  "lakefile.toml": {
+    "executable": false,
+    "sha256": "7fe118525b790cd9053df84fb4e1b69c4207e57bc48968e0fced9d2379eb61f7"
+  },
+  "lean-toolchain": {
+    "executable": false,
+    "sha256": "ca5f1f601d34c49079e38d7e7041eb0f2a9c227fbc1df0f404820069a052330c"
+  },
+  "legacy_bridge.mjs": {
+    "executable": false,
+    "sha256": "a2d37e5b9d413ca02cb5ab98c526bebea4d233e7ffff1715bb04ad837453dad3"
+  },
+  "server.ts": {
+    "executable": false,
+    "sha256": "0a71fd2b140713bd80d253e829694bb0ea5dd53fd9934dee813374ffab93e09d"
+  },
+  "toolchain.json": {
+    "executable": false,
+    "sha256": "089fa6d93683020aed36e7c6a8632213916c4b3c831683804037301f9cac84f5"
+  }
+}
