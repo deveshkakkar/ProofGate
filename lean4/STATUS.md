@@ -290,3 +290,24 @@ and its six logs are preserved verbatim in
 [evidence/source-policy-repair/previous-40af8d4](evidence/source-policy-repair/previous-40af8d4/receipt.json).
 It retains its original provenance and the reviewed limitation; it does not
 validate the repaired evaluator.
+
+
+## Merged engineering handoff and next bounded phase
+
+Owner `deveshkakkar` merged PR #47 as `3ed4e8d868808bde351e750020dc9644a3fe44b0`
+from repaired head `18199c6`. This records the actual owner merge; no separate
+policy-approval record is inferred. Existing post-merge Lean run43174126038 and
+offline run43174126041 succeeded and were inspected without starting duplicates.
+The merged receipt, evaluator/baseline/source identities, six logs, five artifacts
+and five accepted-copy hashes match. Receipt SHA256:
+`e33a96fb033156d12b9348028b109cfb2392e2e1557cbee21645f73ebec977e2`.
+Raw receipt/logs are preserved under `lean4/evidence/post-merge-3ed4e8d/`; the full
+bundle is durable under `lean4/evidence/local/3ed4e8d868808bde351e750020dc9644a3fe44b0/`.
+Earlier receipts retain their original identities and limitations.
+
+[Integration acceptance reconciliation](../docs/framework/protected-authority/LEAN-INTEGRATION-ACCEPTANCE.md)
+records Axx/Vxx evidence classes, current worker startup and exact remaining gaps.
+The next scoped work reuses the existing Photon job store and merged evaluator;
+no framework rewrite, new token, canary positive PR, owner-VM connection or live
+mission was performed. The fixed proposed mission profile remains inactive.
+#28, actual restricted Photon repair and explicit default cutover remain pending.
