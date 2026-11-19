@@ -1,3 +1,57 @@
+# Current addendum — 2026-11-19
+
+The November12 snapshot below remains historical evidence. Its statements that
+the adapter/role are inactive and that no actual repair occurred described that
+pre-activation phase; they are superseded by this separately sourced addendum.
+No historical receipt or evidence file is rewritten.
+
+The owner reports, separately in #28/#46 and the current task, that:
+
+- A later actual restricted Photon worker repaired the seeded overgrant and the
+  unchanged Lean evaluator verified the frozen result. Original receipt
+  `8cfcd722fccd21311863a92007134c2865437daa3ffb469d2c8f02fea766b580`
+  and executable
+  `47011829f546b3db8e4a2571be436cec5be42edfdda60430bbfb03d6f0fb4a73`
+  retain that run's provenance. This addendum does not independently re-execute
+  or authenticate them.
+- A separate post-run independent read-only static review is complete. It is
+  distinct from recorded execution evidence and from engineering code review.
+- The original coordinator runtime contract was not satisfied. The mission
+  remains paused/uncertain, with one consumed start, unchanged task revision9,
+  deadline and blocked continuation. It is not a completed authenticated demo.
+- The later November18 maintenance, guarded runtime installation, response-only
+  authentication smoke and subsequent read-only verification completed. Those
+  are owner-reported installation/live-route compatibility, not authenticated
+  release admission or evidence that the earlier mission contract was satisfied.
+
+Private reports, host/session details and raw runtime records are not published
+here. This documentation update performs no live operation or new model call.
+
+The next concrete engineering dependency is
+[PR49: protected Lean reservation admission](https://github.com/deveshkakkar/ProofGate/pull/49).
+It implements a reservation-only protected producer/signature consumer while
+preserving the merged evaluator. Fixture/local/cryptographic controls are labeled
+separately from **pending protected-platform acceptance**. Earlier merges are
+not a separate human policy-adoption record.
+
+| Rows | Current reconciliation |
+| --- | --- |
+| V01 | Explicit external human adoption/root implemented in PR49; actual adoption not established |
+| V02/V04 | Protected two-job producer and strict authenticated consumer implemented; no ProofGate platform signature/admission observed in this development task |
+| V03 | Existing fixed driver/bridge/baseline retained; candidate input scope stays three files |
+| V05 | Fresh head/base/policy/rerun checks implemented for artifact admission; server-side atomic merge eligibility remains pending |
+| V06 | Missing authority/freshness/evidence fails closed in engineering controls; activated authority availability remains untested |
+| V07 | Fixed evaluator isolation reused; existing canary/principal controls retain their own evidence gaps |
+| Axx | November12 table below is historical; no new platform-denial credit, A13 protection or A14 owner-local recovery is inferred from the later repair/review/smoke |
+
+Live `policy_admitted=false`; #28/#46 remain open. Main stays pinned to3ed4e8d;
+this publication PR48 remains unmerged. Deployment gate and background pause
+remain1. No mission is replayed, allowance reset, continuation claimed, worker or
+reviewer started, credential issued, issuer accessed, protection changed or code
+deployed by this documentation/authority implementation task.
+
+---
+
 # Lean / authority reconciliation — 2026-11-12
 
 This supplements, and does not overwrite, the existing Axx/Vxx contract.

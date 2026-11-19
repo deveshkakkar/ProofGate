@@ -1,3 +1,10 @@
+> Historical November12 preparation contract. Later worker repair, separate static
+> review and November18 guarded installation/authentication smoke are separately
+> owner-reported in the [current reconciliation addendum](LEAN-INTEGRATION-ACCEPTANCE.md).
+> The original mission remains paused/uncertain; no new mission/replay is proposed.
+> [PR49](https://github.com/deveshkakkar/ProofGate/pull/49) implements the next bounded
+> protected-admission dependency, without activating it or completing #28/#46.
+
 # Bounded Lean / Photon integration phase
 
 Base ProofGate: merged PR #47, `3ed4e8d868808bde351e750020dc9644a3fe44b0`;
