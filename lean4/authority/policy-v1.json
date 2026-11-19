@@ -1,0 +1,58 @@
+{
+  "artifact_paths": [
+    "core",
+    "admission.mjs",
+    "server.ts",
+    "LEAN-LICENSE",
+    "LEAN-LICENSES"
+  ],
+  "base_ref": "main",
+  "baseline_sha256": "dcfc951a38a5fc84627894babcef07005b6d813bdaee25d6b4bb49ba05252e03",
+  "candidate_paths": [
+    "formal/Admission.lean",
+    "formal/Proof.lean",
+    "app/server.ts"
+  ],
+  "environment": "proofgate-lean-policy-v1",
+  "evaluator_files": {
+    "BASELINE.v1.sha256": "a7819ef3884eff170aa5e44b1c827d9cb6d28a73a79c1bbe4836248ee28f3e73",
+    "baseline-v1.json": "dcfc951a38a5fc84627894babcef07005b6d813bdaee25d6b4bb49ba05252e03",
+    "bootstrap.py": "02e9a0a1ebbccc1b50dd76535a40a4ea6cb0d114f47f564fc45cde3ad8ccbb86",
+    "gate.py": "6a7c1d862b7663d89fab24d5004af287bc4dfa9e8807b87e3208460e7b1ed4f5"
+  },
+  "evaluator_revision": "3ed4e8d868808bde351e750020dc9644a3fe44b0",
+  "gh": {
+    "archive_sha256": "79e7ab5db738c48777b696e374f8b428f0647debfb424f44d2f426370407fe2f",
+    "archive_url": "https://github.com/cli/cli/releases/download/v2.105.0/gh_2.105.0_linux_amd64.tar.gz",
+    "binary_sha256": "fa7cff06d4db9eee98e00b10ac93beebfe1822109ac04a6cbbf9d806c21d0073",
+    "member": "gh_2.105.0_linux_amd64/bin/gh",
+    "version": "2.105.0"
+  },
+  "id": "reservation-lean4-v1",
+  "maximum_age_seconds": 3600,
+  "policy_owner": {
+    "id": 41484281,
+    "login": "deveshkakkar"
+  },
+  "repository": "deveshkakkar/ProofGate",
+  "repository_id": 1437623154,
+  "repository_prefix": "lean4/candidate/",
+  "schema": 1,
+  "toolchains": {
+    "lean": {
+      "archive": "lean-4.35.0-linux.tar.zst",
+      "archive_sha256": "7289597a44543246c9227b8cae501767e095ce17f6d448b95fc4a8dc97268f6d",
+      "directory": "lean-4.35.0-linux",
+      "tree_sha256": "c404e1d11cc09ba4feeb0d4002c1b34e20b098900d8da49cff6bdc3c5f60b89f",
+      "url": "https://github.com/leanprover/lean4/releases/download/v4.35.0/lean-4.35.0-linux.tar.zst"
+    },
+    "node": {
+      "archive": "node-v24.22.1-linux-x64.tar.xz",
+      "archive_sha256": "6c172a9ab6718f7b801fb5a7bd486af2ee5e32758086a04b84fcce2aa77095e6",
+      "directory": "node-v24.22.1-linux-x64",
+      "tree_sha256": "c292f6e8652f82f0ea34870cedc1c5d94b7597676eb669b766dcc36742a25103",
+      "url": "https://nodejs.org/dist/v24.22.1/node-v24.22.1-linux-x64.tar.xz"
+    }
+  },
+  "workflow": ".github/workflows/lean-authority.yml"
+}
