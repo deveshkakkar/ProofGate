@@ -1,0 +1,112 @@
+name: Protected reservation artifact producer
+on:
+  workflow_dispatch:
+    inputs:
+      pr:
+        description: Reservation-only candidate PR number
+        required: true
+        type: number
+permissions: {}
+# Owner activation requires a protected environment, explicit human adoption and
+# this workflow at the exact adopted tag/SHA. No pull_request trigger or PR code.
+jobs:
+  verify:
+    environment: proofgate-lean-policy-v1
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    permissions:
+      contents: read
+      pull-requests: read
+    outputs:
+      bundle_sha256: ${{ steps.verify.outputs.bundle_sha256 }}
+      artifact_id: ${{ steps.upload.outputs.artifact-id }}
+    env:
+      PROOFGATE_LEAN_ADOPTION: ${{ vars.PROOFGATE_LEAN_ADOPTION }}
+      GH_TOKEN: ${{ github.token }}
+      CANDIDATE_PR: ${{ inputs.pr }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          ref: ${{ github.sha }}
+      - name: Require adopted producer before setup or candidate processing
+        run: |
+          python3 -B - <<'PY'
+          import os, sys
+          sys.path.insert(0, 'lean4/authority')
+          from common import adoption, decode
+          from producer import context
+          context(adoption(decode(os.environ['PROOFGATE_LEAN_ADOPTION'])))
+          PY
+      - name: Prepare disposable hosted isolation
+        run: |
+          test "${RUNNER_ENVIRONMENT:-}" = github-hosted
+          sudo apt-get update -qq
+          sudo env NEEDRESTART_MODE=l apt-get install --yes --no-install-recommends bubblewrap apparmor-profiles zstd
+          profile=/usr/share/apparmor/extra-profiles/bwrap-userns-restrict
+          echo "11d39094f044f0cda0febb3ad517b830301da6b2ce929664af09ee9e4dd264f9  $profile" | sha256sum --check --status
+          for local in /etc/apparmor.d/local/bwrap-userns-restrict /etc/apparmor.d/local/unpriv_bwrap; do
+            if test -f "$local" && grep -Eqv '^[[:space:]]*(#.*)?$' "$local"; then exit 2; fi
+          done
+          sudo /usr/sbin/apparmor_parser -r "$profile"
+          lean_uid=$(id -u)
+          test "$lean_uid" -ne 0
+          sudo systemctl start "user@$lean_uid.service"
+          echo "XDG_RUNTIME_DIR=/run/user/$lean_uid" >> "$GITHUB_ENV"
+      - name: Pinned verification tools
+        run: |
+          python3 -B lean4/bootstrap.py
+          python3 -B lean4/authority/bootstrap_gh.py --output "$RUNNER_TEMP/authority-gh"
+          python3 -B lean4/doctor.py
+      - id: verify
+        name: Fixed evaluator; isolated candidate; trusted bundle writer
+        run: python3 -B lean4/authority/producer.py verify --gh "$RUNNER_TEMP/authority-gh" --pr "$CANDIDATE_PR" --output "$RUNNER_TEMP/verified"
+      - id: upload
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: verified-reservation
+          path: ${{ runner.temp }}/verified/reservation-bundle.zip
+          if-no-files-found: error
+          retention-days: 30
+  attest:
+    needs: verify
+    environment: proofgate-lean-policy-v1
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      pull-requests: read
+      actions: read
+      id-token: write
+      attestations: write
+    env:
+      PROOFGATE_LEAN_ADOPTION: ${{ vars.PROOFGATE_LEAN_ADOPTION }}
+      GH_TOKEN: ${{ github.token }}
+      CANDIDATE_PR: ${{ inputs.pr }}
+      EXPECTED_BUNDLE_SHA: ${{ needs.verify.outputs.bundle_sha256 }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+          ref: ${{ github.sha }}
+      - uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5
+        with:
+          artifact-ids: ${{ needs.verify.outputs.artifact_id }}
+          path: ${{ runner.temp }}/handoff
+          merge-multiple: true
+      - name: Recheck protected handoff and freshness; execute no candidate code
+        run: |
+          python3 -B lean4/authority/bootstrap_gh.py --output "$RUNNER_TEMP/authority-gh"
+          python3 -B lean4/authority/producer.py finalize --gh "$RUNNER_TEMP/authority-gh" --pr "$CANDIDATE_PR" --archive "$RUNNER_TEMP/handoff/reservation-bundle.zip" --expected-sha256 "$EXPECTED_BUNDLE_SHA"
+      - id: signature
+        uses: actions/attest-build-provenance@977bb373ede98d70efdf65b84cb5f73e068dcc2a # v3.0.0
+        with:
+          subject-path: ${{ runner.temp }}/handoff/reservation-bundle.zip
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
+        with:
+          name: authenticated-reservation
+          path: |
+            ${{ runner.temp }}/handoff/reservation-bundle.zip
+            ${{ steps.signature.outputs.bundle-path }}
+          if-no-files-found: error
+          retention-days: 90

@@ -1,0 +1,56 @@
+name: Protected authority engineering controls
+on:
+  pull_request:
+    paths: ['lean4/authority/**', '.github/workflows/lean-authority*.yml']
+  push:
+    branches: [codex/lean-protected-admission]
+    paths: ['lean4/authority/**', '.github/workflows/lean-authority*.yml']
+permissions:
+  contents: read
+jobs:
+  controls:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - name: Contract fixtures (substituted API and authentication)
+        run: python3 -B lean4/authority/test_authority.py -v
+      - name: Prepare disposable hosted Linux runner
+        run: |
+          test "${RUNNER_ENVIRONMENT:-}" = github-hosted
+          test "${GITHUB_ACTIONS:-}" = true
+          sudo apt-get update -qq
+          sudo env NEEDRESTART_MODE=l apt-get install --yes --no-install-recommends bubblewrap apparmor-profiles zstd
+          profile=/usr/share/apparmor/extra-profiles/bwrap-userns-restrict
+          echo "11d39094f044f0cda0febb3ad517b830301da6b2ce929664af09ee9e4dd264f9  $profile" | sha256sum --check --status
+          for local in /etc/apparmor.d/local/bwrap-userns-restrict /etc/apparmor.d/local/unpriv_bwrap; do
+            if test -f "$local" && grep -Eqv '^[[:space:]]*(#.*)?$' "$local"; then
+              echo 'Custom AppArmor override requires review'; exit 2
+            fi
+          done
+          sudo /usr/sbin/apparmor_parser -r "$profile"
+          lean_uid=$(id -u)
+          test "$lean_uid" -ne 0
+          sudo systemctl start "user@$lean_uid.service"
+          echo "XDG_RUNTIME_DIR=/run/user/$lean_uid" >> "$GITHUB_ENV"
+      - name: Pinned tools
+        run: |
+          python3 -B lean4/bootstrap.py
+          python3 -B lean4/authority/bootstrap_gh.py --output "$RUNNER_TEMP/authority-gh"
+      - name: Actual fixed Lean producer with substituted platform inputs
+        run: python3 -B lean4/authority/check_local.py --output "$RUNNER_TEMP/authority-local"
+      - name: Real signature verification of pinned upstream public fixtures
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 -B lean4/authority/check_crypto.py --gh "$RUNNER_TEMP/authority-gh" --fixtures "$RUNNER_TEMP/crypto-fixtures" --output "$RUNNER_TEMP/crypto-controls.json"
+      - name: Engineering evidence; never authoritative admission
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
+        with:
+          name: authority-engineering-${{ github.run_id }}
+          path: |
+            ${{ runner.temp }}/authority-local/
+            ${{ runner.temp }}/crypto-controls.json
+          retention-days: 30

@@ -290,3 +290,21 @@ and its six logs are preserved verbatim in
 [evidence/source-policy-repair/previous-40af8d4](evidence/source-policy-repair/previous-40af8d4/receipt.json).
 It retains its original provenance and the reviewed limitation; it does not
 validate the repaired evaluator.
+
+## Protected admission dependency — implementation pending activation
+
+The next bounded implementation for #28 is documented in
+[protected reservation admission v1](../docs/framework/protected-authority/lean-v1/README.md).
+It adds an owner-activated two-job authenticated producer and an operator-side
+consumer; the fixed Lean evaluator/baseline and historical evidence are unchanged.
+Engineering fixtures, real local Lean execution and public-fixture cryptographic
+checks are separated from protected-platform acceptance. Explicit human policy
+adoption, protected producer activation and live acceptance remain incomplete.
+Server-side head/base/policy merge eligibility remains a separate gap. Live
+`policy_admitted=false`; #28/#46 remain open and #48 unmerged.
+
+Later owner-reported worker repair, separate independent static review and the
+November18 guarded authentication smoke retain separate provenance in #28/#46.
+They are not new producer attestations or completed authenticated admission.
+This implementation does not replay them or alter the paused/uncertain mission,
+its consumed start, task revision, deadline or blocked continuation.
